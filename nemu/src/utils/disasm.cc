@@ -19,7 +19,7 @@
 #endif
 
 #if LLVM_VERSION_MAJOR < 11
-#error Please use LLVM with major version >= 11
+#error Please use LLVM with major version >= 11 
 #endif
 
 using namespace llvm;
