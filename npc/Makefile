@@ -57,7 +57,7 @@ all:
 #VSRCS=$(shell find $(abspath ./vsrc) -name "*.v")
 sim:clean csrc/sim_main.cpp vsrc/top.v
 	@mkdir -p $(BUILD_DIR)
-	verilator -Wall -cc --trace --build csrc/sim_main.cpp vsrc/top.v # -Mdir $(OBJ_DIR) --exe -o $(abspath $(BIN))
+	verilator -Wall --cc --trace --build  -Mdir $(OBJ_DIR) --exe -o $(abspath $(BIN)) /home/mrxue/ysyx-workbench/npc/csrc/sim_main.cpp vsrc/top.v 
 	
 	$(call git_commit, "sim RTL") # DO NOT REMOVE THIS LINE!!!
 
