@@ -57,7 +57,7 @@ CSRCS=$(shell find $(abspath ./csrc) -name "sim*.cpp")
 VSRCS=$(shell find $(abspath ./vsrc) -name "*.v")
 sim:$(CSRCS) $(VSRCS) #clean ./csrc/sim_main.cpp ./vsrc/top.v
 	@mkdir -p $(BUILD_DIR)
-	verilator -Wall -cc --trace --build  $^ \
+	verilator -Wall -cc --trace --build  $^ --exe \
 	#	-Mdir $(OBJ_DIR) --exe -o $(abspath $(BIN))
 	
 	$(call git_commit, "sim RTL") # DO NOT REMOVE THIS LINE!!!
