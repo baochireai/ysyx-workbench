@@ -57,7 +57,7 @@ all:
 #VSRCS=$(shell find $(abspath ./vsrc) -name "*.v")
 sim:csrc/sim_main.cpp vsrc/top.v
 	@mkdir -p $(BUILD_DIR)
-	verilator -Wall --cc --trace --build --exe ./csrc/sim_main.cpp vsrc/top.v 
+	verilator -Wall --cc --trace --build --exe ./csrc/sim_main.cpp vsrc/top.v --Mdir ./build 
 	
 	$(call git_commit, "sim RTL") # DO NOT REMOVE THIS LINE!!!
 
