@@ -1,8 +1,69 @@
+TOPNAME=top
+
+NXDC_FILES=constr/top.nxdc
+INC_PATH ?=
+
+VERILATOR=verilator
+VERILATOR_CFLAGS+=-MMD#Generate makefile dependencies
+VERILATOR_CFLAGS+=--build -cc
+VERILATOR_CFLAGS+=-O3#代码优化级别
+VERILATOR_CFLAGS+=--x-assign fast#optimize
+VERILATOR_CFLAGS+=--x-initial fast
+VERILATOR_CFLAGS+=--noassert
+
+BUILD_DIR=./build
+OBJ_DIR=$(BUILD_DIR)/obj_dir
+BIN=$(BUILD_DIR)/$(TOPNAME)
+
+nvboard:$(BIN)
+
+$(shell mkdir -p $(BUILD_DIR))
+
+SRC_AUTO_BIND=$(abspath $(BUILD_DIR)/auto_bind.cpp)
+$(SRC_AUTO_BIND):$(NXDC_FILES)
+	python3 $(NVBOARD_HOME)/scripts/auto_pin_bind.py $^ $@ #引脚绑定
+
+CSRCS=$(shell find $(abspath ./csrc) -name "*.c" -or -name "*.cc" -or -name "m*.cpp")
+VSRCS=$(shell find $(abspath ./vsrc) -name "*.v")
+CSRCS+=$(SRC_AUTO_BIND)
+
+include $(NVBOARD_HOME)/scripts/nvboard.mk#nvboard构建脚本
+
+INCFLAGS=$(addprefix -I,$(INC_PATH))
+CFLAGS+=$(INCFLAGS) -DTOP_NAME="\"V$(TOPNAME)\""
+LDFLAGS+= -lSDL2 -lSDL2_image
+
+$(BIN):$(VSRCS) $(CSRCS) $(NVBOARD_ARCHIVE) 
+	@rm -rf $(OBJ_DIR)
+	$(VERILATOR) $(VERILATOR_CFLAGS) \
+		--top-module $(TOPNAME) $^ \
+		$(addprefix -CFLAGS ,$(CFLAGS)) $(addprefix -LDFLAGS ,$(LDFLAGS))\
+		-Mdir $(OBJ_DIR) --exe -o $(abspath $(BIN))
+
+#VERILATOR=verilator
+#VERILATOR_CFLAGS=-Wall#编译警告
+#VERILATOR_CFLAGS+=-cc --exe#C++ 可执行文件
+#VERILATOR_CFLAGS+=--trace #跟踪波形
+#VERILATOR_CFLAGS+=--build
+#
+#CSRCS=$(shell find $(abspath ./csrc) -name "*.c" -or -name "*.cc" -or -name "sim*.cpp")
+#VSRCS=$(shell find $(abspath ./vsrc) -name "*.v")
+#
+#build:$(CSRCS) $(VSRCS)
+#	$(VERILATOR) $(VERILATOR_CFLAGS) $^
 all:
 	@echo "Write this Makefile by your self."
-
-sim:
+CSRCS=$(shell find $(abspath ./csrc) -name "sim*.cpp")
+VSRCS=$(shell find $(abspath ./vsrc) -name "*.v")
+sim:$(CSRCS) $(VSRCS) #clean ./csrc/sim_main.cpp ./vsrc/top.v
+	@mkdir -p $(BUILD_DIR)
+	verilator -Wall -cc --trace --build  $^ \
+	#	-Mdir $(OBJ_DIR) --exe -o $(abspath $(BIN))
+	
 	$(call git_commit, "sim RTL") # DO NOT REMOVE THIS LINE!!!
-	@echo "Write this Makefile by your self."
 
+clean:
+	rm -rf $(BUILD_DIR)
 include ../Makefile
+
+.PHONY: nvboard all sim clean	
