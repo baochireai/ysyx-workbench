@@ -53,11 +53,11 @@ $(BIN):$(VSRCS) $(CSRCS) $(NVBOARD_ARCHIVE)
 #	$(VERILATOR) $(VERILATOR_CFLAGS) $^
 all:
 	@echo "Write this Makefile by your self."
-#CSRCS=$(shell find $(abspath ./csrc) -name "sim*.cpp")
-#VSRCS=$(shell find $(abspath ./vsrc) -name "*.v")
-sim:csrc/sim_main.cpp vsrc/top.v
+CSRCS=$(shell find $(abspath ./csrc) -name "sim*.cpp")
+VSRCS=$(shell find $(abspath ./vsrc) -name "*.v")
+sim:$(CSRCS) $(VSRCS) # csrc/sim_main.cpp vsrc/top.v
 	@mkdir -p $(BUILD_DIR)
-	verilator -Wall --cc --trace --build --exe ./csrc/sim_main.cpp vsrc/top.v --Mdir ./build 
+	verilator -Wall --cc --trace --build $^ --Mdir $(OBJ_DIR) --exe -o $(abspath $(BIN))
 	
 	$(call git_commit, "sim RTL") # DO NOT REMOVE THIS LINE!!!
 
