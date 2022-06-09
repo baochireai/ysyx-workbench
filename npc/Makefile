@@ -55,9 +55,9 @@ all:
 	@echo "Write this Makefile by your self."
 #CSRCS=$(shell find $(abspath ./csrc) -name "sim*.cpp")
 #VSRCS=$(shell find $(abspath ./vsrc) -name "*.v")
-sim:clean csrc/sim_main.cpp /home/mrxue/ysyx-workbench/npc/vsrc/top.v
+sim:clean csrc/sim_main.cpp vsrc/top.v
 	@mkdir -p $(BUILD_DIR)
-	verilator -Wall -cc --trace --build /home/mrxue/ysyx-workbench/npc/vsrc/top.v /home/mrxue/ysyx-workbench/npc/csrc/sim_main.cpp -Mdir $(OBJ_DIR) --exe -o $(abspath $(BIN))
+	verilator -Wall -cc --trace --build csrc/sim_main.cpp vsrc/top.v # -Mdir $(OBJ_DIR) --exe -o $(abspath $(BIN))
 	
 	$(call git_commit, "sim RTL") # DO NOT REMOVE THIS LINE!!!
 
