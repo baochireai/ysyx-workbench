@@ -27,6 +27,13 @@ static char* rl_gets() {
   return line_read;
 }
 
+static int cmd_si(char *args) {
+  int n;
+  sscanf(args,"%d",&n);
+  cpu_exec(n);
+  return 0;
+}
+
 static int cmd_c(char *args) {
   cpu_exec(-1);
   return 0;
@@ -48,16 +55,14 @@ static struct {
   { "help", "Display informations about all supported commands", cmd_help },
   { "c", "Continue the execution of the program", cmd_c },
   { "q", "Exit NEMU", cmd_q },
-
-  /* TODO: Add more commands */
-
+  {"si","execute N cmds,default N=1",cmd_si},
 };
 
 #define NR_CMD ARRLEN(cmd_table)
 
 static int cmd_help(char *args) {
   /* extract the first argument */
-  char *arg = strtok(NULL, " ");
+  char *arg = strtok(NULL, " ");//第一次parse需要输入待处理字符串，后续对同一个字串处理输入NULL
   int i;
 
   if (arg == NULL) {
