@@ -1,6 +1,8 @@
+ifndef TOPNAME
 TOPNAME=top
+endif
 
-NXDC_FILES=constr/top.nxdc
+NXDC_FILES=constr/${TOPNAME}.nxdc
 INC_PATH ?=
 
 VERILATOR=verilator
@@ -23,7 +25,7 @@ SRC_AUTO_BIND=$(abspath $(BUILD_DIR)/auto_bind.cpp)
 $(SRC_AUTO_BIND):$(NXDC_FILES)
 	python3 $(NVBOARD_HOME)/scripts/auto_pin_bind.py $^ $@ #引脚绑定
 
-CSRCS=$(shell find $(abspath ./csrc) -name "*.c" -or -name "*.cc" -or -name "m*.cpp")
+CSRCS=$(shell find $(abspath ./csrc) -name "*.c" -or -name "*.cc" -or -name "l*.cpp")
 VSRCS=$(shell find $(abspath ./vsrc) -name "*.v")
 CSRCS+=$(SRC_AUTO_BIND)
 
