@@ -28,8 +28,8 @@ static char* rl_gets() {
 }
 
 static int cmd_si(char *args) {
-  int n;
-  sscanf(args,"%d",&n);
+  int n=1;
+  if(args!=NULL) sscanf(args,"%d",&n);
   cpu_exec(n);
   return 0;
 }
