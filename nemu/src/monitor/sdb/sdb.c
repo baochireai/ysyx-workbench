@@ -3,7 +3,7 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 #include "sdb.h"
-#include <memory/paddr.h>
+#include <memory/vaddr.h>
 static int is_batch_mode = false;
 
 void init_regex();
@@ -72,14 +72,14 @@ static int cmd_x(char *args){
   paddr_t Addr;
   if(strAdd!=NULL){
     sscanf(strAdd,"%x",(unsigned int *)&Addr);
-    printf("Addr:%x\n",(unsigned int)Addr);
+    printf("Addr:%08x\n",(unsigned int)Addr);
   }
   else {
     printf("Please input memory addr!\n");
     return 0;
   }
   for(int i=0;i<N;i++){
-    printf("%08x\t",(unsigned int)paddr_read(Addr+i*sizeof(uint32_t),4));
+    printf("%08x\t",(unsigned int)vaddr_read(Addr+i*sizeof(uint32_t),4));
     if((i+1)%4==0){
       printf("\n");
     }
