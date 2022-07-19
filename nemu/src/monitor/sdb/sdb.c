@@ -79,7 +79,7 @@ static int cmd_x(char *args){
     return 0;
   }
   for(int i=0;i<N;i++){
-    printf("%x\t",(unsigned int)paddr_read(Addr+i*sizeof(uint32_t),4));
+    printf("%08x\t",(unsigned int)paddr_read(Addr+i*sizeof(uint32_t),4));
     if((i+1)%4==0){
       printf("\n");
     }
