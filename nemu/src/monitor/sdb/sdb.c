@@ -3,7 +3,7 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 #include "sdb.h"
-
+#include <memory/vaddr.h>
 static int is_batch_mode = false;
 
 void init_regex();
@@ -27,6 +27,13 @@ static char* rl_gets() {
   return line_read;
 }
 
+static int cmd_si(char *args) {
+  int n=1;
+  if(args!=NULL) sscanf(args,"%d",&n);
+  cpu_exec(n);
+  return 0;
+}
+
 static int cmd_c(char *args) {
   cpu_exec(-1);
   return 0;
@@ -36,6 +43,49 @@ static int cmd_c(char *args) {
 static int cmd_q(char *args) {
   nemu_state.state = NEMU_QUIT;
   return -1;
+}
+
+static int cmd_info(char *args) {
+  if (strcmp(args, "r") == 0){
+    isa_reg_display();
+  }
+  else if (strcmp(args, "w") == 0){
+    printf("info %s isn't completed\n",args);
+  }
+  else{
+    printf("info %s doesn't exist!\n",args);
+  }
+  return 0;
+}
+
+static int cmd_x(char *args){
+  char *strN = strtok(NULL, " ");
+  char *strAdd=strtok(NULL, " ");
+  int N;
+  if(strN!=NULL){
+    sscanf(strN,"%d",&N);
+  }
+  else{
+    printf("Please input bytes numbers!\n");
+    return 0;
+  }
+  paddr_t Addr;
+  if(strAdd!=NULL){
+    sscanf(strAdd,"%x",(unsigned int *)&Addr);
+  }
+  else {
+    printf("Please input memory addr!\n");
+    return 0;
+  }
+  printf("Output %d*4 bytes data at 0x%08x\n",N,Addr);
+  for(int i=0;i<N;i++){
+    printf("%08x\t",(unsigned int)vaddr_read(Addr+i*sizeof(uint32_t),4));
+    if((i+1)%4==0){
+      printf("\n");
+    }
+  }
+  printf("\n");
+  return 0;
 }
 
 static int cmd_help(char *args);
@@ -48,16 +98,16 @@ static struct {
   { "help", "Display informations about all supported commands", cmd_help },
   { "c", "Continue the execution of the program", cmd_c },
   { "q", "Exit NEMU", cmd_q },
-
-  /* TODO: Add more commands */
-
+  {"si","execute N cmds,default N=1",cmd_si},
+  {"info","print pragram state,r -> register, w -> monitor point info,eg info r",cmd_info},
+  {"x","scan memory,eg x N EXPR",cmd_x}
 };
 
 #define NR_CMD ARRLEN(cmd_table)
 
 static int cmd_help(char *args) {
   /* extract the first argument */
-  char *arg = strtok(NULL, " ");
+  char *arg = strtok(NULL, " ");//第一次parse需要输入待处理字符串，后续对同一个字串处理输入NULL
   int i;
 
   if (arg == NULL) {
