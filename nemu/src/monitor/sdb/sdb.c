@@ -66,7 +66,7 @@ static int cmd_x(char *args){
     sscanf(strN,"%d",&N);
   }
   else{
-    printf("Please input bytes numbers!");
+    printf("Please input bytes numbers!\n");
     return 0;
   }
   uint64_t Addr;
@@ -75,7 +75,7 @@ static int cmd_x(char *args){
     printf("Addr:%lx\n",(long unsigned int)Addr);
   }
   else {
-    printf("Please input memory addr!");
+    printf("Please input memory addr!\n");
   }
   return 0;
 }
