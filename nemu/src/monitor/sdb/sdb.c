@@ -69,17 +69,17 @@ static int cmd_x(char *args){
     printf("Please input bytes numbers!\n");
     return 0;
   }
-  uint64_t Addr;
+  paddr_t Addr;
   if(strAdd!=NULL){
-    sscanf(strAdd,"%lx",(long unsigned int *)&Addr);
-    printf("Addr:%lx\n",(long unsigned int)Addr);
+    sscanf(strAdd,"%x",(unsigned int *)&Addr);
+    printf("Addr:%x\n",(unsigned int)Addr);
   }
   else {
     printf("Please input memory addr!\n");
     return 0;
   }
   for(int i=0;i<N;i++){
-    printf("%x ",(unsigned int)paddr_read(Addr+i*sizeof(uint32_t),4));
+    printf("%x\t",(unsigned int)paddr_read(Addr+i*sizeof(uint32_t),4));
     if((i+1)%4==0){
       printf("\n");
     }
