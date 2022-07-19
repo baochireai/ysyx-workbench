@@ -42,7 +42,21 @@ static int cmd_c(char *args) {
 
 static int cmd_q(char *args) {
   nemu_state.state = NEMU_QUIT;
-  return -1;
+  return 0;
+}
+
+static int cmd_info(char *args) {
+  if (strcmp(args, "r") == 0){
+    isa_reg_display();
+  }
+  else if (strcmp(args, "w") == 0){
+    printf("info %s isn't completed ",args);
+  }
+  else{
+    printf("info %s doesn't exist!",args);
+    return -1;
+  }
+  return 0;
 }
 
 static int cmd_help(char *args);
@@ -56,6 +70,7 @@ static struct {
   { "c", "Continue the execution of the program", cmd_c },
   { "q", "Exit NEMU", cmd_q },
   {"si","execute N cmds,default N=1",cmd_si},
+  {"info","print pragram state,r -> register, w -> monitor point info,eg info r",cmd_info}
 };
 
 #define NR_CMD ARRLEN(cmd_table)
