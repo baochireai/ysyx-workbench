@@ -58,6 +58,28 @@ static int cmd_info(char *args) {
   return 0;
 }
 
+static int cmd_x(char *args){
+  char *strN = strtok(NULL, " ");
+  char *strAdd=strtok(NULL, " ");
+  int N;
+  if(strN!=NULL){
+    sscanf(strN,"%d",&N);
+  }
+  else{
+    printf("Please input bytes numbers!");
+    return 0;
+  }
+  uint64_t Addr;
+  if(strAdd!=NULL){
+    sscanf(strAdd,"%lx",(long unsigned int *)&Addr);
+    printf("Addr:%lx\n",(long unsigned int)Addr);
+  }
+  else {
+    printf("Please input memory addr!");
+  }
+  return 0;
+}
+
 static int cmd_help(char *args);
 
 static struct {
@@ -69,7 +91,8 @@ static struct {
   { "c", "Continue the execution of the program", cmd_c },
   { "q", "Exit NEMU", cmd_q },
   {"si","execute N cmds,default N=1",cmd_si},
-  {"info","print pragram state,r -> register, w -> monitor point info,eg info r",cmd_info}
+  {"info","print pragram state,r -> register, w -> monitor point info,eg info r",cmd_info},
+  {"x","scan memory,eg x N EXPR",cmd_x}
 };
 
 #define NR_CMD ARRLEN(cmd_table)
