@@ -50,11 +50,10 @@ static int cmd_info(char *args) {
     isa_reg_display();
   }
   else if (strcmp(args, "w") == 0){
-    printf("info %s isn't completed ",args);
+    printf("info %s isn't completed\n",args);
   }
   else{
-    printf("info %s doesn't exist!",args);
-    return -1;
+    printf("info %s doesn't exist!\n",args);
   }
   return 0;
 }
