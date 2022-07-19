@@ -72,12 +72,12 @@ static int cmd_x(char *args){
   paddr_t Addr;
   if(strAdd!=NULL){
     sscanf(strAdd,"%x",(unsigned int *)&Addr);
-    printf("Addr:%08x\n",(unsigned int)Addr);
   }
   else {
     printf("Please input memory addr!\n");
     return 0;
   }
+  
   for(int i=0;i<N;i++){
     printf("%08x\t",(unsigned int)vaddr_read(Addr+i*sizeof(uint32_t),4));
     if((i+1)%4==0){
