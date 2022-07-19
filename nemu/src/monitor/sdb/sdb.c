@@ -77,7 +77,7 @@ static int cmd_x(char *args){
     printf("Please input memory addr!\n");
     return 0;
   }
-  
+  printf("output %d*4 bytes data at 0x%08x",N,Addr);
   for(int i=0;i<N;i++){
     printf("%08x\t",(unsigned int)vaddr_read(Addr+i*sizeof(uint32_t),4));
     if((i+1)%4==0){
