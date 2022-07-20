@@ -79,10 +79,8 @@ static int cmd_x(char *args){
   }
   printf("Output %d*4 bytes data at 0x%08x\n",N,Addr);
   for(int i=0;i<N;i++){
-    printf("%08x\t",(unsigned int)vaddr_read(Addr+i*sizeof(uint32_t),4));
-    if((i+1)%4==0){
-      printf("\n");
-    }
+    paddr_t curAddr=Addr+i*sizeof(uint32_t);
+    printf("0x%08x:\t0x%08x\n",curAddr,(unsigned int)vaddr_read(curAddr,4));
   }
   printf("\n");
   return 0;
