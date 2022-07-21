@@ -145,6 +145,7 @@ bool check_parentheses(int p,int q,bool *success){
     else if(curType==')'){
       if(length==0){
         free(buffer);
+        *success=false;
         return false;
       } 
       buffer[--length]='\0';
