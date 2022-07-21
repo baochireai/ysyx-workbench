@@ -88,6 +88,7 @@ static int cmd_x(char *args){
 static int cmd_p(char *arg){
   bool success;
   word_t value=expr(arg,&success);
+  printf("expression value:%u",(unsigned int)value);
   if(!success) return -1;
   return value;
 }

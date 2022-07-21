@@ -6,7 +6,7 @@
 #include <regex.h>
 
 enum {
-  TK_NOTYPE = 256, TK_EQ,TK_NUM_H=255
+  TK_NOTYPE = 256, TK_EQ,TK_NUM_H=254
 
   /* TODO: Add more token types */
 
@@ -103,20 +103,19 @@ static bool make_token(char *e) {
         switch (rules[i].token_type) {
           case TK_NOTYPE:
             break;
+          case TK_NUM_H:
+            strncpy(tokens[nr_token].str,substr_start,substr_len);
           case '+':
           case '-':
           case '*':
           case '/':
           case '(':
           case ')':
-            tokens[nr_token++].type=rules[i].token_type;
-            break;
-          case TK_NUM_H:
             tokens[nr_token].type=rules[i].token_type;
-            strncpy(tokens[nr_token].str,substr_start,substr_len);
             nr_token++;
             break;
-          default: TODO();
+          default:
+            break;
         }
 
         break;
@@ -133,6 +132,105 @@ static bool make_token(char *e) {
   return true;
 }
 
+bool check_parentheses(int p,int q){
+  if(tokens[p++].type!='('||tokens[q--].type!=')') return false;
+  char* buffer=(char *)malloc(20*sizeof(char));
+  int length=0; 
+  while (p<=q)
+  {
+    int curType=tokens[p++].type;
+    if(curType=='('){
+      buffer[length++]='(';
+    }
+    else if(curType==')'){
+      if(length==0){
+        free(buffer);
+        return false;
+      } 
+      buffer[--length]='\0';
+    }
+  }
+  free(buffer);
+  if(length!=0) return false;
+  return true;
+}
+
+word_t eval(int p, int q) {
+  if (p > q) {
+    printf("eval fails,Bad expression");
+    return 0;
+  }
+  else if (p == q) {
+    /* Single token.
+     * For now this token should be a number.
+     * Return the value of the number.
+     */
+    if(tokens[p].type!=TK_NUM_H){
+      printf("eval fails,Bad expression");return 0;
+    }
+    word_t num;
+    sscanf(tokens[p].str,"%u",(unsigned int *)&num);
+    return num;
+  }
+  else if (check_parentheses(p, q) == true) {
+    /* The expression is surrounded by a matched pair of parentheses.
+     * If that is the case, just throw away the parentheses.
+     */
+    printf("check_parentheses success");
+    return eval(p + 1, q - 1);
+  }
+  else {
+    /* We should do more things here. */
+    int op_index=p;
+    char buffer[20]={};
+    int length=0,left=p,right=q;
+    while(left<=right){
+      int curType=tokens[left].type;
+      if(buffer[length-1]=='('){
+        if(curType==')'){
+          buffer[--length]='\0';
+        }
+        left++;
+        continue;
+      }
+      switch (curType)
+      {
+      case TK_NUM_H:
+        break;
+      case '+':
+      case '-':
+        buffer[length++]=curType;
+        op_index=left;
+        break;
+      case '*':
+      case '/':
+        if(length!=0&&(buffer[length-1]=='+'||buffer[length-1]=='-')) break;
+        buffer[length++]=curType;
+        op_index=left;
+        break;
+      case '(':
+        buffer[length++]='(';
+        break;
+      default:
+        break;
+      }
+      left++;
+    }
+    word_t val1 = eval(p, op_index - 1);
+    word_t val2 = eval(op_index + 1, q);
+
+    switch (tokens[op_index].type) {
+      case '+': return val1 + val2;
+      case '-': return val1 - val2;
+      case '*': return val1 * val2;
+      case '/': return val1 / val2;
+      default: 
+        printf("get main opt error!");
+        assert(0);   
+    } 
+  }
+}
+
 
 word_t expr(char *e, bool *success) {
   if (!make_token(e)) {
@@ -141,7 +239,5 @@ word_t expr(char *e, bool *success) {
   }
 
   /* TODO: Insert codes to evaluate the expression. */
-  TODO();
-
-  return 0;
+  return eval(0,nr_token-1);//0 -> false
 }
