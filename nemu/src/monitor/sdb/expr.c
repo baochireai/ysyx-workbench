@@ -156,8 +156,12 @@ bool check_pair(int p,int q){
 }
 
 bool check_parentheses(int p,int q,bool *success){
+  *success=check_pair(p,q);
+  if(*success==false){
+    printf("check_pair fail\n");
+    return false;
+  }
   if(tokens[p].type!='('||tokens[q].type!=')'){
-    *success=check_pair(p,q);
     return false;
   }
   *success=check_pair(p+1,q-1);
