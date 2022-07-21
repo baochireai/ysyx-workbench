@@ -6,7 +6,7 @@
 #include <regex.h>
 
 enum {
-  TK_NOTYPE = 256, TK_EQ,TK_NUM_H
+  TK_NOTYPE = 256, TK_EQ,TK_NUM_H=255
 
   /* TODO: Add more token types */
 
@@ -90,11 +90,32 @@ static bool make_token(char *e) {
          * to record the token in the array `tokens'. For certain types
          * of tokens, some extra actions should be performed.
          */
+        
+        // if(rules[i].token_type==TK_NOTYPE) continue;
+        // tokens[nr_token].type=rules[i].token_type;
+        // if(rules[i].token_type==TK_NUM_H){
+        //   strcpy(tokens[nr_token].str,substr_start,substr_len);
+        // }
+        // nr_token++;
 
-        tokens[nr_token].type=rules[i].token_type;
-        //strcpy(tokens[nr_token++].str,rules[i].regex);
-
+        // spaces空格不需记录
+        //大部分token只要记录类型就可以了, 例如+, -, *, /, 但这对于有些token类型是不够的 比如整数
         switch (rules[i].token_type) {
+          case TK_NOTYPE:
+            break;
+          case '+':
+          case '-':
+          case '*':
+          case '/':
+          case '(':
+          case ')':
+            tokens[nr_token++].type=rules[i].token_type;
+            break;
+          case TK_NUM_H:
+            tokens[nr_token].type=rules[i].token_type;
+            strncpy(tokens[nr_token].str,substr_start,substr_len);
+            nr_token++;
+            break;
           default: TODO();
         }
 
