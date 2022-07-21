@@ -157,7 +157,7 @@ bool check_parentheses(int p,int q){
 
 word_t eval(int p, int q) {
   if (p > q) {
-    printf("eval fails,Bad expression");
+    printf("eval fails,Bad expression\n");
     return 0;
   }
   else if (p == q) {
@@ -166,7 +166,7 @@ word_t eval(int p, int q) {
      * Return the value of the number.
      */
     if(tokens[p].type!=TK_NUM_H){
-      printf("eval fails,Bad expression");return 0;
+      printf("eval fails,Bad expression\n");return 0;
     }
     word_t num;
     sscanf(tokens[p].str,"%u",(unsigned int *)&num);
@@ -176,7 +176,7 @@ word_t eval(int p, int q) {
     /* The expression is surrounded by a matched pair of parentheses.
      * If that is the case, just throw away the parentheses.
      */
-    printf("check_parentheses success");
+    printf("check_parentheses success\n");
     return eval(p + 1, q - 1);
   }
   else {
@@ -225,7 +225,7 @@ word_t eval(int p, int q) {
       case '*': return val1 * val2;
       case '/': return val1 / val2;
       default: 
-        printf("get main opt error!");
+        printf("get main opt error!\n");
         assert(0);   
     } 
   }
