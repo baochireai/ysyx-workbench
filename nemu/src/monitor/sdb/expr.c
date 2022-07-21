@@ -132,10 +132,10 @@ static bool make_token(char *e) {
   return true;
 }
 
-bool check_parentheses(int p,int q){
-  if(tokens[p++].type!='('||tokens[q--].type!=')') return false;
+bool check_parentheses(int p,int q,bool *success){
   char* buffer=(char *)malloc(20*sizeof(char));
-  int length=0; 
+  int length=0;
+  int left=p,right=q;
   while (p<=q)
   {
     int curType=tokens[p++].type;
@@ -151,13 +151,20 @@ bool check_parentheses(int p,int q){
     }
   }
   free(buffer);
-  if(length!=0) return false;
+
+  if(length!=0){
+    *success=false;
+    return false;
+  }
+
+  if(tokens[left].type!='('||tokens[right].type!=')') return false;
   return true;
 }
 
-word_t eval(int p, int q) {
+word_t eval(int p, int q,bool *success) {
   if (p > q) {
     printf("eval fails,Bad expression\n");
+    *success=false;
     return 0;
   }
   else if (p == q) {
@@ -166,20 +173,21 @@ word_t eval(int p, int q) {
      * Return the value of the number.
      */
     if(tokens[p].type!=TK_NUM_H){
+      *success=false;
       printf("eval fails,Bad expression\n");return 0;
     }
     word_t num;
     sscanf(tokens[p].str,"%u",(unsigned int *)&num);
     return num;
   }
-  else if (check_parentheses(p, q) == true) {
+  else if (check_parentheses(p, q,success) == true) {
     /* The expression is surrounded by a matched pair of parentheses.
      * If that is the case, just throw away the parentheses.
      */
     printf("check_parentheses success\n");
-    return eval(p + 1, q - 1);
+    return eval(p + 1, q - 1,success);
   }
-  else {
+  else if(*success) {
     /* We should do more things here. */
     int op_index=p;
     char buffer[20]={};
@@ -216,8 +224,9 @@ word_t eval(int p, int q) {
       }
       left++;
     }
-    word_t val1 = eval(p, op_index - 1);
-    word_t val2 = eval(op_index + 1, q);
+
+    word_t val1 = eval(p, op_index - 1,success);
+    word_t val2 = eval(op_index + 1, q,success);
 
     switch (tokens[op_index].type) {
       case '+': return val1 + val2;
@@ -226,9 +235,11 @@ word_t eval(int p, int q) {
       case '/': return val1 / val2;
       default: 
         printf("get main opt error!\n");
-        assert(0);   
+        *success=false;
+        return 0;
     } 
   }
+  return 0;
 }
 
 
@@ -239,7 +250,7 @@ word_t expr(char *e, bool *success) {
   }
 
   /* TODO: Insert codes to evaluate the expression. */
-  word_t value =eval(0,nr_token-1);
+  word_t value =eval(0,nr_token-1,success);
   *success=true;
   return value;//0 -> false
 }
