@@ -85,7 +85,12 @@ static int cmd_x(char *args){
   printf("\n");
   return 0;
 }
-
+static int cmd_p(char *arg){
+  bool success;
+  word_t value=expr(arg,&success);
+  if(!success) return -1;
+  return value;
+}
 static int cmd_help(char *args);
 
 static struct {
@@ -98,7 +103,8 @@ static struct {
   { "q", "Exit NEMU", cmd_q },
   {"si","execute N cmds,default N=1",cmd_si},
   {"info","print pragram state,r -> register, w -> monitor point info,eg info r",cmd_info},
-  {"x","scan memory,eg x N EXPR",cmd_x}
+  {"x","scan memory,eg x N EXPR",cmd_x},
+  {"p","compute expression value.Syntax p EXPR,eg. p $eax + 1",cmd_p}
 };
 
 #define NR_CMD ARRLEN(cmd_table)
