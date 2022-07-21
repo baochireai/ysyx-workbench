@@ -146,6 +146,7 @@ bool check_parentheses(int p,int q,bool *success){
       if(length==0){
         free(buffer);
         *success=false;
+        printf("check_parentheses fail\n");
         return false;
       } 
       buffer[--length]='\0';
@@ -155,6 +156,7 @@ bool check_parentheses(int p,int q,bool *success){
 
   if(length!=0){
     *success=false;
+    printf("check_parentheses fail\n");
     return false;
   }
 
@@ -185,7 +187,6 @@ word_t eval(int p, int q,bool *success) {
     /* The expression is surrounded by a matched pair of parentheses.
      * If that is the case, just throw away the parentheses.
      */
-    printf("check_parentheses success\n");
     return eval(p + 1, q - 1,success);
   }
   else if(*success) {
