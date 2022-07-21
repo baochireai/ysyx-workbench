@@ -131,11 +131,9 @@ static bool make_token(char *e) {
 
   return true;
 }
-
-bool check_parentheses(int p,int q,bool *success){
+bool check_pair(int p,int q){
   char* buffer=(char *)malloc(20*sizeof(char));
   int length=0;
-  int left=p,right=q;
   while (p<=q)
   {
     int curType=tokens[p++].type;
@@ -145,23 +143,25 @@ bool check_parentheses(int p,int q,bool *success){
     else if(curType==')'){
       if(length==0){
         free(buffer);
-        *success=false;
-        printf("check_parentheses fail\n");
         return false;
       } 
       buffer[--length]='\0';
     }
   }
   free(buffer);
-
   if(length!=0){
-    *success=false;
-    printf("check_parentheses fail\n");
     return false;
   }
-
-  if(tokens[left].type!='('||tokens[right].type!=')') return false;
   return true;
+}
+
+bool check_parentheses(int p,int q,bool *success){
+  if(tokens[p].type!='('||tokens[q].type!=')'){
+    *success=check_pair(p,q);
+    return false;
+  }
+  *success=check_pair(p+1,q-1);
+  return *success;
 }
 
 word_t eval(int p, int q,bool *success) {
