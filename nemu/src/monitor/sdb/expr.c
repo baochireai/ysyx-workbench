@@ -164,8 +164,7 @@ bool check_parentheses(int p,int q,bool *success){
   if(tokens[p].type!='('||tokens[q].type!=')'){
     return false;
   }
-  *success=check_pair(p+1,q-1);
-  return *success;
+  return check_pair(p+1,q-1);
 }
 
 word_t eval(int p, int q,bool *success) {
