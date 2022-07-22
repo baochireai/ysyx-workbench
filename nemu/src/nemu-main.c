@@ -14,6 +14,10 @@ int main(int argc, char *argv[]) {
 #endif
 
   FILE *file=fopen("../../tools/gen-expr/log","r");
+  if(file==NULL){
+    printf("file open fail\n");
+    return 0;
+  }
   char buffer[65536]={};
   while (fgets(buffer,65536,file))
   {
