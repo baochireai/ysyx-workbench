@@ -12,7 +12,6 @@ int main(int argc, char *argv[]) {
 #else
   init_monitor(argc, argv);
 #endif
-  printf("%d\n",(int)sizeof(word_t));
   FILE *file=fopen("./tools/gen-expr/log","r");
   if(file==NULL){
     printf("file open fail\n");
