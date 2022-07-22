@@ -60,7 +60,7 @@ typedef struct token {
   char str[32];//value  how to deal with buffer overflow?
 } Token;//record prased toke
 
-static Token tokens[32] __attribute__((used)) = {};
+static Token tokens[65536] __attribute__((used)) = {};
 static int nr_token __attribute__((used))  = 0;
 
 static bool make_token(char *e) {
