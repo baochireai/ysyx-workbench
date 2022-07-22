@@ -13,7 +13,7 @@ int main(int argc, char *argv[]) {
   init_monitor(argc, argv);
 #endif
 
-  FILE *file=fopen("log","r");
+  FILE *file=fopen("../../tools/gen-expr/log","r");
   char buffer[65536]={};
   while (fgets(buffer,65536,file))
   {
