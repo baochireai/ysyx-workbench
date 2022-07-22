@@ -22,6 +22,7 @@ int main(int argc, char *argv[]) {
   {
     unsigned res;
     bool success;
+    buffer[strlen(buffer)-1]='\0';
     sscanf(buffer,"%u %s\n",&res,buffer);
     unsigned value=expr(buffer,&success);
     if(!success){
