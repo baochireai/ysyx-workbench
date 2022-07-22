@@ -22,7 +22,7 @@ int main(int argc, char *argv[]) {
   {
     unsigned res;
     bool success;
-    sscanf(buffer,"%u %s",&res,buffer);
+    sscanf(buffer,"%u %s\n",&res,buffer);
     unsigned value=expr(buffer,&success);
     if(!success){
       printf("compute value fail\n");
