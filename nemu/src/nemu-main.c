@@ -12,8 +12,11 @@ int main(int argc, char *argv[]) {
 #else
   init_monitor(argc, argv);
 #endif
-
-  FILE *file=fopen("../tools/gen-expr/log","r");
+  int ret=system("pwd");
+  if(ret!=0){
+    return 0;
+  }
+  FILE *file=fopen("/home/mrxue/ysyx-workbench/nemu/tools/gen-expr/log","r");
   if(file==NULL){
     printf("file open fail\n");
     return 0;
