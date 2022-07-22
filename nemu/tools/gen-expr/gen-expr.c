@@ -59,6 +59,7 @@ static void gen_rand_expr() {
 }
 
 int main(int argc, char *argv[]) {
+  printf("%d",sizeof(unsigned int));
   int seed = time(0);
   srand(seed);
   int loop = 1;
