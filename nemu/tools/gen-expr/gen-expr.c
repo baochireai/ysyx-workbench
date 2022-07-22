@@ -7,6 +7,7 @@
 
 // this should be enough
 static char buf[65536] = {};
+unsigned int length=0;
 static char code_buf[65536 + 128] = {}; // a little larger than `buf`
 static char *code_format =
 "#include <stdio.h>\n"
@@ -15,9 +16,27 @@ static char *code_format =
 "  printf(\"%%u\", result); "
 "  return 0; "
 "}";
+int choose(int n){
+  return rand()%n;
+}
 
+// static void gen_rand_expr() {
+//   switch (choose(3)) {
+//     case 0: gen_num(); break;
+//     case 1: gen('('); gen_rand_expr(); gen(')'); break;
+//     default: gen_rand_expr(); gen_rand_op(); gen_rand_expr(); break;
+//   }
+// }
+void gen_num(){
+  unsigned int num=rand();
+  sprintf(buf)
+}
 static void gen_rand_expr() {
-  buf[0] = '\0';
+  switch (rand()%3) {
+    case 0: gen_num(); break;
+    case 1: gen('('); gen_rand_expr(); gen(')'); break;
+    default: gen_rand_expr(); gen_rand_op(); gen_rand_expr(); break;
+  }
 }
 
 int main(int argc, char *argv[]) {
@@ -41,6 +60,8 @@ int main(int argc, char *argv[]) {
     int ret = system("gcc /tmp/.code.c -o /tmp/.expr");
     if (ret != 0) continue;
 
+    //FILE *popen(const char *command, const char *type);
+    //启动shell并执行command  并返回执行结果输入输出流
     fp = popen("/tmp/.expr", "r");
     assert(fp != NULL);
 
