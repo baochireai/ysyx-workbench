@@ -12,7 +12,7 @@ static char code_buf[65536 + 128] = {}; // a little larger than `buf`
 static char *code_format =
 "#include <stdio.h>\n"
 "int main() { "
-"  unsigned result = (unsigned)%s; "
+"  unsigned result =%s; "
 "  printf(\"%%u\", result); "
 "  return 0; "
 "}";
@@ -29,7 +29,7 @@ int choose(int n){
 //   }
 // }
 void gen_num(){
-  unsigned int num=rand()+1;
+  unsigned int num=rand()%1000;
   char strnum[20]={};
   
   sprintf(strnum,"%u",num);
@@ -81,7 +81,7 @@ int main(int argc, char *argv[]) {
     fputs(code_buf, fp);
     fclose(fp);
 
-    int ret = system("gcc -Werror=div-by-zero /tmp/.code.c -o /tmp/.expr");//执行shell命令
+    int ret = system("gcc -Werror /tmp/.code.c -o /tmp/.expr");//执行shell命令
     if (ret != 0){
       i--;
       continue;
