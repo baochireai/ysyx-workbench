@@ -18,8 +18,10 @@ int main(int argc, char *argv[]) {
     return 0;
   }
   char buffer[65536]={};
+  int cnt=0;
   while (fgets(buffer,65536,file))
   {
+    cnt++;
     unsigned res;
     bool success;
     char buf[65536]={};
