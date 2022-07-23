@@ -32,7 +32,7 @@ void gen_num(){
   unsigned int num=rand()%1000;
   char strnum[20]={};
   
-  sprintf(strnum,"%u",num);
+  sprintf(strnum,"(unsigned)%u",num);
   strcat(buf,strnum);
   length=strlen(buf);
 }
