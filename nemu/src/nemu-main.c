@@ -22,9 +22,12 @@ int main(int argc, char *argv[]) {
   {
     unsigned res;
     bool success;
+    char buf[65536]={};
     buffer[strlen(buffer)-1]='\0';
-    sscanf(buffer,"%u %s",&res,buffer);
-    unsigned value=expr(buffer,&success);
+    printf("buffer:%s",buffer);
+    sscanf(buffer,"%u %s",&res,buf);
+    printf("buf:%s",buf);
+    unsigned value=expr(buf,&success);
     if(!success){
       printf("compute value fail\n");
       return -1;
