@@ -25,7 +25,7 @@ int main(int argc, char *argv[]) {
     char buf[65536]={};
     buffer[strlen(buffer)-1]='\0';
     printf("buffer:%s",buffer);
-    sscanf(buffer,"%u%s",&res,buf);
+    sscanf(buffer,"%u %[^\t\n]",&res,buf);
     printf("buf:%s",buf);
     unsigned value=expr(buf,&success);
     if(!success){
