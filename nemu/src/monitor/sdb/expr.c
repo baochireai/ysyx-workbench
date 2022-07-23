@@ -132,7 +132,7 @@ static bool make_token(char *e) {
   return true;
 }
 bool check_pair(int p,int q){
-  char* buffer=(char *)malloc(20*sizeof(char));
+  char* buffer=(char *)malloc(35000*sizeof(char));
   int length=0;
   while (p<=q)
   {
@@ -167,7 +167,7 @@ bool check_parentheses(int p,int q,bool *success){
   return check_pair(p+1,q-1);
 }
 
-word_t eval(int p, int q,bool *success) {
+unsigned eval(int p, int q,bool *success) {
   if (p > q) {
     printf("eval fails,Bad expression\n");
     *success=false;
@@ -182,7 +182,7 @@ word_t eval(int p, int q,bool *success) {
       *success=false;
       printf("eval fails,Bad expression\n");return 0;
     }
-    word_t num;
+    unsigned num;
     sscanf(tokens[p].str,"%u",(unsigned int *)&num);
     return num;
   }
@@ -195,7 +195,7 @@ word_t eval(int p, int q,bool *success) {
   else if(*success) {
     /* We should do more things here. */
     int op_index=p;
-    char buffer[20]={};
+    char buffer[35000]={};
     int length=0,left=p,right=q;
     while(left<=right){
       int curType=tokens[left].type;
@@ -230,8 +230,8 @@ word_t eval(int p, int q,bool *success) {
       left++;
     }
 
-    word_t val1 = eval(p, op_index - 1,success);
-    word_t val2 = eval(op_index + 1, q,success);
+    unsigned val1 = eval(p, op_index - 1,success);
+    unsigned val2 = eval(op_index + 1, q,success);
 
     switch (tokens[op_index].type) {
       case '+': return val1 + val2;
