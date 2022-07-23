@@ -24,16 +24,16 @@ int main(int argc, char *argv[]) {
     bool success;
     char buf[65536]={};
     buffer[strlen(buffer)-1]='\0';
-    printf("buffer:%s",buffer);
+    printf("buffer:%s\n",buffer);
     sscanf(buffer,"%u %[^\t\n]",&res,buf);
-    printf("buf:%s",buf);
+    printf("buf:%s\n",buf);
     unsigned value=expr(buf,&success);
     if(!success){
       printf("compute value fail\n");
       return -1;
     }
     if(res!=value){
-      printf("res:%u , value:%u",res,value);
+      printf("res:%u , value:%u\n",res,value);
       printf("Error valie\n");
       return -1;
     }
