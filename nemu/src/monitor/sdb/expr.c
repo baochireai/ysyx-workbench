@@ -178,7 +178,7 @@ unsigned eval(int p, int q,bool *success) {
       printf("eval fails,Bad expression\n");return 0;
     }
     unsigned num;
-    sscanf(tokens[p].str,"%u",(unsigned int *)&num);
+    sscanf(tokens[p].str,"%u",&num);
     return num;
   }
   else if (check_parentheses(p, q) == true) {

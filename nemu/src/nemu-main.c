@@ -34,6 +34,7 @@ int main(int argc, char *argv[]) {
       printf("compute value fail\n");
       return -1;
     }
+    printf("%d\n",cnt);
     if(res!=value){
       printf("res:%u , value:%u\n",res,value);
       printf("Error valie\n");
