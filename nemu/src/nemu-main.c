@@ -37,9 +37,6 @@ int main(int argc, char *argv[]) {
       printf("Error valie\n");
       return -1;
     }
-    else{
-      printf("Success!\n");
-    }
   }
   
   /* Start engine. */
