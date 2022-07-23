@@ -12,6 +12,13 @@ int main(int argc, char *argv[]) {
 #else
   init_monitor(argc, argv);
 #endif
+  /* Start engine. */
+  engine_start();
+
+  return is_exit_status_bad();
+}
+
+/*
   FILE *file=fopen("./tools/gen-expr/log2","r");
   if(file==NULL){
     printf("file open fail\n");
@@ -41,8 +48,4 @@ int main(int argc, char *argv[]) {
     }
   }
   return 0;
-  /* Start engine. */
-  engine_start();
-
-  return is_exit_status_bad();
-}
+*/
