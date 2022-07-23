@@ -227,7 +227,6 @@ unsigned eval(int p, int q,bool *success) {
       }
       left++;
     }
-
     unsigned val1 = eval(p, op_index - 1,success);
     unsigned val2 = eval(op_index + 1, q,success);
 
