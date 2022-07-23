@@ -6,7 +6,7 @@
 #include <regex.h>
 
 enum {
-  TK_NOTYPE = 256, TK_EQ,TK_NUM_H=255
+  TK_NOTYPE = 256, TK_EQ,TK_NUM_H=254
 
   /* TODO: Add more token types */
 
@@ -60,7 +60,7 @@ typedef struct token {
   char str[32];//value  how to deal with buffer overflow?
 } Token;//record prased toke
 
-static Token tokens[32] __attribute__((used)) = {};
+static Token tokens[65536] __attribute__((used)) = {};
 static int nr_token __attribute__((used))  = 0;
 
 static bool make_token(char *e) {
@@ -103,20 +103,19 @@ static bool make_token(char *e) {
         switch (rules[i].token_type) {
           case TK_NOTYPE:
             break;
+          case TK_NUM_H:
+            strncpy(tokens[nr_token].str,substr_start,substr_len);
           case '+':
           case '-':
           case '*':
           case '/':
           case '(':
           case ')':
-            tokens[nr_token++].type=rules[i].token_type;
-            break;
-          case TK_NUM_H:
             tokens[nr_token].type=rules[i].token_type;
-            strncpy(tokens[nr_token].str,substr_start,substr_len);
             nr_token++;
             break;
-          default: TODO();
+          default:
+            break;
         }
 
         break;
@@ -132,16 +131,131 @@ static bool make_token(char *e) {
 
   return true;
 }
+bool check_pair(int p,int q){
+  char* buffer=(char *)malloc(20*sizeof(char));
+  int length=0;
+  while (p<=q)
+  {
+    int curType=tokens[p++].type;
+    if(curType=='('){
+      buffer[length++]='(';
+    }
+    else if(curType==')'){
+      if(length==0){
+        free(buffer);
+        return false;
+      } 
+      buffer[--length]='\0';
+    }
+  }
+  free(buffer);
+  if(length!=0){
+    return false;
+  }
+  return true;
+}
+
+bool check_parentheses(int p,int q,bool *success){
+  *success=check_pair(p,q);
+  if(*success==false){
+    printf("check_pair fail\n");
+    return false;
+  }
+  if(tokens[p].type!='('||tokens[q].type!=')'){
+    return false;
+  }
+  return check_pair(p+1,q-1);
+}
+
+unsigned eval(int p, int q,bool *success) {
+  if (p > q) {
+    printf("eval fails,Bad expression\n");
+    *success=false;
+    return 0;
+  }
+  else if (p == q) {
+    /* Single token.
+     * For now this token should be a number.
+     * Return the value of the number.
+     */
+    if(tokens[p].type!=TK_NUM_H){
+      *success=false;
+      printf("eval fails,Bad expression\n");return 0;
+    }
+    unsigned num;
+    sscanf(tokens[p].str,"%u",(unsigned int *)&num);
+    return num;
+  }
+  else if (check_parentheses(p, q,success) == true) {
+    /* The expression is surrounded by a matched pair of parentheses.
+     * If that is the case, just throw away the parentheses.
+     */
+    return eval(p + 1, q - 1,success);
+  }
+  else if(*success) {
+    /* We should do more things here. */
+    int op_index=p;
+    char buffer[20]={};
+    int length=0,left=p,right=q;
+    while(left<=right){
+      int curType=tokens[left].type;
+      if(buffer[length-1]=='('){
+        if(curType==')'){
+          buffer[--length]='\0';
+        }
+        left++;
+        continue;
+      }
+      switch (curType)
+      {
+      case TK_NUM_H:
+        break;
+      case '+':
+      case '-':
+        buffer[length++]=curType;
+        op_index=left;
+        break;
+      case '*':
+      case '/':
+        if(length!=0&&(buffer[length-1]=='+'||buffer[length-1]=='-')) break;
+        buffer[length++]=curType;
+        op_index=left;
+        break;
+      case '(':
+        buffer[length++]='(';
+        break;
+      default:
+        break;
+      }
+      left++;
+    }
+
+    unsigned val1 = eval(p, op_index - 1,success);
+    unsigned val2 = eval(op_index + 1, q,success);
+
+    switch (tokens[op_index].type) {
+      case '+': return val1 + val2;
+      case '-': return val1 - val2;
+      case '*': return val1 * val2;
+      case '/': return val1 / val2;
+      default: 
+        printf("get main opt error!\n");
+        *success=false;
+        return 0;
+    } 
+  }
+  return 0;
+}
 
 
 word_t expr(char *e, bool *success) {
+  *success=true;
   if (!make_token(e)) {
     *success = false;
     return 0;
   }
 
   /* TODO: Insert codes to evaluate the expression. */
-  TODO();
-
-  return 0;
+  word_t value =eval(0,nr_token-1,success);
+  return value;//0 -> false
 }
