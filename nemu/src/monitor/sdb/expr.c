@@ -199,7 +199,7 @@ unsigned eval(int p, int q,bool *success) {
           buffer[--length]='\0';
         }
         else if(curType=='('){
-          buffer[length++]='\0';
+          buffer[length++]='(';
         }
         left++;
         continue;
