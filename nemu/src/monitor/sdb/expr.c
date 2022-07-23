@@ -155,12 +155,7 @@ bool check_pair(int p,int q){
   return true;
 }
 
-bool check_parentheses(int p,int q,bool *success){
-  *success=check_pair(p,q);
-  if(*success==false){
-    printf("check_pair fail\n");
-    return false;
-  }
+bool check_parentheses(int p,int q){
   if(tokens[p].type!='('||tokens[q].type!=')'){
     return false;
   }
@@ -186,7 +181,7 @@ unsigned eval(int p, int q,bool *success) {
     sscanf(tokens[p].str,"%u",(unsigned int *)&num);
     return num;
   }
-  else if (check_parentheses(p, q,success) == true) {
+  else if (check_parentheses(p, q) == true) {
     /* The expression is surrounded by a matched pair of parentheses.
      * If that is the case, just throw away the parentheses.
      */
@@ -256,6 +251,10 @@ word_t expr(char *e, bool *success) {
   }
 
   /* TODO: Insert codes to evaluate the expression. */
+  if(!check_pair(0,nr_token-1)){
+    *success=false;
+    return 0;
+  }
   word_t value =eval(0,nr_token-1,success);
   return value;//0 -> false
 }
