@@ -19,17 +19,16 @@ int main(int argc, char *argv[]) {
   }
   char buffer[65536]={};
   int cnt=0;
-  while (fgets(buffer,65536,file))
+  while (fgets(buffer,sizeof(buffer),file))
   {
     cnt++;
     unsigned res;
     bool success;
-    char buf[65536]={};
     buffer[strlen(buffer)-1]='\0';
     //printf("buffer:%s\n",buffer);
-    sscanf(buffer,"%u %[^\t\n]",&res,buf);
+    sscanf(buffer,"%u %[^\t\n]",&res,buffer);
     //printf("buf:%s\n",buf);
-    unsigned value=expr(buf,&success);
+    unsigned value=expr(buffer,&success);
     if(!success){
       printf("compute value fail\n");
       return -1;
