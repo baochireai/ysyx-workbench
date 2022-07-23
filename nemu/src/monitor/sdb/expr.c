@@ -187,16 +187,19 @@ unsigned eval(int p, int q,bool *success) {
      */
     return eval(p + 1, q - 1,success);
   }
-  else if(*success) {
+  else {
     /* We should do more things here. */
     int op_index=p;
     char buffer[35000]={};
     int length=0,left=p,right=q;
     while(left<=right){
       int curType=tokens[left].type;
-      if(buffer[length-1]=='('){
+      if(length!=0&&buffer[length-1]=='('){
         if(curType==')'){
           buffer[--length]='\0';
+        }
+        else if(curType=='('){
+          buffer[length++]='\0';
         }
         left++;
         continue;
