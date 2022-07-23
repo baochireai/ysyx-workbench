@@ -12,7 +12,7 @@ int main(int argc, char *argv[]) {
 #else
   init_monitor(argc, argv);
 #endif
-  FILE *file=fopen("./tools/gen-expr/log","r");
+  FILE *file=fopen("./tools/gen-expr/log2","r");
   if(file==NULL){
     printf("file open fail\n");
     return 0;
