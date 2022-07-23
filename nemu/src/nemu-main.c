@@ -24,9 +24,9 @@ int main(int argc, char *argv[]) {
     bool success;
     char buf[65536]={};
     buffer[strlen(buffer)-1]='\0';
-    printf("buffer:%s\n",buffer);
+    //printf("buffer:%s\n",buffer);
     sscanf(buffer,"%u %[^\t\n]",&res,buf);
-    printf("buf:%s\n",buf);
+    //printf("buf:%s\n",buf);
     unsigned value=expr(buf,&success);
     if(!success){
       printf("compute value fail\n");
