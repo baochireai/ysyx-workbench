@@ -6,6 +6,9 @@ void engine_start();
 int is_exit_status_bad();
 word_t expr(char *e, bool *success);
 int main(int argc, char *argv[]) {
+  unsigned test=(unsigned)1378778669*1428021905;
+  printf("%u",test);
+  return 0;
   /* Initialize the monitor. */
 #ifdef CONFIG_TARGET_AM
   am_init_monitor();
