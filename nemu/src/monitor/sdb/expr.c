@@ -6,10 +6,8 @@
 #include <regex.h>
 
 enum {
-  TK_NOTYPE = 256, TK_EQ,TK_NUM_H=254
-
-  /* TODO: Add more token types */
-
+  TK_NOTYPE = 256, TK_EQ=251,TK_NUM_H=254,TK_NUM_X=253,TK_REG=252,
+  TK_NEQ=250,TK_AND=249,TK_DEREF=248
 };
 
 static struct rule {
@@ -29,7 +27,11 @@ static struct rule {
   {"\\*",'*'},
   {"\\/",'/'},
   {"\\(",'('},
-  {"\\)",')'}
+  {"\\)",')'},
+  {"0x[0-9a-fA-F]+",TK_NUM_X},
+  {"$+[a-z]*[0-9]*",TK_REG},
+  {"!=",TK_NEQ},
+  {"&&",TK_AND}
 };
 
 #define NR_REGEX ARRLEN(rules)
@@ -103,7 +105,12 @@ static bool make_token(char *e) {
         switch (rules[i].token_type) {
           case TK_NOTYPE:
             break;
+          case TK_REG:
+            strncpy(tokens[nr_token].str,substr_start+1,substr_len-1);
+            tokens[nr_token++].type=rules[i].token_type;
+            break;
           case TK_NUM_H:
+          case TK_NUM_X:
             strncpy(tokens[nr_token].str,substr_start,substr_len);
           case '+':
           case '-':
@@ -173,13 +180,22 @@ unsigned eval(int p, int q,bool *success) {
      * For now this token should be a number.
      * Return the value of the number.
      */
-    if(tokens[p].type!=TK_NUM_H){
-      *success=false;
-      printf("eval fails,Bad expression\n");return 0;
+    if(tokens[p].type==TK_NUM_H){
+      unsigned num;
+      sscanf(tokens[p].str,"%u",&num);
+      return num;
     }
-    unsigned num;
-    sscanf(tokens[p].str,"%u",&num);
-    return num;
+    else if(tokens[p].type==TK_NUM_X){
+      unsigned num;
+      sscanf(tokens[p].str,"%x",&num);
+      return num;
+    }
+    else if(tokens[p].type==TK_REG){
+      return isa_reg_str2val(tokens[p].str,success);
+    }
+    *success=false;
+    printf("eval fails,Bad expression\n");
+    return 0;
   }
   else if (check_parentheses(p, q) == true) {
     /* The expression is surrounded by a matched pair of parentheses.
@@ -253,6 +269,12 @@ word_t expr(char *e, bool *success) {
   }
 
   /* TODO: Insert codes to evaluate the expression. */
+  for (int i = 0; i < nr_token; i ++) {
+    if (tokens[i].type == '*' && (i == 0 || tokens[i - 1].type == '(') ) {
+      tokens[i].type = TK_DEREF;
+    }
+  }
+
   if(!check_pair(0,nr_token-1)){
     *success=false;
     return 0;
