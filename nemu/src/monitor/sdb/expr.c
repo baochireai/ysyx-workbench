@@ -216,17 +216,19 @@ unsigned eval(int p, int q,bool *success) {
     int length=0,left=p,right=q;
     while(left<=right){
       int curType=tokens[left].type;
+      if(curType==TK_NUM_H||curType==TK_NUM_X){
+        left++;continue;
+      }
+      if(curType=='('){
+        buffer[length++]='(';left++;continue;
+      }
       if(length!=0&&buffer[length-1]=='('){
         if(curType==')'){
           buffer[--length]='\0';
         }
-        else if(curType=='('){
-          buffer[length++]='(';
-        }
         left++;
         continue;
       }
-      else if(curType=='(') buffer[length++]='(';
       else if(length!=0&&priority[(int)buffer[length-1]]<=priority[curType]){
         buffer[length++]=curType;
         op_index=left;
