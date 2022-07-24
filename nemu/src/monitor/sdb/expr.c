@@ -37,7 +37,7 @@ static struct rule {
 #define NR_REGEX ARRLEN(rules)
 
 static regex_t re[NR_REGEX] = {};
-
+static int priority[255];
 /* Rules are used for many times.
  * Therefore we compile them only once before any usage.
  */
@@ -45,7 +45,10 @@ void init_regex() {
   int i;
   char error_msg[128];
   int ret;
-
+  priority['*']=0;priority['/']=0;
+  priority['+']=1;priority['-']=1;
+  priority[TK_EQ]=2;priority[TK_NEQ]=2;
+  priority[TK_AND]=3;
   for (i = 0; i < NR_REGEX; i ++) {
     //regcomp 将预定的正则表达式规则（rules[i].regex）编译到 pattern buffer（re[i]）
     //编译后 为后续 regexec() 提供搜索匹配规则
@@ -118,6 +121,9 @@ static bool make_token(char *e) {
           case '/':
           case '(':
           case ')':
+          case TK_EQ:
+          case TK_NEQ:
+          case TK_AND:
             tokens[nr_token].type=rules[i].token_type;
             nr_token++;
             break;
@@ -220,26 +226,10 @@ unsigned eval(int p, int q,bool *success) {
         left++;
         continue;
       }
-      switch (curType)
-      {
-      case TK_NUM_H:
-        break;
-      case '+':
-      case '-':
+      else if(curType=='(') buffer[length++]='(';
+      else if(length!=0&&priority[(int)buffer[length-1]]<=priority[curType]){
         buffer[length++]=curType;
         op_index=left;
-        break;
-      case '*':
-      case '/':
-        if(length!=0&&(buffer[length-1]=='+'||buffer[length-1]=='-')) break;
-        buffer[length++]=curType;
-        op_index=left;
-        break;
-      case '(':
-        buffer[length++]='(';
-        break;
-      default:
-        break;
       }
       left++;
     }
@@ -251,6 +241,9 @@ unsigned eval(int p, int q,bool *success) {
       case '-': return val1 - val2;
       case '*': return val1 * val2;
       case '/': return val1 / val2;
+      case TK_EQ:return val1==val2;
+      case TK_NEQ:return val1!=val2;
+      case TK_AND:return val1&&val2;
       default: 
         printf("get main opt error!\n");
         *success=false;
