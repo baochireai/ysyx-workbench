@@ -229,7 +229,7 @@ unsigned eval(int p, int q,bool *success) {
         left++;
         continue;
       }
-      else if(length!=0&&priority[(int)buffer[length-1]]<=priority[curType]){
+      else if(length==0||priority[(int)buffer[length-1]]<=priority[curType]){
         buffer[length++]=curType;
         op_index=left;
       }
