@@ -29,7 +29,7 @@ static struct rule {
   {"\\(",'('},
   {"\\)",')'},
   {"0x[0-9a-fA-F]+",TK_NUM_X},
-  {"$+[a-z]*[0-9]*",TK_REG},
+  {"[$]+[a-z]*[0-9]*",TK_REG},
   {"!=",TK_NEQ},
   {"&&",TK_AND}
 };
