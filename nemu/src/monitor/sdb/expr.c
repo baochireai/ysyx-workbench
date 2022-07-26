@@ -227,7 +227,7 @@ word_t eval(int p, int q,bool *success) {
       left++;
     }
     if(tokens[op_index].type==TK_DEREF){
-      if(p!=q-1) assert(0);
+      //if(p!=q-1) assert(0);
       return *(unsigned*)eval(op_index+1,q,success);
     }
     word_t val1 = eval(p, op_index - 1,success);
