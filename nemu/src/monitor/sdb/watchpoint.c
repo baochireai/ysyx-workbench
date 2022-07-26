@@ -66,8 +66,8 @@ bool is_WP_change(){
     unsigned curValue=expr(phead->strexpr,&success);
     if(!success) assert(0);
     if(curValue!=phead->value){
+      printf("%d watchpoint change:%s  pre-value:%u  curVal:%u\n",phead->NO,phead->strexpr,phead->value,curValue);
       phead->value=curValue;
-      printf("%d watchpoint change:%s  org value:%u  curVal:%u\n",phead->NO,phead->strexpr,phead->value,curValue);
       return true;
     }
     phead=phead->next;

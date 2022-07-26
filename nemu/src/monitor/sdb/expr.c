@@ -96,19 +96,9 @@ static bool make_token(char *e) {
          * to record the token in the array `tokens'. For certain types
          * of tokens, some extra actions should be performed.
          */
-        
-        // if(rules[i].token_type==TK_NOTYPE) continue;
-        // tokens[nr_token].type=rules[i].token_type;
-        // if(rules[i].token_type==TK_NUM_H){
-        //   strcpy(tokens[nr_token].str,substr_start,substr_len);
-        // }
-        // nr_token++;
-
         // spaces空格不需记录
         //大部分token只要记录类型就可以了, 例如+, -, *, /, 但这对于有些token类型是不够的 比如整数
         switch (rules[i].token_type) {
-          case TK_NOTYPE:
-            break;
           case TK_REG:
             strncpy(tokens[nr_token].str,substr_start+1,substr_len-1);
             tokens[nr_token++].type=rules[i].token_type;
@@ -176,7 +166,7 @@ bool check_parentheses(int p,int q){
   return check_pair(p+1,q-1);
 }
 
-unsigned eval(int p, int q,bool *success) {
+word_t eval(int p, int q,bool *success) {
   if (p > q) {
     printf("eval fails,Bad expression\n");
     *success=false;
@@ -240,8 +230,8 @@ unsigned eval(int p, int q,bool *success) {
       if(p!=q-1) assert(0);
       return 1;//*(unsigned*)eval(op_index+1,q,success);
     }
-    unsigned val1 = eval(p, op_index - 1,success);
-    unsigned val2 = eval(op_index + 1, q,success);
+    word_t val1 = eval(p, op_index - 1,success);
+    word_t val2 = eval(op_index + 1, q,success);
 
     switch (tokens[op_index].type) {
       case '+': return val1 + val2;
