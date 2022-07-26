@@ -37,6 +37,7 @@ bool new_wp(char *strexpr){
     strcpy(t->strexpr,strexpr);
     t->next=head;
     head=t;
+    printf("new watchpoint %d:%s",t->NO,t->strexpr);
     return true;
 }
 void free_wp(int n){
@@ -57,7 +58,7 @@ void free_wp(int n){
   }
   t->next=free_;
   free_=t;
-  printf("new watchpoint %d:%s",t->NO,t->strexpr);
+  printf("new watchpoint %d:%s",free_->NO,free_->strexpr);
 }
 
 bool is_WP_change(){
