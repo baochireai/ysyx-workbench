@@ -70,6 +70,7 @@ bool is_WP_change(){
       printf("%d watchpoint change:%s  org value:%u  curVal:%u\n",phead->NO,phead->strexpr,phead->value,curValue);
       return true;
     }
+    phead=phead->next;
   }
   return false;
 }
