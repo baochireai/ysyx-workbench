@@ -79,11 +79,12 @@ bool is_WP_change(){
 void info_watchpoints(){
   if(!head){
     printf("No watchpoints!\n");
+    return;
   }
   WP *phead=head;
   printf("NO\texpr\n");
   while(phead){
-    printf("%d\t%s",phead->NO,phead->strexpr);
+    printf("%d\t%s\n",phead->NO,phead->strexpr);
     phead=phead->next;
   }
 }
