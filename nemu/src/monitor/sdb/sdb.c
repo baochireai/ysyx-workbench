@@ -8,6 +8,7 @@ static int is_batch_mode = false;
 
 void init_regex();
 void init_wp_pool();
+bool new_wp(char *strexpr);
 
 /* We use the `readline' library to provide more flexibility to read from stdin. */
 static char* rl_gets() {
@@ -95,6 +96,12 @@ static int cmd_p(char *arg){
   printf("expression value:%u\n",(unsigned int)value);
   return value;
 }
+
+static int cmd_w(char *arg){
+  new_wp(arg);
+  return 0;
+}
+
 static int cmd_help(char *args);
 
 static struct {
@@ -108,7 +115,8 @@ static struct {
   {"si","execute N cmds,default N=1",cmd_si},
   {"info","print pragram state,r -> register, w -> monitor point info,eg info r",cmd_info},
   {"x","scan memory,eg x N EXPR",cmd_x},
-  {"p","compute expression value.Syntax p EXPR,eg. p $eax + 1",cmd_p}
+  {"p","compute expression value.Syntax p EXPR,eg. p $eax + 1",cmd_p},
+  {"w","set watchpoint.Syntax:w EXPR,Eg. w *0x2000",cmd_w}
 };
 
 #define NR_CMD ARRLEN(cmd_table)

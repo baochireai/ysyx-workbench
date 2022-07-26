@@ -26,16 +26,18 @@ void init_wp_pool() {
 }
 
 /* TODO: Implement the functionality of watchpoint */
-WP* new_wp(char *strexpr){
-    WP* t=free_;
+bool new_wp(char *strexpr){
+    if(free_==NULL){
+      printf("All Watchpoint has been used.\n");
+      return false;
+    }
+    WP* t=free_;    free_=free_->next;
     bool success=true;
     t->value=expr(strexpr,&success);
     strcpy(t->strexpr,strexpr);
-    if(free_==NULL) assert(0);
-    free_=free_->next;
     t->next=head;
     head=t;
-    return head;
+    return true;
 }
 void free_wp(int n){
   WP *phead=head,*t=NULL;
