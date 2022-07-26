@@ -228,7 +228,7 @@ word_t eval(int p, int q,bool *success) {
     }
     if(tokens[op_index].type==TK_DEREF){
       //if(p!=q-1) assert(0);
-      return (unsigned int)vaddr_read((paddr_t)eval(op_index+1,q,success),4);//*((unsigned*)eval(op_index+1,q,success));
+      return *((unsigned*)eval(op_index+1,q,success));//(unsigned int)vaddr_read((paddr_t)eval(op_index+1,q,success),4);//*((unsigned*)eval(op_index+1,q,success));
     }
     word_t val1 = eval(p, op_index - 1,success);
     word_t val2 = eval(op_index + 1, q,success);
