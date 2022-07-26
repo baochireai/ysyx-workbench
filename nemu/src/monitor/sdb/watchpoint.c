@@ -5,7 +5,7 @@
 typedef struct watchpoint {
   int NO;
   struct watchpoint *next;
-
+  vaddr_t pc;
   /* TODO: Add more members if necessary */
 
 } WP;
@@ -25,4 +25,5 @@ void init_wp_pool() {
 }
 
 /* TODO: Implement the functionality of watchpoint */
-
+WP* new_wp();
+void free_wp(WP *wp);

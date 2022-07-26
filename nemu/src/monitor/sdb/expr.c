@@ -45,6 +45,7 @@ void init_regex() {
   int i;
   char error_msg[128];
   int ret;
+  priority[TK_DEREF]=-1;
   priority['*']=0;priority['/']=0;
   priority['+']=1;priority['-']=1;
   priority[TK_EQ]=2;priority[TK_NEQ]=2;
@@ -234,6 +235,10 @@ unsigned eval(int p, int q,bool *success) {
         op_index=left;
       }
       left++;
+    }
+    if(tokens[op_index].type==TK_DEREF){
+      if(p!=q-1) assert(0);
+      return 1;//*(unsigned*)eval(op_index+1,q,success);
     }
     unsigned val1 = eval(p, op_index - 1,success);
     unsigned val2 = eval(op_index + 1, q,success);
