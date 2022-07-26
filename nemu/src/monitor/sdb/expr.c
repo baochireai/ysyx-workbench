@@ -4,7 +4,7 @@
  * Type 'man regex' for more information about POSIX regex functions.
  */
 #include <regex.h>
-
+word_t vaddr_read(vaddr_t addr, int len);
 enum {
   TK_NOTYPE = 256, TK_EQ=251,TK_NUM_H=254,TK_NUM_X=253,TK_REG=252,
   TK_NEQ=250,TK_AND=249,TK_DEREF=248
@@ -228,7 +228,7 @@ word_t eval(int p, int q,bool *success) {
     }
     if(tokens[op_index].type==TK_DEREF){
       //if(p!=q-1) assert(0);
-      return *((unsigned*)eval(op_index+1,q,success));
+      return (unsigned int)vaddr_read((paddr_t)eval(op_index+1,q,success),4);//*((unsigned*)eval(op_index+1,q,success));
     }
     word_t val1 = eval(p, op_index - 1,success);
     word_t val2 = eval(op_index + 1, q,success);
