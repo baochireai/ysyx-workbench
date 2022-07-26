@@ -6,6 +6,7 @@ typedef struct watchpoint {
   int NO;
   struct watchpoint *next;
   char strexpr[256];
+  unsigned value;
   /* TODO: Add more members if necessary */
 
 } WP;
@@ -27,6 +28,8 @@ void init_wp_pool() {
 /* TODO: Implement the functionality of watchpoint */
 WP* new_wp(char *strexpr){
     WP* t=free_;
+    bool success=true;
+    t->value=expr(strexpr,&success);
     strcpy(t->strexpr,strexpr);
     if(free_==NULL) assert(0);
     free_=free_->next;
@@ -52,4 +55,19 @@ void free_wp(int n){
   }
   t->next=free_;
   free_=t;
+}
+
+bool is_WP_change(){
+  WP *phead=head;
+  while(phead){
+    bool success=true;
+    unsigned curValue=expr(phead->strexpr,&success);
+    if(!success) assert(0);
+    if(curValue!=phead->value){
+      nemu_state.state=NEMU_STOP;
+      printf("%d watchpoint change:%s  org value:%u  curVal:%u\n",phead->NO,phead->strexpr,phead->value,curValue);
+      return true;
+    }
+  }
+  return false;
 }
