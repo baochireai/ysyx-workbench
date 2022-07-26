@@ -57,6 +57,7 @@ void free_wp(int n){
   }
   t->next=free_;
   free_=t;
+  printf("new watchpoint %d:%s",t->NO,t->strexpr);
 }
 
 bool is_WP_change(){
@@ -73,4 +74,16 @@ bool is_WP_change(){
     phead=phead->next;
   }
   return false;
+}
+
+void info_watchpoints(){
+  if(!head){
+    printf("No watchpoints!\n");
+  }
+  WP *phead=head;
+  printf("NO\texpr\n");
+  while(phead){
+    printf("%d\t%s",phead->NO,phead->strexpr);
+    phead=phead->next;
+  }
 }

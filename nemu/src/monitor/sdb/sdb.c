@@ -9,6 +9,7 @@ static int is_batch_mode = false;
 void init_regex();
 void init_wp_pool();
 bool new_wp(char *strexpr);
+void info_watchpoints();
 
 /* We use the `readline' library to provide more flexibility to read from stdin. */
 static char* rl_gets() {
@@ -51,7 +52,7 @@ static int cmd_info(char *args) {
     isa_reg_display();
   }
   else if (strcmp(args, "w") == 0){
-    printf("info %s isn't completed\n",args);
+    info_watchpoints();
   }
   else{
     printf("info %s doesn't exist!\n",args);
