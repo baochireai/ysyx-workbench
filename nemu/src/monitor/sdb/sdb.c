@@ -8,7 +8,9 @@ static int is_batch_mode = false;
 
 void init_regex();
 void init_wp_pool();
-
+bool new_wp(char *strexpr);
+void info_watchpoints();
+void free_wp(int n);
 /* We use the `readline' library to provide more flexibility to read from stdin. */
 static char* rl_gets() {
   static char *line_read = NULL;
@@ -50,7 +52,7 @@ static int cmd_info(char *args) {
     isa_reg_display();
   }
   else if (strcmp(args, "w") == 0){
-    printf("info %s isn't completed\n",args);
+    info_watchpoints();
   }
   else{
     printf("info %s doesn't exist!\n",args);
@@ -95,6 +97,22 @@ static int cmd_p(char *arg){
   printf("expression value:%u\n",(unsigned int)value);
   return value;
 }
+
+static int cmd_w(char *arg){
+  new_wp(arg);
+  return 0;
+}
+static int cmd_d(char *arg){
+  char *strN = strtok(NULL, " ");
+  if(strN==NULL){
+    printf("when delete watchpoint n, get n fail!\n");
+    assert(0);
+  }
+  int n=0;
+  sscanf(strN,"%d",&n);
+  free_wp(n);
+  return 0;
+}
 static int cmd_help(char *args);
 
 static struct {
@@ -108,7 +126,9 @@ static struct {
   {"si","execute N cmds,default N=1",cmd_si},
   {"info","print pragram state,r -> register, w -> monitor point info,eg info r",cmd_info},
   {"x","scan memory,eg x N EXPR",cmd_x},
-  {"p","compute expression value.Syntax p EXPR,eg. p $eax + 1",cmd_p}
+  {"p","compute expression value.Syntax p EXPR,eg. p $eax + 1",cmd_p},
+  {"w","set watchpoint.Syntax:w EXPR,Eg. w *0x2000",cmd_w},
+  {"d","delete watchpoint n",cmd_d}
 };
 
 #define NR_CMD ARRLEN(cmd_table)

@@ -4,12 +4,10 @@
  * Type 'man regex' for more information about POSIX regex functions.
  */
 #include <regex.h>
-
+word_t vaddr_read(vaddr_t addr, int len);
 enum {
-  TK_NOTYPE = 256, TK_EQ,TK_NUM_H=254
-
-  /* TODO: Add more token types */
-
+  TK_NOTYPE = 256, TK_EQ=251,TK_NUM_H=254,TK_NUM_X=253,TK_REG=252,
+  TK_NEQ=250,TK_AND=249,TK_DEREF=248
 };
 
 static struct rule {
@@ -24,18 +22,22 @@ static struct rule {
   {" +", TK_NOTYPE},    // spaces  +:匹配1次或多次  
   {"\\+", '+'},         // plus
   {"==", TK_EQ},        // equal
+  {"0x[0-9a-fA-F]+",TK_NUM_X},
   {"[0-9]+",TK_NUM_H},//十进制整数
   {"\\-",'-'},
   {"\\*",'*'},
   {"\\/",'/'},
   {"\\(",'('},
-  {"\\)",')'}
+  {"\\)",')'},
+  {"[$]+[a-z]*[0-9]*",TK_REG},
+  {"!=",TK_NEQ},
+  {"&&",TK_AND}
 };
 
 #define NR_REGEX ARRLEN(rules)
 
 static regex_t re[NR_REGEX] = {};
-
+static int priority[255];
 /* Rules are used for many times.
  * Therefore we compile them only once before any usage.
  */
@@ -43,7 +45,11 @@ void init_regex() {
   int i;
   char error_msg[128];
   int ret;
-
+  priority[TK_DEREF]=-1;
+  priority['*']=0;priority['/']=0;
+  priority['+']=1;priority['-']=1;
+  priority[TK_EQ]=2;priority[TK_NEQ]=2;
+  priority[TK_AND]=3;
   for (i = 0; i < NR_REGEX; i ++) {
     //regcomp 将预定的正则表达式规则（rules[i].regex）编译到 pattern buffer（re[i]）
     //编译后 为后续 regexec() 提供搜索匹配规则
@@ -90,20 +96,15 @@ static bool make_token(char *e) {
          * to record the token in the array `tokens'. For certain types
          * of tokens, some extra actions should be performed.
          */
-        
-        // if(rules[i].token_type==TK_NOTYPE) continue;
-        // tokens[nr_token].type=rules[i].token_type;
-        // if(rules[i].token_type==TK_NUM_H){
-        //   strcpy(tokens[nr_token].str,substr_start,substr_len);
-        // }
-        // nr_token++;
-
         // spaces空格不需记录
         //大部分token只要记录类型就可以了, 例如+, -, *, /, 但这对于有些token类型是不够的 比如整数
         switch (rules[i].token_type) {
-          case TK_NOTYPE:
+          case TK_REG:
+            strncpy(tokens[nr_token].str,substr_start+1,substr_len-1);
+            tokens[nr_token++].type=rules[i].token_type;
             break;
           case TK_NUM_H:
+          case TK_NUM_X:
             strncpy(tokens[nr_token].str,substr_start,substr_len);
           case '+':
           case '-':
@@ -111,6 +112,9 @@ static bool make_token(char *e) {
           case '/':
           case '(':
           case ')':
+          case TK_EQ:
+          case TK_NEQ:
+          case TK_AND:
             tokens[nr_token].type=rules[i].token_type;
             nr_token++;
             break;
@@ -132,7 +136,7 @@ static bool make_token(char *e) {
   return true;
 }
 bool check_pair(int p,int q){
-  char* buffer=(char *)malloc(20*sizeof(char));
+  char* buffer=(char *)malloc(35000*sizeof(char));
   int length=0;
   while (p<=q)
   {
@@ -155,19 +159,14 @@ bool check_pair(int p,int q){
   return true;
 }
 
-bool check_parentheses(int p,int q,bool *success){
-  *success=check_pair(p,q);
-  if(*success==false){
-    printf("check_pair fail\n");
-    return false;
-  }
+bool check_parentheses(int p,int q){
   if(tokens[p].type!='('||tokens[q].type!=')'){
     return false;
   }
   return check_pair(p+1,q-1);
 }
 
-unsigned eval(int p, int q,bool *success) {
+word_t eval(int p, int q,bool *success) {
   if (p > q) {
     printf("eval fails,Bad expression\n");
     *success=false;
@@ -178,66 +177,70 @@ unsigned eval(int p, int q,bool *success) {
      * For now this token should be a number.
      * Return the value of the number.
      */
-    if(tokens[p].type!=TK_NUM_H){
-      *success=false;
-      printf("eval fails,Bad expression\n");return 0;
+    if(tokens[p].type==TK_NUM_H){
+      unsigned num;
+      sscanf(tokens[p].str,"%u",&num);
+      return num;
     }
-    unsigned num;
-    sscanf(tokens[p].str,"%u",(unsigned int *)&num);
-    return num;
+    else if(tokens[p].type==TK_NUM_X){
+      unsigned num;
+      sscanf(tokens[p].str,"%x",&num);
+      return num;
+    }
+    else if(tokens[p].type==TK_REG){
+      return isa_reg_str2val(tokens[p].str,success);
+    }
+    *success=false;
+    printf("eval fails,Bad expression\n");
+    return 0;
   }
-  else if (check_parentheses(p, q,success) == true) {
+  else if (check_parentheses(p, q) == true) {
     /* The expression is surrounded by a matched pair of parentheses.
      * If that is the case, just throw away the parentheses.
      */
     return eval(p + 1, q - 1,success);
   }
-  else if(*success) {
+  else {
     /* We should do more things here. */
     int op_index=p;
-    char buffer[20]={};
+    char buffer[35000]={};
     int length=0,left=p,right=q;
     while(left<=right){
       int curType=tokens[left].type;
-      if(buffer[length-1]=='('){
+      if(curType==TK_NUM_H||curType==TK_NUM_X){
+        left++;continue;
+      }
+      if(curType=='('){
+        buffer[length++]='(';left++;continue;
+      }
+      if(length!=0&&buffer[length-1]=='('){
         if(curType==')'){
           buffer[--length]='\0';
         }
         left++;
         continue;
       }
-      switch (curType)
-      {
-      case TK_NUM_H:
-        break;
-      case '+':
-      case '-':
+      else if(length==0||priority[(int)buffer[length-1]]<=priority[curType]){
         buffer[length++]=curType;
         op_index=left;
-        break;
-      case '*':
-      case '/':
-        if(length!=0&&(buffer[length-1]=='+'||buffer[length-1]=='-')) break;
-        buffer[length++]=curType;
-        op_index=left;
-        break;
-      case '(':
-        buffer[length++]='(';
-        break;
-      default:
-        break;
       }
       left++;
     }
-
-    unsigned val1 = eval(p, op_index - 1,success);
-    unsigned val2 = eval(op_index + 1, q,success);
+    if(tokens[op_index].type==TK_DEREF){
+      //if(p!=q-1) assert(0);
+      return (unsigned int)vaddr_read((paddr_t)eval(op_index+1,q,success),4);//*((unsigned*)eval(op_index+1,q,success));
+    }
+    word_t val1 = eval(p, op_index - 1,success);
+    word_t val2 = eval(op_index + 1, q,success);
 
     switch (tokens[op_index].type) {
       case '+': return val1 + val2;
       case '-': return val1 - val2;
       case '*': return val1 * val2;
       case '/': return val1 / val2;
+      case TK_EQ:return val1==val2;
+      case TK_NEQ:return val1!=val2;
+      case TK_AND:return val1&&val2;
       default: 
         printf("get main opt error!\n");
         *success=false;
@@ -256,6 +259,16 @@ word_t expr(char *e, bool *success) {
   }
 
   /* TODO: Insert codes to evaluate the expression. */
+  for (int i = 0; i < nr_token; i ++) {
+    if (tokens[i].type == '*' && (i == 0 || tokens[i - 1].type == '(') ) {
+      tokens[i].type = TK_DEREF;
+    }
+  }
+
+  if(!check_pair(0,nr_token-1)){
+    *success=false;
+    return 0;
+  }
   word_t value =eval(0,nr_token-1,success);
   return value;//0 -> false
 }
