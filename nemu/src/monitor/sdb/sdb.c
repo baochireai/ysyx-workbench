@@ -95,7 +95,7 @@ static int cmd_p(char *arg){
     return 0;
   }
   printf("expression value:%lu\n",value);
-  return value;
+  return 0;
 }
 
 static int cmd_w(char *arg){
