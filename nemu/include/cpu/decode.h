@@ -28,18 +28,19 @@ static inline void pattern_decode(const char *str, int len,
       __shift = (c == '?' ? __shift + 1 : 0); \
     } \
   }
-
+//__shift记录str高位有多少个（遇到非?进行清零）?  str的低位对应__key的高位
 #define macro2(i)  macro(i);   macro((i) + 1)
 #define macro4(i)  macro2(i);  macro2((i) + 2)
 #define macro8(i)  macro4(i);  macro4((i) + 4)
 #define macro16(i) macro8(i);  macro8((i) + 8)
 #define macro32(i) macro16(i); macro16((i) + 16)
 #define macro64(i) macro32(i); macro32((i) + 32)
+//macro64（0） -> macro32(0);macro32(32)
   macro64(0);
   panic("pattern too long");
 #undef macro
 finish:
-  *key = __key >> __shift;
+  *key = __key >> __shift;//移除str中高位的?
   *mask = __mask >> __shift;
   *shift = __shift;
 }

@@ -12,12 +12,15 @@ enum {
   TYPE_N, // none
 };
 
+//寄存器
 #define src1R(n) do { *src1 = R(n); } while (0)
 #define src2R(n) do { *src2 = R(n); } while (0)
 #define destR(n) do { *dest = n; } while (0)
+//立即数
 #define src1I(i) do { *src1 = i; } while (0)
 #define src2I(i) do { *src2 = i; } while (0)
 #define destI(i) do { *dest = i; } while (0)
+//#define SEXT(x, len) ({ struct { int64_t n : len; } __x = { .n = x }; (uint64_t)__x.n; })用于符号扩展
 
 static word_t immI(uint32_t i) { return SEXT(BITS(i, 31, 20), 12); }
 static word_t immU(uint32_t i) { return SEXT(BITS(i, 31, 12), 20) << 12; }
@@ -25,14 +28,15 @@ static word_t immS(uint32_t i) { return (SEXT(BITS(i, 31, 25), 7) << 5) | BITS(i
 
 static void decode_operand(Decode *s, word_t *dest, word_t *src1, word_t *src2, int type) {
   uint32_t i = s->isa.inst.val;
-  int rd  = BITS(i, 11, 7);
+  //RSICV  所有指令 寄存器索引放在固定位置 
+  int rd  = BITS(i, 11, 7);//BITS取指定字节
   int rs1 = BITS(i, 19, 15);
   int rs2 = BITS(i, 24, 20);
-  destR(rd);
+  destR(rd);//返回目的寄存器索引号 
   switch (type) {
     case TYPE_I: src1R(rs1);     src2I(immI(i)); break;
     case TYPE_U: src1I(immU(i)); break;
-    case TYPE_S: destI(immS(i)); src1R(rs1); src2R(rs2); break;
+    case TYPE_S: destI(immS(i)); src1R(rs1); src2R(rs2); break;//把立即数存在了dest中 
   }
 }
 
@@ -47,12 +51,13 @@ static int decode_exec(Decode *s) {
 }
 
   INSTPAT_START();
+  //匹配指令格式
   INSTPAT("??????? ????? ????? ??? ????? 00101 11", auipc  , U, R(dest) = src1 + s->pc);
   INSTPAT("??????? ????? ????? 011 ????? 00000 11", ld     , I, R(dest) = Mr(src1 + src2, 8));
   INSTPAT("??????? ????? ????? 011 ????? 01000 11", sd     , S, Mw(src1 + dest, 8, src2));
 
   INSTPAT("0000000 00001 00000 000 00000 11100 11", ebreak , N, NEMUTRAP(s->pc, R(10))); // R(10) is $a0
-  INSTPAT("??????? ????? ????? ??? ????? ????? ??", inv    , N, INV(s->pc));
+  INSTPAT("??????? ????? ????? ??? ????? ????? ??", inv    , N, INV(s->pc));  //前面所有指令均不匹配，视为非法指令
   INSTPAT_END();
 
   R(0) = 0; // reset $zero to 0
