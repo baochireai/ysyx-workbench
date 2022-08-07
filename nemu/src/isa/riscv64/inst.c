@@ -8,7 +8,7 @@
 #define Mw vaddr_write
 
 enum {
-  TYPE_I, TYPE_U, TYPE_S,
+  TYPE_I, TYPE_U, TYPE_S,TYPE_J,
   TYPE_N, // none
 };
 
@@ -25,7 +25,7 @@ enum {
 static word_t immI(uint32_t i) { return SEXT(BITS(i, 31, 20), 12); }
 static word_t immU(uint32_t i) { return SEXT(BITS(i, 31, 12), 20) << 12; }
 static word_t immS(uint32_t i) { return (SEXT(BITS(i, 31, 25), 7) << 5) | BITS(i, 11, 7); }
-
+static word_t immJ(uint32_t i) { return (SEXT(BITS(i,31,31),1)<<19) | SEXT(BITS(i,21,12),10)<<9 | SEXT(BITS(i,22,22),1)<<8 | BITS(i,30,23);}
 static void decode_operand(Decode *s, word_t *dest, word_t *src1, word_t *src2, int type) {
   uint32_t i = s->isa.inst.val;
   //RSICV  所有指令 寄存器索引放在固定位置 
@@ -37,6 +37,7 @@ static void decode_operand(Decode *s, word_t *dest, word_t *src1, word_t *src2, 
     case TYPE_I: src1R(rs1);     src2I(immI(i)); break;
     case TYPE_U: src1I(immU(i)); break;
     case TYPE_S: destI(immS(i)); src1R(rs1); src2R(rs2); break;//把立即数存在了dest中 
+    case TYPE_J: src1I(immJ(i));break;//0000 0000 1100 0000 0000 -> 0  0000 0000   0 000 0000 110 -> 10
   }
 }
 
@@ -60,6 +61,8 @@ static int decode_exec(Decode *s) {
 
   // Myself
   INSTPAT("??????? ????? ????? 000 ????? 00100 11",addi,I,R(dest)=src1+src2);
+  INSTPAT("??????? ????? ????? ??? ????? 11011 11",jal,J,R(dest)=s->pc+4;s->pc=s->pc+src1);
+
 
   INSTPAT("??????? ????? ????? ??? ????? ????? ??", inv    , N, INV(s->pc));  //前面所有指令均不匹配，视为非法指令
   INSTPAT_END();
