@@ -94,7 +94,7 @@ static int cmd_p(char *arg){
     printf("bad expression!\n");
     return 0;
   }
-  printf("expression value:%lu\n",value);
+  printf("expression value:%ld\n",value);
   return 0;
 }
 
