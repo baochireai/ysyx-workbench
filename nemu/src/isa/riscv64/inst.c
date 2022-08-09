@@ -8,7 +8,7 @@
 #define Mw vaddr_write
 
 enum {
-  TYPE_I, TYPE_U, TYPE_S,TYPE_J,
+  TYPE_I, TYPE_U, TYPE_S,TYPE_J,TYPE_R,
   TYPE_N, // none
 };
 
@@ -38,6 +38,7 @@ static void decode_operand(Decode *s, word_t *dest, word_t *src1, word_t *src2, 
     case TYPE_U: src1I(immU(i)); break;
     case TYPE_S: destI(immS(i)); src1R(rs1); src2R(rs2); break;//把立即数存在了dest中 
     case TYPE_J: src1I(immJ(i));break;//00c000ef->0 00000001 1  00 0000 0000 -> 0000 0000 0001 0000 0001 -> 0x101
+    case TYPE_R: src1R(rs1);      src2R(rs2);break;
   }
 }
 
@@ -60,9 +61,10 @@ static int decode_exec(Decode *s) {
   INSTPAT("0000000 00001 00000 000 00000 11100 11", ebreak , N, NEMUTRAP(s->pc, R(10))); // R(10) is $a0
 
   // Myself
-  INSTPAT("??????? ????? ????? 000 ????? 11001 11",jalr,I,R(dest)=s->pc+4;s->dnpc=(src1+src2)&(~(word_t)0x1));
   INSTPAT("??????? ????? ????? 000 ????? 00100 11",addi,I,R(dest)=src1+src2);
   INSTPAT("??????? ????? ????? ??? ????? 11011 11",jal,J,R(dest)=s->pc+4;s->dnpc=s->pc+src1);
+  INSTPAT("??????? ????? ????? 000 ????? 11001 11",jalr,I,R(dest)=s->pc+4;s->dnpc=(src1+src2)&(~(word_t)0x1));
+  INSTPAT("0000000 ????? ????? 000 ????? 01100 11",add,R,R(dest)=src1+src2);
   //00008067 -》1 000 00000 11001 11
   INSTPAT("0000000 00001 00000 000 00000 11100 11",ebreak,I,);
 
