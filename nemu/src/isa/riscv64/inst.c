@@ -8,7 +8,7 @@
 #define Mw vaddr_write
 
 enum {
-  TYPE_I, TYPE_U, TYPE_S,TYPE_J,TYPE_R,
+  TYPE_I, TYPE_U, TYPE_S,TYPE_J,TYPE_R,TYPE_B,
   TYPE_N, // none
 };
 
@@ -26,6 +26,8 @@ static word_t immI(uint32_t i) { return SEXT(BITS(i, 31, 20), 12); }
 static word_t immU(uint32_t i) { return SEXT(BITS(i, 31, 12), 20) << 12; }
 static word_t immS(uint32_t i) { return (SEXT(BITS(i, 31, 25), 7) << 5) | BITS(i, 11, 7); }
 static word_t immJ(uint32_t i) { return (SEXT(BITS(i,31,31),1)<<20) | BITS(i,30,21)<<1 | BITS(i,20,20)<<11 | BITS(i,19,12)<<12;}
+static word_t immB(uint32_t i) { return (SEXT(BITS(i, 31, 31), 1) << 12) | BITS(i, 30, 25)<<5 | BITS(i, 11, 8)<<1 |BITS(i, 7, 7)<<11 ; }
+
 static void decode_operand(Decode *s, word_t *dest, word_t *src1, word_t *src2, int type) {
   uint32_t i = s->isa.inst.val;
   //RSICV  所有指令 寄存器索引放在固定位置 
@@ -39,6 +41,7 @@ static void decode_operand(Decode *s, word_t *dest, word_t *src1, word_t *src2, 
     case TYPE_S: destI(immS(i)); src1R(rs1); src2R(rs2); break;//把立即数存在了dest中 
     case TYPE_J: src1I(immJ(i));break;//00c000ef->0 00000001 1  00 0000 0000 -> 0000 0000 0001 0000 0001 -> 0x101
     case TYPE_R: src1R(rs1);      src2R(rs2);break;
+    case TYPE_B: src1R(rs1);      src2R(rs2); destI(immB(i)); break;
   }
 }
 
@@ -66,7 +69,8 @@ static int decode_exec(Decode *s) {
   INSTPAT("??????? ????? ????? 000 ????? 11001 11",jalr,I,R(dest)=s->pc+4;s->dnpc=(src1+src2)&(~(word_t)0x1));
   INSTPAT("0000000 ????? ????? 000 ????? 01100 11",add,R,R(dest)=src1+src2);
   INSTPAT("0100000 ????? ????? 000 ????? 01100 11",sub,R,R(dest)=src1-src2);
-  INSTPAT("??????? ????? ????? 011 ????? 00100 11",sub,I,R(dest)=(src1<src2));
+  INSTPAT("??????? ????? ????? 011 ????? 00100 11",sltiu,I,R(dest)=(src1<src2));
+  INSTPAT("??????? ????? ????? 000 ????? 11000 11",beq,B,if(src1==src2) s->dnpc=s->pc+dest);
   //00008067 -》1 000 00000 11001 11
   INSTPAT("0000000 00001 00000 000 00000 11100 11",ebreak,I,);
 
