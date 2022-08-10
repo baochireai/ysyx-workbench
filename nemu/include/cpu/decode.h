@@ -76,7 +76,7 @@ finish:
 #define INSTPAT(pattern, ...) do { \
   uint64_t key, mask, shift; \
   pattern_decode(pattern, STRLEN(pattern), &key, &mask, &shift); \
-  if (((INSTPAT_INST(s) >> shift) & mask) == key) { \//验证指令是否符合本指令编码格式
+  if (((INSTPAT_INST(s) >> shift) & mask) == key) { \
     INSTPAT_MATCH(s, ##__VA_ARGS__); \
     goto *(__instpat_end); \
   } \

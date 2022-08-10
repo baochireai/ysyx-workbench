@@ -94,8 +94,8 @@ static int cmd_p(char *arg){
     printf("bad expression!\n");
     return 0;
   }
-  printf("expression value:%u\n",(unsigned int)value);
-  return value;
+  printf("expression value:%lu\n",value);
+  return 0;
 }
 
 static int cmd_w(char *arg){
