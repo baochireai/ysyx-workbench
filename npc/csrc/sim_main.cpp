@@ -22,11 +22,11 @@ int main(int argc,char** argv,char** env) {
 
 	top->rst=1;
 	top->clk=0;
-	top->eval();
+	top->eval();contextp->timeInc(1);tfp->dump(contextp->time());
 	top->clk=1;
 	top->eval();
 	top->rst=0;
-	printf("top->ALU->ALUres:%lx",top->ALU->ALUres);
+	//printf("top->ALU->ALUres:%lx",top->ALU->ALUres);
 	while(!contextp->gotFinish()){
 
 		for(int i=0;i<4;i++){
@@ -34,10 +34,8 @@ int main(int argc,char** argv,char** env) {
 			printf("PC=%lx\n",pc);
 			unsigned int Inst=img[pc-0x80000000];
 			top->Inst=Inst;
-			top->eval();
-			contextp->timeInc(1);
-			tfp->dump(contextp->time());
-			top->clk=0;top->eval();
+			top->eval();contextp->timeInc(1);tfp->dump(contextp->time());
+			top->clk=0;top->eval();contextp->timeInc(1);tfp->dump(contextp->time());
 			top->clk=1;top->eval();
 		}
 		break;
