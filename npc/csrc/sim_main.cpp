@@ -32,7 +32,7 @@ int main(int argc,char** argv,char** env) {
 		for(int i=0;i<4;i++){
 			unsigned long pc=top->pc;
 			printf("PC=%lx\n",pc);
-			unsigned int Inst=img[pc-0x80000000];
+			unsigned int Inst=img[(int)((pc-0x80000000)/4)];
 			top->Inst=Inst;
 			top->eval();contextp->timeInc(1);tfp->dump(contextp->time());
 			top->clk=0;top->eval();contextp->timeInc(1);tfp->dump(contextp->time());
