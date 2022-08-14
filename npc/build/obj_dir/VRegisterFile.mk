@@ -2,9 +2,9 @@
 # DESCRIPTION: Verilator output: Makefile for building Verilated archive or executable
 #
 # Execute this makefile from the object directory:
-#    make -f Vlight.mk
+#    make -f VRegisterFile.mk
 
-default: /home/mrxue/ysyx-workbench/npc/build/light
+default: /home/mrxue/ysyx-workbench/npc/build/RegisterFile
 
 ### Constants...
 # Perl executable (from $PERL)
@@ -30,47 +30,38 @@ VM_SC_TARGET_ARCH = linux
 
 ### Vars...
 # Design prefix (from --prefix)
-VM_PREFIX = Vlight
+VM_PREFIX = VRegisterFile
 # Module prefix (from --prefix)
-VM_MODPREFIX = Vlight
+VM_MODPREFIX = VRegisterFile
 # User CFLAGS (from -CFLAGS on Verilator command line)
 VM_USER_CFLAGS = \
-	-I/home/mrxue/ysyx-workbench/nvboard/include \
-	-DTOP_NAME="Vlight" \
 
 # User LDLIBS (from -LDFLAGS on Verilator command line)
 VM_USER_LDLIBS = \
-	/home/mrxue/ysyx-workbench/nvboard/build/nvboard.a \
-	-lSDL2 \
-	-lSDL2_image \
 
 # User .cpp files (from .cpp's on Verilator command line)
 VM_USER_CLASSES = \
-	auto_bind \
-	light \
+	sim_main \
 
 # User .cpp directories (from .cpp's on Verilator command line)
 VM_USER_DIR = \
-	/home/mrxue/ysyx-workbench/npc/build \
 	/home/mrxue/ysyx-workbench/npc/csrc \
 
 
 ### Default rules...
 # Include list of all generated classes
-include Vlight_classes.mk
+include VRegisterFile_classes.mk
 # Include global rules
 include $(VERILATOR_ROOT)/include/verilated.mk
 
 ### Executable rules... (from --exe)
 VPATH += $(VM_USER_DIR)
 
-auto_bind.o: /home/mrxue/ysyx-workbench/npc/build/auto_bind.cpp
-	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
-light.o: /home/mrxue/ysyx-workbench/npc/csrc/light.cpp
+sim_main.o: /home/mrxue/ysyx-workbench/npc/csrc/sim_main.cpp
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
 
 ### Link rules... (from --exe)
-/home/mrxue/ysyx-workbench/npc/build/light: $(VK_USER_OBJS) $(VK_GLOBAL_OBJS) $(VM_PREFIX)__ALL.a $(VM_HIER_LIBS)
+/home/mrxue/ysyx-workbench/npc/build/RegisterFile: $(VK_USER_OBJS) $(VK_GLOBAL_OBJS) $(VM_PREFIX)__ALL.a $(VM_HIER_LIBS)
 	$(LINK) $(LDFLAGS) $^ $(LOADLIBES) $(LDLIBS) $(LIBS) $(SC_LIBS) -o $@
 
 

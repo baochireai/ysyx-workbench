@@ -53,6 +53,8 @@ $(BIN):$(VSRCS) $(CSRCS) $(NVBOARD_ARCHIVE)
 #
 #build:$(CSRCS) $(VSRCS)
 #	$(VERILATOR) $(VERILATOR_CFLAGS) $^
+# verilator -Wno-fatal vsrc/top.v -xml-only --bbox-sys --Mdir $(OBJ_DIR) && xml2stems 	$(OBJ_DIR)/Vtop.xml $(LOGS_DIR)/top.stems
+# gtkwave -o -t $(LOGS_DIR)/top.stems $(LOGS_DIR)/top.vcd $(LOGS_DIR)/top.sav
 all:
 	@echo "Write this Makefile by your self."
 
@@ -61,18 +63,17 @@ VSRCS=$(shell find $(abspath ./vsrc) -name "*.v")
 LOGS_DIR=$(BUILD_DIR)/logs
 build:$(CSRCS) $(VSRCS) # csrc/sim_main.cpp vsrc/top.v
 	@mkdir -p $(BUILD_DIR)
-	verilator -Wall --cc --trace --build $^ --Mdir $(OBJ_DIR) --exe -o $(abspath $(BIN))
+	verilator --Wall --cc --trace --build --top-module $(TOPNAME) $^ --Mdir $(OBJ_DIR) --exe -o $(abspath $(BIN))
 
 run:$(BIN)
 	@$(BIN)
 
 sim:
-	verilator -Wno-fatal vsrc/top.v -xml-only --bbox-sys --Mdir $(OBJ_DIR) && xml2stems 	$(OBJ_DIR)/Vtop.xml $(LOGS_DIR)/top.stems
-	gtkwave -o -t $(LOGS_DIR)/top.stems $(LOGS_DIR)/top.vcd $(LOGS_DIR)/top.sav
+	gtkwave -o   $(LOGS_DIR)/top.vcd $(LOGS_DIR)/top.sav
 	$(call git_commit, "sim RTL") # DO NOT REMOVE THIS LINE!!!
 
 clean:
 	rm -rf $(BUILD_DIR)
 include ../Makefile
 
-.PHONY: nvboard all sim clean	
+.PHONY: nvboard all sim clean build
