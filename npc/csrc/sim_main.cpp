@@ -26,7 +26,7 @@ int main(int argc,char** argv,char** env) {
 	top->clk=1;
 	top->eval();
 	top->rst=0;
-	printf("top->top->ALU->ALUres:%lx",top->ALU->ALUres);
+	printf("top->top->ALU->ALUres:%lx",top->ALUres);
 	while(!contextp->gotFinish()){
 
 		for(int i=0;i<4;i++){

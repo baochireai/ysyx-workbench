@@ -23,7 +23,7 @@ module ContrGen(
     always @(*) begin
         casez ({func7,func3,opcode})
             17'bzzzzzzz_000_0010011:begin
-                ALUct=4'b0000;ALUAsr=1'b1;ALUBsr=1'b1;
+                ALUct=4'b0000;ALUAsr=1'b1;ALUBsr=1'b0;
             end
             default: begin
                 ALUct=4'b0001;ALUAsr=1'b0;ALUBsr=1'b0;
