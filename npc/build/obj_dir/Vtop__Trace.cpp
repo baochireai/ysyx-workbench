@@ -162,22 +162,6 @@ void Vtop___024root__traceChgSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep) 
                                         [(0x1fU & (vlSelf->Inst 
                                                    >> 0xfU))])
                                      : vlSelf->pc)),64);
-        tracep->chgQData(oldp+164,(((0x13U == (0x3ffU 
-                                               & ((0x1fc00U 
-                                                   & (vlSelf->Inst 
-                                                      >> 0xfU)) 
-                                                  | ((0x380U 
-                                                      & (vlSelf->Inst 
-                                                         >> 5U)) 
-                                                     | (0x7fU 
-                                                        & vlSelf->Inst)))))
-                                     ? ((0U == (0x1fU 
-                                                & (vlSelf->Inst 
-                                                   >> 0x14U)))
-                                         ? 0ULL : vlSelf->top__DOT__RegisterFile__DOT__rf
-                                        [(0x1fU & (vlSelf->Inst 
-                                                   >> 0x14U))])
-                                     : vlSelf->top__DOT__Imm)),64);
         VL_EXTEND_WQ(68,64, __Vtemp104, (((0x13U == 
                                            (0x3ffU 
                                             & ((0x1fc00U 
@@ -198,29 +182,8 @@ void Vtop___024root__traceChgSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep) 
                                                 & (vlSelf->Inst 
                                                    >> 0xfU))])
                                            : vlSelf->pc) 
-                                         + ((0x13U 
-                                             == (0x3ffU 
-                                                 & ((0x1fc00U 
-                                                     & (vlSelf->Inst 
-                                                        >> 0xfU)) 
-                                                    | ((0x380U 
-                                                        & (vlSelf->Inst 
-                                                           >> 5U)) 
-                                                       | (0x7fU 
-                                                          & vlSelf->Inst)))))
-                                             ? ((0U 
-                                                 == 
-                                                 (0x1fU 
-                                                  & (vlSelf->Inst 
-                                                     >> 0x14U)))
-                                                 ? 0ULL
-                                                 : 
-                                                vlSelf->top__DOT__RegisterFile__DOT__rf
-                                                [(0x1fU 
-                                                  & (vlSelf->Inst 
-                                                     >> 0x14U))])
-                                             : vlSelf->top__DOT__Imm)));
-        tracep->chgWData(oldp+166,(__Vtemp104),68);
+                                         + vlSelf->top__DOT__Imm));
+        tracep->chgWData(oldp+164,(__Vtemp104),68);
     }
 }
 
