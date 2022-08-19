@@ -49,6 +49,7 @@ int sprintf(char *out, const char *fmt, ...) {
     out[len++]=fmt[i];
     i++;
   }
+  out[len]='\0';
   return 1;
 }
 
