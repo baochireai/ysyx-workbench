@@ -36,6 +36,7 @@ char *strcat(char *dst, const char *src) {
   size_t i=0,dstlen=strlen(dst);
   while (src[i]!='\0'){
     dst[dstlen+i]=src[i];
+    i++;
   }
   dst[dstlen+i]='\0';
   return dst;
