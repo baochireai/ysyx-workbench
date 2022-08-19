@@ -4,7 +4,6 @@ module top(
     input [31:0] Inst,
     output [63:0] pc
 );
-
     wire [63:0] R_rs1;
     wire [63:0] R_rs2;
 
@@ -30,5 +29,11 @@ module top(
 
     ALU ALU(.ALUAsr(ALUAsr),.PC(pc),.R_rs1(R_rs1),.ALUBsr(ALUBsr),.Imm(Imm),.R_rs2(R_rs2),.ALUct(ALUct),.ALUres(ALUres));
 
-    
 endmodule
+
+// export "DPI-C" task isEbreak;
+
+// task isEbreak;
+//     output bit IsEbreak;
+//         IsEbreak = (Inst==32'h00100073)?1'b1:1'b0;
+// endtask

@@ -11,12 +11,15 @@
 
 class Vtop__Syms;
 class Vtop_VerilatedVcd;
+class Vtop___024unit;
 
 
 //----------
 
 VL_MODULE(Vtop___024root) {
   public:
+    // CELLS
+    Vtop___024unit* __PVT____024unit;
 
     // PORTS
     VL_IN8(clk,0,0);

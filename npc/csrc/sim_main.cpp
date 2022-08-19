@@ -8,7 +8,7 @@
 #define BITMASK(bits) ((1ull << (bits)) - 1)
 #define BITS(x, hi, lo) (((x) >> (lo)) & BITMASK((hi) - (lo) + 1)) // similar to x[hi:lo] in verilog
 
-unsigned long img[]={0xffc10113,0xff010113,0x0b098993,0x01813a83};
+unsigned long img[]={0xffc10113,0xff010113,0x0b098993,0x01813a83,0x00100073};
 
 int main(int argc,char** argv,char** env) {
 	Verilated::mkdir("./build/logs");
