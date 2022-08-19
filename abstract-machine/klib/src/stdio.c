@@ -18,7 +18,7 @@ char* int2string(char* dst,int num){
   size_t len=0;
   while(num){
     int ch=num%10+'0';
-    buff[len]=(char)ch;
+    buff[len++]=(char)ch;
     num=num/10;
   }
   for(size_t i=0;i<len;i++){
