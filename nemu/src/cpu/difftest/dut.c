@@ -48,9 +48,11 @@ void init_difftest(char *ref_so_file, long img_size, int port) {
   assert(ref_so_file != NULL);
 
   void *handle;
-  handle = dlopen(ref_so_file, RTLD_LAZY);
+  handle = dlopen(ref_so_file, RTLD_LAZY);//打开动态库文件
   assert(handle);
-
+  /*
+  对动态库中的API符号进行符号解析与地址重定位，返回它们地址
+  */
   ref_difftest_memcpy = dlsym(handle, "difftest_memcpy");
   assert(ref_difftest_memcpy);
 
@@ -88,7 +90,7 @@ void difftest_step(vaddr_t pc, vaddr_t npc) {
   CPU_state ref_r;
 
   if (skip_dut_nr_inst > 0) {
-    ref_difftest_regcpy(&ref_r, DIFFTEST_TO_DUT);
+    ref_difftest_regcpy(&ref_r, DIFFTEST_TO_DUT);// 获取REF的寄存器状态到`dut`;
     if (ref_r.pc == npc) {
       skip_dut_nr_inst = 0;
       checkregs(&ref_r, npc);
@@ -107,8 +109,8 @@ void difftest_step(vaddr_t pc, vaddr_t npc) {
     return;
   }
 
-  ref_difftest_exec(1);
-  ref_difftest_regcpy(&ref_r, DIFFTEST_TO_DUT);
+  ref_difftest_exec(1);//REF执行指令
+  ref_difftest_regcpy(&ref_r, DIFFTEST_TO_DUT);// 获取REF的寄存器状态到`dut`;
 
   checkregs(&ref_r, pc);
 }
