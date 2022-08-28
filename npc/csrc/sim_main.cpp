@@ -100,16 +100,14 @@ int main(int argc,char** argv,char** env) {
 	//printf("top->top->ALU->ALUres:%lx",top->ALUres);
 	while(!contextp->gotFinish()){
 
-		for(int i=0;i<20;i++){
-			unsigned long pc=top->pc;
-			printf("PC=%lx\n",pc);
-			unsigned int Inst=*((unsigned int *)guest_to_host(pc));
-			top->Inst=Inst;
-			top->eval();contextp->timeInc(1);tfp->dump(contextp->time());
-			top->clk=0;top->eval();contextp->timeInc(1);tfp->dump(contextp->time());
-			top->clk=1;top->eval();
-		}
-		break;
+    unsigned long pc=top->pc;
+    printf("PC=%lx\n",pc);
+    unsigned int Inst=*((unsigned int *)guest_to_host(pc));
+    
+    top->Inst=Inst;
+    top->eval();contextp->timeInc(1);tfp->dump(contextp->time());
+    top->clk=0;top->eval();contextp->timeInc(1);tfp->dump(contextp->time());
+    top->clk=1;top->eval();
 		// contextp->timeInc(1);
 		// if(contextp->time() >10){
 		// 	break;
@@ -125,19 +123,3 @@ int main(int argc,char** argv,char** env) {
 	delete contextp;
   return 0;
 }
-/*
-PC=80000000
-PC=80000004
-PC=80000008
-PC=8000000c
-PC=80000018
-PC=8000001c
-PC=80000020
-PC=80000024
-PC=80000028
-PC=80000010
-PC=80000014
-
-PC=80000018
-PC=8000001c
-*/
