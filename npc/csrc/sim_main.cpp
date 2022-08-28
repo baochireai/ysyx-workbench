@@ -125,3 +125,19 @@ int main(int argc,char** argv,char** env) {
 	delete contextp;
   return 0;
 }
+/*
+PC=80000000
+PC=80000004
+PC=80000008
+PC=8000000c
+PC=80000018
+PC=8000001c
+PC=80000020
+PC=80000024
+PC=80000028
+PC=80000010
+PC=80000014
+
+PC=80000018
+PC=8000001c
+*/

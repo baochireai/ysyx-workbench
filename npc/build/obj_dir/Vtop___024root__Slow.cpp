@@ -198,7 +198,7 @@ void Vtop___024root___settle__TOP__1(Vtop___024root* vlSelf) {
                                                | (0x7fU 
                                                   & vlSelf->Inst))))) 
                                          & ((0x167U 
-                                             == (0x3ffU 
+                                             != (0x3ffU 
                                                  & ((0x1fc00U 
                                                      & (vlSelf->Inst 
                                                         >> 0xfU)) 
@@ -207,7 +207,7 @@ void Vtop___024root___settle__TOP__1(Vtop___024root* vlSelf) {
                                                            >> 5U)) 
                                                        | (0x7fU 
                                                           & vlSelf->Inst))))) 
-                                            | (0x1a3U 
+                                            & (0x1a3U 
                                                == (0x3ffU 
                                                    & ((0x1fc00U 
                                                        & (vlSelf->Inst 
@@ -261,7 +261,20 @@ void Vtop___024root___settle__TOP__1(Vtop___024root* vlSelf) {
                                                            | (0x7fU 
                                                               & vlSelf->Inst)))))
                                                     ? 2U
-                                                    : 0U))));
+                                                    : 
+                                                   ((0x167U 
+                                                     == 
+                                                     (0x3ffU 
+                                                      & ((0x1fc00U 
+                                                          & (vlSelf->Inst 
+                                                             >> 0xfU)) 
+                                                         | ((0x380U 
+                                                             & (vlSelf->Inst 
+                                                                >> 5U)) 
+                                                            | (0x7fU 
+                                                               & vlSelf->Inst)))))
+                                                     ? 2U
+                                                     : 0U)))));
     __Vtemp4[4U] = (0x80U | ((7U & ((IData)(((((- (QData)((IData)(
                                                                   (vlSelf->Inst 
                                                                    >> 0x1fU)))) 

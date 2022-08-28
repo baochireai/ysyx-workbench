@@ -43,7 +43,7 @@ module ContrGen(
                 ALUct=4'b0000;ALUAsr=1'b0;ALUBsr=2'd2;Branch=3'd1;//无条件跳转PC目标
             end
             17'bzzzzzzz_010_1100111:begin //jalr
-                ALUct=4'b0000;ALUAsr=1'b1;ALUBsr=2'd0;Branch=3'd2;//无条件跳转寄存器目标 
+                ALUct=4'b0000;ALUAsr=1'b0;ALUBsr=2'd2;Branch=3'd2;//无条件跳转寄存器目标 
             end
             17'bzzzzzzz_011_0100011:begin //sd
                 ALUct=4'b0000;ALUAsr=1'b1;ALUBsr=2'd0;Branch=3'd0;
