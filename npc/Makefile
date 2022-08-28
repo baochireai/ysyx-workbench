@@ -65,8 +65,8 @@ build:$(CSRCS) $(VSRCS) # csrc/sim_main.cpp vsrc/top.v
 	@mkdir -p $(BUILD_DIR)
 	verilator --Wall --cc --trace --build --top-module $(TOPNAME) $^ --Mdir $(OBJ_DIR) --exe -o $(abspath $(BIN))
 
-run:$(BIN)
-	@$(BIN)
+run: build
+	@$(BIN) $(IMG)
 
 sim:
 	gtkwave -o   $(LOGS_DIR)/top.vcd $(LOGS_DIR)/top.sav

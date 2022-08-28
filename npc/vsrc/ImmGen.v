@@ -10,7 +10,7 @@ module ImmGen(
     3'd3,{{52{Inst[31]}},Inst[31:25],Inst[11:7]},//Imm_S
     3'd4,{{51{Inst[31]}},Inst[31:31],Inst[7:7],Inst[30:25],Inst[11:8],1'b0},//Imm_B
     3'd5,{{32{Inst[31]}},Inst[31:12],12'd0},//Imm_U
-    3'd6,{{43{Inst[31]}},Inst[31:31],Inst[19:12],Inst[20:20],Inst[30:21],1'b0}
+    3'd6,{{43{Inst[31]}},Inst[31:31],Inst[19:12],Inst[20:20],Inst[30:21],1'b0}///Imm_J
     }));
 
 endmodule

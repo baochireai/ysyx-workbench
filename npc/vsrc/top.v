@@ -11,19 +11,24 @@ module top(
     wire [2:0] Extop;
     wire RegWr;
     wire ALUAsr;
-    wire ALUBsr;
+    wire [1:0] ALUBsr;
 
     wire [63:0] Imm;
 
     wire [63:0] ALUres;
 
-    PC PC(.clk(clk),.rst(rst),.pc(pc));
+    wire [63:0] NextPC;
+
+    wire [2:0] Branch;
+    PC PC(.clk(clk),.rst(rst),.NextPC(NextPC),.pc(pc));
+
+    GenNextPC GenNextPC(.Branch(Branch),.imm(Imm),.PC(pc),.R_rs1(R_rs1),.NextPC(NextPC));
 
     RegisterFile RegisterFile(.rs1(Inst[19:15]),.rs2(Inst[24:20]),.waddr(Inst[11:7]),.R_rs1(R_rs1),.R_rs2(R_rs2),
                 .clk(clk),.wdata(ALUres),.wen(RegWr));
 
     ContrGen ContrGen(.opcode(Inst[6:0]),.func3(Inst[14:12]),.func7(Inst[31:25]),
-            .ALUct(ALUct),.Extop(Extop),.RegWr(RegWr),.ALUAsr(ALUAsr),.ALUBsr(ALUBsr));
+            .ALUct(ALUct),.Extop(Extop),.RegWr(RegWr),.ALUAsr(ALUAsr),.ALUBsr(ALUBsr),.Branch(Branch));
     
     ImmGen ImmGen(.Inst(Inst[31:7]),.Extop(Extop),.Imm(Imm));
 

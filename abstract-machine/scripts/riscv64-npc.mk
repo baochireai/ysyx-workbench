@@ -20,3 +20,12 @@ image: $(IMAGE).elf
 	@$(OBJDUMP) -d $(IMAGE).elf > $(IMAGE).txt
 	@echo + OBJCOPY "->" $(IMAGE_REL).bin
 	@$(OBJCOPY) -S --set-section-flags .bss=alloc,contents -O binary $(IMAGE).elf $(IMAGE).bin
+
+#在npc中运行
+run: image
+	$(MAKE) -C $(NPC_HOME) run IMG=$(IMAGE).bin
+
+sim:
+	$(MAKE) -C $(NPC_HOME) sim
+
+.PHONY: sim
