@@ -33,14 +33,13 @@ include $(NVBOARD_HOME)/scripts/nvboard.mk#nvboard构建脚本
 
 INCFLAGS=$(addprefix -I,$(INC_PATH))
 CFLAGS+=$(INCFLAGS) -DTOP_NAME="\"V$(TOPNAME)\""
-LDFLAGS+= -lSDL2 -lSDL2_image
-LDLIBS=-lreadline
+LDFLAGS+= -lSDL2 -lSDL2_image -lreadline
+
 $(BIN):$(VSRCS) $(CSRCS) $(NVBOARD_ARCHIVE) 
 	@rm -rf $(OBJ_DIR)
 	$(VERILATOR) $(VERILATOR_CFLAGS) \
 		--top-module $(TOPNAME) $^ \
 		$(addprefix -CFLAGS ,$(CFLAGS)) $(addprefix -LDFLAGS ,$(LDFLAGS))\
-		$(addprefix -LDLIBS ,$(LDLIBS)) \
 		-Mdir $(OBJ_DIR) --exe -o $(abspath $(BIN))
 
 #VERILATOR=verilator
@@ -64,7 +63,7 @@ VSRCS=$(shell find $(abspath ./vsrc) -name "*.v")
 LOGS_DIR=$(BUILD_DIR)/logs
 build:$(CSRCS) $(VSRCS) # csrc/sim_main.cpp vsrc/top.v
 	@mkdir -p $(BUILD_DIR)
-	verilator --Wall --cc --trace --build --top-module $(TOPNAME) $^ --Mdir $(OBJ_DIR) --exe -o $(abspath $(BIN))
+	verilator --Wall --cc --trace --build --top-module $(TOPNAME) $^ $(addprefix -LDFLAGS ,$(LDFLAGS)) --Mdir $(OBJ_DIR) --exe -o $(abspath $(BIN))
 
 run: build
 	@$(BIN) $(IMG)

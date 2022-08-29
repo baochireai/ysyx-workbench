@@ -158,17 +158,17 @@ void cpu_exec(uint64_t n){
     }
   }
   switch (npc_state) {
-    case NPC_RUNNING: nemu_state.state = NPC_STOP; break;
+    case NPC_RUNNING: npc_state = NPC_STOP; break;
 
     case NPC_END:
-       
+       if(cpu_gpr[10]==0){
+        printf("npc: HIT GOOD TRAP!\n");
+       }
+       else printf("npc: HIT BAD TRAP!\n");
+       break;
     case NPC_ABORT:
-      Log("npc: %s at pc = " FMT_WORD,
-          (nemu_state.state == NEMU_ABORT ? ANSI_FMT("ABORT", ANSI_FG_RED) :
-           (nemu_state.halt_ret == 0 ? ANSI_FMT("HIT GOOD TRAP", ANSI_FG_GREEN) :
-            ANSI_FMT("HIT BAD TRAP", ANSI_FG_RED))),
-          nemu_state.halt_pc);
-      // fall through
+      printf("npc: ABORT\n");
+      break;
     case NPC_QUIT:break;
   }
 }
@@ -187,6 +187,52 @@ static int cmd_c(char *args) {
   return 0;
 }
 
+static int cmd_q(char *args) {
+  npc_state = NPC_QUIT;
+  return -1;
+}
+
+static int cmd_info(char *args) {
+  if (strcmp(args, "r") == 0){
+    dump_gpr();
+  }
+  else if (strcmp(args, "w") == 0){
+    printf("info w hasn't been completed!\n");
+  }
+  else{
+    printf("info %s doesn't exist!\n",args);
+  }
+  return 0;
+}
+
+static int cmd_x(char *args){
+  char *strN = strtok(NULL, " ");
+  char *strAdd=strtok(NULL, " ");
+  int N;
+  if(strN!=NULL){
+    sscanf(strN,"%d",&N);
+  }
+  else{
+    printf("Please input bytes numbers!\n");
+    return 0;
+  }
+  paddr_t Addr;
+  if(strAdd!=NULL){
+    sscanf(strAdd,"%x",(unsigned int *)&Addr);
+  }
+  else {
+    printf("Please input memory addr!\n");
+    return 0;
+  }
+  printf("Output %d*4 bytes data at 0x%08x\n",N,Addr);
+  for(int i=0;i<N;i++){
+    paddr_t curAddr=Addr+i*sizeof(uint32_t);
+    printf("0x%08x:\t0x%08x\n",curAddr,*(unsigned int*)guest_to_host(curAddr));
+  }
+  printf("\n");
+  return 0;
+}
+
 static struct {
   const char *name;
   const char *description;
@@ -194,10 +240,10 @@ static struct {
 } cmd_table [] = {
   //{ "help", "Display informations about all supported commands", cmd_help },
   { "c", "Continue the execution of the program", cmd_c },
-  //{ "q", "Exit NEMU", cmd_q },
+  { "q", "Exit NEMU", cmd_q },
   {"si","execute N cmds,default N=1",cmd_si},
-  //{"info","print pragram state,r -> register, w -> monitor point info,eg info r",cmd_info},
-  //{"x","scan memory,eg x N EXPR",cmd_x},
+  {"info","print pragram state,r -> register, w -> monitor point info,eg info r",cmd_info},
+  {"x","scan memory,eg x N EXPR",cmd_x},
   //{"p","compute expression value.Syntax p EXPR,eg. p $eax + 1",cmd_p},
   //{"w","set watchpoint.Syntax:w EXPR,Eg. w *0x2000",cmd_w},
   //{"d","delete watchpoint n",cmd_d}
