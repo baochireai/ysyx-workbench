@@ -1,3 +1,4 @@
+import "DPI-C" function void setebreak();
 module top(
     input clk,
     input rst,//高电平有效
@@ -34,6 +35,10 @@ module top(
 
     ALU ALU(.ALUAsr(ALUAsr),.PC(pc),.R_rs1(R_rs1),.ALUBsr(ALUBsr),.Imm(Imm),.R_rs2(R_rs2),.ALUct(ALUct),.ALUres(ALUres));
 
+    always @(*) begin
+        if (Inst==32'h00100073)
+            setebreak();
+    end
 endmodule
 
 // export "DPI-C" task isEbreak;

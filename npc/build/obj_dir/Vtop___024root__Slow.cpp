@@ -5,6 +5,8 @@
 #include "Vtop___024root.h"
 #include "Vtop__Syms.h"
 
+#include "verilated_dpi.h"
+
 //==========
 
 
@@ -24,6 +26,9 @@ void Vtop___024root::__Vconfigure(Vtop__Syms* _vlSymsp, bool first) {
 
 Vtop___024root::~Vtop___024root() {
 }
+
+void Vtop___024unit____Vdpiimwrap_setebreak_TOP____024unit();
+void Vtop___024unit____Vdpiimwrap_set_invalid_inst_TOP____024unit();
 
 void Vtop___024root___settle__TOP__1(Vtop___024root* vlSelf) {
     if (false && vlSelf) {}  // Prevent unused
@@ -52,229 +57,70 @@ void Vtop___024root___settle__TOP__1(Vtop___024root* vlSelf) {
     vlSelf->top__DOT__ContrGen__DOT__deExtop__DOT__pair_list[5U] = 0x199U;
     vlSelf->top__DOT__ContrGen__DOT__deExtop__DOT__pair_list[6U] = 0x1aU;
     vlSelf->top__DOT__ContrGen__DOT__deExtop__DOT__pair_list[7U] = 0x9aU;
+    if ((0x100073U == vlSelf->Inst)) {
+        Vtop___024unit____Vdpiimwrap_setebreak_TOP____024unit();
+    }
     if ((0x13U == (0x3ffU & ((0x1fc00U & (vlSelf->Inst 
                                           >> 0xfU)) 
                              | ((0x380U & (vlSelf->Inst 
                                            >> 5U)) 
                                 | (0x7fU & vlSelf->Inst)))))) {
         vlSelf->top__DOT__ALUct = 0U;
+        vlSelf->top__DOT__ALUAsr = 1U;
+        vlSelf->top__DOT__ALUBsr = 0U;
+        vlSelf->top__DOT__Branch = 0U;
+    } else if ((0x17U == (0x7fU & ((0x1fc00U & (vlSelf->Inst 
+                                                >> 0xfU)) 
+                                   | ((0x380U & (vlSelf->Inst 
+                                                 >> 5U)) 
+                                      | (0x7fU & vlSelf->Inst)))))) {
+        vlSelf->top__DOT__ALUct = 0U;
+        vlSelf->top__DOT__ALUAsr = 0U;
+        vlSelf->top__DOT__ALUBsr = 0U;
+        vlSelf->top__DOT__Branch = 0U;
+    } else if ((0x37U == (0x7fU & ((0x1fc00U & (vlSelf->Inst 
+                                                >> 0xfU)) 
+                                   | ((0x380U & (vlSelf->Inst 
+                                                 >> 5U)) 
+                                      | (0x7fU & vlSelf->Inst)))))) {
+        vlSelf->top__DOT__ALUct = 1U;
+        vlSelf->top__DOT__ALUAsr = 0U;
+        vlSelf->top__DOT__ALUBsr = 0U;
+        vlSelf->top__DOT__Branch = 0U;
+    } else if ((0x6fU == (0x7fU & ((0x1fc00U & (vlSelf->Inst 
+                                                >> 0xfU)) 
+                                   | ((0x380U & (vlSelf->Inst 
+                                                 >> 5U)) 
+                                      | (0x7fU & vlSelf->Inst)))))) {
+        vlSelf->top__DOT__ALUct = 0U;
+        vlSelf->top__DOT__ALUAsr = 0U;
+        vlSelf->top__DOT__ALUBsr = 2U;
+        vlSelf->top__DOT__Branch = 1U;
+    } else if ((0x67U == (0x3ffU & ((0x1fc00U & (vlSelf->Inst 
+                                                 >> 0xfU)) 
+                                    | ((0x380U & (vlSelf->Inst 
+                                                  >> 5U)) 
+                                       | (0x7fU & vlSelf->Inst)))))) {
+        vlSelf->top__DOT__ALUct = 0U;
+        vlSelf->top__DOT__ALUAsr = 0U;
+        vlSelf->top__DOT__ALUBsr = 2U;
+        vlSelf->top__DOT__Branch = 2U;
+    } else if ((0x1a3U == (0x3ffU & ((0x1fc00U & (vlSelf->Inst 
+                                                  >> 0xfU)) 
+                                     | ((0x380U & (vlSelf->Inst 
+                                                   >> 5U)) 
+                                        | (0x7fU & vlSelf->Inst)))))) {
+        vlSelf->top__DOT__ALUct = 0U;
+        vlSelf->top__DOT__ALUAsr = 1U;
+        vlSelf->top__DOT__ALUBsr = 0U;
         vlSelf->top__DOT__Branch = 0U;
     } else {
-        vlSelf->top__DOT__ALUct = ((0x17U == (0x7fU 
-                                              & ((0x1fc00U 
-                                                  & (vlSelf->Inst 
-                                                     >> 0xfU)) 
-                                                 | ((0x380U 
-                                                     & (vlSelf->Inst 
-                                                        >> 5U)) 
-                                                    | (0x7fU 
-                                                       & vlSelf->Inst)))))
-                                    ? 0U : ((0x37U 
-                                             == (0x7fU 
-                                                 & ((0x1fc00U 
-                                                     & (vlSelf->Inst 
-                                                        >> 0xfU)) 
-                                                    | ((0x380U 
-                                                        & (vlSelf->Inst 
-                                                           >> 5U)) 
-                                                       | (0x7fU 
-                                                          & vlSelf->Inst)))))
-                                             ? 1U : 
-                                            ((0x6fU 
-                                              == (0x7fU 
-                                                  & ((0x1fc00U 
-                                                      & (vlSelf->Inst 
-                                                         >> 0xfU)) 
-                                                     | ((0x380U 
-                                                         & (vlSelf->Inst 
-                                                            >> 5U)) 
-                                                        | (0x7fU 
-                                                           & vlSelf->Inst)))))
-                                              ? 0U : 
-                                             ((0x67U 
-                                               == (0x3ffU 
-                                                   & ((0x1fc00U 
-                                                       & (vlSelf->Inst 
-                                                          >> 0xfU)) 
-                                                      | ((0x380U 
-                                                          & (vlSelf->Inst 
-                                                             >> 5U)) 
-                                                         | (0x7fU 
-                                                            & vlSelf->Inst)))))
-                                               ? 0U
-                                               : ((0x1a3U 
-                                                   == 
-                                                   (0x3ffU 
-                                                    & ((0x1fc00U 
-                                                        & (vlSelf->Inst 
-                                                           >> 0xfU)) 
-                                                       | ((0x380U 
-                                                           & (vlSelf->Inst 
-                                                              >> 5U)) 
-                                                          | (0x7fU 
-                                                             & vlSelf->Inst)))))
-                                                   ? 0U
-                                                   : 1U)))));
-        vlSelf->top__DOT__Branch = ((0x17U == (0x7fU 
-                                               & ((0x1fc00U 
-                                                   & (vlSelf->Inst 
-                                                      >> 0xfU)) 
-                                                  | ((0x380U 
-                                                      & (vlSelf->Inst 
-                                                         >> 5U)) 
-                                                     | (0x7fU 
-                                                        & vlSelf->Inst)))))
-                                     ? 0U : ((0x37U 
-                                              == (0x7fU 
-                                                  & ((0x1fc00U 
-                                                      & (vlSelf->Inst 
-                                                         >> 0xfU)) 
-                                                     | ((0x380U 
-                                                         & (vlSelf->Inst 
-                                                            >> 5U)) 
-                                                        | (0x7fU 
-                                                           & vlSelf->Inst)))))
-                                              ? 0U : 
-                                             ((0x6fU 
-                                               == (0x7fU 
-                                                   & ((0x1fc00U 
-                                                       & (vlSelf->Inst 
-                                                          >> 0xfU)) 
-                                                      | ((0x380U 
-                                                          & (vlSelf->Inst 
-                                                             >> 5U)) 
-                                                         | (0x7fU 
-                                                            & vlSelf->Inst)))))
-                                               ? 1U
-                                               : ((0x67U 
-                                                   == 
-                                                   (0x3ffU 
-                                                    & ((0x1fc00U 
-                                                        & (vlSelf->Inst 
-                                                           >> 0xfU)) 
-                                                       | ((0x380U 
-                                                           & (vlSelf->Inst 
-                                                              >> 5U)) 
-                                                          | (0x7fU 
-                                                             & vlSelf->Inst)))))
-                                                   ? 2U
-                                                   : 0U))));
+        vlSelf->top__DOT__ALUct = 1U;
+        vlSelf->top__DOT__ALUAsr = 0U;
+        vlSelf->top__DOT__ALUBsr = 0U;
+        vlSelf->top__DOT__Branch = 0U;
+        Vtop___024unit____Vdpiimwrap_set_invalid_inst_TOP____024unit();
     }
-    vlSelf->top__DOT__ALUAsr = ((0x13U == (0x3ffU & 
-                                           ((0x1fc00U 
-                                             & (vlSelf->Inst 
-                                                >> 0xfU)) 
-                                            | ((0x380U 
-                                                & (vlSelf->Inst 
-                                                   >> 5U)) 
-                                               | (0x7fU 
-                                                  & vlSelf->Inst))))) 
-                                | ((0x17U != (0x7fU 
-                                              & ((0x1fc00U 
-                                                  & (vlSelf->Inst 
-                                                     >> 0xfU)) 
-                                                 | ((0x380U 
-                                                     & (vlSelf->Inst 
-                                                        >> 5U)) 
-                                                    | (0x7fU 
-                                                       & vlSelf->Inst))))) 
-                                   & ((0x37U != (0x7fU 
-                                                 & ((0x1fc00U 
-                                                     & (vlSelf->Inst 
-                                                        >> 0xfU)) 
-                                                    | ((0x380U 
-                                                        & (vlSelf->Inst 
-                                                           >> 5U)) 
-                                                       | (0x7fU 
-                                                          & vlSelf->Inst))))) 
-                                      & ((0x6fU != 
-                                          (0x7fU & 
-                                           ((0x1fc00U 
-                                             & (vlSelf->Inst 
-                                                >> 0xfU)) 
-                                            | ((0x380U 
-                                                & (vlSelf->Inst 
-                                                   >> 5U)) 
-                                               | (0x7fU 
-                                                  & vlSelf->Inst))))) 
-                                         & ((0x67U 
-                                             != (0x3ffU 
-                                                 & ((0x1fc00U 
-                                                     & (vlSelf->Inst 
-                                                        >> 0xfU)) 
-                                                    | ((0x380U 
-                                                        & (vlSelf->Inst 
-                                                           >> 5U)) 
-                                                       | (0x7fU 
-                                                          & vlSelf->Inst))))) 
-                                            & (0x1a3U 
-                                               == (0x3ffU 
-                                                   & ((0x1fc00U 
-                                                       & (vlSelf->Inst 
-                                                          >> 0xfU)) 
-                                                      | ((0x380U 
-                                                          & (vlSelf->Inst 
-                                                             >> 5U)) 
-                                                         | (0x7fU 
-                                                            & vlSelf->Inst))))))))));
-    vlSelf->top__DOT__ALUBsr = ((0x13U == (0x3ffU & 
-                                           ((0x1fc00U 
-                                             & (vlSelf->Inst 
-                                                >> 0xfU)) 
-                                            | ((0x380U 
-                                                & (vlSelf->Inst 
-                                                   >> 5U)) 
-                                               | (0x7fU 
-                                                  & vlSelf->Inst)))))
-                                 ? 0U : ((0x17U == 
-                                          (0x7fU & 
-                                           ((0x1fc00U 
-                                             & (vlSelf->Inst 
-                                                >> 0xfU)) 
-                                            | ((0x380U 
-                                                & (vlSelf->Inst 
-                                                   >> 5U)) 
-                                               | (0x7fU 
-                                                  & vlSelf->Inst)))))
-                                          ? 0U : ((0x37U 
-                                                   == 
-                                                   (0x7fU 
-                                                    & ((0x1fc00U 
-                                                        & (vlSelf->Inst 
-                                                           >> 0xfU)) 
-                                                       | ((0x380U 
-                                                           & (vlSelf->Inst 
-                                                              >> 5U)) 
-                                                          | (0x7fU 
-                                                             & vlSelf->Inst)))))
-                                                   ? 0U
-                                                   : 
-                                                  ((0x6fU 
-                                                    == 
-                                                    (0x7fU 
-                                                     & ((0x1fc00U 
-                                                         & (vlSelf->Inst 
-                                                            >> 0xfU)) 
-                                                        | ((0x380U 
-                                                            & (vlSelf->Inst 
-                                                               >> 5U)) 
-                                                           | (0x7fU 
-                                                              & vlSelf->Inst)))))
-                                                    ? 2U
-                                                    : 
-                                                   ((0x67U 
-                                                     == 
-                                                     (0x3ffU 
-                                                      & ((0x1fc00U 
-                                                          & (vlSelf->Inst 
-                                                             >> 0xfU)) 
-                                                         | ((0x380U 
-                                                             & (vlSelf->Inst 
-                                                                >> 5U)) 
-                                                            | (0x7fU 
-                                                               & vlSelf->Inst)))))
-                                                     ? 2U
-                                                     : 0U)))));
     __Vtemp4[4U] = (0x80U | ((7U & ((IData)(((((- (QData)((IData)(
                                                                   (vlSelf->Inst 
                                                                    >> 0x1fU)))) 
@@ -1267,12 +1113,23 @@ void Vtop___024root___settle__TOP__1(Vtop___024root* vlSelf) {
                                  : 0ULL);
 }
 
+void Vtop___024unit____Vdpiimwrap_set_gpr_ptr__Vdpioc2_TOP____024unit(const VlUnpacked<QData/*63:0*/, 32> &a);
+
+void Vtop___024root___initial__TOP__4(Vtop___024root* vlSelf) {
+    if (false && vlSelf) {}  // Prevent unused
+    Vtop__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
+    VL_DEBUG_IF(VL_DBG_MSGF("+    Vtop___024root___initial__TOP__4\n"); );
+    // Body
+    Vtop___024unit____Vdpiimwrap_set_gpr_ptr__Vdpioc2_TOP____024unit(vlSelf->top__DOT__RegisterFile__DOT__rf);
+}
+
 void Vtop___024root___eval_initial(Vtop___024root* vlSelf) {
     if (false && vlSelf) {}  // Prevent unused
     Vtop__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vtop___024root___eval_initial\n"); );
     // Body
     vlSelf->__Vclklast__TOP__clk = vlSelf->clk;
+    Vtop___024root___initial__TOP__4(vlSelf);
 }
 
 void Vtop___024root___eval_settle(Vtop___024root* vlSelf) {

@@ -1,3 +1,4 @@
+import "DPI-C" function void set_invalid_inst();
 module ContrGen(
     input[6:0] opcode,
     input [2:0] func3,
@@ -49,7 +50,7 @@ module ContrGen(
                 ALUct=4'b0000;ALUAsr=1'b1;ALUBsr=2'd0;Branch=3'd0;
             end
             default: begin
-                ALUct=4'b0001;ALUAsr=1'b0;ALUBsr=2'd0;Branch=3'd0;
+                ALUct=4'b0001;ALUAsr=1'b0;ALUBsr=2'd0;Branch=3'd0;set_invalid_inst();
             end
         endcase
         end
