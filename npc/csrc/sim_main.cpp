@@ -1,5 +1,3 @@
-#include <stdio.h>
-#include <stdlib.h>
 #include <assert.h>
 #include <time.h>
 #include <getopt.h>
@@ -9,9 +7,7 @@
 #include "verilated.h"
 #include "verilated_vcd_c.h"
 #include "verilated_dpi.h"
-#include <string.h>
-
-typedef uint32_t paddr_t;
+#include "commmon.h"
 
 #define BITMASK(bits) ((1ull << (bits)) - 1)
 #define BITS(x, hi, lo) (((x) >> (lo)) & BITMASK((hi) - (lo) + 1)) // similar to x[hi:lo] in verilog
@@ -25,6 +21,11 @@ typedef uint32_t paddr_t;
 static uint8_t pmem[CONFIG_MSIZE] PG_ALIGN = {};
 static char *img_file = NULL;
 unsigned long img[]={0xffc10113,0xff010113,0x0b098993,0x01813a83,0x00100073};
+
+typedef struct{
+  uint64_t *gpr;
+  uint64_t pc;
+} cpu_state;
 
 // extern Vtop* top;
 // extern VerilatedVcdC* tfp;
@@ -42,6 +43,8 @@ uint64_t *cpu_gpr = NULL;
 extern "C" void set_gpr_ptr(const svOpenArrayHandle r) {
   cpu_gpr = (uint64_t *)(((VerilatedDpiOpenVar*)r)->datap());
 }
+
+cpu_state cpu = {cpu_gpr,0};
 
 bool isebreak= false;
 extern "C" void setebreak() {
@@ -128,9 +131,9 @@ static long load_img() {
 
 
 void cpu_exec_once(){
-    unsigned long pc=top->pc;
-    printf("PC=%lx\n",pc);
-    unsigned int Inst=*((unsigned int *)guest_to_host(pc));
+    cpu.pc=top->pc;
+    printf("PC=%lx\n",cpu.pc);
+    unsigned int Inst=*((unsigned int *)guest_to_host(cpu.pc));
     top->Inst=Inst;
     top->eval();contextp->timeInc(1);tfp->dump(contextp->time());
     top->clk=0;top->eval();contextp->timeInc(1);tfp->dump(contextp->time());

@@ -1,11 +1,9 @@
 #include <dlfcn.h>
+#include "common.h"
 
-#include <isa.h>
-#include <cpu/cpu.h>
-#include <memory/paddr.h>
-#include <utils.h>
-#include <difftest-def.h>
+#define RESET_VECTOR 0x80000000
 
+enum { DIFFTEST_TO_DUT, DIFFTEST_TO_REF };
 
 void (*ref_difftest_memcpy)(paddr_t addr, void *buf, size_t n, bool direction) = NULL;
 void (*ref_difftest_regcpy)(void *dut, bool direction) = NULL;
@@ -16,6 +14,11 @@ void (*ref_difftest_raise_intr)(uint64_t NO) = NULL;
 
 static bool is_skip_ref = false;
 static int skip_dut_nr_inst = 0;
+
+typedef struct {
+  uint64_t gpr[32];
+  uint64_t pc;
+}CPU_state;
 
 // this is used to let ref skip instructions which
 // can not produce consistent behavior with NEMU
@@ -69,21 +72,30 @@ void init_difftest(char *ref_so_file, long img_size, int port) {
   void (*ref_difftest_init)(int) = dlsym(handle, "difftest_init");
   assert(ref_difftest_init);
 
-  Log("Differential testing: %s", ANSI_FMT("ON", ANSI_FG_GREEN));
-  Log("The result of every instruction will be compared with %s. "
-      "This will help you a lot for debugging, but also significantly reduce the performance. "
-      "If it is not necessary, you can turn it off in menuconfig.", ref_so_file);
+
+  printf("Differential testing: ON\n");//"\33[1;32m"
+  printf("The result of every instruction will be compared with %s. \n", ref_so_file);
+  printf("This will help you a lot for debugging, but also significantly reduce the performance.\n");
+  printf("If it is not necessary, you can turn it off in menuconfig.\n");
 
   ref_difftest_init(port);
   ref_difftest_memcpy(RESET_VECTOR, guest_to_host(RESET_VECTOR), img_size, DIFFTEST_TO_REF);
   ref_difftest_regcpy(&cpu, DIFFTEST_TO_REF);
 }
 
+void difftest_checkregs(CPU_state *ref_r, vaddr_t pc) {
+  for(int i=0;i<32;i++){
+    if(ref_r->gpr[i]!=cpu->gpr[i]) return false;
+  }
+  if(pc!=ref_r->pc) return false;
+  return true;
+}
+
 static void checkregs(CPU_state *ref, vaddr_t pc) {
-  if (!isa_difftest_checkregs(ref, pc)) {
-    nemu_state.state = NEMU_ABORT;
-    nemu_state.halt_pc = pc;
-    isa_reg_display();
+  
+  if (!difftest_checkregs(ref, pc)) {
+    npc_state= NPC_ABORT;
+    dump_gpr();
   }
 }
 
@@ -98,8 +110,8 @@ void difftest_step(vaddr_t pc, vaddr_t npc) {
       return;
     }
     skip_dut_nr_inst --;
-    if (skip_dut_nr_inst == 0)
-      panic("can not catch up with ref.pc = " FMT_WORD " at pc = " FMT_WORD, ref_r.pc, pc);
+    if (skip_dut_nr_inst == 0)//执行完需跳过比较的指令后pc指向不一样
+      printf("can not catch up with ref.pc = %x at pc = %x" ref_r.pc, pc);
     return;
   }
 

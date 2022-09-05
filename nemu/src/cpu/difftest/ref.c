@@ -3,16 +3,41 @@
 #include <difftest-def.h>
 #include <memory/paddr.h>
 
+typedef struct{
+  uint64_t *gpr;
+  uint64_t pc;
+} diff_cpuState_t;
+
 void difftest_memcpy(paddr_t addr, void *buf, size_t n, bool direction) {
-  assert(0);
+  if(direction==DIFFTEST_TO_REF){
+    /*copy to ref（nemu）*/
+  for (size_t i = 0; i < n; i++) {
+    paddr_write(addr+i,1,*((uint8_t*)buf)+i);
+  }
+  }
+  else{
+    assert(0);
+  }
 }
 
 void difftest_regcpy(void *dut, bool direction) {
-  assert(0);
+  //uint64_t *cpu_gpr = NULL;
+  diff_cpuState_t* ctx = (diff_cpuState_t*)dut;
+  if (direction == DIFFTEST_TO_REF) {
+    for(size_t i=0;i<32;i++){
+      cpu.pc=ctx->pc;
+      cpu.gpr[i]=ctx->gpr[i];
+    }
+  } else {
+    for(size_t i=0;i<32;i++){
+      ctx->pc=cpu.pc;
+      ctx->gpr[i]=cpu.gpr[i];
+    }
+  }
 }
 
 void difftest_exec(uint64_t n) {
-  assert(0);
+  cpu_exec(n);
 }
 
 void difftest_raise_intr(word_t NO) {
