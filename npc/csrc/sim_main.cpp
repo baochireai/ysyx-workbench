@@ -20,6 +20,9 @@
 
 static uint8_t pmem[CONFIG_MSIZE] PG_ALIGN = {};
 static char *img_file = NULL;
+static char *diff_so_file = NULL;
+static char *img_file = NULL;
+static int difftest_port = 1234;
 unsigned long img[]={0xffc10113,0xff010113,0x0b098993,0x01813a83,0x00100073};
 
 typedef struct{
@@ -75,11 +78,18 @@ static int parse_args(int argc, char *argv[]) {
   };
   int o;
   while ( (o = getopt_long(argc, argv, "-bhl:d:p:", table, NULL)) != -1) {
-    printf("%s\n",optarg);
     switch (o) {
+      case 'p': sscanf(optarg, "%d", &difftest_port); break;
+      case 'l': log_file = optarg; break;
+      case 'd': diff_so_file = optarg; break;
       case 1: img_file = optarg; return 0;
       default:
-        printf("parse_args false\n");
+        printf("Usage: %s [OPTION...] IMAGE [args]\n\n", argv[0]);
+        printf("\t-b,--batch              run with batch mode\n");
+        printf("\t-l,--log=FILE           output log to FILE\n");
+        printf("\t-d,--diff=REF_SO        run DiffTest with reference REF_SO\n");
+        printf("\t-p,--port=PORT          run DiffTest with port PORT\n");
+        printf("\n");
         exit(0);
     }
   }
@@ -150,6 +160,7 @@ void cpu_exec(uint64_t n){
 
   for(;n>0;n--){
     cpu_exec_once();
+    difftest_step(cpu.pc,top->pc);
     if(isebreak){
       npc_state=NPC_END;
       break;
@@ -307,7 +318,8 @@ int main(int argc,char** argv,char** env) {
   /**初始化存储和IMG**/
   init_mem();
   parse_args(argc,argv);
-  long size=load_img();
+  long img_size=load_img();
+  init_difftest(diff_so_file, img_size, difftest_port);
 
 	Verilated::mkdir("./build/logs");
 	// VerilatedContext* contextp=new VerilatedContext;
