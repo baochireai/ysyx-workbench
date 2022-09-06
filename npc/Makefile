@@ -25,7 +25,7 @@ $(SRC_AUTO_BIND):$(NXDC_FILES)
 
 CSRCS=$(shell find $(abspath ./csrc) -name "*.c" -or -name "*.cc" -or -name "*.cpp")
 VSRCS=$(shell find $(abspath ./vsrc) -name "*.v")
-INC_PATH+=$(NPC_HOME)/include
+INC_PATH+=$(NPC_HOME)/include $(NPC_HOME)/include/difftest
 
 include $(NVBOARD_HOME)/scripts/nvboard.mk#nvboard构建脚本
 

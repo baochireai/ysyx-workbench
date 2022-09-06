@@ -7,6 +7,7 @@
 #include "verilated.h"
 #include "verilated_vcd_c.h"
 #include "verilated_dpi.h"
+#include "difftest.h"
 #include "commmon.h"
 
 #define BITMASK(bits) ((1ull << (bits)) - 1)
