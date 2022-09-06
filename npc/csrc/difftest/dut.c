@@ -44,24 +44,25 @@ void init_difftest(char *ref_so_file, long img_size, int port) {
   assert(ref_so_file != NULL);
 
   void *handle;
+  printf("fail\n");
   handle = dlopen(ref_so_file, RTLD_LAZY);//打开动态库文件
   assert(handle);
   /*
   对动态库中的API符号进行符号解析与地址重定位，返回它们地址
   */
-  ref_difftest_memcpy = dlsym(handle, "difftest_memcpy");
+  ref_difftest_memcpy =  (void (*)(paddr_t, void*, size_t, bool))dlsym(handle, "difftest_memcpy");
   assert(ref_difftest_memcpy);
 
-  ref_difftest_regcpy = dlsym(handle, "difftest_regcpy");
+  ref_difftest_regcpy = (void (*)(void*, bool))dlsym(handle, "difftest_regcpy");
   assert(ref_difftest_regcpy);
 
-  ref_difftest_exec = dlsym(handle, "difftest_exec");
+  ref_difftest_exec = (void (*)(uint64_t))dlsym(handle, "difftest_exec");
   assert(ref_difftest_exec);
 
-  ref_difftest_raise_intr = dlsym(handle, "difftest_raise_intr");
+  ref_difftest_raise_intr = (void (*)(uint64_t))dlsym(handle, "difftest_raise_intr");
   assert(ref_difftest_raise_intr);
 
-  void (*ref_difftest_init)(int) = dlsym(handle, "difftest_init");
+  void (*ref_difftest_init)(int) =  (void (*)(int))dlsym(handle, "difftest_init");
   assert(ref_difftest_init);
 
 
@@ -75,7 +76,7 @@ void init_difftest(char *ref_so_file, long img_size, int port) {
   ref_difftest_regcpy(&cpu, DIFFTEST_TO_REF);
 }
 
-void difftest_checkregs(CPU_state *ref_r, vaddr_t pc) {
+bool difftest_checkregs(CPU_state *ref_r, vaddr_t pc) {
   for(int i=0;i<32;i++){
     if(ref_r->gpr[i]!=cpu.gpr[i]) return false;
   }
@@ -103,7 +104,7 @@ void difftest_step(vaddr_t pc, vaddr_t npc) {
     }
     skip_dut_nr_inst --;
     if (skip_dut_nr_inst == 0)//执行完需跳过比较的指令后pc指向不一样
-      printf("can not catch up with ref.pc = %x at pc = %x" ref_r.pc, pc);
+      printf("can not catch up with ref.pc = %lx at pc = %lx",ref_r.pc, pc);
     return;
   }
 

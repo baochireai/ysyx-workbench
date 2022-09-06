@@ -1,4 +1,3 @@
-#include <assert.h>
 #include <time.h>
 #include <getopt.h>
 #include <readline/readline.h>
@@ -8,7 +7,7 @@
 #include "verilated_vcd_c.h"
 #include "verilated_dpi.h"
 #include "difftest.h"
-#include "commmon.h"
+#include "common.h"
 
 #define BITMASK(bits) ((1ull << (bits)) - 1)
 #define BITS(x, hi, lo) (((x) >> (lo)) & BITMASK((hi) - (lo) + 1)) // similar to x[hi:lo] in verilog
@@ -22,14 +21,9 @@
 static uint8_t pmem[CONFIG_MSIZE] PG_ALIGN = {};
 static char *img_file = NULL;
 static char *diff_so_file = NULL;
-static char *img_file = NULL;
+static char *log_file = NULL;
 static int difftest_port = 1234;
 unsigned long img[]={0xffc10113,0xff010113,0x0b098993,0x01813a83,0x00100073};
-
-typedef struct{
-  uint64_t *gpr;
-  uint64_t pc;
-} cpu_state;
 
 // extern Vtop* top;
 // extern VerilatedVcdC* tfp;
@@ -38,8 +32,6 @@ typedef struct{
 VerilatedContext* contextp=new VerilatedContext;
 VerilatedVcdC* tfp=new VerilatedVcdC;
 Vtop* top=new Vtop(contextp);
-
-enum { NPC_RUNNING, NPC_STOP, NPC_END, NPC_ABORT, NPC_QUIT };
 
 int npc_state=npc_state;
 /*******DPI******/
@@ -59,6 +51,8 @@ bool is_invalid_inst= false;
 extern "C" void set_invalid_inst() {
   is_invalid_inst=true;
 }
+
+uint8_t* guest_to_host(paddr_t paddr) { return pmem + paddr - CONFIG_MBASE; }
 
 // 一个输出RTL中通用寄存器的值的示例
 void dump_gpr() {
@@ -82,7 +76,7 @@ static int parse_args(int argc, char *argv[]) {
     switch (o) {
       case 'p': sscanf(optarg, "%d", &difftest_port); break;
       case 'l': log_file = optarg; break;
-      case 'd': diff_so_file = optarg; break;
+      case 'd': diff_so_file = optarg;break;
       case 1: img_file = optarg; return 0;
       default:
         printf("Usage: %s [OPTION...] IMAGE [args]\n\n", argv[0]);
@@ -101,8 +95,6 @@ void init_mem() {
   printf("physical memory area [0x%08x, 0x%08x]\n",
       (paddr_t)CONFIG_MBASE, (paddr_t)CONFIG_MBASE + CONFIG_MSIZE - 1);
 }
-
-uint8_t* guest_to_host(paddr_t paddr) { return pmem + paddr - CONFIG_MBASE; }
 
 static long load_img() {
   if (img_file == NULL) {
@@ -321,7 +313,6 @@ int main(int argc,char** argv,char** env) {
   parse_args(argc,argv);
   long img_size=load_img();
   init_difftest(diff_so_file, img_size, difftest_port);
-
 	Verilated::mkdir("./build/logs");
 	// VerilatedContext* contextp=new VerilatedContext;
 	contextp->commandArgs(argc,argv);

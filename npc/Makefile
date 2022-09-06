@@ -12,6 +12,7 @@ VERILATOR_CFLAGS+=-O3#代码优化级别
 VERILATOR_CFLAGS+=--x-assign fast#optimize
 VERILATOR_CFLAGS+=--x-initial fast
 VERILATOR_CFLAGS+=--noassert
+VERILATOR_CFLAGS+=--trace
 
 BUILD_DIR=./build
 OBJ_DIR=$(BUILD_DIR)/obj_dir
@@ -37,7 +38,7 @@ endif
 
 INCFLAGS=$(addprefix -I,$(INC_PATH))
 CFLAGS+=$(INCFLAGS) -DTOP_NAME="\"V$(TOPNAME)\""
-LDFLAGS+= -lSDL2 -lSDL2_image -lreadline
+LDFLAGS+= -lSDL2 -lSDL2_image -lreadline -ldl
 
 LOGS_DIR=$(BUILD_DIR)/logs#存放波形文件
 

@@ -45,6 +45,7 @@ VM_USER_LDLIBS = \
 	-lSDL2 \
 	-lSDL2_image \
 	-lreadline \
+	-ldl \
 
 # User .cpp files (from .cpp's on Verilator command line)
 VM_USER_CLASSES = \
