@@ -40,7 +40,7 @@ extern "C" void set_gpr_ptr(const svOpenArrayHandle r) {
   cpu_gpr = (uint64_t *)(((VerilatedDpiOpenVar*)r)->datap());
 }
 
-cpu_state cpu = {cpu_gpr,0x80000000};
+cpu_state cpu;
 
 bool isebreak= false;
 extern "C" void setebreak() {
@@ -137,6 +137,7 @@ void cpu_exec_once(){
     cpu.pc=top->pc;
     printf("PC=%lx\n",cpu.pc);
     unsigned int Inst=*((unsigned int *)guest_to_host(cpu.pc));
+    printf("Inst=%x\n",Inst);
     top->Inst=Inst;
     top->eval();contextp->timeInc(1);tfp->dump(contextp->time());
     top->clk=0;top->eval();contextp->timeInc(1);tfp->dump(contextp->time());
@@ -153,6 +154,7 @@ void cpu_exec(uint64_t n){
 
   for(;n>0;n--){
     cpu_exec_once();
+    printf("pc=%lx\tdpc=%lx\n",cpu.pc,top->pc);
     difftest_step(cpu.pc,top->pc);
     if(isebreak){
       npc_state=NPC_END;
@@ -330,6 +332,7 @@ int main(int argc,char** argv,char** env) {
 	top->eval();
 	top->rst=0;
   is_invalid_inst=false;
+  cpu.gpr=cpu_gpr;cpu.pc=top->pc;
   init_difftest(diff_so_file, img_size, difftest_port);
   sdb_mainloop();
 	top->final();
