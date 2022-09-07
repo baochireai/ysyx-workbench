@@ -34,6 +34,7 @@ void difftest_regcpy(void *dut, bool direction) {
       cpu.gpr[i]=ctx->gpr[i];
     }
   } else {
+    isa_reg_display();
     CPU_state* ctx = (CPU_state*)dut;
     ctx->pc=cpu.pc;
     for(size_t i=0;i<32;i++){
