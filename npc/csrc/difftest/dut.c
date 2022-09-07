@@ -77,7 +77,10 @@ void init_difftest(char *ref_so_file, long img_size, int port) {
 
 bool difftest_checkregs(CPU_state *ref_r, vaddr_t pc) {
   for(int i=0;i<32;i++){
-    if(ref_r->gpr[i]!=cpu.gpr[i]) return false;
+    if(ref_r->gpr[i]!=cpu.gpr[i]){
+       printf("gpr[%d] is error! right=%lx,error=%lx\n",i,ref_r->gpr[i],cpu.gpr[i]);
+       return false;
+    }
   }
   if(cpu.pc!=ref_r->pc) return false;
   return true;
