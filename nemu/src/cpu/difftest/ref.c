@@ -12,7 +12,6 @@ void difftest_memcpy(paddr_t addr, void *buf, size_t n, bool direction) {
   if(direction==DIFFTEST_TO_REF){
     /*copy to ref（nemu）*/
   for (size_t i = 0; i < n; i++) {
-    printf("%lu:%x\t",i,(uint8_t)*((uint8_t*)buf+i));
     paddr_write(addr+i,1,*((uint8_t*)buf+i));
   }
   printf("\n");
@@ -30,13 +29,13 @@ void difftest_regcpy(void *dut, bool direction) {
     assert(0);
   }
   if (direction == DIFFTEST_TO_REF) {
+    cpu.pc=ctx->pc;
     for(size_t i=0;i<32;i++){
-      cpu.pc=ctx->pc;
       cpu.gpr[i]=ctx->gpr[i];
     }
   } else {
+    ctx->pc=cpu.pc;
     for(size_t i=0;i<32;i++){
-      ctx->pc=cpu.pc;
       ctx->gpr[i]=cpu.gpr[i];
     }
   }

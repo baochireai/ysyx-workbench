@@ -116,7 +116,7 @@ void difftest_step(vaddr_t pc, vaddr_t npc) {
 
   ref_difftest_exec(1);//REF执行指令
   ref_difftest_regcpy(&ref_r, DIFFTEST_TO_DUT);// 获取REF的寄存器状态到`dut`;
-
+  printf("ref_difftest_exec finish!\n");
   checkregs(&ref_r, pc);
 }
 #else
