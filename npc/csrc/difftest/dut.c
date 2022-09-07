@@ -44,7 +44,6 @@ void init_difftest(char *ref_so_file, long img_size, int port) {
   assert(ref_so_file != NULL);
 
   void *handle;
-  printf("fail\n");
   handle = dlopen(ref_so_file, RTLD_LAZY);//打开动态库文件
   assert(handle);
   /*
@@ -74,6 +73,7 @@ void init_difftest(char *ref_so_file, long img_size, int port) {
   ref_difftest_init(port);
   ref_difftest_memcpy(RESET_VECTOR, guest_to_host(RESET_VECTOR), img_size, DIFFTEST_TO_REF);
   ref_difftest_regcpy(&cpu, DIFFTEST_TO_REF);
+  printf("fail\n");
 }
 
 bool difftest_checkregs(CPU_state *ref_r, vaddr_t pc) {

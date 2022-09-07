@@ -40,7 +40,7 @@ extern "C" void set_gpr_ptr(const svOpenArrayHandle r) {
   cpu_gpr = (uint64_t *)(((VerilatedDpiOpenVar*)r)->datap());
 }
 
-cpu_state cpu = {cpu_gpr,0};
+cpu_state cpu = {cpu_gpr,0x80000000};
 
 bool isebreak= false;
 extern "C" void setebreak() {
@@ -312,7 +312,7 @@ int main(int argc,char** argv,char** env) {
   init_mem();
   parse_args(argc,argv);
   long img_size=load_img();
-  init_difftest(diff_so_file, img_size, difftest_port);
+  //init_difftest(diff_so_file, img_size, difftest_port);
 	Verilated::mkdir("./build/logs");
 	// VerilatedContext* contextp=new VerilatedContext;
 	contextp->commandArgs(argc,argv);
@@ -324,11 +324,13 @@ int main(int argc,char** argv,char** env) {
 
 	top->rst=1;
 	top->clk=0;
-	top->eval();contextp->timeInc(1);tfp->dump(contextp->time());
+	top->eval();//(cpu_gpr==NULL) eval启动后cpu_gpr才被初始化
+  contextp->timeInc(1);tfp->dump(contextp->time());
 	top->clk=1;
 	top->eval();
 	top->rst=0;
   is_invalid_inst=false;
+  init_difftest(diff_so_file, img_size, difftest_port);
   sdb_mainloop();
 	top->final();
 	tfp->close();

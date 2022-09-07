@@ -37,8 +37,8 @@ else#不用编译NVBOARD动态库
 endif
 
 INCFLAGS=$(addprefix -I,$(INC_PATH))
-CFLAGS+=$(INCFLAGS) -DTOP_NAME="\"V$(TOPNAME)\""
-LDFLAGS+= -lSDL2 -lSDL2_image -lreadline -ldl
+CFLAGS+=$(INCFLAGS) -DTOP_NAME="\"V$(TOPNAME)\""  #-fsanitize=address
+LDFLAGS+= -lSDL2 -lSDL2_image -lreadline -ldl  #-fsanitize=address -lasan
 
 LOGS_DIR=$(BUILD_DIR)/logs#存放波形文件
 
@@ -59,7 +59,7 @@ nvboard:$(BIN)
 build:$(BIN)
 
 run: $(BIN)
-	@$(BIN) $(ARGS) $(IMG) 
+	@LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libasan.so.4 $(BIN) $(ARGS) $(IMG)
 
 sim:
 	gtkwave -o   $(LOGS_DIR)/top.vcd $(LOGS_DIR)/top.sav
