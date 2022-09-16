@@ -29,7 +29,7 @@ extern "C" void pmem_write(long long waddr, long long wdata, char wmask) {
     }
   }
   if(wflag){
-    printf("pc:%08lx\twaddr:%08lx\twdata:%lxwmask:%x\n",cpu.pc,waddr,wdata,wmask);
+    printf("pc:%08lx\twaddr:%08lx\twdata:%lx\n",cpu.pc,waddr,wdata);
   }
 }
 
