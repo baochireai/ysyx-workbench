@@ -20,8 +20,9 @@ module DataMem(
     
     always @(*) begin
         pmem_read(raddr, DataOut);
-        if (WrEn==1'b1);
+        if(WrEn==1'b1) begin
             pmem_write(Addr, DataIn, wmask);
+        end
     end
 
 endmodule

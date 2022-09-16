@@ -20,17 +20,17 @@ extern "C" void pmem_write(long long waddr, long long wdata, char wmask) {
   // `wmask`中每比特表示`wdata`中1个字节的掩码,
   // 如`wmask = 0x3`代表只写入最低2个字节, 内存中的其它字节保持不变
   waddr=waddr & ~0x7ull;
-  bool wflag=false;
+  //bool wflag=false;
   //printf("wmask:%x\n",wmask);
   for(int i=0;i<8;i++){
     if((wmask>>i)&0x1){
-      wflag=true;
+      //wflag=true;
       *(guest_to_host(waddr+i))=(uint8_t)BITS(wdata,(i+1)*8-1, i*8);
     }
   }
-  if(wflag){
-    printf("pc:%08lx\twaddr:%08lx\twdata:%lx\n",cpu.pc,waddr,wdata);
-  }
+  // if(wflag){
+  //   printf("pc:%08lx\twaddr:%08lx\twdata:%lx\n",cpu.pc,waddr,wdata);
+  // }
 }
 
 uint8_t* guest_to_host(paddr_t paddr) { return pmem + paddr - CONFIG_MBASE; }

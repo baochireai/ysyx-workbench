@@ -1724,7 +1724,9 @@ VL_INLINE_OPT void Vtop___024root___sequent__TOP__3(Vtop___024root* vlSelf) {
                                                             ? 0x80000000ULL
                                                             : vlSelf->top__DOT__ALUres), vlSelf->__Vtask_pmem_read__5__rdata);
     vlSelf->top__DOT__MemOut = vlSelf->__Vtask_pmem_read__5__rdata;
-    Vtop___024unit____Vdpiimwrap_pmem_write_TOP____024unit(vlSelf->top__DOT__ALUres, vlSelf->top__DOT__R_rs2, (IData)(vlSelf->top__DOT__DataMem__DOT__wmask));
+    if (vlSelf->top__DOT__MemWr) {
+        Vtop___024unit____Vdpiimwrap_pmem_write_TOP____024unit(vlSelf->top__DOT__ALUres, vlSelf->top__DOT__R_rs2, (IData)(vlSelf->top__DOT__DataMem__DOT__wmask));
+    }
     VL_EXTEND_WQ(65,64, __Vtemp207, vlSelf->top__DOT__ALUres);
     vlSelf->top__DOT____Vcellinp__RegWsrcMux__lut[0U] 
         = __Vtemp207[0U];
