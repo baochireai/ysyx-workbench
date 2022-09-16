@@ -26,7 +26,8 @@ $(SRC_AUTO_BIND):$(NXDC_FILES)
 
 CSRCS=$(shell find $(abspath ./csrc) -name "*.c" -or -name "*.cc" -or -name "*.cpp")
 VSRCS=$(shell find $(abspath ./vsrc) -name "*.v")
-INC_PATH+=$(NPC_HOME)/include $(NPC_HOME)/include/difftest
+INC_PATH+=$(NPC_HOME)/include $(NPC_HOME)/include/difftest $(NPC_HOME)/include/cpu \
+		$(NPC_HOME)/include/memory $(NPC_HOME)/include/monitor $(NPC_HOME)/include/reg $(NPC_HOME)/include/monitor/sdb
 
 include $(NVBOARD_HOME)/scripts/nvboard.mk#nvboard构建脚本
 
@@ -59,6 +60,7 @@ nvboard:$(BIN)
 build:$(BIN)
 
 run: $(BIN)
+#或者 export LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libasan.so.4
 	@LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libasan.so.4 $(BIN) $(ARGS) $(IMG)
 
 sim:

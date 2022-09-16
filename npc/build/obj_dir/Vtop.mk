@@ -37,6 +37,11 @@ VM_MODPREFIX = Vtop
 VM_USER_CFLAGS = \
 	-I/home/mrxue/ysyx-workbench/npc/include \
 	-I/home/mrxue/ysyx-workbench/npc/include/difftest \
+	-I/home/mrxue/ysyx-workbench/npc/include/cpu \
+	-I/home/mrxue/ysyx-workbench/npc/include/memory \
+	-I/home/mrxue/ysyx-workbench/npc/include/monitor \
+	-I/home/mrxue/ysyx-workbench/npc/include/reg \
+	-I/home/mrxue/ysyx-workbench/npc/include/monitor/sdb \
 	-I/home/mrxue/ysyx-workbench/nvboard/include \
 	-DTOP_NAME="Vtop" \
 
@@ -49,13 +54,23 @@ VM_USER_LDLIBS = \
 
 # User .cpp files (from .cpp's on Verilator command line)
 VM_USER_CLASSES = \
+	cpu_exec \
 	dut \
+	memory \
+	monitor \
+	sdb \
+	reg \
 	sim_main \
 
 # User .cpp directories (from .cpp's on Verilator command line)
 VM_USER_DIR = \
 	/home/mrxue/ysyx-workbench/npc/csrc \
+	/home/mrxue/ysyx-workbench/npc/csrc/cpu \
 	/home/mrxue/ysyx-workbench/npc/csrc/difftest \
+	/home/mrxue/ysyx-workbench/npc/csrc/memory \
+	/home/mrxue/ysyx-workbench/npc/csrc/monitor \
+	/home/mrxue/ysyx-workbench/npc/csrc/monitor/sdb \
+	/home/mrxue/ysyx-workbench/npc/csrc/reg \
 
 
 ### Default rules...
@@ -67,7 +82,17 @@ include $(VERILATOR_ROOT)/include/verilated.mk
 ### Executable rules... (from --exe)
 VPATH += $(VM_USER_DIR)
 
+cpu_exec.o: /home/mrxue/ysyx-workbench/npc/csrc/cpu/cpu_exec.c
+	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
 dut.o: /home/mrxue/ysyx-workbench/npc/csrc/difftest/dut.c
+	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
+memory.o: /home/mrxue/ysyx-workbench/npc/csrc/memory/memory.c
+	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
+monitor.o: /home/mrxue/ysyx-workbench/npc/csrc/monitor/monitor.c
+	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
+sdb.o: /home/mrxue/ysyx-workbench/npc/csrc/monitor/sdb/sdb.c
+	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
+reg.o: /home/mrxue/ysyx-workbench/npc/csrc/reg/reg.c
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
 sim_main.o: /home/mrxue/ysyx-workbench/npc/csrc/sim_main.cpp
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<

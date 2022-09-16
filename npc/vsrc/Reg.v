@@ -5,6 +5,9 @@ module Reg #(WIDTH = 1, RESET_VAL = 0) (
   output reg [WIDTH-1:0] dout,
   input wen
 );
+  initial begin
+    dout=RESET_VAL;
+  end
   always @(posedge clk) begin
     if (rst) dout <= RESET_VAL;
     else if (wen) dout <= din;

@@ -82,21 +82,30 @@ bool difftest_checkregs(CPU_state *ref_r, vaddr_t pc) {
        return false;
     }
   }
-  if(cpu.pc!=ref_r->pc) return false;
+  if(cpu.pc!=ref_r->pc){
+    printf("pc is error! right=%lx,error=%lx\n",ref_r->pc,cpu.pc);
+    return false;
+  }
   return true;
 }
 
+void dump_ref_gpr(CPU_state *ref){
+  for(int i=0;i<32;i++){
+    printf("%s:\t0x%016lx\t%ld\n",regs[i],ref->gpr[i],ref->gpr[i]);
+  }
+}
 static void checkregs(CPU_state *ref, vaddr_t pc) {
   
   if (!difftest_checkregs(ref, pc)) {
     npc_state= NPC_ABORT;
+    printf("diff error happens at pc=%16lx\n",pc);
+    dump_ref_gpr(ref);
     dump_gpr();
   }
 }
 
 void difftest_step(vaddr_t pc, vaddr_t npc) {
   CPU_state ref_r;
-
   if (skip_dut_nr_inst > 0) {
     ref_difftest_regcpy(&ref_r, DIFFTEST_TO_DUT);// 获取REF的寄存器状态到`dut`;
     if (ref_r.pc == npc) {

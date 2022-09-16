@@ -6,11 +6,15 @@
 #include <stdint.h>
 #include <string.h>
 #include <assert.h>
+#include "verilated_dpi.h"
 
 #define CONFIG_DIFFTEST
 #define RESET_VECTOR 0x80000000
 
 enum { NPC_RUNNING, NPC_STOP, NPC_END, NPC_ABORT, NPC_QUIT };
+
+#define BITMASK(bits) ((1ull << (bits)) - 1)
+#define BITS(x, hi, lo) (((x) >> (lo)) & BITMASK((hi) - (lo) + 1)) // similar to x[hi:lo] in verilog
 
 typedef uint32_t paddr_t;
 
@@ -28,6 +32,8 @@ typedef struct{
 
 extern cpu_state cpu;
 extern int npc_state;
+
+extern const char* regs[];
 
 void dump_gpr();
 

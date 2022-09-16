@@ -18,11 +18,11 @@ module RegisterFile #(ADDR_WIDTH = 5, DATA_WIDTH = 64) (
   initial set_gpr_ptr(rf);  // rf为通用寄存器的二维数组变量
 
   always @(posedge clk) begin
-    if (wen) rf[waddr] <= wdata;//waddr unused
+    if (wen&&waddr!=5'd0) rf[waddr] <= wdata;//waddr unused
   end
-  //0号寄存器特性实现方式
-  assign R_rs1=(rs1==0)?0:rf[rs1];
-  assign R_rs2=(rs2==0)?0:rf[rs2];
+
+  assign R_rs1=rf[rs1];
+  assign R_rs2=rf[rs2];
 
   //不能实现0号寄存器特性
   // assign rf[0]={DATA_WIDTH{1'b0}};
