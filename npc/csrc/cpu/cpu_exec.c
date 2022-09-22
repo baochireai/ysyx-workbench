@@ -46,7 +46,7 @@ void cpu_exec(uint64_t n){
     else if (is_invalid_inst){
       npc_state=NPC_ABORT;
       //unsigned int Inst=*((unsigned int *)guest_to_host(cpu.pc));
-      printf("find undefine Inst at PC=%08lx!\n",cpu.pc);
+      printf("find undefine Inst at PC=%08lx!\n",cpu.pc);//pc位置有问题
       break;
     }
     if (npc_state != NPC_RUNNING) break;

@@ -59,13 +59,15 @@ module top(
     RegisterFile RegisterFile(.rs1(Inst[19:15]),.rs2(Inst[24:20]),.waddr(Inst[11:7]),.R_rs1(R_rs1),.R_rs2(R_rs2),
                 .clk(clk),.wdata(RegWdata),.wen(RegWr));
 
+    wire isTuncate,isSext;
     ContrGen ContrGen(.opcode(Inst[6:0]),.func3(Inst[14:12]),.func7(Inst[31:25]),.ALUct(ALUct),.Extop(Extop),
-      .RegWr(RegWr),.ALUAsr(ALUAsr),.ALUBsr(ALUBsr),.Branch(Branch),.MemOP(MemOP),.MemWr(MemWr),.MemtoReg(MemtoReg));
+      .RegWr(RegWr),.ALUAsr(ALUAsr),.ALUBsr(ALUBsr),.Branch(Branch),.MemOP(MemOP),.MemWr(MemWr),.MemtoReg(MemtoReg),
+      .isTuncate(isTuncate),.isSext(isSext));
     
     ImmGen ImmGen(.Inst(Inst[31:7]),.Extop(Extop),.Imm(Imm));
 
     ALU ALU(.ALUAsr(ALUAsr),.PC(pc),.R_rs1(R_rs1),.ALUBsr(ALUBsr),.Imm(Imm),.R_rs2(R_rs2),.ALUct(ALUct),
-            .ALUres(ALUres),.Less(Less),.Zero(Zero));
+            .ALUres(ALUres),.Less(Less),.Zero(Zero),.isTuncate(isTuncate),.isSext(isSext));
     
     DataMem DataMem(.Addr(ALUres),.MemOP(MemOP),.DataIn(R_rs2),.WrEn(MemWr),.DataOut(MemOut));
 

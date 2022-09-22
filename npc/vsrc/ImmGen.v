@@ -4,7 +4,7 @@ module ImmGen(
     output [63:0] Imm
 );
 
-
+    //3'd1 Imm_R
     MuxKeyInternal #(5,3,64,1) isRegWr(.out(Imm),.key(Extop),.default_out(64'd0),.lut({
     3'd2,{{52{Inst[31]}},Inst[31:20]},//Imm_I
     3'd3,{{52{Inst[31]}},Inst[31:25],Inst[11:7]},//Imm_S

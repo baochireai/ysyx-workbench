@@ -5,13 +5,19 @@ unsigned long img[]={0xffc10113,0xff010113,0x0b098993,0x01813a83,0x00100073};
 
 /**DPI**/
 extern "C" void pmem_read(long long raddr, long long *rdata) {
-
+  bool mread_debug=false;
+  if(mread_debug){
+    printf("(npc)pc:%08lx\traddr:%08llx\t",cpu.pc+4,raddr);
+  }
   // 总是读取地址为`raddr & ~0x7ull`的8字节返回给`rdata`
   raddr=raddr&~0x7ull;
   //printf("pc:%08lx\n",raddr);
   uint8_t* pdata=(uint8_t*)rdata;
   for(int i=0;i<8;i++){
     pdata[i]=*(guest_to_host(raddr+i));
+  }
+  if(mread_debug){
+    printf("rdata:%016llx\n",*rdata);
   }
 }
 
