@@ -10,8 +10,9 @@ static uint8_t *p_space = NULL;
 
 uint8_t* new_space(int size) {
   uint8_t *p = p_space;
-  // page aligned;
-  size = (size + (PAGE_SIZE - 1)) & ~PAGE_MASK;//PAGE_SIZE 0x10000 2^12 PAGE_MASK 0xffff_ffff_ffff_f000 即低12位为零其余位为1
+  // page aligned;  得到该page首地址
+  //按page分配 不满一page分配1page
+  size = (size + (PAGE_SIZE - 1)) & ~PAGE_MASK;//PAGE_SIZE 0x1000 2^12 PAGE_MASK oxfff 即最低12位为1
   p_space += size;
   assert(p_space - io_space < IO_SPACE_MAX);
   return p;
