@@ -19,15 +19,15 @@ module ContrGen(
     MuxKeyInternal #(11,7,3,1) deExtop(.out(Extop),.key(opcode),.default_out(3'd0),.lut({
     7'b0010011,3'd2,//addi srai andi slti sltiu xori slli srli
     7'b0000011,3'd2,//ld  lw lwu lbu lh lhu
-    7'b0110011,3'd1,//add sub and sltu or slt
+    7'b0110011,3'd1,//add sub and sltu or slt mul
     7'b0010111,3'd5,//auipc
     7'b0110111,3'd5,//lui
     7'b1101111,3'd6,//jal
     7'b1100111,3'd2,//jalr
     7'b0100011,3'd3,//sd sh sb sw
-    7'b1100011,3'd4,//beq bne bge blt bltu
-    7'b0111011,3'd1,//addw sllw sraw mulw divw subw remw
-    7'b0011011,3'd2//addiw  slliw sraiw
+    7'b1100011,3'd4,//beq bne bge blt bltu bgeu
+    7'b0111011,3'd1,//addw sllw sraw mulw divw subw remw srlw
+    7'b0011011,3'd2//addiw  slliw sraiw srliw
     }));
 
     MuxKeyInternal #(4,3,1,1) isRegWr(.out(RegWr),.key(Extop),.default_out(1'b0),.lut({
@@ -47,7 +47,7 @@ module ContrGen(
                 ALUct=4'b0000;ALUAsr=1'b0;ALUBsr=2'd0;Branch=3'd0;MemWr=1'b0;MemOP=3'd0;MemtoReg=1'b0;isTuncate=1'b0;isSext=1'b0;
             end
             17'bzzzzzzz_zzz_0110111:begin //lui
-                ALUct=4'b0001;ALUAsr=1'b0;ALUBsr=2'd0;Branch=3'd0;MemWr=1'b0;MemOP=3'd0;MemtoReg=1'b0;isTuncate=1'b0;isSext=1'b0;
+                ALUct=4'b0011;ALUAsr=1'b0;ALUBsr=2'd0;Branch=3'd0;MemWr=1'b0;MemOP=3'd0;MemtoReg=1'b0;isTuncate=1'b0;isSext=1'b0;
             end
             17'bzzzzzzz_zzz_1101111:begin //jal
                 ALUct=4'b0000;ALUAsr=1'b0;ALUBsr=2'd2;Branch=3'd1;MemWr=1'b0;MemOP=3'd0;MemtoReg=1'b0;isTuncate=1'b0;isSext=1'b0;//无条件跳转PC目标
@@ -165,6 +165,18 @@ module ContrGen(
             end
             17'b0100000_101_0011011:begin//sraiw
                 ALUct=4'b1101;ALUAsr=1'b1;ALUBsr=2'd0;Branch=3'd0;MemWr=1'b0;MemOP=3'd0;MemtoReg=1'b0;isTuncate=1'b1;isSext=1'b1;
+            end
+            17'b0000001_000_0110011:begin //mul
+                ALUct=4'b1110;ALUAsr=1'b1;ALUBsr=2'd1;Branch=3'd0;MemWr=1'b0;MemOP=3'b000;MemtoReg=1'b0;isTuncate=1'b0;isSext=1'b0;
+            end
+            17'b000000z_101_0011011:begin//srliw
+                ALUct=4'b0101;ALUAsr=1'b1;ALUBsr=2'd0;Branch=3'd0;MemWr=1'b0;MemOP=3'd0;MemtoReg=1'b0;isTuncate=1'b1;isSext=1'b1;
+            end
+            17'b0000000_101_0111011:begin//srlw
+                ALUct=4'b0101;ALUAsr=1'b1;ALUBsr=2'd1;Branch=3'd0;MemWr=1'b0;MemOP=3'd0;MemtoReg=1'b0;isTuncate=1'b1;isSext=1'b1;
+            end
+            17'bzzzzzzz_111_1100011:begin //bgeu
+                ALUct=4'b1010;ALUAsr=1'b1;ALUBsr=2'd1;Branch=3'd6;MemWr=1'b0;MemOP=3'd0;MemtoReg=1'b0;isTuncate=1'b0;isSext=1'b0;
             end
             default: begin
                 ALUct=4'b0001;ALUAsr=1'b0;ALUBsr=2'd0;Branch=3'd0;MemWr=1'b0;MemOP=3'd0;MemtoReg=1'b0;isTuncate=1'b0;isSext=1'b0;set_invalid_inst();

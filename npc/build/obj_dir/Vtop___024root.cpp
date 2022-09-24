@@ -152,7 +152,7 @@ VL_INLINE_OPT void Vtop___024root___sequent__TOP__3(Vtop___024root* vlSelf) {
                                             >> 5U)) 
                                           | (0x7fU 
                                              & vlSelf->Inst)))))) {
-            vlSelf->top__DOT__ALUct = 1U;
+            vlSelf->top__DOT__ALUct = 3U;
             vlSelf->top__DOT__ALUAsr = 0U;
             vlSelf->top__DOT__ALUBsr = 0U;
             vlSelf->top__DOT__Branch = 0U;
@@ -978,6 +978,65 @@ VL_INLINE_OPT void Vtop___024root___sequent__TOP__3(Vtop___024root* vlSelf) {
         vlSelf->top__DOT__MemtoReg = 0U;
         vlSelf->top__DOT__isTuncate = 1U;
         vlSelf->top__DOT__isSext = 1U;
+    } else if ((0x433U == ((0x1fc00U & (vlSelf->Inst 
+                                        >> 0xfU)) | 
+                           ((0x380U & (vlSelf->Inst 
+                                       >> 5U)) | (0x7fU 
+                                                  & vlSelf->Inst))))) {
+        vlSelf->top__DOT__ALUct = 0xeU;
+        vlSelf->top__DOT__ALUAsr = 1U;
+        vlSelf->top__DOT__ALUBsr = 1U;
+        vlSelf->top__DOT__Branch = 0U;
+        vlSelf->top__DOT__MemWr = 0U;
+        vlSelf->top__DOT__MemOP = 0U;
+        vlSelf->top__DOT__MemtoReg = 0U;
+        vlSelf->top__DOT__isTuncate = 0U;
+        vlSelf->top__DOT__isSext = 0U;
+    } else if ((0x29bU == (0x1fbffU & ((0x1fc00U & 
+                                        (vlSelf->Inst 
+                                         >> 0xfU)) 
+                                       | ((0x380U & 
+                                           (vlSelf->Inst 
+                                            >> 5U)) 
+                                          | (0x7fU 
+                                             & vlSelf->Inst)))))) {
+        vlSelf->top__DOT__ALUct = 5U;
+        vlSelf->top__DOT__ALUAsr = 1U;
+        vlSelf->top__DOT__ALUBsr = 0U;
+        vlSelf->top__DOT__Branch = 0U;
+        vlSelf->top__DOT__MemWr = 0U;
+        vlSelf->top__DOT__MemOP = 0U;
+        vlSelf->top__DOT__MemtoReg = 0U;
+        vlSelf->top__DOT__isTuncate = 1U;
+        vlSelf->top__DOT__isSext = 1U;
+    } else if ((0x2bbU == ((0x1fc00U & (vlSelf->Inst 
+                                        >> 0xfU)) | 
+                           ((0x380U & (vlSelf->Inst 
+                                       >> 5U)) | (0x7fU 
+                                                  & vlSelf->Inst))))) {
+        vlSelf->top__DOT__ALUct = 5U;
+        vlSelf->top__DOT__ALUAsr = 1U;
+        vlSelf->top__DOT__ALUBsr = 1U;
+        vlSelf->top__DOT__Branch = 0U;
+        vlSelf->top__DOT__MemWr = 0U;
+        vlSelf->top__DOT__MemOP = 0U;
+        vlSelf->top__DOT__MemtoReg = 0U;
+        vlSelf->top__DOT__isTuncate = 1U;
+        vlSelf->top__DOT__isSext = 1U;
+    } else if ((0x3e3U == (0x3ffU & ((0x1fc00U & (vlSelf->Inst 
+                                                  >> 0xfU)) 
+                                     | ((0x380U & (vlSelf->Inst 
+                                                   >> 5U)) 
+                                        | (0x7fU & vlSelf->Inst)))))) {
+        vlSelf->top__DOT__ALUct = 0xaU;
+        vlSelf->top__DOT__ALUAsr = 1U;
+        vlSelf->top__DOT__ALUBsr = 1U;
+        vlSelf->top__DOT__Branch = 6U;
+        vlSelf->top__DOT__MemWr = 0U;
+        vlSelf->top__DOT__MemOP = 0U;
+        vlSelf->top__DOT__MemtoReg = 0U;
+        vlSelf->top__DOT__isTuncate = 0U;
+        vlSelf->top__DOT__isSext = 0U;
     } else {
         vlSelf->top__DOT__ALUct = 1U;
         vlSelf->top__DOT__ALUAsr = 0U;
@@ -1770,22 +1829,25 @@ VL_INLINE_OPT void Vtop___024root___sequent__TOP__3(Vtop___024root* vlSelf) {
                                             | (QData)((IData)(
                                                               __Vtemp99[0U]))));
     __Vtemp103[0U] = (IData)(((IData)(vlSelf->top__DOT__isTuncate)
-                               ? (QData)((IData)(((0x1fU 
-                                                   >= (IData)(vlSelf->top__DOT__ALU__DOT__BarrelShifter__DOT__shamt))
-                                                   ? 
-                                                  (0xf8000000U 
-                                                   >> (IData)(vlSelf->top__DOT__ALU__DOT__BarrelShifter__DOT__shamt))
-                                                   : 0U)))
+                               ? ((((QData)((IData)(
+                                                    (- (IData)(
+                                                               (1U 
+                                                                & (IData)(
+                                                                          (vlSelf->top__DOT__ALU__DOT__ALUA 
+                                                                           >> 0x1fU))))))) 
+                                    << 0x20U) | (QData)((IData)(vlSelf->top__DOT__ALU__DOT__ALUA))) 
+                                  >> (IData)(vlSelf->top__DOT__ALU__DOT__BarrelShifter__DOT__shamt))
                                : (vlSelf->top__DOT__ALU__DOT__ALUA 
                                   >> (IData)(vlSelf->top__DOT__ALU__DOT__BarrelShifter__DOT__shamt))));
     __Vtemp103[1U] = (IData)((((IData)(vlSelf->top__DOT__isTuncate)
-                                ? (QData)((IData)((
-                                                   (0x1fU 
-                                                    >= (IData)(vlSelf->top__DOT__ALU__DOT__BarrelShifter__DOT__shamt))
-                                                    ? 
-                                                   (0xf8000000U 
-                                                    >> (IData)(vlSelf->top__DOT__ALU__DOT__BarrelShifter__DOT__shamt))
-                                                    : 0U)))
+                                ? ((((QData)((IData)(
+                                                     (- (IData)(
+                                                                (1U 
+                                                                 & (IData)(
+                                                                           (vlSelf->top__DOT__ALU__DOT__ALUA 
+                                                                            >> 0x1fU))))))) 
+                                     << 0x20U) | (QData)((IData)(vlSelf->top__DOT__ALU__DOT__ALUA))) 
+                                   >> (IData)(vlSelf->top__DOT__ALU__DOT__BarrelShifter__DOT__shamt))
                                 : (vlSelf->top__DOT__ALU__DOT__ALUA 
                                    >> (IData)(vlSelf->top__DOT__ALU__DOT__BarrelShifter__DOT__shamt))) 
                               >> 0x20U));

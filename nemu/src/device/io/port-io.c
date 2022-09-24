@@ -1,6 +1,6 @@
 #include <device/map.h>
 
-#define PORT_IO_SPACE_MAX 65535
+#define PORT_IO_SPACE_MAX 65535//端口IO
 
 #define NR_MAP 16
 static IOMap maps[NR_MAP] = {};
