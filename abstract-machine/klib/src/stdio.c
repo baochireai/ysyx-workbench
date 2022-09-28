@@ -49,6 +49,7 @@ int printf(const char *fmt, ...) {
        default:
         break;
        } 
+       break;
     default:
       putch(fmt[i]);
       break;
