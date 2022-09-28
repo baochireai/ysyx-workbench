@@ -44,7 +44,7 @@ word_t map_read(paddr_t addr, int len, IOMap *map) {
   assert(len >= 1 && len <= 8);
   check_bound(map, addr);
   paddr_t offset = addr - map->low;//地址偏移
-  invoke_callback(map->callback, offset, len, false); //唤醒回调函数 prepare data to read
+  invoke_callback(map->callback, offset, len, false); //唤醒回调函数 prepare data to read 
   word_t ret = host_read(map->space + offset, len);
   return ret;
 }
