@@ -25,6 +25,9 @@ int printf(const char *fmt, ...) {
   va_list ap;
   va_start(ap, fmt);
   size_t i=0;
+  char *str;
+  int num;
+  char buff[20]="";
   while(fmt[i]!='\0'){
     switch (fmt[i])
     {
@@ -32,14 +35,13 @@ int printf(const char *fmt, ...) {
        switch (fmt[i++])
        {
        case 's':
-        char* str= va_arg(ap, char*); 
+        str=va_arg(ap, char*); 
         while(*str){
           putch(*str);str++;
         }
         break;
        case 'd':
-        int num=va_arg(ap,int);
-        char buff[20]="";
+        num=va_arg(ap,int);
         int2string(buff,num);
         for(int i=0;buff[i]!='\0';i++){
           putch(buff[i]);
