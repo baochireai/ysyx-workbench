@@ -32,7 +32,7 @@ int printf(const char *fmt, ...) {
     switch (fmt[i])
     {
     case '%':
-       switch (fmt[i++])
+       switch (fmt[++i])
        {
        case 's':
         str=va_arg(ap, char*); 
@@ -50,7 +50,7 @@ int printf(const char *fmt, ...) {
         break;
        } 
     default:
-      putch(fmt[i]);
+      putch(fmt[i++]);
       break;
     }
   }
