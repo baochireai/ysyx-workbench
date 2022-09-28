@@ -50,9 +50,10 @@ int printf(const char *fmt, ...) {
         break;
        } 
     default:
-      putch(fmt[i++]);
+      putch(fmt[i]);
       break;
     }
+    i++;
   }
   va_end(ap);
   return 1;
