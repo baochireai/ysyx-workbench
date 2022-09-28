@@ -43,8 +43,8 @@ int printf(const char *fmt, ...) {
        case 'd':
         num=va_arg(ap,int);
         int2string(buff,num);
-        for(int i=0;buff[i]!='\0';i++){
-          putch(buff[i]);
+        for(int t=0;buff[t]!='\0';t++){
+          putch(buff[t]);
         }
        default:
         break;
