@@ -5,14 +5,6 @@
 
 #if !defined(__ISA_NATIVE__) || defined(__NATIVE_USE_KLIB__)
 
-int printf(const char *fmt, ...) {
-  panic("Not implemented");
-}
-
-int vsprintf(char *out, const char *fmt, va_list ap) {
-  panic("Not implemented");
-}
-
 char* int2string(char* dst,int num){
   char buff[20];
   size_t len=0;
@@ -26,6 +18,46 @@ char* int2string(char* dst,int num){
   }
   dst[len]='\0';
   return dst;
+}
+
+int printf(const char *fmt, ...) {
+  if(fmt==NULL) return -1;
+  va_list ap;
+  va_start(ap, fmt);
+  size_t i=0;
+  while(fmt[i]!='\0'){
+    switch (fmt[i])
+    {
+    case '%':
+       switch (fmt[i++])
+       {
+       case 's':
+        char* str= va_arg(ap, char*); 
+        while(*str){
+          putch(*str);str++;
+        }
+        break;
+       case 'd':
+        int num=va_arg(ap,int);
+        char buff[20]="";
+        int2string(buff,num);
+        for(int i=0;buff[i]!='\0';i++){
+          putch(buff[i]);
+        }
+       default:
+        break;
+       } 
+    default:
+      putch(fmt[i]);
+      break;
+    }
+  }
+  va_end(ap);
+  return 1;
+}
+
+int vsprintf(char *out, const char *fmt, va_list ap) {
+  panic("Not implemented");
 }
 
 int sprintf(char *out, const char *fmt, ...) {
@@ -49,6 +81,7 @@ int sprintf(char *out, const char *fmt, ...) {
     out[len++]=fmt[i];
     i++;
   }
+  va_end(ap);
   out[len]='\0';
   return 1;
 }

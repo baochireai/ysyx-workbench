@@ -31,6 +31,7 @@ void init_serial() {
   add_pio_map ("serial", CONFIG_SERIAL_PORT, serial_base, 8, serial_io_handler);
 #else
   add_mmio_map("serial", CONFIG_SERIAL_MMIO, serial_base, 8, serial_io_handler);
+  //CONFIG_SERIAL_MMIO 0xa00003f8
 #endif
 
 }
