@@ -27,6 +27,7 @@ int printf(const char *fmt, ...) {
   size_t i=0;
   char *str;
   int num;
+  int ch;
   char buff[20]="";
   while(fmt[i]!='\0'){
     switch (fmt[i])
@@ -46,6 +47,10 @@ int printf(const char *fmt, ...) {
         for(int t=0;buff[t]!='\0';t++){
           putch(buff[t]);
         }
+        case 'c':
+        ch=va_arg(ap,int);
+        putch((char)ch);
+        break;
        default:
         break;
        } 
