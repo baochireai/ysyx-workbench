@@ -40,7 +40,7 @@ void init_map() {
 }
 
 word_t map_read(paddr_t addr, int len, IOMap *map) {
-  printf("map read\n");
+  printf("map read at 0x%8x\n",addr);
   assert(len >= 1 && len <= 8);
   check_bound(map, addr);
   paddr_t offset = addr - map->low;//地址偏移
