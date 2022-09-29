@@ -22,46 +22,46 @@ char* int2string(char* dst,int num){
 
 int printf(const char *fmt, ...) {
   if(fmt==NULL) return -1;
-  // va_list ap;
-  // va_start(ap, fmt);
-  // size_t i=0;
-  // char *str;
-  // int num;
-  // int ch;
-  // char buff[20]="";
-  // while(fmt[i]!='\0'){
-  //   switch (fmt[i])
-  //   {
-  //   case '%':
-  //      switch (fmt[++i])
-  //      {
-  //      case 's':
-  //       str=va_arg(ap, char*); 
-  //       while(*str){
-  //         putch(*str);str++;
-  //       }
-  //       break;
-  //      case 'd':
-  //       num=va_arg(ap,int);
-  //       int2string(buff,num);
-  //       for(int t=0;buff[t]!='\0';t++){
-  //         putch(buff[t]);
-  //       }
-  //       case 'c':
-  //       ch=va_arg(ap,int);
-  //       putch((char)ch);
-  //       break;
-  //      default:
-  //       break;
-  //      } 
-  //      break;
-  //   default:
-  //     putch(fmt[i]);
-  //     break;
-  //   }
-  //   i++;
-  // }
-  // va_end(ap);
+  va_list ap;
+  va_start(ap, fmt);
+  size_t i=0;
+  char *str;
+  int num;
+  int ch;
+  char buff[20]="";
+  while(fmt[i]!='\0'){
+    switch (fmt[i])
+    {
+    case '%':
+       switch (fmt[++i])
+       {
+       case 's':
+        str=va_arg(ap, char*); 
+        while(*str){
+          putch(*str);str++;
+        }
+        break;
+       case 'd':
+        num=va_arg(ap,int);
+        int2string(buff,num);
+        for(int t=0;buff[t]!='\0';t++){
+          putch(buff[t]);
+        }
+        case 'c':
+        ch=va_arg(ap,int);
+        putch((char)ch);
+        break;
+       default:
+        break;
+       } 
+       break;
+    default:
+      putch(fmt[i]);
+      break;
+    }
+    i++;
+  }
+  va_end(ap);
   return 1;
 }
 
