@@ -8,6 +8,9 @@
 char* int2string(char* dst,int num){
   char buff[20];
   size_t len=0;
+  int ch=num%10+'0';
+  buff[len++]=(char)ch;
+  num=num/10;
   while(num){
     int ch=num%10+'0';
     buff[len++]=(char)ch;
