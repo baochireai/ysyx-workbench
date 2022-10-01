@@ -29,12 +29,13 @@ int atoi(const char* nptr) {
   return x;
 }
 
-static char *hbrk;
+static char *hbrk=0;
 
 void *malloc(size_t size) {
   // On native, malloc() will be called during initializaion of C runtime.
   // Therefore do not call panic() here, else it will yield a dead recursion:
   //   panic() -> putchar() -> (glibc) -> malloc() -> panic()
+  if(hbrk==0) hbrk=heap.start;
   size  = (size_t)ROUNDUP(size, 8);
   char *old = hbrk;
   hbrk += size;
