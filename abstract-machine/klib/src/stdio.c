@@ -28,7 +28,7 @@ int printf(const char *fmt, ...) {
   va_list ap;
   va_start(ap, fmt);
   size_t i=0;
-  char *str;
+  volatile char *str;
   int num;
   int ch;
   char buff[20]="";
