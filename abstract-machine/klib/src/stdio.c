@@ -40,7 +40,8 @@ int printf(const char *fmt, ...) {
        {
        case 's':
         str=va_arg(ap, char*); 
-        putstr(str);
+        putch(*str);
+        //putstr(str);
         break;
        case 'd':
         num=va_arg(ap,int);
