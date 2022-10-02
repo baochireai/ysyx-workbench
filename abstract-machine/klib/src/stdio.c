@@ -42,11 +42,10 @@ int printf(const char *fmt, ...) {
   int ArgIntVal = 0;  // 接收整型
   unsigned long ArgHexVal = 0;// 接十六进制
   char* ArgStrVal = NULL;  // 接收字符型
-  //double ArgFloVal = 0.0; // 接受浮点型
-  unsigned long val_seg = 0;   // 数据切分
+  double ArgFloVal = 0.0; // 接受浮点型
+  unsigned long val_seg = (unsigned long)ArgFloVal;   // 数据切分
   //unsigned long val_temp = 0;  // 临时保存数据
   int cnt = 0;       // 数据长度计数
-  
   va_list pArgs; // 定义va_list类型指针，用于存储参数的地址
   va_start(pArgs, fmt); // 初始化pArgs
   while (*pStr != '\0')
