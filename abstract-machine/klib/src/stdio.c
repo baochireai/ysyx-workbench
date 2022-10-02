@@ -44,7 +44,7 @@ int printf(const char *fmt, ...) {
   char* ArgStrVal = NULL;  // 接收字符型
   double ArgFloVal = 0.0; // 接受浮点型
   unsigned long val_seg = (unsigned long)ArgFloVal;   // 数据切分
-  //unsigned long val_temp = 0;  // 临时保存数据
+  unsigned long val_temp = 0;  // 临时保存数据
   int cnt = 0;       // 数据长度计数
   va_list pArgs; // 定义va_list类型指针，用于存储参数的地址
   va_start(pArgs, fmt); // 初始化pArgs
@@ -208,48 +208,48 @@ int printf(const char *fmt, ...) {
               pStr++;
               break;
 
-          // case 'f':
-          //     // 接收浮点型
-          //     ArgFloVal = va_arg(pArgs, double);
-          //     val_seg = (unsigned long)ArgFloVal;// 取整数部分
-          //     val_temp = val_seg;      // 临时保存整数部分数据
-          //     ArgFloVal = ArgFloVal - val_seg;// 得出余下的小数部分
-          //     // 计算整数部分长度
-          //     if (val_seg)
-          //     {
-          //         while (val_seg) {
-          //             cnt++;
-          //             val_seg /= 10;
-          //         }
-          //     }
-          //     else cnt = 1;// 数字0的长度为1
-          //     ret_num += cnt;// 字符个数加上整数的长度
-          //     // 将整数转为单个字符打印
-          //     while (cnt)
-          //     {
-          //         val_seg = val_temp / m_pow_n(10, cnt - 1);
-          //         val_temp %= m_pow_n(10, cnt - 1);
-          //         putch((char)val_seg + '0');
-          //         cnt--;
-          //     }
-          //     // 打印小数点
-          //     putch('.');
-          //     ret_num++;
-          //     // 开始输出小数部分
-          //     ArgFloVal *= 1000000;
-          //     // printf("\r\n %f\r\n", ArgFloVal);
-          //     cnt = 6;
-          //     val_temp = (int)ArgFloVal;// 取整数部分
-          //     while (cnt)
-          //     {
-          //         val_seg = val_temp / m_pow_n(10, cnt - 1);
-          //         val_temp %= m_pow_n(10, cnt - 1);
-          //         putch((char)val_seg + '0');
-          //         cnt--;
-          //     }
-          //     ret_num += 6;
-          //     pStr++;
-          //     break;
+          case 'f':
+              // 接收浮点型
+              ArgFloVal = va_arg(pArgs, double);
+              val_seg = (unsigned long)ArgFloVal;// 取整数部分
+              val_temp = val_seg;      // 临时保存整数部分数据
+              ArgFloVal = ArgFloVal - val_seg;// 得出余下的小数部分
+              // 计算整数部分长度
+              if (val_seg)
+              {
+                  while (val_seg) {
+                      cnt++;
+                      val_seg /= 10;
+                  }
+              }
+              else cnt = 1;// 数字0的长度为1
+              ret_num += cnt;// 字符个数加上整数的长度
+              // 将整数转为单个字符打印
+              while (cnt)
+              {
+                  val_seg = val_temp / m_pow_n(10, cnt - 1);
+                  val_temp %= m_pow_n(10, cnt - 1);
+                  putch((char)val_seg + '0');
+                  cnt--;
+              }
+              // 打印小数点
+              putch('.');
+              ret_num++;
+              // 开始输出小数部分
+              ArgFloVal *= 1000000;
+              // printf("\r\n %f\r\n", ArgFloVal);
+              cnt = 6;
+              val_temp = (int)ArgFloVal;// 取整数部分
+              while (cnt)
+              {
+                  val_seg = val_temp / m_pow_n(10, cnt - 1);
+                  val_temp %= m_pow_n(10, cnt - 1);
+                  putch((char)val_seg + '0');
+                  cnt--;
+              }
+              ret_num += 6;
+              pStr++;
+              break;
           default:
               break;
           }
