@@ -39,8 +39,8 @@ int printf(const char *fmt, ...) {
        switch (fmt[++i])
        {
        case 's':
-        str=va_arg(ap, char*); 
-        putch(*str);
+        str=va_arg(ap,char*); 
+        putch(*(volatile uint8_t  *)str);
         //putstr(str);
         break;
        case 'd':
