@@ -11,7 +11,7 @@
 #elif defined(__ISA_MIPS32__)
 # define nemu_trap(code) asm volatile ("move $v0, %0; sdbbp" : :"r"(code))
 #elif defined(__ISA_RISCV32__) || defined(__ISA_RISCV64__)
-# define nemu_trap(code) asm volatile("mv a0, %0; ebreak" : :"r"(code))
+# define nemu_trap(code) asm volatile("mv a0, %0; ebreak" : :"r"(code))//內联汇编：允许C语言中嵌入汇编语句
 #elif
 # error unsupported ISA __ISA__
 #endif

@@ -12,9 +12,17 @@ extern "C" {
 #endif
 
 
-    // DPI EXPORTS
-    // DPI export at /home/mrxue/ysyx-workbench/npc/vsrc/top.v:3:6
-    extern void isEbreak(const svLogicVecVal* inst, svLogic* IsEbreak);
+    // DPI IMPORTS
+    // DPI import at /home/mrxue/ysyx-workbench/npc/vsrc/top.v:3:30
+    extern void pmem_read(long long raddr, long long* rdata);
+    // DPI import at /home/mrxue/ysyx-workbench/npc/vsrc/top.v:5:30
+    extern void pmem_write(long long waddr, long long wdata, char wmask);
+    // DPI import at /home/mrxue/ysyx-workbench/npc/vsrc/RegisterFile.v:1:30
+    extern void set_gpr_ptr(const svOpenArrayHandle a);
+    // DPI import at /home/mrxue/ysyx-workbench/npc/vsrc/ContrGen.v:1:30
+    extern void set_invalid_inst();
+    // DPI import at /home/mrxue/ysyx-workbench/npc/vsrc/top.v:1:30
+    extern void setebreak();
 
 #ifdef __cplusplus
 }

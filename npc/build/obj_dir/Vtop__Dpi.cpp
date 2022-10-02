@@ -14,11 +14,3 @@
 #include "Vtop__Dpi.h"
 #include "Vtop.h"
 
-#ifndef VL_DPIDECL_isEbreak_
-#define VL_DPIDECL_isEbreak_
-void isEbreak(const svLogicVecVal* inst, svLogic* IsEbreak) {
-    // DPI export at /home/mrxue/ysyx-workbench/npc/vsrc/top.v:3:6
-    return Vtop::isEbreak(inst, IsEbreak);
-}
-#endif
-

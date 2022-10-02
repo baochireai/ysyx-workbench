@@ -26,7 +26,6 @@ VM_TRACE_FST_WRITER_THREAD = 0
 # Generated module classes, fast-path, compile with highest optimization
 VM_CLASSES_FAST += \
 	Vtop \
-	Vtop__Dpi_Export_0 \
 	Vtop___024root \
 	Vtop___024unit \
 

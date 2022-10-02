@@ -18,7 +18,6 @@
 #include "Vtop___024unit.h"
 
 // DPI TYPES for DPI Export callbacks (Internal use)
-using Vtop__Vcb_isEbreak_t = void (*) (Vtop__Syms* __restrict vlSymsp, IData/*31:0*/ inst, CData/*0:0*/ &IsEbreak);
 
 // SYMS CLASS (contains all model state)
 class Vtop__Syms final : public VerilatedSyms {
@@ -32,9 +31,6 @@ class Vtop__Syms final : public VerilatedSyms {
     // MODULE INSTANCE STATE
     Vtop___024root                 TOP;
     Vtop___024unit                 TOP____024unit;
-
-    // SCOPE NAMES
-    VerilatedScope __Vscope___024unit;
 
     // CONSTRUCTORS
     Vtop__Syms(VerilatedContext* contextp, const char* namep, Vtop* modelp);

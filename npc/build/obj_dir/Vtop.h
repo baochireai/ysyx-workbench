@@ -31,7 +31,7 @@ class Vtop VL_NOT_FINAL {
     // propagate new values into/out from the Verilated model.
     VL_IN8(&clk,0,0);
     VL_IN8(&rst,0,0);
-    VL_IN(&Inst,31,0);
+    VL_OUT(&Inst,31,0);
     VL_OUT64(&pc,63,0);
 
     // CELLS
@@ -73,9 +73,6 @@ class Vtop VL_NOT_FINAL {
     VerilatedContext* contextp() const;
     /// Retrieve name of this model instance (as passed to constructor).
     const char* name() const;
-
-    /// DPI Export functions
-    static void isEbreak(const svLogicVecVal* inst, svLogic* IsEbreak);
 } VL_ATTR_ALIGNED(VL_CACHE_LINE_BYTES);
 
 #endif  // guard
