@@ -28,7 +28,7 @@ int printf(const char *fmt, ...) {
   va_list ap;
   va_start(ap, fmt);
   size_t i=0;
-  volatile char *str;
+  char *str;
   int num;
   int ch;
   char buff[20]="";
@@ -39,9 +39,8 @@ int printf(const char *fmt, ...) {
        switch (fmt[++i])
        {
        case 's':
-        str=(volatile char  *)va_arg(ap,char*); 
-        putch(*(volatile uint8_t  *)str);
-        //putstr(str);
+        str=va_arg(ap,char*); 
+        putstr(str);
         break;
        case 'd':
         num=va_arg(ap,int);
