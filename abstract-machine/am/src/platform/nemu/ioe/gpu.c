@@ -39,7 +39,7 @@ void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
         int x=ctl->x+i,y=ctl->y+j;
         if(x<w&&y<h){
           fb[y*w+x]=((uint32_t*)ctl->pixels)[j*block_w+i];
-          printf("%x,fb:%x\n",(uintptr_t)FB_ADDR+y*w+x,&fb[y*w+x]);
+          printf("offset:%x,%x,fb:%x\n",y*w+x,(uintptr_t)FB_ADDR+y*w+x,&fb[y*w+x]);
           // outl((uintptr_t)FB_ADDR+y*w+x,((uint32_t*)ctl->pixels)[j*block_w+i]);
         }
       }
