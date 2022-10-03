@@ -38,7 +38,7 @@ void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
         if(x<w&&y<h){
           //printf("")
           // outl(FB_ADDR+y*w+x,((uint32_t*)ctl->pixels)[j*block_w+i]);
-          outl(FB_ADDR+y*w+x,((uint32_t*)ctl->pixels)[j*block_w+i]);
+          //outl(FB_ADDR+y*w+x,((uint32_t*)ctl->pixels)[j*block_w+i]);
         }
       }
     }
