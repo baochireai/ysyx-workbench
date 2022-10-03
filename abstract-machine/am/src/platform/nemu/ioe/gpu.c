@@ -32,10 +32,11 @@ void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
     int block_w=ctl->w,block_h=ctl->h;
     int w = inw(VGACTL_ADDR+2);
     int h=inw(VGACTL_ADDR);
-    for(int i=0;i<block_w;i++){
-      for(int j=0;j<block_h;j++){
+    for(int j=0;j<block_h;j++){
+      for(int i=0;i<block_w;i++){
         int x=ctl->x+i,y=ctl->y+j;
         if(x<w&&y<h){
+          //printf("")
           // outl(FB_ADDR+y*w+x,((uint32_t*)ctl->pixels)[j*block_w+i]);
           outl(FB_ADDR+y*w+x,((uint32_t*)ctl->pixels)[j*block_w+i]);
         }
