@@ -23,8 +23,6 @@ void __am_gpu_config(AM_GPU_CONFIG_T *cfg) {
 }
 
 void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
-  static int i=0;
-  i++;
   if (ctl->sync) {
     outl(SYNC_ADDR, 1);
   }
@@ -34,17 +32,17 @@ void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
     int block_w=ctl->w,block_h=ctl->h;
     int w = inw(VGACTL_ADDR+2);
     int h=inw(VGACTL_ADDR);
-    printf("%d\n",i%(32*32));
     for(int j=0;j<block_h;j++){
       for(int i=0;i<block_w;i++){
         int x=ctl->x+i,y=ctl->y+j;
         if(x<w&&y<h){
-          //printf("")
+          printf("(%d,%d)\n",x,y);
           // outl(FB_ADDR+y*w+x,((uint32_t*)ctl->pixels)[j*block_w+i]);
           outl(FB_ADDR+y*w+x,((uint32_t*)ctl->pixels)[j*block_w+i]);
         }
       }
     }
+    printf("###############################\n");
   }
 }
 
