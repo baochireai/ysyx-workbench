@@ -29,7 +29,7 @@ void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
   else{
     //FB_ADDR
     //int block_size = ctl->w * ctl->h;
-    printf("color rcv:%x\n",*((uint32_t*)ctl->pixels));
+    //printf("color rcv:%x\n",*((uint32_t*)ctl->pixels));
     int block_w=ctl->w,block_h=ctl->h;
     int w = inw(VGACTL_ADDR+2);
     int h=inw(VGACTL_ADDR);
