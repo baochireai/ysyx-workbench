@@ -27,9 +27,6 @@ void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
     outl(SYNC_ADDR, 1);
   }
   else{
-    //FB_ADDR
-    //int block_size = ctl->w * ctl->h;
-    //printf("color rcv:%x\n",*((uint32_t*)ctl->pixels));
     int block_w=ctl->w,block_h=ctl->h;
     int w = inw(VGACTL_ADDR+2);
     int h=inw(VGACTL_ADDR);
@@ -39,8 +36,6 @@ void __am_gpu_fbdraw(AM_GPU_FBDRAW_T *ctl) {
         int x=ctl->x+i,y=ctl->y+j;
         if(x<w&&y<h){
           fb[y*w+x]=((uint32_t*)ctl->pixels)[j*block_w+i];
-          printf("offset:%x,%x,fb:%x\n",y*w+x,(uintptr_t)FB_ADDR+(y*w+x)*sizeof(uint32_t),&fb[y*w+x]);
-          // outl((uintptr_t)FB_ADDR+y*w+x,((uint32_t*)ctl->pixels)[j*block_w+i]);
         }
       }
     }
