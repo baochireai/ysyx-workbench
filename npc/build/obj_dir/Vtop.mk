@@ -42,6 +42,7 @@ VM_USER_CFLAGS = \
 	-I/home/mrxue/ysyx-workbench/npc/include/monitor \
 	-I/home/mrxue/ysyx-workbench/npc/include/reg \
 	-I/home/mrxue/ysyx-workbench/npc/include/monitor/sdb \
+	-I/home/mrxue/ysyx-workbench/npc/include/utils \
 	-I/home/mrxue/ysyx-workbench/nvboard/include \
 	-DTOP_NAME="Vtop" \
 
@@ -61,6 +62,7 @@ VM_USER_CLASSES = \
 	sdb \
 	reg \
 	sim_main \
+	timer \
 
 # User .cpp directories (from .cpp's on Verilator command line)
 VM_USER_DIR = \
@@ -71,6 +73,7 @@ VM_USER_DIR = \
 	/home/mrxue/ysyx-workbench/npc/csrc/monitor \
 	/home/mrxue/ysyx-workbench/npc/csrc/monitor/sdb \
 	/home/mrxue/ysyx-workbench/npc/csrc/reg \
+	/home/mrxue/ysyx-workbench/npc/csrc/utils \
 
 
 ### Default rules...
@@ -95,6 +98,8 @@ sdb.o: /home/mrxue/ysyx-workbench/npc/csrc/monitor/sdb/sdb.c
 reg.o: /home/mrxue/ysyx-workbench/npc/csrc/reg/reg.c
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
 sim_main.o: /home/mrxue/ysyx-workbench/npc/csrc/sim_main.cpp
+	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
+timer.o: /home/mrxue/ysyx-workbench/npc/csrc/utils/timer.c
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
 
 ### Link rules... (from --exe)

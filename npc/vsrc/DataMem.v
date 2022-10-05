@@ -25,6 +25,7 @@ module DataMem(
     reg [5:0] shift=({3'b000,Addr[2:0]}<<3);
     reg [127:0] data;
     reg [15:0] extmask;
+    
     always @(*) begin
 
         data={64'd0,DataIn}<<shift;
