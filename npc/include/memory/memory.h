@@ -3,6 +3,7 @@
 
 #include "common.h"
 #include "timer.h"
+#include "difftest.h"
 
 #define CONFIG_MSIZE 0x8000000
 #define CONFIG_MBASE 0x80000000

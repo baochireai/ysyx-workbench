@@ -14,11 +14,13 @@ extern "C" void pmem_read(long long raddr, long long *rdata) {
   raddr=raddr&~0x7ull;
   //printf("pc:%08lx\n",raddr);
   uint8_t* pdata=(uint8_t*)rdata;
-  if(raddr == RTC_ADDR){
-    *rdata=get_time();
+  if(!in_pmem(raddr)){
+    difftest_skip_ref();    
+    if(raddr == RTC_ADDR){
+      *rdata=get_time();
+    }
   }
   else{
-    assert(in_pmem(raddr));
     for(int i=0;i<8;i++){
       pdata[i]=*(guest_to_host(raddr+i));
     }
@@ -36,11 +38,14 @@ extern "C" void pmem_write(long long waddr, long long wdata, char wmask) {
   waddr=waddr & ~0x7ull;
   //bool wflag=false;
   //printf("wmask:%x\n",wmask);
-  if(waddr==SERIAL_PORT){
-    printf("%c",(uint8_t)BITS(wdata,7,0));
+  if(!in_pmem(waddr)){
+    difftest_skip_ref();
+    if(waddr==SERIAL_PORT){
+      printf("%c",(uint8_t)BITS(wdata,7,0));
+    }
   }
   else{
-    printf("pc:%08lx\twaddr:%08lx\twdata:%lx\twmask:0x%x\n",cpu.pc,waddr,wdata,wmask);
+    //printf("pc:%08lx\twaddr:%08lx\twdata:%lx\twmask:0x%x\n",cpu.pc,waddr,wdata,wmask);
     //assert(in_pmem(waddr));
     for(int i=0;i<8;i++){
       if((wmask>>i)&0x1){

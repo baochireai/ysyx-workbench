@@ -5,13 +5,18 @@ module ALU(
     input [1:0] ALUBsr, //ALUBsr 2'b00:Imm 2'b01:R_rs2 2'b10:64'd4
     input [63:0] Imm,
     input [63:0] R_rs2,
-    input [3:0] ALUct,
+    input [4:0] ALUct,
     input isTuncate,
     input isSext,
     output [63:0] ALUres,
     output Less,
     output Zero
 );
+
+    // function [63:0] SEXT;
+    //     input [31:0] word;
+    //     SEXT={{32{word[31]}},word[31:0]};
+    // endfunction
 
     /*操作数解码*/
     wire [63:0] ALUA,ALUB;
@@ -51,19 +56,38 @@ module ALU(
     wire [63:0] OR=ALUA|ALUB;
     wire [63:0] AND=ALUA&ALUB;
     wire [63:0] MUL=ALUA*ALUB;
-    wire [63:0] DIV=(isTuncate==1'b1)?({32'd0,$signed(ALUA[31:0])/$signed(ALUB[31:0])}):(ALUA/ALUB);
-    wire [63:0] REM=(isTuncate==1'b1)?({32'd0,$signed(ALUA[31:0])%$signed(ALUB[31:0])}):(ALUA%ALUB);
+    //wire [63:0] DIV=(isTuncate==1'b1)?({32'd0,$signed(ALUA[31:0])/$signed(ALUB[31:0])}):(ALUA/ALUB);
+    wire [63:0] DIV;
+    wire [63:0] REM;//=(isTuncate==1'b1)?({32'd0,$signed(ALUA[31:0])%$signed(ALUB[31:0])}):(ALUA%ALUB);
+
+    MuxKeyInternal #(4,2,64,1) diver(.out(DIV),.key({US_S,isTuncate}),.default_out(64'd0),.lut({
+        2'b10,ALUA/ALUB,//divu
+        2'b00,$signed(ALUA)/$signed(ALUA),//div
+        2'b01,{32'd0,$signed(ALUA[31:0])/$signed(ALUB[31:0])},//divw
+        2'b11,{32'd0,ALUA[31:0]/ALUB[31:0]}//divuw
+    }));
+
+    MuxKeyInternal #(4,2,64,1) remer(.out(REM),.key({US_S,isTuncate}),.default_out(64'd0),.lut({
+        2'b10,ALUA%ALUB,//remu
+        2'b00,$signed(ALUA)%$signed(ALUA),//rem
+        2'b01,{32'd0,$signed(ALUA[31:0])%$signed(ALUB[31:0])},//remw
+        2'b11,{32'd0,ALUA[31:0]%ALUB[31:0]}//remuw
+    }));
+
 
     wire [63:0] ALUout;
-    MuxKeyInternal #(8,3,64,1) deExtop(.out(ALUout),.key(ALUct[2:0]),.default_out(64'd0),.lut({
-        3'd0,adder,
-        3'd1,shift,
-        3'd2,{63'd0,Less},
-        3'd3,ALUB,
-        3'd4,((ALUct[3]==1'b1)?REM:XOR),
-        3'd5,shift,
-        3'd6,((ALUct[3]==1'b1)?MUL:OR), 
-        3'd7,((ALUct[3]==1'b1)?DIV:AND)
+    MuxKeyInternal #(11,4,64,1) deExtop(.out(ALUout),.key({ALUct[4],ALUct[2:0]}),.default_out(64'd0),.lut({
+        4'd0,adder,
+        4'd1,shift,
+        4'd2,{63'd0,Less},
+        4'd3,ALUB,
+        4'd4,XOR,//((ALUct[3]==1'b1)?REM:
+        4'd5,shift,
+        4'd6,OR, //((ALUct[3]==1'b1)?MUL:
+        4'd7,AND,//((ALUct[3]==1'b1)?DIV:
+        4'd8,REM,
+        4'd9,MUL,
+        4'd10,DIV
     }));
 
     assign ALUres=isTuncate?((isSext==1'b1)?{{32{ALUout[31]}},ALUout[31:0]}:{32'd0,ALUout[31:0]}):ALUout;

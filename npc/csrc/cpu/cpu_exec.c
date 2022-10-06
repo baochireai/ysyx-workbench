@@ -19,8 +19,10 @@ extern "C" void set_invalid_inst() {
 void cpu_exec_once(){
     //printf("PC=%lx\n",cpu.pc);
     //printf("Inst=%x\n",Inst);
-    top->clk=0;top->eval();contextp->timeInc(1);tfp->dump(contextp->time());
-    top->clk=1;top->eval();contextp->timeInc(1);tfp->dump(contextp->time());
+    top->clk=0;top->eval();
+    contextp->timeInc(1);tfp->dump(contextp->time());
+    top->clk=1;top->eval();
+    contextp->timeInc(1);tfp->dump(contextp->time());
     cpu.pc=top->pc;
 }
 void cpu_exec(uint64_t n){

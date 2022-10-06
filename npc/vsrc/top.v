@@ -29,7 +29,7 @@ module top(
     wire [63:0] R_rs1;
     wire [63:0] R_rs2;
 
-    wire [3:0] ALUct;
+    wire [4:0] ALUct;
     wire [2:0] Extop;
     wire RegWr;
     wire ALUAsr;
