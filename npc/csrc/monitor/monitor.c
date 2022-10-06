@@ -69,5 +69,7 @@ void init_monitor(int argc,char** argv){
   parse_args(argc,argv);
   long img_size=load_img();
   init_cpu_exec(argc,argv);
+#ifdef CONFIG_DIFFTEST
   init_difftest(diff_so_file, img_size, difftest_port);
+#endif
 }
