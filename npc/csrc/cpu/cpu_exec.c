@@ -20,9 +20,9 @@ void cpu_exec_once(){
     //printf("PC=%lx\n",cpu.pc);
     //printf("Inst=%x\n",Inst);
     top->clk=0;top->eval();
-    contextp->timeInc(1);tfp->dump(contextp->time());
+    //contextp->timeInc(1);tfp->dump(contextp->time());
     top->clk=1;top->eval();
-    contextp->timeInc(1);tfp->dump(contextp->time());
+    //contextp->timeInc(1);tfp->dump(contextp->time());
     cpu.pc=top->pc;
 }
 void cpu_exec(uint64_t n){
@@ -40,7 +40,7 @@ void cpu_exec(uint64_t n){
     //printf("Inst_RTL=%08x\n",Inst_RTL);
     cpu_exec_once();
     //printf("pc=%lx\tdpc=%lx\n",pc,top->pc);
-    difftest_step(pc,cpu.pc);
+    //difftest_step(pc,cpu.pc);
     if(isebreak){
       npc_state=NPC_END;
       break;
