@@ -19,7 +19,7 @@ module ContrGen(
     MuxKeyInternal #(11,7,3,1) deExtop(.out(Extop),.key(opcode),.default_out(3'd0),.lut({
     7'b0010011,3'd2,//addi srai andi slti sltiu xori slli srli ori
     7'b0000011,3'd2,//ld  lw lwu lbu lh lhu lb
-    7'b0110011,3'd1,//add sub and sltu or slt mul divu remu xor
+    7'b0110011,3'd1,//add sub and sltu or slt mul divu remu xor sll
     7'b0010111,3'd5,//auipc
     7'b0110111,3'd5,//lui
     7'b1101111,3'd6,//jal
@@ -198,6 +198,9 @@ module ContrGen(
             end
             17'bzzzzzzz_110_0010011:begin //ori
                 ALUct=5'b00110;ALUAsr=1'b1;ALUBsr=2'd0;Branch=3'd0;MemWr=1'b0;MemOP=3'b000;MemtoReg=1'b0;isTuncate=1'b0;isSext=1'b0;
+            end
+            17'b0000000_001_0110011:begin//sll
+                ALUct=5'b00001;ALUAsr=1'b1;ALUBsr=2'd1;Branch=3'd0;MemWr=1'b0;MemOP=3'd0;MemtoReg=1'b0;isTuncate=1'b0;isSext=1'b0;
             end
             default: begin
                 ALUct=5'b00001;ALUAsr=1'b0;ALUBsr=2'd0;Branch=3'd0;MemWr=1'b0;MemOP=3'd0;MemtoReg=1'b0;isTuncate=1'b0;isSext=1'b0;set_invalid_inst();

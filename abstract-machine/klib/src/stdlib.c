@@ -36,11 +36,11 @@ void *malloc(size_t size) {
   // Therefore do not call panic() here, else it will yield a dead recursion:
   //   panic() -> putchar() -> (glibc) -> malloc() -> panic()
   if(hbrk==0) hbrk=heap.start;
-  size  = (size_t)ROUNDUP(size, 8);
+  size  = (size_t)ROUNDUP(size, 8);//字节对齐
   char *old = hbrk;
   hbrk += size;
   assert((uintptr_t)heap.start <= (uintptr_t)hbrk && (uintptr_t)hbrk < (uintptr_t)heap.end);
-  for (uint64_t *p = (uint64_t *)old; p != (uint64_t *)hbrk; p ++) {
+  for (uint64_t *p = (uint64_t *)old; p != (uint64_t *)hbrk; p ++) {//分配空间后清零
     *p = 0;
   }
   return old;
