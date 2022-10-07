@@ -8,7 +8,8 @@
 #include <assert.h>
 #include "verilated_dpi.h"
 
-#define CONFIG_DIFFTEST
+//#define CONFIG_DIFFTEST
+//#define CONFIG_WAVETRACE
 #define RESET_VECTOR 0x80000000
 
 enum { NPC_RUNNING, NPC_STOP, NPC_END, NPC_ABORT, NPC_QUIT };
