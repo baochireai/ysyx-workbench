@@ -6,6 +6,11 @@
 typedef struct {
   word_t gpr[32];
   vaddr_t pc;
+  //控制状态寄存器CSR
+  word_t mstatus;//存放处理器状态 
+  word_t mcause;//存放触发异常的原因  进入对应异常处理程序
+  word_t mtvec;//存放异常入口地址 
+  vaddr_t mepc;//存放发生异常的pc 用于异常处理返回
 } riscv64_CPU_state;
 
 // decode

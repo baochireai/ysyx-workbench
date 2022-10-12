@@ -38,7 +38,9 @@ Context *kcontext(Area kstack, void (*entry)(void *), void *arg) {
 }
 
 void yield() {
-  asm volatile("li a7, -1; ecall");//触发异常 进入mtvec的异常入口地址（进行异常处理流程）
+  asm volatile("li a7, -1; ecall");
+  //li a7,-1; a7寄存器存放异常编号，以执行对应异常处理  -1为EVENT_YIELD
+  //ecall:触发异常 进入mtvec的异常入口地址（进行异常处理流程）
 }
 
 bool ienabled() {
