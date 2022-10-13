@@ -12,6 +12,12 @@ enum {
   TYPE_N, // none
 };
 
+enum {
+  EVENT_NULL = 0,
+  EVENT_YIELD, EVENT_SYSCALL, EVENT_PAGEFAULT, EVENT_ERROR,
+  EVENT_IRQ_TIMER, EVENT_IRQ_IODEV,
+} event;//异常种类
+
 //寄存器
 #define src1R(n) do { *src1 = R(n); } while (0)
 #define src2R(n) do { *src2 = R(n); } while (0)
@@ -64,7 +70,7 @@ static int decode_exec(Decode *s) {
   INSTPAT("??????? ????? ????? 011 ????? 01001 11", fsd     , S, Mw(src1 + dest, 8, src2));
 
   INSTPAT("0000000 00001 00000 000 00000 11100 11", ebreak , N, NEMUTRAP(s->pc, R(10))); // R(10) is $a0
-        
+  INSTPAT("0000000 00000 00000 000 00000 11100 11", ecalll , N,s->dnpc=isa_raise_intr(EVENT_YIELD,s->pc));      
   // Myself
   INSTPAT("??????? ????? ????? 010 ????? 01000 11", sw     , S, Mw(src1 + dest, 4, BITS(src2,31,0)));
   INSTPAT("??????? ????? ????? 001 ????? 01000 11", sh     , S, Mw(src1 + dest, 2, BITS(src2,15,0)));
