@@ -6,7 +6,6 @@ static Context* do_event(Event e, Context* c) {//异常处理程序
       printf("Get EVENT_YIELD!\n");break;
     default: panic("Unhandled event ID = %d", e.event);
   }
-  printf("out\n");
   return c;
 }
 

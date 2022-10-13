@@ -19,6 +19,7 @@ Context* __am_irq_handle(Context *c) {//内联汇编__am_asm_trap（异常入口
     }
     //调用回调函数
     c = user_handler(ev, c);//user_handler->nanos中的do_event()
+    printf("out!\n");
     assert(c != NULL);
   }
 
