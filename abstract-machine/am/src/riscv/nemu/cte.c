@@ -8,7 +8,7 @@ Context* __am_irq_handle(Context *c) {//内联汇编__am_asm_trap（异常入口
   if (user_handler) {
     Event ev = {0};
     for(int i=0;i<32;i++){
-      printf("0x%lx\t%d\n",c->gpr[i],c->gpr[i]);
+      printf("0x%x\t%ld\n",c->gpr[i],c->gpr[i]);
     }
     switch (c->mcause) {
       default: ev.event = EVENT_ERROR; break;
