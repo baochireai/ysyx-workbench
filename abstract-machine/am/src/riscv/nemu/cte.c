@@ -28,7 +28,7 @@ extern void __am_asm_trap(void);
 
 bool cte_init(Context*(*handler)(Event, Context*)) {
   // initialize exception entry
-  asm volatile("csrw mtvec, %0" : : "r"(__am_asm_trap));//异常入口地址
+  asm volatile("csrw mtvec, %0" : : "r"(__am_asm_trap));//异常入口地址写入mtvec
   /*
   内联汇编，插入汇编代码（__am_asm_trap为汇编程序标识符）
   __am_asm_trap中实现了异常处理过程（从保存pc，设置mcase的等，到进入用户异常处理程序，再mret返回恢复pc）
