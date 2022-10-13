@@ -70,7 +70,7 @@ static int decode_exec(Decode *s) {
   INSTPAT("??????? ????? ????? 011 ????? 01001 11", fsd     , S, Mw(src1 + dest, 8, src2));
 
   INSTPAT("0000000 00001 00000 000 00000 11100 11", ebreak , N, NEMUTRAP(s->pc, R(10))); // R(10) is $a0
-  INSTPAT("0000000 00000 00000 000 00000 11100 11", ecalll , N,s->dnpc=isa_raise_intr(11,s->pc));      
+  INSTPAT("0000000 00000 00000 000 00000 11100 11", ecalll , N,printf("%08lx",s->pc);s->dnpc=isa_raise_intr(11,s->pc));      
   // Myself
   INSTPAT("??????? ????? ????? 010 ????? 01000 11", sw     , S, Mw(src1 + dest, 4, BITS(src2,31,0)));
   INSTPAT("??????? ????? ????? 001 ????? 01000 11", sh     , S, Mw(src1 + dest, 2, BITS(src2,15,0)));
