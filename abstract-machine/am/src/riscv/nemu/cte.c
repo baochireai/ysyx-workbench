@@ -10,11 +10,14 @@ Context* __am_irq_handle(Context *c) {//内联汇编__am_asm_trap（异常入口
     // for(int i=0;i<32;i++){
     //   printf("0x%x\t%ld\n",c->gpr[i],c->gpr[i]);
     // }
+    //将执行流切换的原因打包成事件
     switch (c->mcause) {
+      case 11:
+        ev.event=EVENT_YIELD;break;
       default: ev.event = EVENT_ERROR; break;
     }
-
-    c = user_handler(ev, c);
+    //调用回调函数
+    c = user_handler(ev, c);//user_handler->nanos中的do_event()
     assert(c != NULL);
   }
 
