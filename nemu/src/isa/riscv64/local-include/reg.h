@@ -2,8 +2,12 @@
 #define __RISCV64_REG_H__
 
 #include <common.h>
+#include <isa.h>
 
 static inline int check_reg_idx(int idx) {
+  if(idx >= 0 && idx < 32){
+    printf("pc:%08lx",cpu.pc);
+  }
   IFDEF(CONFIG_RT_CHECK, assert(idx >= 0 && idx < 32));
   return idx;
 }
