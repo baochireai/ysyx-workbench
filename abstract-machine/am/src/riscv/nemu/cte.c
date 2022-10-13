@@ -5,7 +5,7 @@
 static Context* (*user_handler)(Event, Context*) = NULL;
 
 Context* __am_irq_handle(Context *c) {//内联汇编__am_asm_trap（异常入口地址）代码中调用了
-  //c->mepc+=4;//有时候不需要加4
+  c->mepc+=4;//有时候不需要加4
   if (user_handler) {
     Event ev = {0};
     // for(int i=0;i<32;i++){
