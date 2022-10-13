@@ -7,9 +7,9 @@ static Context* (*user_handler)(Event, Context*) = NULL;
 Context* __am_irq_handle(Context *c) {//内联汇编__am_asm_trap（异常入口地址）代码中调用了
   if (user_handler) {
     Event ev = {0};
-    for(int i=0;i<32;i++){
-      printf("0x%x\t%ld\n",c->gpr[i],c->gpr[i]);
-    }
+    // for(int i=0;i<32;i++){
+    //   printf("0x%x\t%ld\n",c->gpr[i],c->gpr[i]);
+    // }
     switch (c->mcause) {
       default: ev.event = EVENT_ERROR; break;
     }
