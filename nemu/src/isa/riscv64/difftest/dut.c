@@ -8,7 +8,7 @@ bool isa_difftest_checkregs(CPU_state *ref_r, vaddr_t pc) {
       printf("Checkregs fails!\n");
       printf("********ref********\n");
       for(int t=0;t<32;t++){
-        printf("%s:\t0x%016lx\t%ld\n",regs[i],ref_r->gpr[i],ref_r->gpr[i]);
+        printf("%s:\t0x%016lx\t%ld\n",regs[t],ref_r->gpr[t],ref_r->gpr[t]);
       }
       return false;
     }
