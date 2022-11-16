@@ -47,12 +47,21 @@ module top(
     wire Less,Zero;
 
     wire [2:0] MemOP;
-    wire MemtoReg,MemWr;
+    wire [1:0] RegSrc;
+    wire MemWr;
     wire [63:0] MemOut;
 
     wire [63:0] RegWdata;
 
-    PC PC(.clk(clk),.rst(rst),.NextPC(NextPC),.pc(pc));
+    wire isIntrPC;
+
+    wire [63:0] IntrPC;
+
+    wire IntrEn;
+
+    wire [63:0] IntrOut;
+
+    PC PC(.clk(clk),.rst(rst),.isIntrPC(isIntrPC),.NextPC(NextPC),.IntrPC(IntrPC),.pc(pc));
 
     GenNextPC GenNextPC(.Branch(Branch),.imm(Imm),.PC(pc),.R_rs1(R_rs1),.NextPC(NextPC),.Less(Less),.Zero(Zero));
 
@@ -61,8 +70,8 @@ module top(
 
     wire isTuncate,isSext;
     ContrGen ContrGen(.opcode(Inst[6:0]),.func3(Inst[14:12]),.func7(Inst[31:25]),.ALUct(ALUct),.Extop(Extop),
-      .RegWr(RegWr),.ALUAsr(ALUAsr),.ALUBsr(ALUBsr),.Branch(Branch),.MemOP(MemOP),.MemWr(MemWr),.MemtoReg(MemtoReg),
-      .isTuncate(isTuncate),.isSext(isSext));
+      .RegWr(RegWr),.ALUAsr(ALUAsr),.ALUBsr(ALUBsr),.Branch(Branch),.MemOP(MemOP),.MemWr(MemWr),.RegSrc(RegSrc),
+      .isTuncate(isTuncate),.isSext(isSext),.IntrEn(IntrEn));
     
     ImmGen ImmGen(.Inst(Inst[31:7]),.Extop(Extop),.Imm(Imm));
 
@@ -71,11 +80,14 @@ module top(
     
     DataMem DataMem(.Addr(ALUres),.MemOP(MemOP),.DataIn(R_rs2),.WrEn(MemWr),.DataOut(MemOut));
 
-    MuxKeyInternal #(2,1,64,1) RegWsrcMux(.out(RegWdata),.key(MemtoReg),.default_out(64'd0),.lut({
-        1'b1,MemOut,
-        1'b0,ALUres
+    MuxKeyInternal #(3,2,64,1) RegWsrcMux(.out(RegWdata),.key(RegSrc),.default_out(64'd0),.lut({
+        2'd0,ALUres,
+        2'd1,MemOut,
+        2'd2,IntrOut
     }));
 
+    Intr IntrUnit(.clk(clk),.IntrEn(IntrEn),.pc(pc),.R_rs1(R_rs1),.csr(Inst[31:20]),.func3(Inst[14:12]),
+      .isIntrPC(isIntrPC),.IntrPC(IntrPC),.dout(IntrOut));
     always @(*) begin
         if (Inst==32'h00100073)
             setebreak();
