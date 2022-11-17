@@ -49,18 +49,22 @@ VL_INLINE_OPT void Vtop___024root___sequent__TOP__3(Vtop___024root* vlSelf) {
     QData/*63:0*/ __Vdlyvval__top__DOT__RegisterFile__DOT__rf__v0;
     // Body
     __Vdlyvset__top__DOT__RegisterFile__DOT__rf__v0 = 0U;
-    if (((IData)(vlSelf->top__DOT__IntrUnit__DOT__ismcase) 
-         & (IData)(vlSelf->top__DOT__IntrUnit__DOT__isCSRw))) {
+    if ((((IData)(vlSelf->top__DOT__IntrUnit__DOT__ismcase) 
+          & (IData)(vlSelf->top__DOT__IntrUnit__DOT__isCSRw)) 
+         & (IData)(vlSelf->top__DOT__IntrEn))) {
         vlSelf->top__DOT__IntrUnit__DOT__mcase = vlSelf->top__DOT__IntrUnit__DOT__mcaseData;
     }
-    if (((IData)(vlSelf->top__DOT__IntrUnit__DOT__ismepc) 
-         & (IData)(vlSelf->top__DOT__IntrUnit__DOT__isCSRw))) {
+    if ((((IData)(vlSelf->top__DOT__IntrUnit__DOT__ismepc) 
+          & (IData)(vlSelf->top__DOT__IntrUnit__DOT__isCSRw)) 
+         & (IData)(vlSelf->top__DOT__IntrEn))) {
         vlSelf->top__DOT__IntrUnit__DOT__mepc = vlSelf->top__DOT__IntrUnit__DOT__mepcData;
     }
-    if (((0x300U == (vlSelf->Inst >> 0x14U)) & (IData)(vlSelf->top__DOT__IntrUnit__DOT__isCSRw))) {
+    if ((((0x300U == (vlSelf->Inst >> 0x14U)) & (IData)(vlSelf->top__DOT__IntrUnit__DOT__isCSRw)) 
+         & (IData)(vlSelf->top__DOT__IntrEn))) {
         vlSelf->top__DOT__IntrUnit__DOT__mstatus = vlSelf->top__DOT__IntrUnit__DOT__csrData;
     }
-    if (((0x305U == (vlSelf->Inst >> 0x14U)) & (IData)(vlSelf->top__DOT__IntrUnit__DOT__isCSRw))) {
+    if ((((0x305U == (vlSelf->Inst >> 0x14U)) & (IData)(vlSelf->top__DOT__IntrUnit__DOT__isCSRw)) 
+         & (IData)(vlSelf->top__DOT__IntrEn))) {
         vlSelf->top__DOT__IntrUnit__DOT__mtvec = vlSelf->top__DOT__IntrUnit__DOT__csrData;
     }
     if (((IData)(vlSelf->top__DOT__RegWr) & (0U != 
@@ -1236,6 +1240,19 @@ VL_INLINE_OPT void Vtop___024root___sequent__TOP__3(Vtop___024root* vlSelf) {
         vlSelf->top__DOT__ALUct = 1U;
         vlSelf->top__DOT__ALUAsr = 1U;
         vlSelf->top__DOT__ALUBsr = 1U;
+        vlSelf->top__DOT__Branch = 0U;
+        vlSelf->top__DOT__MemWr = 0U;
+        vlSelf->top__DOT__MemOP = 0U;
+        vlSelf->top__DOT__isTuncate = 0U;
+        vlSelf->top__DOT__isSext = 0U;
+    } else if ((0x73U == (0x7fU & ((0x1fc00U & (vlSelf->Inst 
+                                                >> 0xfU)) 
+                                   | ((0x380U & (vlSelf->Inst 
+                                                 >> 5U)) 
+                                      | (0x7fU & vlSelf->Inst)))))) {
+        vlSelf->top__DOT__ALUct = 1U;
+        vlSelf->top__DOT__ALUAsr = 0U;
+        vlSelf->top__DOT__ALUBsr = 0U;
         vlSelf->top__DOT__Branch = 0U;
         vlSelf->top__DOT__MemWr = 0U;
         vlSelf->top__DOT__MemOP = 0U;

@@ -30,7 +30,7 @@ module Intr(
     MuxKeyInternal #(3,3,1,1) CSRwEn(.out(isCSRw),.key(func3),.default_out(1'b0),.lut({
     3'b001,1'b1,//csrrw
     3'b010,1'b1,//csrrs
-    3'b000,1'b0//ecall ebreak(没有ismepc)
+    3'b000,1'b1//ecall ebreak(没有ismepc)
     }));
 
     wire ismtvec=(csr==12'h305)?1'b1:1'b0;
@@ -59,9 +59,9 @@ module Intr(
     3'b010,dout|R_rs1
     }));
 
-    Reg #(64,0) mtvecReg(.clk(clk),.rst(1'b0),.din(csrData),.dout(mtvec),.wen(ismtvec&isCSRw));
-    Reg #(64,0) mepcReg(.clk(clk),.rst(1'b0),.din(mepcData),.dout(mepc),.wen(ismepc&isCSRw));
-    Reg #(64,0) mcaseReg(.clk(clk),.rst(1'b0),.din(mcaseData),.dout(mcase),.wen(ismcase&isCSRw));
-    Reg #(64,0) mstatusReg(.clk(clk),.rst(1'b0),.din(csrData),.dout(mstatus),.wen(ismstatus&isCSRw));
+    Reg #(64,0) mtvecReg(.clk(clk),.rst(1'b0),.din(csrData),.dout(mtvec),.wen(ismtvec&isCSRw&IntrEn));
+    Reg #(64,0) mepcReg(.clk(clk),.rst(1'b0),.din(mepcData),.dout(mepc),.wen(ismepc&isCSRw&IntrEn));
+    Reg #(64,0) mcaseReg(.clk(clk),.rst(1'b0),.din(mcaseData),.dout(mcase),.wen(ismcase&isCSRw&IntrEn));
+    Reg #(64,64'ha00001800) mstatusReg(.clk(clk),.rst(1'b0),.din(csrData),.dout(mstatus),.wen(ismstatus&isCSRw&IntrEn));
 
 endmodule    

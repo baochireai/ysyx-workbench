@@ -217,6 +217,9 @@ module ContrGen(
             17'b0000000_001_0110011:begin//sll
                 ALUct=5'b00001;ALUAsr=1'b1;ALUBsr=2'd1;Branch=3'd0;MemWr=1'b0;MemOP=3'd0;isTuncate=1'b0;isSext=1'b0;
             end
+            17'bzzzzzzz_zzz_1110011:begin//sll
+                ALUct=5'b00001;ALUAsr=1'b0;ALUBsr=2'd0;Branch=3'd0;MemWr=1'b0;MemOP=3'd0;isTuncate=1'b0;isSext=1'b0;            
+            end
             default: begin
                 ALUct=5'b00001;ALUAsr=1'b0;ALUBsr=2'd0;Branch=3'd0;MemWr=1'b0;MemOP=3'd0;isTuncate=1'b0;isSext=1'b0;set_invalid_inst();
             end

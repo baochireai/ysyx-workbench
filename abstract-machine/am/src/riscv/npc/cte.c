@@ -4,9 +4,12 @@
 static Context* (*user_handler)(Event, Context*) = NULL;
 
 Context* __am_irq_handle(Context *c) {
+  c->mepc+=4;
   if (user_handler) {
     Event ev = {0};
     switch (c->mcause) {
+      case 11://环境调用异常
+        ev.event=EVENT_YIELD;break;
       default: ev.event = EVENT_ERROR; break;
     }
 

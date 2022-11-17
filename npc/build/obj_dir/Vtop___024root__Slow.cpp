@@ -33,7 +33,7 @@ void Vtop___024root___settle__TOP__1(Vtop___024root* vlSelf) {
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vtop___024root___settle__TOP__1\n"); );
     // Body
     vlSelf->top__DOT__ContrGen__DOT__isIntr__DOT__pair_list[0U] = 0xe7U;
-    vlSelf->top__DOT__IntrUnit__DOT__CSRwEn__DOT__pair_list[0U] = 0U;
+    vlSelf->top__DOT__IntrUnit__DOT__CSRwEn__DOT__pair_list[0U] = 1U;
     vlSelf->top__DOT__IntrUnit__DOT__CSRwEn__DOT__pair_list[1U] = 5U;
     vlSelf->top__DOT__IntrUnit__DOT__CSRwEn__DOT__pair_list[2U] = 3U;
     vlSelf->top__DOT__ContrGen__DOT__isRegWr__DOT__pair_list[0U] = 0xdU;
@@ -380,7 +380,7 @@ void Vtop___024root___initial__TOP__2(Vtop___024root* vlSelf) {
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vtop___024root___initial__TOP__2\n"); );
     // Body
     vlSelf->top__DOT__IntrUnit__DOT__mcase = 0ULL;
-    vlSelf->top__DOT__IntrUnit__DOT__mstatus = 0ULL;
+    vlSelf->top__DOT__IntrUnit__DOT__mstatus = 0xa00001800ULL;
     vlSelf->top__DOT__IntrUnit__DOT__mtvec = 0ULL;
     vlSelf->top__DOT__IntrUnit__DOT__mepc = 0ULL;
     vlSelf->pc = 0x80000000ULL;
@@ -1580,6 +1580,19 @@ void Vtop___024root___settle__TOP__4(Vtop___024root* vlSelf) {
         vlSelf->top__DOT__ALUct = 1U;
         vlSelf->top__DOT__ALUAsr = 1U;
         vlSelf->top__DOT__ALUBsr = 1U;
+        vlSelf->top__DOT__Branch = 0U;
+        vlSelf->top__DOT__MemWr = 0U;
+        vlSelf->top__DOT__MemOP = 0U;
+        vlSelf->top__DOT__isTuncate = 0U;
+        vlSelf->top__DOT__isSext = 0U;
+    } else if ((0x73U == (0x7fU & ((0x1fc00U & (vlSelf->Inst 
+                                                >> 0xfU)) 
+                                   | ((0x380U & (vlSelf->Inst 
+                                                 >> 5U)) 
+                                      | (0x7fU & vlSelf->Inst)))))) {
+        vlSelf->top__DOT__ALUct = 1U;
+        vlSelf->top__DOT__ALUAsr = 0U;
+        vlSelf->top__DOT__ALUBsr = 0U;
         vlSelf->top__DOT__Branch = 0U;
         vlSelf->top__DOT__MemWr = 0U;
         vlSelf->top__DOT__MemOP = 0U;

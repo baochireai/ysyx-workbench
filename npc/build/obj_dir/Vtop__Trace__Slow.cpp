@@ -545,7 +545,7 @@ void Vtop___024root__traceInitSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
         tracep->declQuad(c+600,"top IntrUnit mcaseReg dout", false,-1, 63,0);
         tracep->declBit(c+698,"top IntrUnit mcaseReg wen", false,-1);
         tracep->declBus(c+729,"top IntrUnit mstatusReg WIDTH", false,-1, 31,0);
-        tracep->declBus(c+773,"top IntrUnit mstatusReg RESET_VAL", false,-1, 31,0);
+        tracep->declQuad(c+774,"top IntrUnit mstatusReg RESET_VAL", false,-1, 63,0);
         tracep->declBit(c+699,"top IntrUnit mstatusReg clk", false,-1);
         tracep->declBit(c+748,"top IntrUnit mstatusReg rst", false,-1);
         tracep->declQuad(c+617,"top IntrUnit mstatusReg din", false,-1, 63,0);
@@ -1038,10 +1038,12 @@ void Vtop___024root__traceFullSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
         tracep->fullQData(oldp+692,(vlSelf->top__DOT__IntrUnit__DOT__scrDataSrc__DOT__data_list[1]),64);
         tracep->fullQData(oldp+694,(vlSelf->top__DOT__IntrUnit__DOT__scrDataSrc__DOT__lut_out),64);
         tracep->fullBit(oldp+696,(vlSelf->top__DOT__IntrUnit__DOT__scrDataSrc__DOT__hit));
-        tracep->fullBit(oldp+697,(((IData)(vlSelf->top__DOT__IntrUnit__DOT__ismepc) 
-                                   & (IData)(vlSelf->top__DOT__IntrUnit__DOT__isCSRw))));
-        tracep->fullBit(oldp+698,(((IData)(vlSelf->top__DOT__IntrUnit__DOT__ismcase) 
-                                   & (IData)(vlSelf->top__DOT__IntrUnit__DOT__isCSRw))));
+        tracep->fullBit(oldp+697,((((IData)(vlSelf->top__DOT__IntrUnit__DOT__ismepc) 
+                                    & (IData)(vlSelf->top__DOT__IntrUnit__DOT__isCSRw)) 
+                                   & (IData)(vlSelf->top__DOT__IntrEn))));
+        tracep->fullBit(oldp+698,((((IData)(vlSelf->top__DOT__IntrUnit__DOT__ismcase) 
+                                    & (IData)(vlSelf->top__DOT__IntrUnit__DOT__isCSRw)) 
+                                   & (IData)(vlSelf->top__DOT__IntrEn))));
         tracep->fullBit(oldp+699,(vlSelf->clk));
         tracep->fullBit(oldp+700,(vlSelf->rst));
         tracep->fullIData(oldp+701,(vlSelf->Inst),32);
@@ -1092,12 +1094,14 @@ void Vtop___024root__traceFullSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
                                               >> 0x14U))));
         tracep->fullBit(oldp+721,((0x300U == (vlSelf->Inst 
                                               >> 0x14U))));
-        tracep->fullBit(oldp+722,(((0x305U == (vlSelf->Inst 
-                                               >> 0x14U)) 
-                                   & (IData)(vlSelf->top__DOT__IntrUnit__DOT__isCSRw))));
-        tracep->fullBit(oldp+723,(((0x300U == (vlSelf->Inst 
-                                               >> 0x14U)) 
-                                   & (IData)(vlSelf->top__DOT__IntrUnit__DOT__isCSRw))));
+        tracep->fullBit(oldp+722,((((0x305U == (vlSelf->Inst 
+                                                >> 0x14U)) 
+                                    & (IData)(vlSelf->top__DOT__IntrUnit__DOT__isCSRw)) 
+                                   & (IData)(vlSelf->top__DOT__IntrEn))));
+        tracep->fullBit(oldp+723,((((0x300U == (vlSelf->Inst 
+                                                >> 0x14U)) 
+                                    & (IData)(vlSelf->top__DOT__IntrUnit__DOT__isCSRw)) 
+                                   & (IData)(vlSelf->top__DOT__IntrEn))));
         tracep->fullQData(oldp+724,(vlSelf->top__DOT__waddr),64);
         tracep->fullQData(oldp+726,(vlSelf->top__DOT__wdata),64);
         tracep->fullCData(oldp+728,(vlSelf->top__DOT__wmask),8);
@@ -1142,7 +1146,8 @@ void Vtop___024root__traceFullSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
         tracep->fullIData(oldp+768,(0xbU),32);
         tracep->fullCData(oldp+769,(0U),8);
         tracep->fullQData(oldp+770,(0xc060343cffULL),40);
-        tracep->fullSData(oldp+772,(0x350U),12);
+        tracep->fullSData(oldp+772,(0x351U),12);
         tracep->fullIData(oldp+773,(0U),32);
+        tracep->fullQData(oldp+774,(0xa00001800ULL),64);
     }
 }
