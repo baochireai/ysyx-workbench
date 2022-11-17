@@ -23,9 +23,9 @@ image: $(IMAGE).elf
 	@echo + OBJCOPY "->" $(IMAGE_REL).bin
 	@$(OBJCOPY) -S --set-section-flags .bss=alloc,contents -O binary $(IMAGE).elf $(IMAGE).bin
 
-#在npc中运行
+#在npc中运行 ARGS="-b"
 run: image
-	$(MAKE) -C $(NPC_HOME) run IMG=$(IMAGE).bin
+	$(MAKE) -C $(NPC_HOME) run IMG=$(IMAGE).bin 
 
 sim:
 	$(MAKE) -C $(NPC_HOME) sim

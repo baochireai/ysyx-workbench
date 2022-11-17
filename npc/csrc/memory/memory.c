@@ -15,7 +15,8 @@ extern "C" void pmem_read(long long raddr, long long *rdata) {
   //printf("pc:%08lx\n",raddr);
   uint8_t* pdata=(uint8_t*)rdata;
   if(!in_pmem(raddr)){
-    //difftest_skip_ref();    
+    //printf("(npc)raddr:%016lx\n",raddr);
+    //difftest_skip_nextRef();    
     if(raddr == RTC_ADDR){
       *rdata=get_time();
     }
@@ -39,7 +40,8 @@ extern "C" void pmem_write(long long waddr, long long wdata, char wmask) {
   //bool wflag=false;
   //printf("wmask:%x\n",wmask);
   if(!in_pmem(waddr)){
-    //difftest_skip_ref();
+    //printf("(npc)waddr:%016lx\n",waddr);
+    //difftest_skip_nextRef();
     if(waddr==SERIAL_PORT){
       printf("%c",(uint8_t)BITS(wdata,7,0));
     }

@@ -29,7 +29,7 @@ module ContrGen(
     7'b1100011,3'd4,//beq bne bge blt bltu bgeu
     7'b0111011,3'd1,//addw sllw sraw mulw divw subw remw srlw divuw
     7'b0011011,3'd2,//addiw  slliw sraiw srliw
-    7'b0011011,3'd2//ecall ebreak csrrw csrrs mret(rd为零) 
+    7'b1110011,3'd2//ecall ebreak csrrw csrrs mret(rd为零) 
     }));
 
     MuxKeyInternal #(1,7,1,1) isIntr(.out(IntrEn),.key(opcode),.default_out(1'b0),.lut({
@@ -47,7 +47,11 @@ module ContrGen(
     // wire isMem=Extop==3'd3;
     // wire isExcpDate=opcode==7'b0011011;
     // assign RegSrc=isMem?2'd1:isExcpDate?2'd2:2'd0;//读存储或者异常处理指令
-    assign RegSrc=(Extop==3'd3)?2'd1:(opcode==7'b0011011)?2'd2:2'd0;
+    MuxKeyInternal #(2,7,2,1) RegSrcMux(.out(RegSrc),.key(opcode),.default_out(2'd0),.lut({
+    7'b0000011,2'd1,
+    7'b1110011,2'd2
+    }));
+    //assign RegSrc=(Extop==3'd3)?2'd1:(opcode==7'b0011011)?2'd2:2'd0;
 
     always @(*) begin
         casez ({func7,func3,opcode})

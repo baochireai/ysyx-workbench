@@ -17,7 +17,7 @@ module top(
 
     always @(*) begin
         pmem_read(raddr, rdata);
-        pmem_write(waddr, wdata, wmask);
+        //pmem_write(waddr, wdata, wmask);
     end
     
     //wire [63:0] pc;
@@ -78,7 +78,7 @@ module top(
     ALU ALU(.ALUAsr(ALUAsr),.PC(pc),.R_rs1(R_rs1),.ALUBsr(ALUBsr),.Imm(Imm),.R_rs2(R_rs2),.ALUct(ALUct),
             .ALUres(ALUres),.Less(Less),.Zero(Zero),.isTuncate(isTuncate),.isSext(isSext));
     
-    DataMem DataMem(.Addr(ALUres),.MemOP(MemOP),.DataIn(R_rs2),.WrEn(MemWr),.DataOut(MemOut));
+    DataMem DataMem(.clk(clk),.Addr(ALUres),.MemOP(MemOP),.DataIn(R_rs2),.WrEn(MemWr),.DataOut(MemOut));
 
     MuxKeyInternal #(3,2,64,1) RegWsrcMux(.out(RegWdata),.key(RegSrc),.default_out(64'd0),.lut({
         2'd0,ALUres,

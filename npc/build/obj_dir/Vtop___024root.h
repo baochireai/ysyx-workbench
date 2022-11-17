@@ -52,6 +52,8 @@ VL_MODULE(Vtop___024root) {
         CData/*0:0*/ top__DOT__ContrGen__DOT__isIntr__DOT__hit;
         CData/*0:0*/ top__DOT__ContrGen__DOT__isRegWr__DOT__lut_out;
         CData/*0:0*/ top__DOT__ContrGen__DOT__isRegWr__DOT__hit;
+        CData/*1:0*/ top__DOT__ContrGen__DOT__RegSrcMux__DOT__lut_out;
+        CData/*0:0*/ top__DOT__ContrGen__DOT__RegSrcMux__DOT__hit;
         CData/*0:0*/ top__DOT__ImmGen__DOT__isRegWr__DOT__hit;
         CData/*0:0*/ top__DOT__ALU__DOT__Sub_Add;
         CData/*0:0*/ top__DOT__ALU__DOT__deALUBsr__DOT__hit;
@@ -92,10 +94,10 @@ VL_MODULE(Vtop___024root) {
         QData/*63:0*/ top__DOT__ALU__DOT__ALUA;
         QData/*63:0*/ top__DOT__ALU__DOT__ALUB;
         QData/*63:0*/ top__DOT__ALU__DOT__adder;
-        QData/*63:0*/ top__DOT__ALU__DOT__shift;
-        QData/*63:0*/ top__DOT__ALU__DOT__DIV;
     };
     struct {
+        QData/*63:0*/ top__DOT__ALU__DOT__shift;
+        QData/*63:0*/ top__DOT__ALU__DOT__DIV;
         QData/*63:0*/ top__DOT__ALU__DOT__REM;
         QData/*63:0*/ top__DOT__ALU__DOT__ALUout;
         QData/*63:0*/ top__DOT__ALU__DOT__deALUBsr__DOT__lut_out;
@@ -129,6 +131,9 @@ VL_MODULE(Vtop___024root) {
         VlUnpacked<CData/*3:0*/, 4> top__DOT__ContrGen__DOT__isRegWr__DOT__pair_list;
         VlUnpacked<CData/*2:0*/, 4> top__DOT__ContrGen__DOT__isRegWr__DOT__key_list;
         VlUnpacked<CData/*0:0*/, 4> top__DOT__ContrGen__DOT__isRegWr__DOT__data_list;
+        VlUnpacked<SData/*8:0*/, 2> top__DOT__ContrGen__DOT__RegSrcMux__DOT__pair_list;
+        VlUnpacked<CData/*6:0*/, 2> top__DOT__ContrGen__DOT__RegSrcMux__DOT__key_list;
+        VlUnpacked<CData/*1:0*/, 2> top__DOT__ContrGen__DOT__RegSrcMux__DOT__data_list;
         VlUnpacked<VlWide<3>/*66:0*/, 5> top__DOT__ImmGen__DOT__isRegWr__DOT__pair_list;
         VlUnpacked<CData/*2:0*/, 5> top__DOT__ImmGen__DOT__isRegWr__DOT__key_list;
         VlUnpacked<QData/*63:0*/, 5> top__DOT__ImmGen__DOT__isRegWr__DOT__data_list;
@@ -155,13 +160,13 @@ VL_MODULE(Vtop___024root) {
         VlUnpacked<QData/*63:0*/, 4> top__DOT__DataMem__DOT__sext__DOT__data_list;
         VlUnpacked<VlWide<3>/*65:0*/, 3> top__DOT__RegWsrcMux__DOT__pair_list;
         VlUnpacked<CData/*1:0*/, 3> top__DOT__RegWsrcMux__DOT__key_list;
+    };
+    struct {
         VlUnpacked<QData/*63:0*/, 3> top__DOT__RegWsrcMux__DOT__data_list;
         VlUnpacked<CData/*3:0*/, 3> top__DOT__IntrUnit__DOT__CSRwEn__DOT__pair_list;
         VlUnpacked<CData/*2:0*/, 3> top__DOT__IntrUnit__DOT__CSRwEn__DOT__key_list;
         VlUnpacked<CData/*0:0*/, 3> top__DOT__IntrUnit__DOT__CSRwEn__DOT__data_list;
         VlUnpacked<VlWide<3>/*66:0*/, 3> top__DOT__IntrUnit__DOT__mcaseDataSrc__DOT__pair_list;
-    };
-    struct {
         VlUnpacked<CData/*2:0*/, 3> top__DOT__IntrUnit__DOT__mcaseDataSrc__DOT__key_list;
         VlUnpacked<QData/*63:0*/, 3> top__DOT__IntrUnit__DOT__mcaseDataSrc__DOT__data_list;
         VlUnpacked<VlWide<3>/*66:0*/, 3> top__DOT__IntrUnit__DOT__mepcDataSrc__DOT__pair_list;
@@ -192,8 +197,8 @@ VL_MODULE(Vtop___024root) {
     VlWide<5>/*133:0*/ top__DOT__IntrUnit__DOT____Vcellinp__scrDataSrc__lut;
     QData/*34:0*/ top__DOT__GenNextPC__DOT____Vcellinp__dePCsrc__lut;
     QData/*63:0*/ __Vtask_pmem_read__0__rdata;
+    QData/*63:0*/ __Vtask_pmem_read__4__rdata;
     QData/*63:0*/ __Vtask_pmem_read__5__rdata;
-    QData/*63:0*/ __Vtask_pmem_read__6__rdata;
     VlUnpacked<CData/*0:0*/, 2> __Vm_traceActivity;
 
     // INTERNAL VARIABLES
