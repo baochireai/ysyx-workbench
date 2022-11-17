@@ -3641,11 +3641,6 @@ VL_INLINE_OPT void Vtop___024root___sequent__TOP__3(Vtop___024root* vlSelf) {
             __Vtemp387[2U];
         vlSelf->top__DOT__DataMem__DOT__data[3U] = 
             __Vtemp387[3U];
-    } else {
-        vlSelf->top__DOT__DataMem__DOT__data[0U] = 0U;
-        vlSelf->top__DOT__DataMem__DOT__data[1U] = 0U;
-        vlSelf->top__DOT__DataMem__DOT__data[2U] = 0U;
-        vlSelf->top__DOT__DataMem__DOT__data[3U] = 0U;
     }
     if (vlSelf->top__DOT__MemWr) {
         Vtop___024unit____Vdpiimwrap_pmem_write_TOP____024unit(vlSelf->top__DOT__ALUres, 

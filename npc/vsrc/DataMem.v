@@ -35,8 +35,6 @@ module DataMem(
             pmem_read(Addr+64'd8, data[127:64]);
             data=data>>shift;
         end
-        else
-            data=128'd0;
 
         if(WrEn==1'b1) begin
             pmem_write(Addr, data[63:0], extmask[7:0]);

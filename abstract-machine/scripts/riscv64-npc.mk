@@ -25,7 +25,7 @@ image: $(IMAGE).elf
 
 #在npc中运行 ARGS="-b"
 run: image
-	$(MAKE) -C $(NPC_HOME) run IMG=$(IMAGE).bin 
+	$(MAKE) -C $(NPC_HOME) run IMG=$(IMAGE).bin
 
 sim:
 	$(MAKE) -C $(NPC_HOME) sim

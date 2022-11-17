@@ -55,7 +55,7 @@ module ContrGen(
 
     always @(*) begin
         casez ({func7,func3,opcode})
-            17'bzzzzzzz_000_0010011:begin//addi
+            17'bzzzzzzz_000_0010011:begin//addi ALUct=5'b00000;
                 ALUct=5'b00000;ALUAsr=1'b1;ALUBsr=2'd0;Branch=3'd0;MemWr=1'b0;MemOP=3'd0;isTuncate=1'b0;isSext=1'b0;
             end
             17'bzzzzzzz_zzz_0010111:begin //auipc

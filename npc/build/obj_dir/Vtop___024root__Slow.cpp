@@ -3985,11 +3985,6 @@ void Vtop___024root___settle__TOP__4(Vtop___024root* vlSelf) {
             __Vtemp831[2U];
         vlSelf->top__DOT__DataMem__DOT__data[3U] = 
             __Vtemp831[3U];
-    } else {
-        vlSelf->top__DOT__DataMem__DOT__data[0U] = 0U;
-        vlSelf->top__DOT__DataMem__DOT__data[1U] = 0U;
-        vlSelf->top__DOT__DataMem__DOT__data[2U] = 0U;
-        vlSelf->top__DOT__DataMem__DOT__data[3U] = 0U;
     }
     if (vlSelf->top__DOT__MemWr) {
         Vtop___024unit____Vdpiimwrap_pmem_write_TOP____024unit(vlSelf->top__DOT__ALUres, 

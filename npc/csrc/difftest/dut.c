@@ -27,7 +27,7 @@ void difftest_skip_ref() {
 }
 
 void difftest_skip_nextRef(){
-  printf("skip one inst at pc:0x%016lx\n",cpu.pc);
+  //printf("skip one inst at pc:0x%016lx\n",cpu.pc);
   skip_dut_nextInst++;
 }
 
@@ -124,15 +124,16 @@ void difftest_step(vaddr_t pc, vaddr_t npc) {
     return;
   }
 
-  // if(skip_dut_nextInst>0){
-  //   if(skip_dut_nextInst>=3){
-  //     printf("skip one inst at pc = %16lx\n",pc);
-  //     skip_dut_nextInst-=3;
-  //     ref_difftest_regcpy(&cpu, DIFFTEST_TO_REF);
-  //     return;
-  //   }
-  //   skip_dut_nextInst++;
-  // }
+  if(skip_dut_nextInst>0){
+    if(skip_dut_nextInst>=3){
+      //printf("skip one inst at pc = %16lx\n",pc);
+      skip_dut_nextInst-=3;
+      ref_difftest_regcpy(&cpu, DIFFTEST_TO_REF);
+      return;
+    }
+    skip_dut_nextInst++;
+  }
+
   if (is_skip_ref) {
     printf("skip one inst at pc = %16lx\n",pc);
     // to skip the checking of an instruction, just copy the reg state to reference design
