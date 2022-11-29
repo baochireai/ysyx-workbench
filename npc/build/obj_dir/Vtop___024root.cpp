@@ -3703,10 +3703,6 @@ VL_INLINE_OPT void Vtop___024root___sequent__TOP__3(Vtop___024root* vlSelf) {
                                                  <= vlSelf->top__DOT__ALUres) 
                                                 & (0x200bfffULL 
                                                    >= vlSelf->top__DOT__ALUres));
-    vlSelf->top__DOT__clint_we = ((IData)(vlSelf->top__DOT__DataMem__DOT__clint_en) 
-                                  & (IData)(vlSelf->top__DOT__MemWr));
-    vlSelf->top__DOT__clint_re = ((IData)(vlSelf->top__DOT__DataMem__DOT__clint_en) 
-                                  & (IData)(vlSelf->top__DOT__DataMem__DOT__RdEn));
     VL_EXTEND_WQ(128,64, __Vtemp382, vlSelf->top__DOT__R_rs2);
     VL_SHIFTL_WWI(128,128,6, __Vtemp383, __Vtemp382, 
                   (0x38U & ((IData)(vlSelf->top__DOT__ALUres) 
@@ -3720,9 +3716,8 @@ VL_INLINE_OPT void Vtop___024root___sequent__TOP__3(Vtop___024root* vlSelf) {
                                                   << 
                                                   (7U 
                                                    & (IData)(vlSelf->top__DOT__ALUres))));
-    if ((((IData)(vlSelf->top__DOT__DataMem__DOT__RdEn) 
-          & (~ (IData)(vlSelf->top__DOT__MemWr))) & 
-         (~ (IData)(vlSelf->top__DOT__DataMem__DOT__clint_en)))) {
+    if (((IData)(vlSelf->top__DOT__DataMem__DOT__RdEn) 
+         & (~ (IData)(vlSelf->top__DOT__MemWr)))) {
         Vtop___024unit____Vdpiimwrap_pmem_read_TOP____024unit(vlSelf->top__DOT__ALUres, vlSelf->__Vtask_pmem_read__4__rdata);
         vlSelf->top__DOT__DataMem__DOT__data[0U] = (IData)(vlSelf->__Vtask_pmem_read__4__rdata);
         vlSelf->top__DOT__DataMem__DOT__data[1U] = (IData)(
@@ -3747,7 +3742,7 @@ VL_INLINE_OPT void Vtop___024root___sequent__TOP__3(Vtop___024root* vlSelf) {
         vlSelf->top__DOT__DataMem__DOT__data[3U] = 
             __Vtemp384[3U];
     }
-    if (((IData)(vlSelf->top__DOT__MemWr) & (~ (IData)(vlSelf->top__DOT__DataMem__DOT__clint_en)))) {
+    if (vlSelf->top__DOT__MemWr) {
         Vtop___024unit____Vdpiimwrap_pmem_write_TOP____024unit(vlSelf->top__DOT__ALUres, 
                                                                (((QData)((IData)(
                                                                                 vlSelf->top__DOT__DataMem__DOT__data[1U])) 
@@ -3768,6 +3763,10 @@ VL_INLINE_OPT void Vtop___024root___sequent__TOP__3(Vtop___024root* vlSelf) {
                                                                 & ((IData)(vlSelf->top__DOT__DataMem__DOT__extmask) 
                                                                    >> 8U)));
     }
+    vlSelf->top__DOT__clint_we = ((IData)(vlSelf->top__DOT__DataMem__DOT__clint_en) 
+                                  & (IData)(vlSelf->top__DOT__MemWr));
+    vlSelf->top__DOT__clint_re = ((IData)(vlSelf->top__DOT__DataMem__DOT__clint_en) 
+                                  & (IData)(vlSelf->top__DOT__DataMem__DOT__RdEn));
     VL_EXTEND_WQ(66,64, __Vtemp385, (((QData)((IData)(
                                                       vlSelf->top__DOT__DataMem__DOT__data[1U])) 
                                       << 0x20U) | (QData)((IData)(
