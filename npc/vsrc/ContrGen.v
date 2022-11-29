@@ -29,7 +29,7 @@ module ContrGen(
     7'b1100011,3'd4,//beq bne bge blt bltu bgeu
     7'b0111011,3'd1,//addw sllw sraw mulw divw subw remw srlw divuw
     7'b0011011,3'd2,//addiw  slliw sraiw srliw
-    7'b1110011,3'd2//ecall ebreak csrrw csrrs mret(rd为零) 
+    7'b1110011,3'd2//ecall ebreak csrrw csrrs csrc mret(rd为零) csrrsi csrrwi csrrci
     }));
 
     MuxKeyInternal #(1,7,1,1) isIntr(.out(IntrEn),.key(opcode),.default_out(1'b0),.lut({
@@ -217,9 +217,21 @@ module ContrGen(
             17'b0000000_001_0110011:begin//sll
                 ALUct=5'b00001;ALUAsr=1'b1;ALUBsr=2'd1;Branch=3'd0;MemWr=1'b0;MemOP=3'd0;isTuncate=1'b0;isSext=1'b0;
             end
-            17'bzzzzzzz_zzz_1110011:begin//sll
+            // 17'b0000000_000_1110011:begin//ecall
+            //     ALUct=5'b00001;ALUAsr=1'b0;ALUBsr=2'd0;Branch=3'd0;MemWr=1'b0;MemOP=3'd0;isTuncate=1'b0;isSext=1'b0;            
+            // end
+            // 17'b0011000_000_1110011:begin//mret
+            //     ALUct=5'b00001;ALUAsr=1'b0;ALUBsr=2'd0;Branch=3'd0;MemWr=1'b0;MemOP=3'd0;isTuncate=1'b0;isSext=1'b0;            
+            // end
+            // 17'bzzzzzzz_001_1110011:begin//csrrw
+            //     ALUct=5'b00001;ALUAsr=1'b0;ALUBsr=2'd0;Branch=3'd0;MemWr=1'b0;MemOP=3'd0;isTuncate=1'b0;isSext=1'b0;            
+            // end
+            // 17'bzzzzzzz_010_1110011:begin//csrrs 
+            //     ALUct=5'b00001;ALUAsr=1'b0;ALUBsr=2'd0;Branch=3'd0;MemWr=1'b0;MemOP=3'd0;isTuncate=1'b0;isSext=1'b0;            
+            // end
+            17'bzzzzzzz_zzz_1110011:begin//ecall mret scrrw csrrs csrrsi
                 ALUct=5'b00001;ALUAsr=1'b0;ALUBsr=2'd0;Branch=3'd0;MemWr=1'b0;MemOP=3'd0;isTuncate=1'b0;isSext=1'b0;            
-            end
+            end            
             default: begin
                 ALUct=5'b00001;ALUAsr=1'b0;ALUBsr=2'd0;Branch=3'd0;MemWr=1'b0;MemOP=3'd0;isTuncate=1'b0;isSext=1'b0;set_invalid_inst();
             end

@@ -4,12 +4,14 @@
 static Context* (*user_handler)(Event, Context*) = NULL;
 
 Context* __am_irq_handle(Context *c) {
-  c->mepc+=4;
   if (user_handler) {
     Event ev = {0};
     switch (c->mcause) {
       case 11://环境调用异常
+        c->mepc+=4;
         ev.event=EVENT_YIELD;break;
+      case 0x8000000000000007:
+        ev.event=EVENT_IRQ_TIMER;break;
       default: ev.event = EVENT_ERROR; break;
     }
 
@@ -45,5 +47,12 @@ bool ienabled() {
 }
 
 void iset(bool enable) {
-  
+  if(enable){
+    asm volatile("csrsi mstatus, 8");//打开全局中断
+    asm volatile("li t1, 0x80;csrs mie, t1");//打开定时器中断
+  }
+  else{
+    asm volatile("csrci mstatus, 8");
+    asm volatile("li t1, 0x80;csrc mie, t1");
+  }
 }

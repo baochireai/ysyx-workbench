@@ -61,6 +61,12 @@ module top(
 
     wire [63:0] IntrOut;
 
+    wire clint_mtip;
+
+    wire clint_we,clint_re;
+
+    wire [63:0] clint_dout;
+
     PC PC(.clk(clk),.rst(rst),.isIntrPC(isIntrPC),.NextPC(NextPC),.IntrPC(IntrPC),.pc(pc));
 
     GenNextPC GenNextPC(.Branch(Branch),.imm(Imm),.PC(pc),.R_rs1(R_rs1),.NextPC(NextPC),.Less(Less),.Zero(Zero));
@@ -78,16 +84,19 @@ module top(
     ALU ALU(.ALUAsr(ALUAsr),.PC(pc),.R_rs1(R_rs1),.ALUBsr(ALUBsr),.Imm(Imm),.R_rs2(R_rs2),.ALUct(ALUct),
             .ALUres(ALUres),.Less(Less),.Zero(Zero),.isTuncate(isTuncate),.isSext(isSext));
     
-    DataMem DataMem(.clk(clk),.Addr(ALUres),.MemOP(MemOP),.DataIn(R_rs2),.WrEn(MemWr),.DataOut(MemOut));
+    DataMem DataMem(.clk(clk),.Addr(ALUres),.MemOP(MemOP),.DataIn(R_rs2),.WrEn(MemWr),.DataOut(MemOut),.clint_we(clint_we),.clint_re(clint_re));
 
     MuxKeyInternal #(3,2,64,1) RegWsrcMux(.out(RegWdata),.key(RegSrc),.default_out(64'd0),.lut({
         2'd0,ALUres,
-        2'd1,MemOut,
+        2'd1,clint_re?clint_dout:MemOut,//clint memory map
         2'd2,IntrOut
     }));
 
-    Intr IntrUnit(.clk(clk),.IntrEn(IntrEn),.pc(pc),.R_rs1(R_rs1),.csr(Inst[31:20]),.func3(Inst[14:12]),
+    Intr IntrUnit(.clk(clk),.IntrEn(IntrEn),.clint_mtip(clint_mtip),.pc(pc),.R_rs1(R_rs1),.zimm(Inst[19:15]),.csr(Inst[31:20]),.func3(Inst[14:12]),
       .isIntrPC(isIntrPC),.IntrPC(IntrPC),.dout(IntrOut));
+
+    clint clintU(.clk(clk),.clint_din(R_rs2),.clint_addr(ALUres),.we(clint_we),.re(clint_re),
+                 .clint_mtip(clint_mtip),.clint_dout(clint_dout));
     always @(*) begin
         if (Inst==32'h00100073)
             setebreak();
