@@ -10,7 +10,7 @@
  */
 #define MAX_INST_TO_PRINT 10
 
-CPU_state cpu = {.csr[0]=0xa00001800};
+CPU_state cpu = {.mstatus=0xa00001800};
 //cpu.csr[0]=0xa00001800;//mstatus初始化为0xa00001800
 uint64_t g_nr_guest_inst = 0;
 static uint64_t g_timer = 0; // unit: us

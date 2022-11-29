@@ -51,6 +51,41 @@ static void decode_operand(Decode *s, word_t *dest, word_t *src1, word_t *src2, 
   }
 }
 
+uint64_t csr_WR(uint64_t csr,uint64_t data,bool RW){
+  if(RW){
+    switch (csr&0xfff)
+    {
+    case 0x300: cpu.mstatus=data;   break;
+    case 0x304: cpu.mie=data;       break;
+    case 0x305: cpu.mtvec=data;     break;
+    case 0x341: cpu.mepc=data;      break;
+    case 0x342: cpu.mcause=data;     break;
+    case 0x344: cpu.mip=data;       break;
+    default:
+      printf("csr WR error at %08lx\n",cpu.pc);
+      assert(0);
+      break;
+    }
+    return 0;
+  }
+  else{
+    switch (csr&0xfff)
+    {
+    case 0x300: return cpu.mstatus;
+    case 0x304: return cpu.mie;
+    case 0x305: return cpu.mtvec;
+    case 0x341: return cpu.mepc;  
+    case 0x342: return cpu.mcause;     
+    case 0x344: return cpu.mip;
+    default:
+      printf("csr WR error at %08lx\n",cpu.pc);
+      assert(0);
+      break;
+    }
+  }
+  return 0;
+}
+
 static int decode_exec(Decode *s) {
   word_t dest = 0, src1 = 0, src2 = 0;
   s->dnpc = s->snpc;
@@ -145,11 +180,11 @@ static int decode_exec(Decode *s) {
   /**********异常处理机制*********/
   
   INSTPAT("0000000 00000 00000 000 00000 11100 11", ecall , N,s->dnpc=isa_raise_intr(11,s->pc));
-  INSTPAT("0011000 00010 00000 000 00000 11100 11", mret , N,s->dnpc=cpu.csr[1]);       
+  INSTPAT("0011000 00010 00000 000 00000 11100 11", mret , N,s->dnpc=cpu.mepc;cpu.mstatus=(cpu.mstatus&(~0x80))|(BITS(cpu.mstatus,7,7)<<3););       
 
-  INSTPAT("??????? ????? ????? 001 ????? 11100 11",csrrw,I,word_t t=cpu.csr[src2&0x7];cpu.csr[src2&0x7]=src1;R(dest)=t);
-  INSTPAT("??????? ????? ????? 010 ????? 11100 11",csrrs,I,word_t t=cpu.csr[src2&0x7];cpu.csr[src2&0x7]=t|src1;R(dest)=t);
-  INSTPAT("??????? ????? ????? ??? ????? 11100 11",csrrc,I,);
+  INSTPAT("??????? ????? ????? 001 ????? 11100 11",csrrw,I,word_t t=csr_WR(src2,0,0);csr_WR(src2,src1,1);R(dest)=t);
+  INSTPAT("??????? ????? ????? 010 ????? 11100 11",csrrs,I,word_t t=csr_WR(src2,0,0);csr_WR(src2,t|src1,1);R(dest)=t);
+  INSTPAT("??????? ????? ????? 011 ????? 11100 11",csrrc,I,word_t t=csr_WR(src2,0,0);csr_WR(src2,t&(~src1),1);R(dest)=t);
   INSTPAT("??????? ????? ????? ??? ????? ????? ??", inv    , N, INV(s->pc));  //前面所有指令均不匹配，视为非法指令
   INSTPAT_END();
 

@@ -6,10 +6,11 @@ word_t isa_raise_intr(word_t NO, vaddr_t epc) {
   /* TODO: Trigger an interrupt/exception with ``NO''.
    * Then return the address of the interrupt/exception vector.
    */
-  cpu.csr[1]=epc;//mepc
-  cpu.csr[2]=NO;
+  cpu.mepc=epc;//mepc
+  cpu.mcause=NO;
+  cpu.mstatus=(cpu.mstatus&(~0x8))|(BITS(cpu.mstatus,3,3)<<7);
   //isa_reg_display();
-  return cpu.csr[5];//mtvec
+  return cpu.mtvec;//mtvec
 }
 
 word_t isa_query_intr() {
