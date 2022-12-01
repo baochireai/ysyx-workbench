@@ -9,6 +9,11 @@
 // FUNCTIONS
 Vtop__Syms::~Vtop__Syms()
 {
+
+    // Tear down scope hierarchy
+    __Vhier.remove(0, &__Vscope_top);
+    __Vhier.remove(&__Vscope_top, &__Vscope_top__IntrUnit);
+
 }
 
 Vtop__Syms::Vtop__Syms(VerilatedContext* contextp, const char* namep,Vtop* modelp)
@@ -27,7 +32,16 @@ Vtop__Syms::Vtop__Syms(VerilatedContext* contextp, const char* namep,Vtop* model
     // Setup each module's pointer back to symbol table (for public functions)
     TOP.__Vconfigure(this, true);
     TOP____024unit.__Vconfigure(this, true);
+    // Setup scopes
+    __Vscope_top.configure(this, name(), "top", "top", -12, VerilatedScope::SCOPE_MODULE);
+    __Vscope_top__IntrUnit.configure(this, name(), "top.IntrUnit", "IntrUnit", -12, VerilatedScope::SCOPE_MODULE);
+
+    // Set up scope hierarchy
+    __Vhier.add(0, &__Vscope_top);
+    __Vhier.add(&__Vscope_top, &__Vscope_top__IntrUnit);
+
     // Setup export functions
     for (int __Vfinal=0; __Vfinal<2; __Vfinal++) {
+        __Vscope_top__IntrUnit.varInsert(__Vfinal,"mcase", &(TOP.top__DOT__IntrUnit__DOT__mcase), false, VLVT_UINT64,VLVD_NODIR|VLVF_PUB_RD,1 ,63,0);
     }
 }

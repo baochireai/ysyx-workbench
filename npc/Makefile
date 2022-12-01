@@ -13,6 +13,7 @@ VERILATOR_CFLAGS+=--x-assign fast#optimize
 VERILATOR_CFLAGS+=--x-initial fast
 VERILATOR_CFLAGS+=--noassert
 VERILATOR_CFLAGS+=--trace
+VERILATOR_CFLAGS+=--vpi
 
 BUILD_DIR=./build
 OBJ_DIR=$(BUILD_DIR)/obj_dir

@@ -5,6 +5,7 @@
 #include "verilated.h"
 #include "verilated_vcd_c.h"
 #include "common.h"
+#include "difftest.h"
 #include "monitor.h"
 #include "reg.h"
 

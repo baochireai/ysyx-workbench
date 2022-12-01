@@ -115,10 +115,10 @@ VL_MODULE(Vtop___024root) {
         QData/*63:0*/ top__DOT__DataMem__DOT__sext__DOT__lut_out;
         QData/*63:0*/ top__DOT__RegWsrcMux__DOT__lut_out;
         QData/*63:0*/ top__DOT__IntrUnit__DOT__mepc;
-        QData/*63:0*/ top__DOT__IntrUnit__DOT__mcase;
         QData/*63:0*/ top__DOT__IntrUnit__DOT__mtvec;
         QData/*63:0*/ top__DOT__IntrUnit__DOT__mstatus;
         QData/*63:0*/ top__DOT__IntrUnit__DOT__mie;
+        QData/*63:0*/ top__DOT__IntrUnit__DOT__mcase;
         QData/*63:0*/ top__DOT__IntrUnit__DOT__eNo;
         QData/*63:0*/ top__DOT__IntrUnit__DOT__csrWData;
         QData/*63:0*/ top__DOT__IntrUnit__DOT__mstatusIn;

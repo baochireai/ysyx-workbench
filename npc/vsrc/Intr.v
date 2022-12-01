@@ -12,7 +12,8 @@ module Intr(
     output reg [63:0] dout
 );
 
-    reg [63:0] mepc,mcase,mtvec,mstatus,mie,mip;
+    reg [63:0] mepc,mtvec,mstatus,mie,mip;
+    reg [63:0] mcase/*verilator public_flat_rd*/;
     reg isCSRw;
     
     initial begin

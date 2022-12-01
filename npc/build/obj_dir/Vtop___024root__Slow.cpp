@@ -4726,10 +4726,10 @@ void Vtop___024root___ctor_var_reset(Vtop___024root* vlSelf) {
     vlSelf->top__DOT__RegWsrcMux__DOT__lut_out = 0;
     vlSelf->top__DOT__RegWsrcMux__DOT__hit = 0;
     vlSelf->top__DOT__IntrUnit__DOT__mepc = 0;
-    vlSelf->top__DOT__IntrUnit__DOT__mcase = 0;
     vlSelf->top__DOT__IntrUnit__DOT__mtvec = 0;
     vlSelf->top__DOT__IntrUnit__DOT__mstatus = 0;
     vlSelf->top__DOT__IntrUnit__DOT__mie = 0;
+    vlSelf->top__DOT__IntrUnit__DOT__mcase = 0;
     vlSelf->top__DOT__IntrUnit__DOT__isCSRw = 0;
     vlSelf->top__DOT__IntrUnit__DOT__timer_irq = 0;
     vlSelf->top__DOT__IntrUnit__DOT__irq_raise = 0;

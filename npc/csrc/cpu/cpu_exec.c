@@ -1,5 +1,5 @@
 #include "cpu_exec.h"
-
+#include "verilated_vpi.h"
 VerilatedContext* contextp;
 VerilatedVcdC* tfp;
 Vtop* top;
@@ -19,6 +19,7 @@ extern "C" void set_invalid_inst() {
 void cpu_exec_once(){
     //printf("PC=%lx\n",cpu.pc);
     //printf("Inst=%x\n",Inst);
+  //printf("PC=%lx\n",top->IntrUnit->mcase);
 #ifdef CONFIG_WAVETRACE
   top->clk=0;top->eval();contextp->timeInc(1);tfp->dump(contextp->time());
   top->clk=1;top->eval();contextp->timeInc(1);tfp->dump(contextp->time());
@@ -28,6 +29,21 @@ void cpu_exec_once(){
 #endif
   cpu.pc=top->pc;
 }
+
+uint64_t mcause=0;
+
+void get_mcause(){
+  vpiHandle vh1 = vpi_handle_by_name((PLI_BYTE8*)"TOP.top.Intr.mcase.", NULL);
+  if (!vh1) vl_fatal(__FILE__, __LINE__, "sim_main", "No handle found");
+  const char* name = vpi_get_str(vpiName, vh1);
+  printf("Module name: %s\n", name);  // Prints "readme"
+
+  s_vpi_value v;
+  v.format = vpiIntVal;
+  vpi_get_value(vh1, &v);
+  printf("Value of v: %d\n", v.value.integer);  // Prints "readme"
+}
+
 void cpu_exec(uint64_t n){
 
   switch (npc_state) {
@@ -45,7 +61,8 @@ void cpu_exec(uint64_t n){
     //printf("Inst_RTL=%08x\n",Inst_RTL);
     cpu_exec_once();
     if(cpu.pc==0x80001300){
-      difftest_skip_ref();
+      //VerilatedVpi::callValueCbs(); 
+      ref_difftest_raise_intr(mcause);
     }
     //printf("pc=%lx\tdpc=%lx\n",pc,top->pc);
     difftest_step(pc,cpu.pc);
