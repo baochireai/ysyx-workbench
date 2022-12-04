@@ -14,9 +14,22 @@ extern "C" void set_gpr_ptr(const svOpenArrayHandle r) {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 uint64_t mcause=0;
 bool timerIntr=false;
+=======
+uint64_t mcause=0;
+bool timerIntr=false;
+
+extern "C" void timerIntr_raise(const svLogicVecVal* mcauseRegp){
+  //svLogicVecVal每个元素对应32bit
+  //printf("timerIntr_raise at pc=0x%08lx\n",cpu.pc);
+  mcause=((uint64_t)mcauseRegp[1].aval<<32)|(uint64_t)mcauseRegp[0].aval;
+  difftest_skip_nextRef();
+  timerIntr=true;
+}
+>>>>>>> 2627265... NJU-ProjectN/navy-apps ics2021 initialized
 
 extern "C" void timerIntr_raise(const svLogicVecVal* mcauseRegp){
   //svLogicVecVal每个元素对应32bit

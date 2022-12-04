@@ -20,6 +20,7 @@ void Vtop___024root__traceChgSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep) 
     if (false && vlSelf) {}  // Prevent unused
     Vtop__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
 <<<<<<< HEAD
+<<<<<<< HEAD
     VlWide<3>/*95:0*/ __Vtemp745;
     VlWide<3>/*95:0*/ __Vtemp746;
     VlWide<3>/*95:0*/ __Vtemp747;
@@ -31,6 +32,8 @@ void Vtop___024root__traceChgSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep) 
     VlWide<3>/*95:0*/ __Vtemp755;
     VlWide<3>/*95:0*/ __Vtemp756;
 =======
+=======
+>>>>>>> 2627265... NJU-ProjectN/navy-apps ics2021 initialized
     VlWide<3>/*95:0*/ __Vtemp18;
     VlWide<3>/*95:0*/ __Vtemp19;
     VlWide<3>/*95:0*/ __Vtemp20;
@@ -41,12 +44,16 @@ void Vtop___024root__traceChgSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep) 
     VlWide<3>/*95:0*/ __Vtemp27;
     VlWide<3>/*95:0*/ __Vtemp28;
     VlWide<3>/*95:0*/ __Vtemp29;
+<<<<<<< HEAD
+>>>>>>> 2627265... NJU-ProjectN/navy-apps ics2021 initialized
+=======
 >>>>>>> 2627265... NJU-ProjectN/navy-apps ics2021 initialized
     vluint32_t* const oldp = tracep->oldp(vlSymsp->__Vm_baseCode + 1);
     if (false && oldp) {}  // Prevent unused
     // Body
     {
         if (VL_UNLIKELY(vlSelf->__Vm_traceActivity[0U])) {
+<<<<<<< HEAD
 <<<<<<< HEAD
             tracep->chgSData(oldp+0,(vlSelf->top__DOT__ContrGen__DOT__deExtop__DOT__pair_list[0]),10);
             tracep->chgSData(oldp+1,(vlSelf->top__DOT__ContrGen__DOT__deExtop__DOT__pair_list[1]),10);
@@ -307,6 +314,85 @@ void Vtop___024root__traceChgSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep) 
             tracep->chgQData(oldp+79,(vlSymsp->TOP__top__IntrUnit.__PVT__CSRwEn__DOT__data_list[1]),64);
         }
         if (VL_UNLIKELY(vlSelf->__Vm_traceActivity[1U])) {
+=======
+            tracep->chgSData(oldp+0,(vlSymsp->TOP__top.__PVT__ContrGen__DOT__deExtop__DOT__pair_list[0]),10);
+            tracep->chgSData(oldp+1,(vlSymsp->TOP__top.__PVT__ContrGen__DOT__deExtop__DOT__pair_list[1]),10);
+            tracep->chgSData(oldp+2,(vlSymsp->TOP__top.__PVT__ContrGen__DOT__deExtop__DOT__pair_list[2]),10);
+            tracep->chgSData(oldp+3,(vlSymsp->TOP__top.__PVT__ContrGen__DOT__deExtop__DOT__pair_list[3]),10);
+            tracep->chgSData(oldp+4,(vlSymsp->TOP__top.__PVT__ContrGen__DOT__deExtop__DOT__pair_list[4]),10);
+            tracep->chgSData(oldp+5,(vlSymsp->TOP__top.__PVT__ContrGen__DOT__deExtop__DOT__pair_list[5]),10);
+            tracep->chgSData(oldp+6,(vlSymsp->TOP__top.__PVT__ContrGen__DOT__deExtop__DOT__pair_list[6]),10);
+            tracep->chgSData(oldp+7,(vlSymsp->TOP__top.__PVT__ContrGen__DOT__deExtop__DOT__pair_list[7]),10);
+            tracep->chgSData(oldp+8,(vlSymsp->TOP__top.__PVT__ContrGen__DOT__deExtop__DOT__pair_list[8]),10);
+            tracep->chgSData(oldp+9,(vlSymsp->TOP__top.__PVT__ContrGen__DOT__deExtop__DOT__pair_list[9]),10);
+            tracep->chgSData(oldp+10,(vlSymsp->TOP__top.__PVT__ContrGen__DOT__deExtop__DOT__pair_list[10]),10);
+            tracep->chgSData(oldp+11,(vlSymsp->TOP__top.__PVT__ContrGen__DOT__deExtop__DOT__pair_list[11]),10);
+            tracep->chgCData(oldp+12,(vlSymsp->TOP__top.__PVT__ContrGen__DOT__deExtop__DOT__key_list[0]),7);
+            tracep->chgCData(oldp+13,(vlSymsp->TOP__top.__PVT__ContrGen__DOT__deExtop__DOT__key_list[1]),7);
+            tracep->chgCData(oldp+14,(vlSymsp->TOP__top.__PVT__ContrGen__DOT__deExtop__DOT__key_list[2]),7);
+            tracep->chgCData(oldp+15,(vlSymsp->TOP__top.__PVT__ContrGen__DOT__deExtop__DOT__key_list[3]),7);
+            tracep->chgCData(oldp+16,(vlSymsp->TOP__top.__PVT__ContrGen__DOT__deExtop__DOT__key_list[4]),7);
+            tracep->chgCData(oldp+17,(vlSymsp->TOP__top.__PVT__ContrGen__DOT__deExtop__DOT__key_list[5]),7);
+            tracep->chgCData(oldp+18,(vlSymsp->TOP__top.__PVT__ContrGen__DOT__deExtop__DOT__key_list[6]),7);
+            tracep->chgCData(oldp+19,(vlSymsp->TOP__top.__PVT__ContrGen__DOT__deExtop__DOT__key_list[7]),7);
+            tracep->chgCData(oldp+20,(vlSymsp->TOP__top.__PVT__ContrGen__DOT__deExtop__DOT__key_list[8]),7);
+            tracep->chgCData(oldp+21,(vlSymsp->TOP__top.__PVT__ContrGen__DOT__deExtop__DOT__key_list[9]),7);
+            tracep->chgCData(oldp+22,(vlSymsp->TOP__top.__PVT__ContrGen__DOT__deExtop__DOT__key_list[10]),7);
+            tracep->chgCData(oldp+23,(vlSymsp->TOP__top.__PVT__ContrGen__DOT__deExtop__DOT__key_list[11]),7);
+            tracep->chgCData(oldp+24,(vlSymsp->TOP__top.__PVT__ContrGen__DOT__deExtop__DOT__data_list[0]),3);
+            tracep->chgCData(oldp+25,(vlSymsp->TOP__top.__PVT__ContrGen__DOT__deExtop__DOT__data_list[1]),3);
+            tracep->chgCData(oldp+26,(vlSymsp->TOP__top.__PVT__ContrGen__DOT__deExtop__DOT__data_list[2]),3);
+            tracep->chgCData(oldp+27,(vlSymsp->TOP__top.__PVT__ContrGen__DOT__deExtop__DOT__data_list[3]),3);
+            tracep->chgCData(oldp+28,(vlSymsp->TOP__top.__PVT__ContrGen__DOT__deExtop__DOT__data_list[4]),3);
+            tracep->chgCData(oldp+29,(vlSymsp->TOP__top.__PVT__ContrGen__DOT__deExtop__DOT__data_list[5]),3);
+            tracep->chgCData(oldp+30,(vlSymsp->TOP__top.__PVT__ContrGen__DOT__deExtop__DOT__data_list[6]),3);
+            tracep->chgCData(oldp+31,(vlSymsp->TOP__top.__PVT__ContrGen__DOT__deExtop__DOT__data_list[7]),3);
+            tracep->chgCData(oldp+32,(vlSymsp->TOP__top.__PVT__ContrGen__DOT__deExtop__DOT__data_list[8]),3);
+            tracep->chgCData(oldp+33,(vlSymsp->TOP__top.__PVT__ContrGen__DOT__deExtop__DOT__data_list[9]),3);
+            tracep->chgCData(oldp+34,(vlSymsp->TOP__top.__PVT__ContrGen__DOT__deExtop__DOT__data_list[10]),3);
+            tracep->chgCData(oldp+35,(vlSymsp->TOP__top.__PVT__ContrGen__DOT__deExtop__DOT__data_list[11]),3);
+            tracep->chgCData(oldp+36,(vlSymsp->TOP__top.__PVT__ContrGen__DOT__isIntr__DOT__pair_list[0]),8);
+            tracep->chgCData(oldp+37,(vlSymsp->TOP__top.__PVT__ContrGen__DOT__isIntr__DOT__key_list[0]),7);
+            tracep->chgBit(oldp+38,(vlSymsp->TOP__top.__PVT__ContrGen__DOT__isIntr__DOT__data_list[0]));
+            tracep->chgCData(oldp+39,(vlSymsp->TOP__top.__PVT__ContrGen__DOT__isRegWr__DOT__pair_list[0]),4);
+            tracep->chgCData(oldp+40,(vlSymsp->TOP__top.__PVT__ContrGen__DOT__isRegWr__DOT__pair_list[1]),4);
+            tracep->chgCData(oldp+41,(vlSymsp->TOP__top.__PVT__ContrGen__DOT__isRegWr__DOT__pair_list[2]),4);
+            tracep->chgCData(oldp+42,(vlSymsp->TOP__top.__PVT__ContrGen__DOT__isRegWr__DOT__pair_list[3]),4);
+            tracep->chgCData(oldp+43,(vlSymsp->TOP__top.__PVT__ContrGen__DOT__isRegWr__DOT__key_list[0]),3);
+            tracep->chgCData(oldp+44,(vlSymsp->TOP__top.__PVT__ContrGen__DOT__isRegWr__DOT__key_list[1]),3);
+            tracep->chgCData(oldp+45,(vlSymsp->TOP__top.__PVT__ContrGen__DOT__isRegWr__DOT__key_list[2]),3);
+            tracep->chgCData(oldp+46,(vlSymsp->TOP__top.__PVT__ContrGen__DOT__isRegWr__DOT__key_list[3]),3);
+            tracep->chgBit(oldp+47,(vlSymsp->TOP__top.__PVT__ContrGen__DOT__isRegWr__DOT__data_list[0]));
+            tracep->chgBit(oldp+48,(vlSymsp->TOP__top.__PVT__ContrGen__DOT__isRegWr__DOT__data_list[1]));
+            tracep->chgBit(oldp+49,(vlSymsp->TOP__top.__PVT__ContrGen__DOT__isRegWr__DOT__data_list[2]));
+            tracep->chgBit(oldp+50,(vlSymsp->TOP__top.__PVT__ContrGen__DOT__isRegWr__DOT__data_list[3]));
+            tracep->chgSData(oldp+51,(vlSymsp->TOP__top.__PVT__ContrGen__DOT__RegSrcMux__DOT__pair_list[0]),9);
+            tracep->chgSData(oldp+52,(vlSymsp->TOP__top.__PVT__ContrGen__DOT__RegSrcMux__DOT__pair_list[1]),9);
+            tracep->chgCData(oldp+53,(vlSymsp->TOP__top.__PVT__ContrGen__DOT__RegSrcMux__DOT__key_list[0]),7);
+            tracep->chgCData(oldp+54,(vlSymsp->TOP__top.__PVT__ContrGen__DOT__RegSrcMux__DOT__key_list[1]),7);
+            tracep->chgCData(oldp+55,(vlSymsp->TOP__top.__PVT__ContrGen__DOT__RegSrcMux__DOT__data_list[0]),2);
+            tracep->chgCData(oldp+56,(vlSymsp->TOP__top.__PVT__ContrGen__DOT__RegSrcMux__DOT__data_list[1]),2);
+            tracep->chgSData(oldp+57,(vlSymsp->TOP__top.__PVT__DataMem__DOT__deMemOP__DOT__pair_list[0]),10);
+            tracep->chgSData(oldp+58,(vlSymsp->TOP__top.__PVT__DataMem__DOT__deMemOP__DOT__pair_list[1]),10);
+            tracep->chgSData(oldp+59,(vlSymsp->TOP__top.__PVT__DataMem__DOT__deMemOP__DOT__pair_list[2]),10);
+            tracep->chgSData(oldp+60,(vlSymsp->TOP__top.__PVT__DataMem__DOT__deMemOP__DOT__pair_list[3]),10);
+            tracep->chgCData(oldp+61,(vlSymsp->TOP__top.__PVT__DataMem__DOT__deMemOP__DOT__key_list[0]),2);
+            tracep->chgCData(oldp+62,(vlSymsp->TOP__top.__PVT__DataMem__DOT__deMemOP__DOT__key_list[1]),2);
+            tracep->chgCData(oldp+63,(vlSymsp->TOP__top.__PVT__DataMem__DOT__deMemOP__DOT__key_list[2]),2);
+            tracep->chgCData(oldp+64,(vlSymsp->TOP__top.__PVT__DataMem__DOT__deMemOP__DOT__key_list[3]),2);
+            tracep->chgCData(oldp+65,(vlSymsp->TOP__top.__PVT__DataMem__DOT__deMemOP__DOT__data_list[0]),8);
+            tracep->chgCData(oldp+66,(vlSymsp->TOP__top.__PVT__DataMem__DOT__deMemOP__DOT__data_list[1]),8);
+            tracep->chgCData(oldp+67,(vlSymsp->TOP__top.__PVT__DataMem__DOT__deMemOP__DOT__data_list[2]),8);
+            tracep->chgCData(oldp+68,(vlSymsp->TOP__top.__PVT__DataMem__DOT__deMemOP__DOT__data_list[3]),8);
+            tracep->chgWData(oldp+69,(vlSymsp->TOP__top__IntrUnit.__PVT__CSRwEn__DOT__pair_list[0]),66);
+            tracep->chgWData(oldp+72,(vlSymsp->TOP__top__IntrUnit.__PVT__CSRwEn__DOT__pair_list[1]),66);
+            tracep->chgCData(oldp+75,(vlSymsp->TOP__top__IntrUnit.__PVT__CSRwEn__DOT__key_list[0]),2);
+            tracep->chgCData(oldp+76,(vlSymsp->TOP__top__IntrUnit.__PVT__CSRwEn__DOT__key_list[1]),2);
+            tracep->chgQData(oldp+77,(vlSymsp->TOP__top__IntrUnit.__PVT__CSRwEn__DOT__data_list[0]),64);
+            tracep->chgQData(oldp+79,(vlSymsp->TOP__top__IntrUnit.__PVT__CSRwEn__DOT__data_list[1]),64);
+        }
+        if (VL_UNLIKELY(vlSelf->__Vm_traceActivity[1U])) {
+>>>>>>> 2627265... NJU-ProjectN/navy-apps ics2021 initialized
             tracep->chgIData(oldp+81,(vlSymsp->TOP__top.Inst),32);
             tracep->chgQData(oldp+82,(vlSymsp->TOP__top.pc),64);
             tracep->chgQData(oldp+84,(vlSymsp->TOP__top.__PVT__rdata),64);
@@ -496,6 +582,9 @@ void Vtop___024root__traceChgSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep) 
             tracep->chgBit(oldp+290,((1U & __Vtemp22[2U])));
             tracep->chgBit(oldp+291,((((1U & (IData)(
                                                      (vlSymsp->TOP__top.__PVT__ALU__DOT__ALUA 
+<<<<<<< HEAD
+>>>>>>> 2627265... NJU-ProjectN/navy-apps ics2021 initialized
+=======
 >>>>>>> 2627265... NJU-ProjectN/navy-apps ics2021 initialized
                                                       >> 0x3fU))) 
                                        == (1U & (IData)(
@@ -508,8 +597,13 @@ void Vtop___024root__traceChgSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep) 
                                                           (vlSymsp->TOP__top.__PVT__ALU__DOT__ALUA 
                                                            >> 0x3fU)))))));
 <<<<<<< HEAD
+<<<<<<< HEAD
             tracep->chgBit(oldp+237,((1U & ((IData)(
                                                     (vlSelf->top__DOT__ALU__DOT__adder 
+=======
+            tracep->chgBit(oldp+292,((1U & ((IData)(
+                                                    (vlSymsp->TOP__top.__PVT__ALU__DOT__adder 
+>>>>>>> 2627265... NJU-ProjectN/navy-apps ics2021 initialized
 =======
             tracep->chgBit(oldp+292,((1U & ((IData)(
                                                     (vlSymsp->TOP__top.__PVT__ALU__DOT__adder 
@@ -533,6 +627,7 @@ void Vtop___024root__traceChgSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep) 
                                                    & (IData)(
                                                              (vlSymsp->TOP__top.__PVT__ALU__DOT__ALUA 
                                                               >> 0x3fU)))))))));
+<<<<<<< HEAD
 <<<<<<< HEAD
             VL_EXTEND_WQ(65,64, __Vtemp752, vlSelf->top__DOT__ALU__DOT__ALUA);
             VL_EXTEND_WQ(65,64, __Vtemp753, vlSelf->top__DOT__ALU__DOT__Adder__DOT__t_no_Cin);
@@ -722,6 +817,15 @@ void Vtop___024root__traceChgSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep) 
             VL_ADD_W(3, __Vtemp29, __Vtemp27, __Vtemp28);
             tracep->chgBit(oldp+293,((1U & ((IData)(vlSymsp->TOP__top.__PVT__ALU__DOT__Sub_Add) 
                                             ^ (1U & 
+=======
+            VL_EXTEND_WQ(65,64, __Vtemp25, vlSymsp->TOP__top.__PVT__ALU__DOT__ALUA);
+            VL_EXTEND_WQ(65,64, __Vtemp26, vlSymsp->TOP__top.__PVT__ALU__DOT__Adder__DOT__t_no_Cin);
+            VL_ADD_W(3, __Vtemp27, __Vtemp25, __Vtemp26);
+            VL_EXTEND_WI(65,1, __Vtemp28, (IData)(vlSymsp->TOP__top.__PVT__ALU__DOT__Sub_Add));
+            VL_ADD_W(3, __Vtemp29, __Vtemp27, __Vtemp28);
+            tracep->chgBit(oldp+293,((1U & ((IData)(vlSymsp->TOP__top.__PVT__ALU__DOT__Sub_Add) 
+                                            ^ (1U & 
+>>>>>>> 2627265... NJU-ProjectN/navy-apps ics2021 initialized
                                                __Vtemp29[2U])))));
             tracep->chgQData(oldp+294,(vlSymsp->TOP__top.__PVT__ALU__DOT__shift),64);
             tracep->chgQData(oldp+296,((vlSymsp->TOP__top.__PVT__ALU__DOT__ALUA 
@@ -999,6 +1103,9 @@ void Vtop___024root__traceChgSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep) 
         tracep->chgIData(oldp+727,(vlSelf->Inst),32);
         tracep->chgQData(oldp+728,(vlSelf->pc),64);
         tracep->chgQData(oldp+730,(vlSymsp->TOP__top__IntrUnit.mcase),64);
+<<<<<<< HEAD
+>>>>>>> 2627265... NJU-ProjectN/navy-apps ics2021 initialized
+=======
 >>>>>>> 2627265... NJU-ProjectN/navy-apps ics2021 initialized
     }
 }

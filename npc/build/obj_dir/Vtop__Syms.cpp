@@ -34,9 +34,12 @@ Vtop__Syms::Vtop__Syms(VerilatedContext* contextp, const char* namep,Vtop* model
     TOP.__Vconfigure(this, true);
     TOP____024unit.__Vconfigure(this, true);
 <<<<<<< HEAD
+<<<<<<< HEAD
     // Setup export functions
     for (int __Vfinal=0; __Vfinal<2; __Vfinal++) {
 =======
+=======
+>>>>>>> 2627265... NJU-ProjectN/navy-apps ics2021 initialized
     TOP__top.__Vconfigure(this, true);
     TOP__top__IntrUnit.__Vconfigure(this, true);
     // Setup scopes
@@ -50,6 +53,9 @@ Vtop__Syms::Vtop__Syms(VerilatedContext* contextp, const char* namep,Vtop* model
     // Setup export functions
     for (int __Vfinal=0; __Vfinal<2; __Vfinal++) {
         __Vscope_top__IntrUnit.varInsert(__Vfinal,"mcase", &(TOP__top__IntrUnit.mcase), false, VLVT_UINT64,VLVD_NODIR|VLVF_PUB_RW,1 ,63,0);
+<<<<<<< HEAD
+>>>>>>> 2627265... NJU-ProjectN/navy-apps ics2021 initialized
+=======
 >>>>>>> 2627265... NJU-ProjectN/navy-apps ics2021 initialized
     }
 }

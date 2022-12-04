@@ -35,6 +35,16 @@ class Vtop__Syms final : public VerilatedSyms {
     Vtop___024unit                 TOP____024unit;
     Vtop_top                       TOP__top;
     Vtop_Intr                      TOP__top__IntrUnit;
+<<<<<<< HEAD
+=======
+
+    // SCOPE NAMES
+    VerilatedScope __Vscope_top;
+    VerilatedScope __Vscope_top__IntrUnit;
+
+    // SCOPE HIERARCHY
+    VerilatedHierarchy __Vhier;
+>>>>>>> 2627265... NJU-ProjectN/navy-apps ics2021 initialized
 
     // CONSTRUCTORS
     Vtop__Syms(VerilatedContext* contextp, const char* namep, Vtop* modelp);

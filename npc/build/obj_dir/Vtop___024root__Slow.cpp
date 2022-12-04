@@ -28,6 +28,7 @@ Vtop___024root::~Vtop___024root() {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 void Vtop___024root___settle__TOP__1(Vtop___024root* vlSelf) {
     if (false && vlSelf) {}  // Prevent unused
     Vtop__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
@@ -3859,6 +3860,10 @@ void Vtop___024root___settle__TOP__4(Vtop___024root* vlSelf) {
 void Vtop_Intr___initial__TOP__top__IntrUnit__2(Vtop_Intr* vlSelf) VL_ATTR_COLD;
 void Vtop_top___initial__TOP__top__2(Vtop_top* vlSelf) VL_ATTR_COLD;
 >>>>>>> 2627265... NJU-ProjectN/navy-apps ics2021 initialized
+=======
+void Vtop_Intr___initial__TOP__top__IntrUnit__2(Vtop_Intr* vlSelf) VL_ATTR_COLD;
+void Vtop_top___initial__TOP__top__2(Vtop_top* vlSelf) VL_ATTR_COLD;
+>>>>>>> 2627265... NJU-ProjectN/navy-apps ics2021 initialized
 
 void Vtop___024root___eval_initial(Vtop___024root* vlSelf) {
     if (false && vlSelf) {}  // Prevent unused
@@ -3866,12 +3871,18 @@ void Vtop___024root___eval_initial(Vtop___024root* vlSelf) {
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vtop___024root___eval_initial\n"); );
     // Body
 <<<<<<< HEAD
+<<<<<<< HEAD
     Vtop___024root___initial__TOP__2(vlSelf);
 =======
+=======
+>>>>>>> 2627265... NJU-ProjectN/navy-apps ics2021 initialized
     Vtop_Intr___initial__TOP__top__IntrUnit__2((&vlSymsp->TOP__top__IntrUnit));
     vlSelf->__Vm_traceActivity[1U] = 1U;
     vlSelf->__Vm_traceActivity[0U] = 1U;
     Vtop_top___initial__TOP__top__2((&vlSymsp->TOP__top));
+<<<<<<< HEAD
+>>>>>>> 2627265... NJU-ProjectN/navy-apps ics2021 initialized
+=======
 >>>>>>> 2627265... NJU-ProjectN/navy-apps ics2021 initialized
     vlSelf->__Vclklast__TOP__clk = vlSelf->clk;
 }
@@ -3913,6 +3924,7 @@ void Vtop___024root___ctor_var_reset(Vtop___024root* vlSelf) {
     vlSelf->rst = 0;
     vlSelf->Inst = 0;
     vlSelf->pc = 0;
+<<<<<<< HEAD
 <<<<<<< HEAD
     vlSelf->top__DOT__rdata = 0;
     vlSelf->top__DOT__waddr = 0;
@@ -4102,6 +4114,8 @@ void Vtop___024root___ctor_var_reset(Vtop___024root* vlSelf) {
     vlSelf->__Vtask_pmem_read__0__rdata = 0;
     vlSelf->__Vtask_pmem_read__5__rdata = 0;
     vlSelf->__Vtask_pmem_read__6__rdata = 0;
+=======
+>>>>>>> 2627265... NJU-ProjectN/navy-apps ics2021 initialized
 =======
 >>>>>>> 2627265... NJU-ProjectN/navy-apps ics2021 initialized
     for (int __Vi0=0; __Vi0<2; ++__Vi0) {

@@ -23,6 +23,7 @@ void Vtop___024root__traceInitSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
     // Body
     {
 <<<<<<< HEAD
+<<<<<<< HEAD
         tracep->declBit(c+561,"clk", false,-1);
         tracep->declBit(c+562,"rst", false,-1);
         tracep->declBus(c+563,"Inst", false,-1, 31,0);
@@ -245,6 +246,103 @@ void Vtop___024root__traceInitSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
         tracep->declQuad(c+110,"top RegisterFile wdata", false,-1, 63,0);
         tracep->declBit(c+93,"top RegisterFile wen", false,-1);
         {int i; for (i=0; i<32; i++) {
+=======
+        tracep->declBit(c+726,"clk", false,-1);
+        tracep->declBit(c+727,"rst", false,-1);
+        tracep->declBus(c+728,"Inst", false,-1, 31,0);
+        tracep->declQuad(c+729,"pc", false,-1, 63,0);
+        tracep->declBit(c+726,"top clk", false,-1);
+        tracep->declBit(c+727,"top rst", false,-1);
+        tracep->declBus(c+82,"top Inst", false,-1, 31,0);
+        tracep->declQuad(c+83,"top pc", false,-1, 63,0);
+        tracep->declQuad(c+83,"top raddr", false,-1, 63,0);
+        tracep->declQuad(c+85,"top rdata", false,-1, 63,0);
+        tracep->declQuad(c+733,"top waddr", false,-1, 63,0);
+        tracep->declQuad(c+735,"top wdata", false,-1, 63,0);
+        tracep->declBus(c+737,"top wmask", false,-1, 7,0);
+        tracep->declQuad(c+87,"top R_rs1", false,-1, 63,0);
+        tracep->declQuad(c+89,"top R_rs2", false,-1, 63,0);
+        tracep->declBus(c+91,"top ALUct", false,-1, 4,0);
+        tracep->declBus(c+92,"top Extop", false,-1, 2,0);
+        tracep->declBit(c+93,"top RegWr", false,-1);
+        tracep->declBit(c+94,"top ALUAsr", false,-1);
+        tracep->declBus(c+95,"top ALUBsr", false,-1, 1,0);
+        tracep->declQuad(c+96,"top Imm", false,-1, 63,0);
+        tracep->declQuad(c+98,"top ALUres", false,-1, 63,0);
+        tracep->declQuad(c+100,"top NextPC", false,-1, 63,0);
+        tracep->declBus(c+102,"top Branch", false,-1, 2,0);
+        tracep->declBit(c+103,"top Less", false,-1);
+        tracep->declBit(c+104,"top Zero", false,-1);
+        tracep->declBus(c+105,"top MemOP", false,-1, 2,0);
+        tracep->declBus(c+106,"top RegSrc", false,-1, 1,0);
+        tracep->declBit(c+107,"top MemWr", false,-1);
+        tracep->declQuad(c+108,"top MemOut", false,-1, 63,0);
+        tracep->declQuad(c+110,"top RegWdata", false,-1, 63,0);
+        tracep->declBit(c+112,"top isIntrPC", false,-1);
+        tracep->declQuad(c+113,"top IntrPC", false,-1, 63,0);
+        tracep->declBit(c+115,"top IntrEn", false,-1);
+        tracep->declQuad(c+116,"top IntrOut", false,-1, 63,0);
+        tracep->declBit(c+118,"top clint_mtip", false,-1);
+        tracep->declBit(c+119,"top clint_we", false,-1);
+        tracep->declBit(c+120,"top clint_re", false,-1);
+        tracep->declQuad(c+121,"top clint_dout", false,-1, 63,0);
+        tracep->declBit(c+123,"top isTuncate", false,-1);
+        tracep->declBit(c+124,"top isSext", false,-1);
+        tracep->declBit(c+726,"top PC clk", false,-1);
+        tracep->declBit(c+727,"top PC rst", false,-1);
+        tracep->declBit(c+112,"top PC isIntrPC", false,-1);
+        tracep->declQuad(c+100,"top PC NextPC", false,-1, 63,0);
+        tracep->declQuad(c+113,"top PC IntrPC", false,-1, 63,0);
+        tracep->declQuad(c+83,"top PC pc", false,-1, 63,0);
+        tracep->declQuad(c+125,"top PC dpc", false,-1, 63,0);
+        tracep->declBus(c+738,"top PC NEXT_PC WIDTH", false,-1, 31,0);
+        tracep->declQuad(c+739,"top PC NEXT_PC RESET_VAL", false,-1, 63,0);
+        tracep->declBit(c+726,"top PC NEXT_PC clk", false,-1);
+        tracep->declBit(c+727,"top PC NEXT_PC rst", false,-1);
+        tracep->declQuad(c+125,"top PC NEXT_PC din", false,-1, 63,0);
+        tracep->declQuad(c+83,"top PC NEXT_PC dout", false,-1, 63,0);
+        tracep->declBit(c+741,"top PC NEXT_PC wen", false,-1);
+        tracep->declBus(c+102,"top GenNextPC Branch", false,-1, 2,0);
+        tracep->declQuad(c+96,"top GenNextPC imm", false,-1, 63,0);
+        tracep->declQuad(c+83,"top GenNextPC PC", false,-1, 63,0);
+        tracep->declQuad(c+87,"top GenNextPC R_rs1", false,-1, 63,0);
+        tracep->declBit(c+103,"top GenNextPC Less", false,-1);
+        tracep->declBit(c+104,"top GenNextPC Zero", false,-1);
+        tracep->declQuad(c+100,"top GenNextPC NextPC", false,-1, 63,0);
+        tracep->declBit(c+127,"top GenNextPC PCAsrc", false,-1);
+        tracep->declBit(c+128,"top GenNextPC PCBsrc", false,-1);
+        tracep->declQuad(c+129,"top GenNextPC Asrc", false,-1, 63,0);
+        tracep->declQuad(c+131,"top GenNextPC Bsrc", false,-1, 63,0);
+        tracep->declBus(c+742,"top GenNextPC dePCsrc NR_KEY", false,-1, 31,0);
+        tracep->declBus(c+743,"top GenNextPC dePCsrc KEY_LEN", false,-1, 31,0);
+        tracep->declBus(c+744,"top GenNextPC dePCsrc DATA_LEN", false,-1, 31,0);
+        tracep->declBus(c+745,"top GenNextPC dePCsrc HAS_DEFAULT", false,-1, 31,0);
+        tracep->declBus(c+133,"top GenNextPC dePCsrc out", false,-1, 1,0);
+        tracep->declBus(c+102,"top GenNextPC dePCsrc key", false,-1, 2,0);
+        tracep->declBus(c+746,"top GenNextPC dePCsrc default_out", false,-1, 1,0);
+        tracep->declQuad(c+134,"top GenNextPC dePCsrc lut", false,-1, 34,0);
+        tracep->declBus(c+747,"top GenNextPC dePCsrc PAIR_LEN", false,-1, 31,0);
+        {int i; for (i=0; i<7; i++) {
+                tracep->declBus(c+136+i*1,"top GenNextPC dePCsrc pair_list", true,(i+0), 4,0);}}
+        {int i; for (i=0; i<7; i++) {
+                tracep->declBus(c+143+i*1,"top GenNextPC dePCsrc key_list", true,(i+0), 2,0);}}
+        {int i; for (i=0; i<7; i++) {
+                tracep->declBus(c+150+i*1,"top GenNextPC dePCsrc data_list", true,(i+0), 1,0);}}
+        tracep->declBus(c+157,"top GenNextPC dePCsrc lut_out", false,-1, 1,0);
+        tracep->declBit(c+158,"top GenNextPC dePCsrc hit", false,-1);
+        tracep->declBus(c+748,"top GenNextPC dePCsrc i", false,-1, 31,0);
+        tracep->declBus(c+747,"top RegisterFile ADDR_WIDTH", false,-1, 31,0);
+        tracep->declBus(c+738,"top RegisterFile DATA_WIDTH", false,-1, 31,0);
+        tracep->declBus(c+159,"top RegisterFile rs1", false,-1, 4,0);
+        tracep->declBus(c+160,"top RegisterFile rs2", false,-1, 4,0);
+        tracep->declBus(c+161,"top RegisterFile waddr", false,-1, 4,0);
+        tracep->declQuad(c+87,"top RegisterFile R_rs1", false,-1, 63,0);
+        tracep->declQuad(c+89,"top RegisterFile R_rs2", false,-1, 63,0);
+        tracep->declBit(c+726,"top RegisterFile clk", false,-1);
+        tracep->declQuad(c+110,"top RegisterFile wdata", false,-1, 63,0);
+        tracep->declBit(c+93,"top RegisterFile wen", false,-1);
+        {int i; for (i=0; i<32; i++) {
+>>>>>>> 2627265... NJU-ProjectN/navy-apps ics2021 initialized
                 tracep->declQuad(c+162+i*2,"top RegisterFile rf", true,(i+0), 63,0);}}
         tracep->declBus(c+226,"top ContrGen opcode", false,-1, 6,0);
         tracep->declBus(c+227,"top ContrGen func3", false,-1, 2,0);
@@ -306,6 +404,7 @@ void Vtop___024root__traceInitSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
         tracep->declBus(c+757,"top ContrGen isRegWr default_out", false,-1, 0,0);
         tracep->declBus(c+762,"top ContrGen isRegWr lut", false,-1, 15,0);
         tracep->declBus(c+761,"top ContrGen isRegWr PAIR_LEN", false,-1, 31,0);
+<<<<<<< HEAD
 >>>>>>> 2627265... NJU-ProjectN/navy-apps ics2021 initialized
         {int i; for (i=0; i<4; i++) {
                 tracep->declBus(c+34+i*1,"top ContrGen isRegWr pair_list", true,(i+0), 3,0);}}
@@ -418,6 +517,8 @@ void Vtop___024root__traceInitSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
                 tracep->declArray(c+298+i*3,"top ALU BarrelShifter ShifterMux pair_list", true,(i+0), 65,0);}}
         {int i; for (i=0; i<4; i++) {
                 tracep->declBus(c+310+i*1,"top ALU BarrelShifter ShifterMux key_list", true,(i+0), 1,0);}}
+=======
+>>>>>>> 2627265... NJU-ProjectN/navy-apps ics2021 initialized
         {int i; for (i=0; i<4; i++) {
                 tracep->declQuad(c+314+i*2,"top ALU BarrelShifter ShifterMux data_list", true,(i+0), 63,0);}}
         tracep->declQuad(c+322,"top ALU BarrelShifter ShifterMux lut_out", false,-1, 63,0);
@@ -704,11 +805,14 @@ void Vtop___024root__traceInitSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
         tracep->declBus(c+778,"top DataMem deMemOP default_out", false,-1, 7,0);
         tracep->declQuad(c+779,"top DataMem deMemOP lut", false,-1, 39,0);
         tracep->declBus(c+755,"top DataMem deMemOP PAIR_LEN", false,-1, 31,0);
+<<<<<<< HEAD
 >>>>>>> 2627265... NJU-ProjectN/navy-apps ics2021 initialized
         {int i; for (i=0; i<4; i++) {
                 tracep->declBus(c+46+i*1,"top DataMem deMemOP pair_list", true,(i+0), 9,0);}}
         {int i; for (i=0; i<4; i++) {
                 tracep->declBus(c+50+i*1,"top DataMem deMemOP key_list", true,(i+0), 1,0);}}
+=======
+>>>>>>> 2627265... NJU-ProjectN/navy-apps ics2021 initialized
         {int i; for (i=0; i<4; i++) {
 <<<<<<< HEAD
                 tracep->declBus(c+54+i*1,"top DataMem deMemOP data_list", true,(i+0), 7,0);}}
@@ -847,6 +951,9 @@ void Vtop___024root__traceInitSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
         tracep->declQuad(c+768,"top IntrUnit CSRwEn default_out", false,-1, 63,0);
         tracep->declArray(c+784,"top IntrUnit CSRwEn lut", false,-1, 131,0);
         tracep->declBus(c+772,"top IntrUnit CSRwEn PAIR_LEN", false,-1, 31,0);
+<<<<<<< HEAD
+>>>>>>> 2627265... NJU-ProjectN/navy-apps ics2021 initialized
+=======
 >>>>>>> 2627265... NJU-ProjectN/navy-apps ics2021 initialized
         {int i; for (i=0; i<2; i++) {
                 tracep->declArray(c+546+i*3,"top RegWsrcMux pair_list", true,(i+0), 64,0);}}
@@ -916,6 +1023,9 @@ void Vtop___024root__traceInitSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
         tracep->declQuad(c+656,"top IntrUnit mieReg din", false,-1, 63,0);
         tracep->declQuad(c+639,"top IntrUnit mieReg dout", false,-1, 63,0);
         tracep->declBit(c+725,"top IntrUnit mieReg wen", false,-1);
+<<<<<<< HEAD
+>>>>>>> 2627265... NJU-ProjectN/navy-apps ics2021 initialized
+=======
 >>>>>>> 2627265... NJU-ProjectN/navy-apps ics2021 initialized
     }
 }
@@ -950,6 +1060,7 @@ void Vtop___024root__traceFullSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
     if (false && vlSelf) {}  // Prevent unused
     Vtop__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
 <<<<<<< HEAD
+<<<<<<< HEAD
     VlWide<3>/*95:0*/ __Vtemp730;
     VlWide<3>/*95:0*/ __Vtemp731;
     VlWide<3>/*95:0*/ __Vtemp732;
@@ -962,6 +1073,8 @@ void Vtop___024root__traceFullSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
     VlWide<3>/*95:0*/ __Vtemp741;
     VlWide<4>/*127:0*/ __Vtemp743;
 =======
+=======
+>>>>>>> 2627265... NJU-ProjectN/navy-apps ics2021 initialized
     VlWide<3>/*95:0*/ __Vtemp2;
     VlWide<3>/*95:0*/ __Vtemp3;
     VlWide<3>/*95:0*/ __Vtemp4;
@@ -974,11 +1087,15 @@ void Vtop___024root__traceFullSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
     VlWide<3>/*95:0*/ __Vtemp13;
     VlWide<4>/*127:0*/ __Vtemp15;
     VlWide<5>/*159:0*/ __Vtemp16;
+<<<<<<< HEAD
+>>>>>>> 2627265... NJU-ProjectN/navy-apps ics2021 initialized
+=======
 >>>>>>> 2627265... NJU-ProjectN/navy-apps ics2021 initialized
     vluint32_t* const oldp = tracep->oldp(vlSymsp->__Vm_baseCode);
     if (false && oldp) {}  // Prevent unused
     // Body
     {
+<<<<<<< HEAD
 <<<<<<< HEAD
         tracep->fullSData(oldp+1,(vlSelf->top__DOT__ContrGen__DOT__deExtop__DOT__pair_list[0]),10);
         tracep->fullSData(oldp+2,(vlSelf->top__DOT__ContrGen__DOT__deExtop__DOT__pair_list[1]),10);
@@ -1158,6 +1275,8 @@ void Vtop___024root__traceFullSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
         tracep->fullBit(oldp+236,((1U & __Vtemp734[2U])));
         tracep->fullBit(oldp+237,((((1U & (IData)((vlSelf->top__DOT__ALU__DOT__ALUA 
 =======
+=======
+>>>>>>> 2627265... NJU-ProjectN/navy-apps ics2021 initialized
         tracep->fullSData(oldp+1,(vlSymsp->TOP__top.__PVT__ContrGen__DOT__deExtop__DOT__pair_list[0]),10);
         tracep->fullSData(oldp+2,(vlSymsp->TOP__top.__PVT__ContrGen__DOT__deExtop__DOT__pair_list[1]),10);
         tracep->fullSData(oldp+3,(vlSymsp->TOP__top.__PVT__ContrGen__DOT__deExtop__DOT__pair_list[2]),10);
@@ -1420,6 +1539,9 @@ void Vtop___024root__traceFullSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
         VL_ADD_W(3, __Vtemp6, __Vtemp4, __Vtemp5);
         tracep->fullBit(oldp+291,((1U & __Vtemp6[2U])));
         tracep->fullBit(oldp+292,((((1U & (IData)((vlSymsp->TOP__top.__PVT__ALU__DOT__ALUA 
+<<<<<<< HEAD
+>>>>>>> 2627265... NJU-ProjectN/navy-apps ics2021 initialized
+=======
 >>>>>>> 2627265... NJU-ProjectN/navy-apps ics2021 initialized
                                                    >> 0x3fU))) 
                                     == (1U & (IData)(
@@ -1432,7 +1554,11 @@ void Vtop___024root__traceFullSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
                                                        (vlSymsp->TOP__top.__PVT__ALU__DOT__ALUA 
                                                         >> 0x3fU)))))));
 <<<<<<< HEAD
+<<<<<<< HEAD
         tracep->fullBit(oldp+238,((1U & ((IData)((vlSelf->top__DOT__ALU__DOT__adder 
+=======
+        tracep->fullBit(oldp+293,((1U & ((IData)((vlSymsp->TOP__top.__PVT__ALU__DOT__adder 
+>>>>>>> 2627265... NJU-ProjectN/navy-apps ics2021 initialized
 =======
         tracep->fullBit(oldp+293,((1U & ((IData)((vlSymsp->TOP__top.__PVT__ALU__DOT__adder 
 >>>>>>> 2627265... NJU-ProjectN/navy-apps ics2021 initialized
@@ -1452,6 +1578,7 @@ void Vtop___024root__traceFullSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
                                                    & (IData)(
                                                              (vlSymsp->TOP__top.__PVT__ALU__DOT__ALUA 
                                                               >> 0x3fU)))))))));
+<<<<<<< HEAD
 <<<<<<< HEAD
         VL_EXTEND_WQ(65,64, __Vtemp737, vlSelf->top__DOT__ALU__DOT__ALUA);
         VL_EXTEND_WQ(65,64, __Vtemp738, vlSelf->top__DOT__ALU__DOT__Adder__DOT__t_no_Cin);
@@ -1670,6 +1797,8 @@ void Vtop___024root__traceFullSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
         tracep->fullIData(oldp+617,(0x41U),32);
         tracep->fullIData(oldp+618,(2U),32);
 =======
+=======
+>>>>>>> 2627265... NJU-ProjectN/navy-apps ics2021 initialized
         VL_EXTEND_WQ(65,64, __Vtemp9, vlSymsp->TOP__top.__PVT__ALU__DOT__ALUA);
         VL_EXTEND_WQ(65,64, __Vtemp10, vlSymsp->TOP__top.__PVT__ALU__DOT__Adder__DOT__t_no_Cin);
         VL_ADD_W(3, __Vtemp11, __Vtemp9, __Vtemp10);
@@ -2001,6 +2130,9 @@ void Vtop___024root__traceFullSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
         tracep->fullWData(oldp+784,(__Vtemp16),132);
         tracep->fullIData(oldp+789,(6U),32);
         tracep->fullQData(oldp+790,(0xa00001800ULL),64);
+<<<<<<< HEAD
+>>>>>>> 2627265... NJU-ProjectN/navy-apps ics2021 initialized
+=======
 >>>>>>> 2627265... NJU-ProjectN/navy-apps ics2021 initialized
     }
 }

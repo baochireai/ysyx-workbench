@@ -63,7 +63,10 @@ void cpu_exec(uint64_t n){
     //printf("Inst_RTL=%08x\n",Inst_RTL);
     cpu_exec_once();
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> 2627265... NJU-ProjectN/navy-apps ics2021 initialized
     // if(cpu.pc==0x80001300){
     //   //VPI方式
     //   VerilatedVpi::callValueCbs();
@@ -72,6 +75,9 @@ void cpu_exec(uint64_t n){
     //   printf("mcause:%016lx\n",((uint64_t)svmcausep[1].aval<<32)|(uint64_t)svmcausep[0].aval);
     //   ref_difftest_raise_intr(((uint64_t)svmcausep[1].aval<<32)|(uint64_t)svmcausep[0].aval);
     // }
+<<<<<<< HEAD
+>>>>>>> 2627265... NJU-ProjectN/navy-apps ics2021 initialized
+=======
 >>>>>>> 2627265... NJU-ProjectN/navy-apps ics2021 initialized
     //printf("pc=%lx\tdpc=%lx\n",pc,top->pc);
     difftest_step(pc,cpu.pc);

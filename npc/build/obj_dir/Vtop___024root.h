@@ -30,6 +30,7 @@ VL_MODULE(Vtop___024root) {
     VL_OUT64(pc,63,0);
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     // LOCAL SIGNALS
     // Anonymous structures to workaround compiler member-count bugs
     struct {
@@ -153,6 +154,10 @@ VL_MODULE(Vtop___024root) {
     QData/*63:0*/ __Vtask_pmem_read__0__rdata;
     QData/*63:0*/ __Vtask_pmem_read__5__rdata;
     QData/*63:0*/ __Vtask_pmem_read__6__rdata;
+=======
+    // LOCAL VARIABLES
+    CData/*0:0*/ __Vclklast__TOP__clk;
+>>>>>>> 2627265... NJU-ProjectN/navy-apps ics2021 initialized
 =======
     // LOCAL VARIABLES
     CData/*0:0*/ __Vclklast__TOP__clk;

@@ -12,8 +12,11 @@ void (*ref_difftest_raise_intr)(uint64_t NO) = NULL;
 static bool is_skip_ref = false;
 static int skip_dut_nr_inst = 0;
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 =======
+=======
+>>>>>>> 2627265... NJU-ProjectN/navy-apps ics2021 initialized
 //跳过外设访问指令 因为访问一次外设要执行两次memery map 所以会多触发一次指令跳过
 static int skip_dut_nextInst = 0;
 >>>>>>> 2627265... NJU-ProjectN/navy-apps ics2021 initialized
@@ -32,7 +35,10 @@ void difftest_skip_ref() {
 }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> 2627265... NJU-ProjectN/navy-apps ics2021 initialized
 
 void difftest_skip_nextRef(){
   //printf("skip one inst at pc:0x%016lx\n",cpu.pc);
@@ -147,6 +153,9 @@ void difftest_step(vaddr_t pc, vaddr_t npc) {
 
   if (is_skip_ref) {
     printf("skip one inst at pc=%16lx  npc = %16lx\n",pc,npc);
+<<<<<<< HEAD
+>>>>>>> 2627265... NJU-ProjectN/navy-apps ics2021 initialized
+=======
 >>>>>>> 2627265... NJU-ProjectN/navy-apps ics2021 initialized
     // to skip the checking of an instruction, just copy the reg state to reference design
     ref_difftest_regcpy(&cpu, DIFFTEST_TO_REF);
