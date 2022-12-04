@@ -15,6 +15,7 @@ class Vtop__Syms;
 class Vtop___024root;
 class VerilatedVcdC;
 class Vtop_VerilatedVcd;
+class Vtop_top;
 class Vtop___024unit;
 
 
@@ -37,6 +38,7 @@ class Vtop VL_NOT_FINAL {
     // CELLS
     // Public to allow access to /* verilator public */ items.
     // Otherwise the application code can consider these internals.
+    Vtop_top* const top;
     Vtop___024unit* const __PVT____024unit;
 
     // Root instance pointer to allow access to model internals,

@@ -51,6 +51,16 @@ VL_INLINE_OPT void Vtop___024unit____Vdpiimwrap_set_invalid_inst_TOP____024unit(
     set_invalid_inst();
 }
 
+extern "C" void timerIntr_raise(const svLogicVecVal* mcauseRegp);
+
+VL_INLINE_OPT void Vtop___024unit____Vdpiimwrap_timerIntr_raise_TOP____024unit(QData/*63:0*/ mcauseRegp) {
+    VL_DEBUG_IF(VL_DBG_MSGF("+        Vtop___024unit____Vdpiimwrap_timerIntr_raise_TOP____024unit\n"); );
+    // Body
+    svLogicVecVal mcauseRegp__Vcvt[2];
+    for (size_t mcauseRegp__Vidx = 0; mcauseRegp__Vidx < 1; ++mcauseRegp__Vidx) VL_SET_SVLV_Q(64, mcauseRegp__Vcvt + 2 * mcauseRegp__Vidx, mcauseRegp);
+    timerIntr_raise(mcauseRegp__Vcvt);
+}
+
 extern "C" void set_gpr_ptr(const svOpenArrayHandle a);
 
 VL_INLINE_OPT void Vtop___024unit____Vdpiimwrap_set_gpr_ptr__Vdpioc2_TOP____024unit(const VlUnpacked<QData/*63:0*/, 32> &a) {

@@ -28,6 +28,25 @@ void cpu_exec_once(){
 #endif
   cpu.pc=top->pc;
 }
+<<<<<<< HEAD
+=======
+
+uint64_t get_mcause(){
+  //verilog中通过/*verilator public*/对reg使能该功能，这样verilator仿真器在进行编译成C++代码的时候就会生成改变量
+  vpiHandle vh1 = vpi_handle_by_name((PLI_BYTE8*)"TOP.top.IntrUnit.mcase", NULL);
+  if (!vh1) vl_fatal(__FILE__, __LINE__, "sim_main", "No handle found");
+  // const char* name = vpi_get_str(vpiName, vh1);
+  // printf("Module name: %s\n", name);  // Prints "readme"
+
+  s_vpi_value v;
+  v.format = vpiVectorVal;
+  vpi_get_value(vh1, &v);
+  uint64_t mcause=(uint64_t)v.value.vector[7].aval<<56|(uint64_t)v.value.vector[6].aval<<48|(uint64_t)v.value.vector[5].aval<<40|\
+  (uint64_t)v.value.vector[4].aval<<32|(uint64_t)v.value.vector[3].aval<<24|(uint64_t)v.value.vector[2].aval<<16|(uint64_t)v.value.vector[1].aval<<8|(uint64_t)v.value.vector[0].aval;
+  return mcause;
+}
+
+>>>>>>> 2627265... NJU-ProjectN/navy-apps ics2021 initialized
 void cpu_exec(uint64_t n){
 
   switch (npc_state) {
@@ -43,6 +62,17 @@ void cpu_exec(uint64_t n){
     unsigned int Inst_RTL=top->Inst;
     //printf("Inst_RTL=%08x\n",Inst_RTL);
     cpu_exec_once();
+<<<<<<< HEAD
+=======
+    // if(cpu.pc==0x80001300){
+    //   //VPI方式
+    //   VerilatedVpi::callValueCbs();
+    //   ref_difftest_raise_intr(get_mcause());
+    //   //DPI方式
+    //   printf("mcause:%016lx\n",((uint64_t)svmcausep[1].aval<<32)|(uint64_t)svmcausep[0].aval);
+    //   ref_difftest_raise_intr(((uint64_t)svmcausep[1].aval<<32)|(uint64_t)svmcausep[0].aval);
+    // }
+>>>>>>> 2627265... NJU-ProjectN/navy-apps ics2021 initialized
     //printf("pc=%lx\tdpc=%lx\n",pc,top->pc);
     difftest_step(pc,cpu.pc);
 #else

@@ -27,6 +27,7 @@ void Vtop___024root::__Vconfigure(Vtop__Syms* _vlSymsp, bool first) {
 Vtop___024root::~Vtop___024root() {
 }
 
+<<<<<<< HEAD
 void Vtop___024root___settle__TOP__1(Vtop___024root* vlSelf) {
     if (false && vlSelf) {}  // Prevent unused
     Vtop__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
@@ -3854,25 +3855,47 @@ void Vtop___024root___settle__TOP__4(Vtop___024root* vlSelf) {
                                    ? vlSelf->top__DOT__RegWsrcMux__DOT__lut_out
                                    : 0ULL);
 }
+=======
+void Vtop_Intr___initial__TOP__top__IntrUnit__2(Vtop_Intr* vlSelf) VL_ATTR_COLD;
+void Vtop_top___initial__TOP__top__2(Vtop_top* vlSelf) VL_ATTR_COLD;
+>>>>>>> 2627265... NJU-ProjectN/navy-apps ics2021 initialized
 
 void Vtop___024root___eval_initial(Vtop___024root* vlSelf) {
     if (false && vlSelf) {}  // Prevent unused
     Vtop__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vtop___024root___eval_initial\n"); );
     // Body
+<<<<<<< HEAD
     Vtop___024root___initial__TOP__2(vlSelf);
+=======
+    Vtop_Intr___initial__TOP__top__IntrUnit__2((&vlSymsp->TOP__top__IntrUnit));
+    vlSelf->__Vm_traceActivity[1U] = 1U;
+    vlSelf->__Vm_traceActivity[0U] = 1U;
+    Vtop_top___initial__TOP__top__2((&vlSymsp->TOP__top));
+>>>>>>> 2627265... NJU-ProjectN/navy-apps ics2021 initialized
     vlSelf->__Vclklast__TOP__clk = vlSelf->clk;
 }
+
+void Vtop_Intr___settle__TOP__top__IntrUnit__1(Vtop_Intr* vlSelf) VL_ATTR_COLD;
+void Vtop_top___settle__TOP__top__1(Vtop_top* vlSelf) VL_ATTR_COLD;
+void Vtop_top___settle__TOP__top__5(Vtop_top* vlSelf) VL_ATTR_COLD;
+void Vtop___024root___sequent__TOP__1(Vtop___024root* vlSelf);
+void Vtop_Intr___sequent__TOP__top__IntrUnit__4(Vtop_Intr* vlSelf);
+void Vtop_top___sequent__TOP__top__4(Vtop_top* vlSelf);
 
 void Vtop___024root___eval_settle(Vtop___024root* vlSelf) {
     if (false && vlSelf) {}  // Prevent unused
     Vtop__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vtop___024root___eval_settle\n"); );
     // Body
-    Vtop___024root___settle__TOP__1(vlSelf);
+    Vtop_Intr___settle__TOP__top__IntrUnit__1((&vlSymsp->TOP__top__IntrUnit));
     vlSelf->__Vm_traceActivity[1U] = 1U;
     vlSelf->__Vm_traceActivity[0U] = 1U;
-    Vtop___024root___settle__TOP__4(vlSelf);
+    Vtop_top___settle__TOP__top__1((&vlSymsp->TOP__top));
+    Vtop_top___settle__TOP__top__5((&vlSymsp->TOP__top));
+    Vtop___024root___sequent__TOP__1(vlSelf);
+    Vtop_Intr___sequent__TOP__top__IntrUnit__4((&vlSymsp->TOP__top__IntrUnit));
+    Vtop_top___sequent__TOP__top__4((&vlSymsp->TOP__top));
 }
 
 void Vtop___024root___final(Vtop___024root* vlSelf) {
@@ -3890,6 +3913,7 @@ void Vtop___024root___ctor_var_reset(Vtop___024root* vlSelf) {
     vlSelf->rst = 0;
     vlSelf->Inst = 0;
     vlSelf->pc = 0;
+<<<<<<< HEAD
     vlSelf->top__DOT__rdata = 0;
     vlSelf->top__DOT__waddr = 0;
     vlSelf->top__DOT__wdata = 0;
@@ -4078,6 +4102,8 @@ void Vtop___024root___ctor_var_reset(Vtop___024root* vlSelf) {
     vlSelf->__Vtask_pmem_read__0__rdata = 0;
     vlSelf->__Vtask_pmem_read__5__rdata = 0;
     vlSelf->__Vtask_pmem_read__6__rdata = 0;
+=======
+>>>>>>> 2627265... NJU-ProjectN/navy-apps ics2021 initialized
     for (int __Vi0=0; __Vi0<2; ++__Vi0) {
         vlSelf->__Vm_traceActivity[__Vi0] = 0;
     }

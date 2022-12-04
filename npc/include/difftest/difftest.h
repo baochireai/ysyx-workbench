@@ -2,7 +2,7 @@
 #define __DIFFTEST_H__
 
 #include <common.h>
-
+#include <reg.h>
 enum { DIFFTEST_TO_DUT, DIFFTEST_TO_REF };
 
 typedef struct {

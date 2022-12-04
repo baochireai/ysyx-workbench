@@ -9,6 +9,7 @@
 
 //==========
 
+<<<<<<< HEAD
 void Vtop___024unit____Vdpiimwrap_pmem_read_TOP____024unit(QData/*63:0*/ raddr, QData/*63:0*/ &rdata);
 void Vtop___024unit____Vdpiimwrap_pmem_write_TOP____024unit(QData/*63:0*/ waddr, QData/*63:0*/ wdata, CData/*7:0*/ wmask);
 void Vtop___024unit____Vdpiimwrap_setebreak_TOP____024unit();
@@ -3593,7 +3594,21 @@ VL_INLINE_OPT void Vtop___024root___sequent__TOP__3(Vtop___024root* vlSelf) {
     vlSelf->top__DOT__RegWdata = ((IData)(vlSelf->top__DOT__RegWsrcMux__DOT__hit)
                                    ? vlSelf->top__DOT__RegWsrcMux__DOT__lut_out
                                    : 0ULL);
+=======
+VL_INLINE_OPT void Vtop___024root___sequent__TOP__1(Vtop___024root* vlSelf) {
+    if (false && vlSelf) {}  // Prevent unused
+    Vtop__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
+    VL_DEBUG_IF(VL_DBG_MSGF("+    Vtop___024root___sequent__TOP__1\n"); );
+    // Body
+    vlSelf->pc = vlSymsp->TOP__top.pc;
+    vlSelf->Inst = vlSymsp->TOP__top.Inst;
+>>>>>>> 2627265... NJU-ProjectN/navy-apps ics2021 initialized
 }
+
+void Vtop_Intr___sequent__TOP__top__IntrUnit__3(Vtop_Intr* vlSelf);
+void Vtop_top___sequent__TOP__top__3(Vtop_top* vlSelf);
+void Vtop_Intr___sequent__TOP__top__IntrUnit__4(Vtop_Intr* vlSelf);
+void Vtop_top___sequent__TOP__top__4(Vtop_top* vlSelf);
 
 void Vtop___024root___eval(Vtop___024root* vlSelf) {
     if (false && vlSelf) {}  // Prevent unused
@@ -3601,8 +3616,12 @@ void Vtop___024root___eval(Vtop___024root* vlSelf) {
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vtop___024root___eval\n"); );
     // Body
     if (((IData)(vlSelf->clk) & (~ (IData)(vlSelf->__Vclklast__TOP__clk)))) {
-        Vtop___024root___sequent__TOP__3(vlSelf);
+        Vtop_Intr___sequent__TOP__top__IntrUnit__3((&vlSymsp->TOP__top__IntrUnit));
         vlSelf->__Vm_traceActivity[1U] = 1U;
+        Vtop_top___sequent__TOP__top__3((&vlSymsp->TOP__top));
+        Vtop___024root___sequent__TOP__1(vlSelf);
+        Vtop_Intr___sequent__TOP__top__IntrUnit__4((&vlSymsp->TOP__top__IntrUnit));
+        Vtop_top___sequent__TOP__top__4((&vlSymsp->TOP__top));
     }
     // Final
     vlSelf->__Vclklast__TOP__clk = vlSelf->clk;

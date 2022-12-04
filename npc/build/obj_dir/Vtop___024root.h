@@ -11,6 +11,7 @@
 
 class Vtop__Syms;
 class Vtop_VerilatedVcd;
+class Vtop_top;
 class Vtop___024unit;
 
 
@@ -19,6 +20,7 @@ class Vtop___024unit;
 VL_MODULE(Vtop___024root) {
   public:
     // CELLS
+    Vtop_top* top;
     Vtop___024unit* __PVT____024unit;
 
     // PORTS
@@ -27,6 +29,7 @@ VL_MODULE(Vtop___024root) {
     VL_OUT(Inst,31,0);
     VL_OUT64(pc,63,0);
 
+<<<<<<< HEAD
     // LOCAL SIGNALS
     // Anonymous structures to workaround compiler member-count bugs
     struct {
@@ -150,6 +153,10 @@ VL_MODULE(Vtop___024root) {
     QData/*63:0*/ __Vtask_pmem_read__0__rdata;
     QData/*63:0*/ __Vtask_pmem_read__5__rdata;
     QData/*63:0*/ __Vtask_pmem_read__6__rdata;
+=======
+    // LOCAL VARIABLES
+    CData/*0:0*/ __Vclklast__TOP__clk;
+>>>>>>> 2627265... NJU-ProjectN/navy-apps ics2021 initialized
     VlUnpacked<CData/*0:0*/, 2> __Vm_traceActivity;
 
     // INTERNAL VARIABLES
