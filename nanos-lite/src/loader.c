@@ -7,10 +7,6 @@
 //close read
 #include <unistd.h>
 
-
-extern uint8_t ramdisk_start;
-extern uint8_t ramdisk_end;
-
 #ifdef __LP64__
 # define __64__
 # define Elf_Ehdr Elf64_Ehdr
@@ -62,7 +58,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   ramdisk_read((void*)0x83000000,0,0x4cf8);
   ramdisk_read((void*)0x83005cf8,0x4cf8,0xfe8);
   memset((void*)(0x83005cf8+0xfe8),0,(0x1038-0xfe8));
-  return (uintptr_t)(0x830003f8+&ramdisk_start);
+  return (uintptr_t)(0x830003f8);
 }
 
 void naive_uload(PCB *pcb, const char *filename) {
