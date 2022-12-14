@@ -23,6 +23,8 @@ extern "C" {
     extern void set_invalid_inst();
     // DPI import at /home/mrxue/ysyx-workbench/npc/vsrc/top.v:1:30
     extern void setebreak();
+    // DPI import at /home/mrxue/ysyx-workbench/npc/vsrc/Intr.v:1:30
+    extern void timerIntr_raise(const svLogicVecVal* mcauseRegp);
 
 #ifdef __cplusplus
 }

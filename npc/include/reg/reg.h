@@ -5,7 +5,8 @@
 
 extern const char *regs[];
 extern uint64_t *cpu_gpr;
-
+extern uint64_t mcause;
+extern bool timerIntr;
 
 extern "C" void set_gpr_ptr(const svOpenArrayHandle r);
 void dump_gpr();

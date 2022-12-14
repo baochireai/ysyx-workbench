@@ -1,3 +1,4 @@
+import "DPI-C" function void timerIntr_raise(input reg [63:0] mcauseRegp);
 module Intr(
     input clk,
     input IntrEn,
@@ -13,9 +14,21 @@ module Intr(
 );
 
     reg [63:0] mepc,mtvec,mstatus,mie,mip;
-    reg [63:0] mcase/*verilator public_flat_rd*/;
+    reg [63:0] mcase /*verilator public*/;
     reg isCSRw;
     
+    // /* verilator lint_off UNUSED */
+    // reg readme   /*verilator public_flat_rd*/; 
+    // /* verilator lint_on UNUSED */
+    // initial begin
+    //   readme=1'b1;
+    // end
+
+    always @(*) begin
+        if(timer_irq) 
+            timerIntr_raise(mcaseIn);
+    end
+
     initial begin
         mip=64'd0;
     end
