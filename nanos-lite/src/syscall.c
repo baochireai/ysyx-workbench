@@ -15,12 +15,25 @@ void do_syscall(Context *c) {
   printf("(SYS_call)");
   switch (a[0]) {
     case SYS_exit:
-      printf("halt(a[0])\n");
+      printf("halt(a0)\n");
       halt(c->GPRx);break;
     case SYS_yield:
       printf("SYS_yield()\n");
       yield();c->GPRx=0;
       break;
+    case SYS_write:{
+      int fd=c->GPRx;
+      char* buf=(char*)c->GPR4;
+      size_t count=c->GPR3;
+      printf("SYS_write(%d,\"%s\",%d)\n",fd,(char*)buf,count);
+      if(fd==0||fd==1){//stdout/stderr
+        for(size_t i=0;i<count;i++){
+          putch(buf[i]);
+        }
+      }
+      c->GPRx=count;
+      break;
+    }
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
 #elif
