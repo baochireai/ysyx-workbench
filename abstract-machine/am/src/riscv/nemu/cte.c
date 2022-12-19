@@ -13,8 +13,11 @@ Context* __am_irq_handle(Context *c) {//内联汇编__am_asm_trap（异常入口
     // }
     //将执行流切换的原因打包成事件
     switch (c->mcause) {
-      case 11:
-        ev.event=EVENT_YIELD;break;
+      case 11://系统调用
+        switch (c->GPR1){//根据任务号执行不同任务
+        case -1:ev.event=EVENT_YIELD;break;
+        default:ev.event = EVENT_ERROR;break;
+        }
       default: ev.event = EVENT_ERROR; break;
     }
     //调用回调函数
