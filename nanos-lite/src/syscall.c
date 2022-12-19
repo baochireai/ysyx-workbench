@@ -4,7 +4,7 @@
 void do_syscall(Context *c) {
   uintptr_t a[4];
   a[0] = c->GPR1;//syscall number
-
+  //printf("GPR2:%d")
   switch (a[0]) {
     case 1:
       yield();c->GPRx=0;break;
