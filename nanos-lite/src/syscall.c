@@ -2,9 +2,9 @@
 #include "syscall.h"
 
 #define strace
-void SYS_yield(){
-  asm volatile("li a7, -1; ecall");
-}
+// void SYS_yield(){
+//   asm volatile("li a7, -1; ecall");
+// }
 
 
 void do_syscall(Context *c) {
@@ -14,12 +14,12 @@ void do_syscall(Context *c) {
 #ifdef strace
   printf("(SYS_call)");
   switch (a[0]) {
-    case 0:
+    case SYS_exit:
       printf("halt(a[0])\n");
-      halt(a[0]);break;
-    case 1:
+      halt(c->GPRx);break;
+    case SYS_yield:
       printf("SYS_yield()\n");
-      SYS_yield();c->GPRx=0;
+      yield();c->GPRx=0;
       break;
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
