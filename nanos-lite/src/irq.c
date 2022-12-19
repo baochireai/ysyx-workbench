@@ -4,7 +4,7 @@ static Context* do_event(Event e, Context* c) {//异常处理程序
   switch (e.event) {
     case EVENT_YIELD:
       printf("Get EVENT_YIELD!\n");break;
-    default: printf("Unhandled event ID = %d", e.event);//panic
+    default: printf("Unhandled event ID = %d\n", e.event);//panic
   }
   return c;
 }
