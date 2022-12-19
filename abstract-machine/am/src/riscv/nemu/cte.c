@@ -8,23 +8,16 @@ Context* __am_irq_handle(Context *c) {//内联汇编__am_asm_trap（异常入口
   c->mepc+=4;//有时候不需要加4
   if (user_handler) {
     Event ev = {0};
-    // for(int i=0;i<32;i++){
-    //   printf("0x%x\t%ld\n",c->gpr[i],c->gpr[i]);
-    // }
     //将执行流切换的原因打包成事件
     switch (c->mcause) {
-      case 11:{
-        //系统调用
-        printf("syscall num:%d",c->GPR1);
+      case 11:
         switch (c->GPR1){//根据任务号执行不同任务
           case -1:ev.event=EVENT_YIELD;break;
-          default:ev.event = EVENT_SYSCALL;printf("SysCall\n");;break;
+          default:ev.event = EVENT_SYSCALL;printf("SysCall\n");break;
         }
-      }
+        break;
       default: ev.event = EVENT_ERROR; break;
     }
-    //调用回调函数
-    printf("event num:%d\n",ev.event);
     c = user_handler(ev, c);//user_handler->nanos中的do_event()
     assert(c != NULL);
   }
