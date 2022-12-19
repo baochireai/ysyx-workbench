@@ -42,7 +42,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   // char* elf_start=(char*)malloc(ramdisk_size);
   // read(fd,elf_start,ramdisk_size);
   // //2.parse .elf file
-  // Elf_Ehdr* hdr =(Elf_Ehdr*)elf_start;
+  // Elf_Ehdr* hdr =(Elf_Ehdr*)elf_start;//ElfHeader
   // assert(*(uint32_t *)hdr->e_ident == 0x464c457f);//check Magic
   // assert(hdr->e_machine == EXPECT_TYPE);//check ISA type
   // Elf_Phdr* phdr=(Elf_Phdr*)(elf_start+hdr->e_phoff);
@@ -54,7 +54,8 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   //     ramdisk_read((void*)phdr[i].p_vaddr,phdr[i].p_offset,phdr[i].p_filesz);//loader code and data
   // }
   // close(fd);
-
+  // return hdr->e_entry;
+  //am中没有文件系统
   ramdisk_read((void*)0x83000000,0,0x4cf8);
   ramdisk_read((void*)0x83005cf8,0x4cf8,0xfe8);
   memset((void*)(0x83005cf8+0xfe8),0,(0x1038-0xfe8));
