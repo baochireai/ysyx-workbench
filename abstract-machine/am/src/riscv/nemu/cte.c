@@ -13,7 +13,7 @@ Context* __am_irq_handle(Context *c) {//内联汇编__am_asm_trap（异常入口
       case 11:
         switch (c->GPR1){//根据任务号执行不同任务
           case -1:ev.event=EVENT_YIELD;break;
-          default:ev.event = EVENT_SYSCALL;printf("SysCall\n");break;
+          default:ev.event = EVENT_SYSCALL;break;
         }
         break;
       default: ev.event = EVENT_ERROR; break;
