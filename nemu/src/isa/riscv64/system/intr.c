@@ -9,7 +9,6 @@ word_t isa_raise_intr(word_t NO, vaddr_t epc) {
   cpu.mepc=epc;//mepc
   cpu.mcause=NO;
   cpu.mstatus=(cpu.mstatus&(~0x8))|(BITS(cpu.mstatus,3,3)<<7);
-  printf("raise %ld\n",NO);
   //isa_reg_display();
   return cpu.mtvec;//mtvec
 }
