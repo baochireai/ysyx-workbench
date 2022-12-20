@@ -56,10 +56,10 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   // close(fd);
   // return hdr->e_entry;
   //am中没有文件系统
-  ramdisk_read((void*)0x83000000,0,0x4cf8);
-  ramdisk_read((void*)0x83005cf8,0x4cf8,0xfe8);
-  memset((void*)(0x83005cf8+0xfe8),0,(0x1038-0xfe8));
-  return (uintptr_t)(0x830003f8);
+  ramdisk_read((void*)0x83000000,0,0x59b8);
+  ramdisk_read((void*)0x830069b8,0x59b8,0xfe8);
+  memset((void*)(0x830069b8+0xfe8),0,(0x1038-0xfe8));
+  return (uintptr_t)(0x83004ef0);
 }
 
 void naive_uload(PCB *pcb, const char *filename) {
