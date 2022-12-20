@@ -74,12 +74,12 @@ void *_sbrk(intptr_t increment) {
   //根据brk位置和increnment得新的brk位置
   void* new_brk=brk+increment;
   //通过系统调用让操作系统更新brk位置
-  if(_syscall_(SYS_brk,new_brk)==0){
+  if(_syscall_(SYS_brk,new_brk,0,0)==0){
     //系统调用调用成功返回0，则_sbrk更新brk位置,并将旧的brk位置作为返回值
     brk=new_brk;
     return brk-increment;
   }
-  else return -1;//若系统调用失败，则返回-1
+  else return (void*)-1;//若系统调用失败，则返回-1
   //return (void *)-1;
 }
 
