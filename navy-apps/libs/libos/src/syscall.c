@@ -62,12 +62,23 @@ int _open(const char *path, int flags, mode_t mode) {
 }
 
 int _write(int fd, void *buf, size_t count) {
-  _syscall_(SYS_write, fd, buf, count);
-  return 1;
+  return _syscall_(SYS_write, fd, buf, count);
 }
 
+extern char end;
+
 void *_sbrk(intptr_t increment) {
-  return _syscall_(SYS_brk,increment);
+  //brk初始位置_end
+  static void* brk=&end;
+  //根据brk位置和increnment得新的brk位置
+  void* new_brk=brk+increment;
+  //通过系统调用让操作系统更新brk位置
+  if(_syscall_(SYS_brk,new_brk)==0){
+    //系统调用调用成功返回0，则_sbrk更新brk位置,并将旧的brk位置作为返回值
+    brk=new_brk;
+    return brk-increment;
+  }
+  else return -1;//若系统调用失败，则返回-1
   //return (void *)-1;
 }
 
