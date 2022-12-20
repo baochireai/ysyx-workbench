@@ -12,7 +12,7 @@ void do_syscall(Context *c) {
   a[0] = c->GPR1;//syscall number
   //printf("GPR2:%d")
 #ifdef strace
-  printf("(SYS_call)");
+  //printf("(SYS_call)");
   switch (a[0]) {
     case SYS_exit:
       printf("halt(a0)\n");
