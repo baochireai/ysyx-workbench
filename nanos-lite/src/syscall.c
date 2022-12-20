@@ -35,7 +35,7 @@ void do_syscall(Context *c) {
       break;
     }
     case SYS_brk://用户栈区内存申请
-      c->GPRx=0;
+      c->GPRx=0;//返回0 栈区调整成功
       break;
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
