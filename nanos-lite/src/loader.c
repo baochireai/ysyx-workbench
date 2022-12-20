@@ -59,7 +59,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   ramdisk_read((void*)0x83000000,0,0x5a18);
   ramdisk_read((void*)0x83006a18,0x5a18,0xff0);
   memset((void*)(0x830069b8+0xff0),0,(0x1040-0xff0));
-  return (uintptr_t)(0x83004ef0);
+  return (uintptr_t)(0x83004f48);
 }
 
 void naive_uload(PCB *pcb, const char *filename) {
