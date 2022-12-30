@@ -65,11 +65,24 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   size_t ramdisk_size=fs_size(fd);
   char* elf_start=(char*)malloc(ramdisk_size+1);
   fs_read(fd,elf_start,ramdisk_size);
-  assert(0);
-  ramdisk_read((void*)0x83000000,0,0x5a18);
-  ramdisk_read((void*)0x83006a18,0x5a18,0xff0);
-  memset((void*)(0x830069b8+0xff0),0,(0x1040-0xff0));
-  return (uintptr_t)(0x83004f48);
+  Elf_Ehdr* hdr =(Elf_Ehdr*)elf_start;//ElfHeader
+//  assert(*(uint32_t *)hdr->e_ident == 0x464c457f);//check Magic
+  assert(hdr->e_machine == EXPECT_TYPE);//check ISA type
+  Elf_Phdr* phdr=(Elf_Phdr*)(elf_start+hdr->e_phoff);
+  //3.parse programer header
+  for(int i=0; i < hdr->e_phnum; ++i){
+      if(phdr[i].p_type != PT_LOAD) {
+              continue;
+      }
+      ramdisk_read((void*)phdr[i].p_vaddr,phdr[i].p_offset,phdr[i].p_filesz);//loader code and data
+  }
+  return hdr->e_entry;
+//  return (uintptr_t)(0x83004f48);
+
+  // close(fd);
+  // ramdisk_read((void*)0x83000000,0,0x5a18);
+  // ramdisk_read((void*)0x83006a18,0x5a18,0xff0);
+  // memset((void*)(0x830069b8+0xff0),0,(0x1040-0xff0));
 }
 
 void naive_uload(PCB *pcb, const char *filename) {
