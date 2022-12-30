@@ -56,6 +56,6 @@ size_t fs_read(int fd, void *buf, size_t len){
 void init_fs() {
   // TODO: initialize the size of /dev/fb
   fd_size=sizeof(file_table)/sizeof(Finfo);
-  printf("fd_size:%d\n",fd_size);
   open_offset=(size_t*)malloc(fd_size*sizeof(size_t));
+  printf("open_offset:%d\n",open_offset[7]);
 }
