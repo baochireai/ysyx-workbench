@@ -70,7 +70,6 @@ extern char end;
 void *_sbrk(intptr_t increment) {
   //brk初始位置_end
   static void* brk=&end;
-  _write(1,"_sbrk\n",6);
   //根据brk位置和increnment得新的brk位置
   void* new_brk=brk+increment;
   //通过系统调用让操作系统更新brk位置

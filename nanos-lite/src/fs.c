@@ -3,6 +3,8 @@
 typedef size_t (*ReadFn) (void *buf, size_t offset, size_t len);
 typedef size_t (*WriteFn) (const void *buf, size_t offset, size_t len);
 
+size_t fd_size;
+
 typedef struct {
   char *name;
   size_t size;
@@ -31,6 +33,18 @@ static Finfo file_table[] __attribute__((used)) = {
 #include "files.h"
 };
 
+
+int fs_open(const char *pathname, int flags, int mode){
+  for(size_t i=0;i<fd_size;i++){
+    if(pathname==file_table[i].name){
+      return i;
+    }
+  }
+  assert(0);
+  return -1;
+}
+
 void init_fs() {
   // TODO: initialize the size of /dev/fb
+  fd_size=sizeof(file_table)/sizeof(Finfo);
 }
