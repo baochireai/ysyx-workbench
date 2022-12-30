@@ -58,6 +58,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   // return hdr->e_entry;
   //am中没有文件系统
   int fd=fs_open("/bin/dummy",0,0);
+  printf("fd:%d",fd);
   if(fd==-1){
     printf("Open img fail!\n");
   }
