@@ -62,6 +62,9 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   if(fd==-1){
     printf("Open img fail!\n");
   }
+  size_t ramdisk_size=fs_size(fd);
+  char* elf_start=(char*)malloc(ramdisk_size+1);
+  fs_read(fd,elf_start,ramdisk_size);
   assert(0);
   ramdisk_read((void*)0x83000000,0,0x5a18);
   ramdisk_read((void*)0x83006a18,0x5a18,0xff0);
