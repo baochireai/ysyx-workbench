@@ -42,6 +42,10 @@ size_t fs_size(int fd){
   return file_table[fd].size;
 }
 
+size_t fs_diskoffset(int fd){
+  return file_table[fd].disk_offset;
+}
+
 size_t fs_read(int fd, void *buf, size_t len){
   size_t offset=ramdisk_read(buf,file_table[fd].disk_offset+open_offset[fd],  len);
   open_offset[fd]+=offset;
