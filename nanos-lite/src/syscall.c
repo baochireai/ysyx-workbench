@@ -1,6 +1,8 @@
 #include <common.h>
 #include "syscall.h"
 #include "fs.h"
+#include "device.h"
+#include "time.h"
 //#define strace
 // void SYS_yield(){
 //   asm volatile("li a7, -1; ecall");
@@ -118,6 +120,12 @@ void do_syscall(Context *c) {
     case SYS_brk://用户栈区内存申请
       c->GPRx=0;//返回0 栈区调整成功
       break;
+    case SYS_gettimeofday:{
+      struct timeval *tv=(struct timeval*)c->GPRx;
+      tv->tv_usec=((uint64_t)inl(RTC_ADDR+4))|(uint64_t)inl(RTC_ADDR);
+      c->GPRx=0;
+      break;
+    }
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
 #endif
