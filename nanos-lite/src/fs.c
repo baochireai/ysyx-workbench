@@ -1,7 +1,7 @@
 #include <fs.h>
 
 size_t ramdisk_read(void *buf, size_t offset, size_t len);
-
+size_t ramdisk_write(const void *buf, size_t offset, size_t len);
 
 size_t fd_size;
 size_t* open_offset;
@@ -47,9 +47,44 @@ size_t fs_diskoffset(int fd){
 }
 
 size_t fs_read(int fd, void *buf, size_t len){
+  if(open_offset[fd]+len>file_table[fd].size){//检查是否越界
+    len=file_table[fd].size-open_offset[fd];
+  }
   size_t offset=ramdisk_read(buf,file_table[fd].disk_offset+open_offset[fd],  len);
   open_offset[fd]+=offset;
   return offset;
+}
+
+int fs_close(int fd){
+  return 0;
+}
+
+size_t fs_write(int fd, const void *buf, size_t len){
+  if(open_offset[fd]+len>file_table[fd].size){//检查是否越界
+    len=file_table[fd].size-open_offset[fd];
+  }
+  size_t offset=ramdisk_write(buf,file_table[fd].disk_offset+open_offset[fd],  len);
+  open_offset[fd]+=offset;
+  return offset;
+}
+
+size_t fs_lseek(int fd, size_t offset, int whence){
+  if(whence==SEEK_SET){
+    if(offset>file_table[fd].size) open_offset[fd]=file_table[fd].size;
+    open_offset[fd]=offset;
+  }
+  else if(whence==SEEK_CUR){
+    if(open_offset[fd]+offset>file_table[fd].size) open_offset[fd]=file_table[fd].size;
+    else open_offset[fd]+=offset;
+  }
+  else if(whence==SEEK_END){
+    open_offset[fd]=file_table[fd].size;
+  }
+  else{
+    printf("lseek don`t find!\n");
+    return -1;
+  }
+  return open_offset[fd];
 }
 
 void init_fs() {

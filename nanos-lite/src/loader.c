@@ -57,7 +57,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   // close(fd);
   // return hdr->e_entry;
   //am中没有文件系统
-  int fd=fs_open("/bin/dummy",0,0);
+  int fd=fs_open("/bin/file-test",0,0);
   //fs_read()
   if(fd==-1){
     printf("Open img fail!\n");
@@ -76,6 +76,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
       }
       ramdisk_read((void*)phdr[i].p_vaddr,fs_diskoffset(fd)+phdr[i].p_offset,phdr[i].p_filesz);//loader code and data
   }
+  fs_close(fd);
   return hdr->e_entry;
 //  return (uintptr_t)(0x83004f48);
 

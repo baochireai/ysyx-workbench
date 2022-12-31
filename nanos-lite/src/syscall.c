@@ -1,6 +1,6 @@
 #include <common.h>
 #include "syscall.h"
-
+#include "fs.h"
 #define strace
 // void SYS_yield(){
 //   asm volatile("li a7, -1; ecall");
@@ -21,6 +21,16 @@ void do_syscall(Context *c) {
       printf("SYS_yield()\n");
       yield();c->GPRx=0;
       break;
+    case SYS_open:{
+      const char *path=(const char *)c->GPRx;
+      c->GPRx=fs_open(path,0,0);
+      break;
+    }
+    case SYS_close:{
+      int fd=c->GPRx;
+      c->GPRx=fs_close(fd);
+      break;
+    }
     case SYS_write:{
       int fd=c->GPRx;
       char* buf=(char*)c->GPR4;
@@ -31,7 +41,25 @@ void do_syscall(Context *c) {
           putch(buf[i]);
         }
       }
+      else{
+        count=fs_write(fd,buf,count);
+      }
       c->GPRx=count;
+      break;
+    }
+    case SYS_read:{
+      int fd=c->GPRx;
+      char* buf=(char*)c->GPR4;
+      size_t count=c->GPR3;
+      count=fs_read(fd,buf,count);
+      c->GPRx=count;
+      break;
+    }
+    case SYS_lseek:{
+      int fd=c->GPRx;
+      size_t offset=c->GPR4;
+      int whence=c->GPR3;  
+      c->GPRx=fs_lseek(fd,offset,whence);
       break;
     }
     case SYS_brk://用户栈区内存申请
