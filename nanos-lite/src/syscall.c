@@ -1,7 +1,7 @@
 #include <common.h>
 #include "syscall.h"
 #include "fs.h"
-#define strace
+//#define strace
 // void SYS_yield(){
 //   asm volatile("li a7, -1; ecall");
 // }
@@ -68,12 +68,56 @@ void do_syscall(Context *c) {
       break;
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
-#elif
+#else
   switch (a[0]) {
-    case 0:
-      halt(a[0]);break;
-    case 1:
-      SYS_yield();c->GPRx=0;break;
+    case SYS_exit:
+      halt(c->GPRx);break;
+    case SYS_yield:
+      yield();c->GPRx=0;
+      break;
+    case SYS_open:{
+      const char *path=(const char *)c->GPRx;
+      c->GPRx=fs_open(path,0,0);
+      break;
+    }
+    case SYS_close:{
+      int fd=c->GPRx;
+      c->GPRx=fs_close(fd);
+      break;
+    }
+    case SYS_write:{
+      int fd=c->GPRx;
+      char* buf=(char*)c->GPR4;
+      size_t count=c->GPR3;
+      if(fd==1||fd==2){//stdout/stderr
+        for(size_t i=0;i<count;i++){
+          putch(buf[i]);
+        }
+      }
+      else{
+        count=fs_write(fd,buf,count);
+      }
+      c->GPRx=count;
+      break;
+    }
+    case SYS_read:{
+      int fd=c->GPRx;
+      char* buf=(char*)c->GPR4;
+      size_t count=c->GPR3;
+      count=fs_read(fd,buf,count);
+      c->GPRx=count;
+      break;
+    }
+    case SYS_lseek:{
+      int fd=c->GPRx;
+      size_t offset=c->GPR4;
+      int whence=c->GPR3;  
+      c->GPRx=fs_lseek(fd,offset,whence);
+      break;
+    }
+    case SYS_brk://用户栈区内存申请
+      c->GPRx=0;//返回0 栈区调整成功
+      break;
     default: panic("Unhandled syscall ID = %d", a[0]);
   }
 #endif
