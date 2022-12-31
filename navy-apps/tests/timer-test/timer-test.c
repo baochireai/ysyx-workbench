@@ -2,6 +2,7 @@
 //#include <sys/timer.h>
 
 int main() {
+  printf("Timer Test\n");
   int half_sec = 1;
   struct timeval *tv;
   gettimeofday(tv);
