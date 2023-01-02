@@ -29,5 +29,6 @@ static inline uint16_t inw(uintptr_t addr) { return *(volatile uint16_t *)addr; 
 static inline uint32_t inl(uintptr_t addr) { return *(volatile uint32_t *)addr; }
 
 size_t serial_write(const void *buf, size_t offset, size_t len);
+size_t events_read(void *buf, size_t offset, size_t len);
 
 #endif

@@ -23,6 +23,8 @@ size_t serial_write(const void *buf, size_t offset, size_t len) {
 }
 
 size_t events_read(void *buf, size_t offset, size_t len) {
+  AM_INPUT_KEYBRD_T kbd;
+  ioe_read(AM_INPUT_KEYBRD,&kbd);
   return 0;
 }
 
