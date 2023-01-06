@@ -33,6 +33,7 @@ size_t events_read(void *buf, size_t offset, size_t len) {
   size_t readlength=length<len?length:len;
   for(size_t i=0;i<readlength-1;i++) readbuf[i]=buff[i];
   readbuf[readlength-1]='\0';
+  printf("readlength:%d\n",readlength);
   return readlength;
 }
 
