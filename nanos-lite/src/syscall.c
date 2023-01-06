@@ -107,7 +107,6 @@ void do_syscall(Context *c) {
       char* buf=(char*)c->GPR4;
       size_t count=c->GPR3;
       count=fs_read(fd,buf,count);
-      if(count!=0) printf("count:%d\n",count);
       c->GPRx=count;
       break;
     }
