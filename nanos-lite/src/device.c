@@ -30,10 +30,10 @@ size_t events_read(void *buf, size_t offset, size_t len) {
   char buff[40];
   size_t length=sprintf(buff,"%s %s\n", kbd.keydown ? "kd" : "ku",keyname[kbd.keycode]);
   //printf("%s",buff);
+  printf("readlength:%d\n",length);
   size_t readlength=length<len?length:len;
   for(size_t i=0;i<readlength-1;i++) readbuf[i]=buff[i];
   readbuf[readlength-1]='\0';
-  printf("readlength:%d\n",readlength);
   return readlength;
 }
 
