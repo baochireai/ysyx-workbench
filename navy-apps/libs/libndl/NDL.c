@@ -13,7 +13,7 @@ uint32_t NDL_GetTicks() {
   gettimeofday(&tv,NULL);
   return tv.tv_usec;
 }
-//读出有效事件返回1，否则返回0
+//读出有效事件返回1，否则返回0,这里我返回了读出的字节数
 int NDL_PollEvent(char *buf, int len) {
   return read(3, buf, len);//fd=3 "/dev/events"
 }
