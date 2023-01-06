@@ -48,6 +48,9 @@ size_t fs_diskoffset(int fd){
 }
 
 size_t fs_read(int fd, void *buf, size_t len){
+  if(file_table[fd].read!=NULL){
+    return file_table[fd].read(buf,0,len);
+  }
   if(open_offset[fd]+len>file_table[fd].size){//检查是否越界
     len=file_table[fd].size-open_offset[fd];
   }
