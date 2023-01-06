@@ -27,7 +27,6 @@ size_t events_read(void *buf, size_t offset, size_t len) {
   if(kbd.keycode==0) return 0;
   //检查最大写入len个字符
   size_t length= snprintf((char*)buf,len,"%s %s\n", kbd.keydown ? "kd" : "ku",keyname[kbd.keycode]);
-  printf("%s",buf);
   return length;
 }
 
