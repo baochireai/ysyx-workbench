@@ -26,13 +26,12 @@ size_t events_read(void *buf, size_t offset, size_t len) {
   char *readbuf=(char*)buf;
   AM_INPUT_KEYBRD_T kbd = io_read(AM_INPUT_KEYBRD);
   if(kbd.keycode==0) return 0;
-  printf("keycode:%d\n",kbd.keycode);
   //检查最大写入len个字符
   char buff[40];
   size_t length=sprintf(buff,"%s %s\n", kbd.keydown ? "kd" : "ku",keyname[kbd.keycode]);
   size_t readlength=length<len?length:len;
   for(size_t i=0;i<readlength-1;i++) readbuf[i]=buff[i];
-  readbuf[readlength-1]='\n';
+  readbuf[readlength-1]='\0';
   return readlength;
 }
 
