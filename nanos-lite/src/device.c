@@ -25,7 +25,7 @@ size_t serial_write(const void *buf, size_t offset, size_t len) {
 size_t events_read(void *buf, size_t offset, size_t len) {
   char *readbuf=(char*)buf;
   AM_INPUT_KEYBRD_T kbd = io_read(AM_INPUT_KEYBRD);
-  //printf("keycode:%d\n",kbd.keycode);
+  printf("keycode:%d\n",kbd.keycode);
   if(kbd.keycode==0) return 0;
   //检查最大写入len个字符
   char buff[40];
