@@ -294,11 +294,48 @@ int sprintf(char *out, const char *fmt, ...) {
   }
   va_end(ap);
   out[len]='\0';
-  return 1;
+  return len;
 }
 
 int snprintf(char *out, size_t n, const char *fmt, ...) {
-  panic("Not implemented");
+  va_list ap;
+  va_start(ap, fmt);
+  size_t len=0,i=0;
+  while(fmt[i]!='\0'&&len<n){
+    if(fmt[i]=='%'&&fmt[i+1]=='s'){
+      char* str= va_arg(ap, char*); 
+      out[len]='\0';
+      size_t length=strlen(str);
+      if(len+length>n){
+        for(size_t i=len;i<n;i++) out[i]=str[i-len];
+        out[n-1]='\0';
+        return n;
+      }
+      else{
+        strcat(out,str);
+        len+=length;
+      }
+      i+=2;continue;
+    }
+    else if(fmt[i]=='%'&&fmt[i+1]=='d'){
+      int num=va_arg(ap,int);
+      if(num>m_pow_n(10,n-len)){
+        char strnum[20];
+        int2string(strnum,num);
+        for(size_t i=len;i<n;i++) out[i]=strnum[i-len];
+        out[n-1]='\0';
+        return n;
+      }
+      int2string(out+len,num);
+      len=len+strlen(out+len);
+      i+=2;continue;
+    }
+    out[len++]=fmt[i];
+    i++;
+  }
+  va_end(ap);
+  out[len]='\0';
+  return len;
 }
 
 int vsnprintf(char *out, size_t n, const char *fmt, va_list ap) {
