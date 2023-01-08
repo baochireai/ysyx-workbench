@@ -57,7 +57,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   // close(fd);
   // return hdr->e_entry;
   //am中没有文件系统
-  int fd=fs_open("/bin/event-test",0,0);
+  int fd=fs_open("/bin/bmp-test",0,0);
   //fs_read()
   if(fd==-1){
     printf("Open img fail!\n");
