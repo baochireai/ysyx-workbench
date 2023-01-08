@@ -36,9 +36,10 @@ void NDL_OpenCanvas(int *w, int *h) {
     }
     close(fbctl);
   }
-  //char disinfo_buf[50];
+  char disinfo_buf[50];
+  read(4,disinfo_buf,sizeof(disinfo_buf));
   //size_t length=dispinfo_read(disinfo_buf,0,sizeof(disinfo_buf));
-  // printf("ispinfo\n%s",disinfo_buf);
+  printf("ispinfo\n%s",disinfo_buf);
 }
 
 void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {

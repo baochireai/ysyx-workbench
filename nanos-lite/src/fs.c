@@ -7,7 +7,7 @@ size_t fd_size;
 size_t* open_offset;
 
 
-enum {FD_STDIN, FD_STDOUT, FD_STDERR, FD_EVENTS,FD_FB};
+enum {FD_STDIN, FD_STDOUT, FD_STDERR, FD_EVENTS,FD_DISPINFO,FD_FB};
 
 size_t invalid_read(void *buf, size_t offset, size_t len) {
   panic("should not reach here");
@@ -25,6 +25,7 @@ static Finfo file_table[] __attribute__((used)) = {
   [FD_STDOUT] = {"stdout", 0, 0, invalid_read, serial_write},//1
   [FD_STDERR] = {"stderr", 0, 0, invalid_read, invalid_write},//2
   [FD_EVENTS] ={"/dev/events",0,0,events_read,invalid_write},//3
+  [FD_EVENTS] ={"/proc/dispinfo",0,0,dispinfo_read,invalid_write},//4
 #include "files.h"
 };
 
