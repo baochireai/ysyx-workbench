@@ -49,7 +49,7 @@ void NDL_OpenCanvas(int *w, int *h) {
         while(disinfo_buf[i]>='0'&&disinfo_buf[i]<='9'){
           screen_h=screen_h*10+disinfo_buf[i]-'0';i++;
         } 
-        break;         
+        if(screen_h!=0) break;         
       }
     }
     printf("screen_w:%d\tscreen_h:%d",screen_w,screen_h);
