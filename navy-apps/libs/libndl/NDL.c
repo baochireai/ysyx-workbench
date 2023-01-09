@@ -39,6 +39,7 @@ void NDL_OpenCanvas(int *w, int *h) {
   else{
     char disinfo_buf[50];
     size_t length=read(4,disinfo_buf,sizeof(disinfo_buf));//fd=4 /proc/dispinfo
+    printf("length:%d\n%s",length,disinfo_buf);
     for(size_t i=0;i<length;i++){
       if(screen_w==0){
         while(disinfo_buf[i]>='0'&&disinfo_buf[i]>='9'){
