@@ -7,7 +7,7 @@
 static int evtdev = -1;
 static int fbdev = -1;
 static int screen_w = 0, screen_h = 0;
-
+static int Canvas_w=0,Canvas_h=0;
 uint32_t NDL_GetTicks() {
   struct timeval tv;
   gettimeofday(&tv,NULL);
@@ -36,10 +36,33 @@ void NDL_OpenCanvas(int *w, int *h) {
     }
     close(fbctl);
   }
-  char disinfo_buf[50];
-  read(4,disinfo_buf,sizeof(disinfo_buf));
-  //size_t length=dispinfo_read(disinfo_buf,0,sizeof(disinfo_buf));
-  printf("dispinfo\n%s",disinfo_buf);
+  else{
+    char disinfo_buf[50];
+    int fd=open("/proc/dispinfo");
+    size_t length=read(fd,disinfo_buf,sizeof(disinfo_buf));
+    for(size_t i=0;i<length;i++){
+      if(screen_w==0){
+        while(disinfo_buf[i]>='0'&&disinfo_buf[i]>='9'){
+          screen_w=screen_w*10+disinfo_buf[i]-'0';i++;
+        }    
+      }
+      else{
+        while(disinfo_buf[i]>='0'&&disinfo_buf[i]>='9'){
+          screen_h=screen_h*10+disinfo_buf[i]-'0';i++;
+        } 
+        break;         
+      }
+    }
+    printf("screen_w:%d\tscreen_h:%d",screen_w,screen_h);
+  }
+  if(*w==0&&*h==0){
+    Canvas_w=screen_w;
+    Canvas_h=screen_h;
+  }
+  else{
+    Canvas_w=*w;
+    Canvas_h=*h;  
+  }
 }
 
 void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
