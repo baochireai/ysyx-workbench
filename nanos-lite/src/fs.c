@@ -26,7 +26,7 @@ static Finfo file_table[] __attribute__((used)) = {
   [FD_STDERR] = {"stderr", 0, 0, invalid_read, invalid_write},//2
   [FD_EVENTS] ={"/dev/events",0,0,events_read,invalid_write},//3
   [FD_DISPINFO] ={"/proc/dispinfo",0,0,dispinfo_read,invalid_write},//4
-  [FD_FB] ={"/dev/fb",0,0,invalid_read,invalid_write},//5
+  [FD_FB] ={"/dev/fb",0,0,invalid_read,fb_write},//5
 #include "files.h"
 };
 
