@@ -57,7 +57,6 @@ void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
   int Rect_startx=Canvas_startx+x;
   int Rect_starty=Canvas_starty+y;
   //3.按行顺序将像素发送到显存
-  int fd =open("/dev/fb",0,0);
   printf("fd:%d\n",fd);
   for(int i=0;i<h;i++){
     int offset=(Rect_starty+i)*screen_w+Rect_startx;
