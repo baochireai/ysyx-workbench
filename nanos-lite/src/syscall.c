@@ -97,6 +97,7 @@ void do_syscall(Context *c) {
         }
       }
       else{
+        printf("write %d\n",fd);
         count=fs_write(fd,buf,count);
       }
       c->GPRx=count;
