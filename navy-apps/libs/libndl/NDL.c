@@ -36,24 +36,6 @@ void NDL_OpenCanvas(int *w, int *h) {
     }
     close(fbctl);
   }
-  else{
-    char disinfo_buf[50];
-    size_t length=read(4,disinfo_buf,sizeof(disinfo_buf));//fd=4 /proc/dispinfo
-    for(size_t i=0;i<length;i++){
-      if(screen_w==0){
-        while(disinfo_buf[i]>='0'&&disinfo_buf[i]<='9'){
-          screen_w=screen_w*10+disinfo_buf[i]-'0';i++;
-        }    
-      }
-      else{
-        while(disinfo_buf[i]>='0'&&disinfo_buf[i]<='9'){
-          screen_h=screen_h*10+disinfo_buf[i]-'0';i++;
-        } 
-        if(screen_h!=0) break;         
-      }
-    }
-    printf("screen_w:%d\tscreen_h:%d\n",screen_w,screen_h);
-  }
   if(*w==0&&*h==0){
     Canvas_w=screen_w;
     Canvas_h=screen_h;
@@ -101,6 +83,22 @@ int NDL_Init(uint32_t flags) {
   if (getenv("NWM_APP")) {
     evtdev = 3;
   }
+  char disinfo_buf[50];
+  size_t length=read(4,disinfo_buf,sizeof(disinfo_buf));//fd=4 /proc/dispinfo
+  for(size_t i=0;i<length;i++){
+    if(screen_w==0){
+      while(disinfo_buf[i]>='0'&&disinfo_buf[i]<='9'){
+        screen_w=screen_w*10+disinfo_buf[i]-'0';i++;
+      }    
+    }
+    else{
+      while(disinfo_buf[i]>='0'&&disinfo_buf[i]<='9'){
+        screen_h=screen_h*10+disinfo_buf[i]-'0';i++;
+      } 
+      if(screen_h!=0) break;         
+    }
+  }
+  printf("screen_w:%d\tscreen_h:%d\n",screen_w,screen_h);
   return 0;
 }
 
