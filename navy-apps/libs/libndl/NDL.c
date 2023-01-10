@@ -52,7 +52,7 @@ void NDL_OpenCanvas(int *w, int *h) {
         if(screen_h!=0) break;         
       }
     }
-    printf("screen_w:%d\tscreen_h:%d",screen_w,screen_h);
+    printf("screen_w:%d\tscreen_h:%d\n",screen_w,screen_h);
   }
   if(*w==0&&*h==0){
     Canvas_w=screen_w;
@@ -61,10 +61,26 @@ void NDL_OpenCanvas(int *w, int *h) {
   else{
     Canvas_w=*w;
     Canvas_h=*h;  
+    if(Canvas_w>screen_w) Canvas_w=screen_w;
+    if(Canvas_h>screen_h) Canvas_h=screen_h;
   }
 }
 
 void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
+  //（x,y）为相对画布的位置
+  //1.计算画布的位置（剧中）
+  int Canvas_startx=(screen_w-Canvas_w)/2;
+  int Canvas_starty=(screen_h-Canvas_h)/2;
+  //2.计算Rect位置
+  int Rect_startx=Canvas_startx+x;
+  int Rect_starty=Canvas_starty+y;
+  //3.按行顺序将像素发送到显存
+  int fd =open("/dev/fb",0,0);
+  for(int i=0;i<h;i++){
+    int offset=(Rect_starty+i)*screen_w+Rect_startx;
+    lseek(fd,offset,SEEK_SET);
+    write(fd,(void*)(pixels+i*w),w*sizeof(uint32_t));
+  }
 }
 
 void NDL_OpenAudio(int freq, int channels, int samples) {

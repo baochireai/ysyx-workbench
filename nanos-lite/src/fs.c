@@ -26,6 +26,7 @@ static Finfo file_table[] __attribute__((used)) = {
   [FD_STDERR] = {"stderr", 0, 0, invalid_read, invalid_write},//2
   [FD_EVENTS] ={"/dev/events",0,0,events_read,invalid_write},//3
   [FD_DISPINFO] ={"/proc/dispinfo",0,0,dispinfo_read,invalid_write},//4
+  [FD_FB] ={"/dev/fb",0,0,invalid_read,invalid_write},//5
 #include "files.h"
 };
 
@@ -66,6 +67,9 @@ int fs_close(int fd){
 }
 
 size_t fs_write(int fd, const void *buf, size_t len){
+  if(file_table[fd].write!=NULL){
+    return file_table[fd].write(buf,file_table[fd].disk_offset+open_offset[fd],len);
+  }
   if(open_offset[fd]+len>file_table[fd].size){//检查是否越界
     len=file_table[fd].size-open_offset[fd];
   }
@@ -97,4 +101,5 @@ void init_fs() {
   // TODO: initialize the size of /dev/fb
   fd_size=sizeof(file_table)/sizeof(Finfo);
   open_offset=(size_t*)malloc(fd_size*sizeof(size_t));
+  file_table[FD_FB].size=io_read(AM_GPU_CONFIG).vmemsz;
 }
