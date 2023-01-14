@@ -155,7 +155,7 @@ static inline fixedpt fixedpt_floor(fixedpt A) {
 }
 
 static inline fixedpt fixedpt_ceil(fixedpt A) {
-	return ((A&(((fixedpt)1)<<FIXEDPT_FBITS-(fixedpt)1))==0)?A:fixedpt_floor(A)+FIXEDPT_ONE;//去小数部分+FIXEDPT_ONE
+	return (A&(((fixedpt)1)<<FIXEDPT_FBITS-(fixedpt)1)==0)?A:fixedpt_floor(A)+FIXEDPT_ONE;//去小数部分+FIXEDPT_ONE
 }
 
 /*
