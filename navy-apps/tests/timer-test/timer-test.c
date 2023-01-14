@@ -1,5 +1,5 @@
 #include <stdio.h>
-//#include <sys/timer.h>
+#include "NDL.h"
 
 int main() {
   NDL_Init(0);
@@ -11,5 +11,6 @@ int main() {
     half_sec++;
     printf("%d half_secs pass \n",half_sec);
   }
+  return 0;
 }
 
