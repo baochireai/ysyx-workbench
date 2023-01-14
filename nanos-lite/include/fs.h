@@ -26,5 +26,4 @@ size_t fs_diskoffset(int fd);
 int fs_close(int fd);
 size_t fs_write(int fd, const void *buf, size_t len);
 size_t fs_lseek(int fd, size_t offset, int whence);
-
 #endif
