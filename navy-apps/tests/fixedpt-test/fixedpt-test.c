@@ -2,7 +2,7 @@
 #include "fixedptc.h"
 #include "math.h"
 int main() {
-  printf("floor(1.2):%d\n",(int)fixedpt_toint(fixedpt_floor(fixedpt_rconst(1))));
+  printf("floor(1.2):%d\n",(int)fixedpt_toint(fixedpt_ceil(fixedpt_ceil(1))));
   return 0;
 }
 
