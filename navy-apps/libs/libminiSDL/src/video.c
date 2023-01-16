@@ -13,6 +13,10 @@ void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
 }
 
 void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
+  //将画布中指定矩形区域同步到屏幕上
+  //SDL_Surface具有多种属性的画布
+  //调用NDL的底层实现
+  NDL_DrawRect((uint32_t*)s->pixels,x,y,w,h);
 }
 
 // APIs below are already implemented.
@@ -56,10 +60,10 @@ SDL_Surface* SDL_CreateRGBSurface(uint32_t flags, int width, int height, int dep
 
   s->w = width;
   s->h = height;
-  s->pitch = width * depth / 8;
+  s->pitch = width * depth / 8;//每行多少字节
   assert(s->pitch == width * s->format->BytesPerPixel);
 
-  if (!(flags & SDL_PREALLOC)) {
+  if (!(flags & SDL_PREALLOC)) {//	！ Surface uses preallocated memory
     s->pixels = malloc(s->pitch * height);
     assert(s->pixels);
   }

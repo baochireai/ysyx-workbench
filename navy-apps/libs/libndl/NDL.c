@@ -4,6 +4,12 @@
 #include <string.h>
 #include <unistd.h>
 
+#include <sys/time.h>
+
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
+
 static int evtdev = -1;
 static int fbdev = -1;
 static int screen_w = 0, screen_h = 0;
@@ -57,9 +63,13 @@ void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
   int Rect_startx=Canvas_startx+x;
   int Rect_starty=Canvas_starty+y;
   //3.按行顺序将像素发送到显存
+  if(w==0&&h==0){
+    w=Canvas_w;
+    h=Canvas_h;
+  }
   int fd =open("/dev/fb",0,0);
   for(int i=0;i<h;i++){
-    int offset=(Rect_starty+i)*screen_w+Rect_startx;
+    int offset=((Rect_starty+i)*screen_w+Rect_startx)*sizeof(uint32_t);
     lseek(fd,offset,SEEK_SET);
     write(fd,(void*)(pixels+i*w),w*sizeof(uint32_t));
   }
@@ -83,6 +93,7 @@ int NDL_Init(uint32_t flags) {
   if (getenv("NWM_APP")) {
     evtdev = 3;
   }
+  /******获取系统屏幕大小*****/
   char disinfo_buf[50];
   size_t length=read(4,disinfo_buf,sizeof(disinfo_buf));//fd=4 /proc/dispinfo
   for(size_t i=0;i<length;i++){

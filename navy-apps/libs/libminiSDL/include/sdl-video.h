@@ -32,20 +32,21 @@ typedef struct {
 } SDL_Palette;
 
 typedef struct {
-	SDL_Palette *palette;
-	uint8_t BitsPerPixel;
-	uint8_t BytesPerPixel;
-	uint8_t Rloss, Gloss, Bloss, Aloss;
-	uint8_t Rshift, Gshift, Bshift, Ashift;
-	uint32_t Rmask, Gmask, Bmask, Amask;
+	SDL_Palette *palette;//调色板
+	uint8_t BitsPerPixel;//位/像素
+	uint8_t BytesPerPixel;//字节/像素
+	uint8_t Rloss, Gloss, Bloss, Aloss;//每个分量的精度损失
+	uint8_t Rshift, Gshift, Bshift, Ashift;//每个颜色分量的左移位数
+	uint32_t Rmask, Gmask, Bmask, Amask;//掩码
 } SDL_PixelFormat;
 
 typedef struct {
-	uint32_t flags;
-	SDL_PixelFormat *format;
-	int w, h;
-	uint16_t pitch;
-	uint8_t *pixels;
+	uint32_t flags;//SDL_SWSURFACE（Surface is stored in system memory） 
+				   //SDL_ASYNCBLIT（Surface uses asynchronous blits if possible）
+	SDL_PixelFormat *format;//Pixel(Surface) format
+	int w, h;//shape of Surface
+	uint16_t pitch;//Length of a surface scanline(Bytes)
+	uint8_t *pixels;//pixel data
 } SDL_Surface;
 
 SDL_Surface* SDL_CreateRGBSurfaceFrom(void *pixels, int width, int height, int depth,
