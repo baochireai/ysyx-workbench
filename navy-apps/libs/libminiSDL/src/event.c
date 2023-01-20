@@ -20,7 +20,7 @@ int SDL_PollEvent(SDL_Event *ev) {
 
 uint8_t SDL_GetKeyFromName(const char* getkeyname){
   for(uint8_t i=0;i<83;i++){
-    printf("%d:%s\n",i,keyname[i]);
+    //printf("%d:%s\n",i,keyname[i]);
     if(strcmp(getkeyname,keyname[i])==0) return i;
   }
   return 0;
@@ -32,7 +32,7 @@ int SDL_WaitEvent(SDL_Event *event) {
 
   event->type=(buf[0]=='k'&&buf[1]=='d')?SDL_KEYDOWN:SDL_KEYUP;
   event->key.type=event->type;
-  buf[strlen(buf)-1]='\0';//把\n去掉
+  //buf[strlen(buf)-1]='\0';//把\n去掉
   printf("key:%s\n",buf+3);
   event->key.keysym.sym=SDL_GetKeyFromName(buf+3);//keyname->keycode
   printf("keycode:%d",event->key.keysym.sym);
