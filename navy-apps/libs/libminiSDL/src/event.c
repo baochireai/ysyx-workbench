@@ -28,7 +28,7 @@ uint8_t SDL_GetKeyFromName(const char* getkeyname){
 
 int SDL_WaitEvent(SDL_Event *event) {
   char* buf=(char*)malloc(64*sizeof(char));
-  printf("buf size:%d\n",sizeof(buf));
+  printf("buf size:%d\n",sizeof(*buf));
   while(!NDL_PollEvent(buf,sizeof(buf)));//kd keyname/ku keyname
 
   event->type=(buf[0]=='k'&&buf[1]=='d')?SDL_KEYDOWN:SDL_KEYUP;
