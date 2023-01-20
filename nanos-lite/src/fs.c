@@ -63,6 +63,7 @@ size_t fs_read(int fd, void *buf, size_t len){
 }
 
 int fs_close(int fd){
+  open_offset[fd]=0;
   return 0;
 }
 
