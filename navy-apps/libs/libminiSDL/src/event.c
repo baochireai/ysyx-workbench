@@ -33,6 +33,7 @@ int SDL_WaitEvent(SDL_Event *event) {
   event->key.type=event->type;
   printf("key:%s\n",buf+3);
   event->key.keysym.sym=SDL_GetKeyFromName(buf+3);//keyname->keycode
+  printf("keycode:%d",event->key.keysym.sym);
   return 1;
 }
 
