@@ -20,6 +20,7 @@ int SDL_PollEvent(SDL_Event *ev) {
 
 uint8_t SDL_GetKeyFromName(const char* getkeyname){
   for(uint8_t i=0;i<255;i++){
+    printf("%s\n",keyname[i]);
     if(strcmp(getkeyname,keyname[i])==0) return i;
   }
   return 0;
