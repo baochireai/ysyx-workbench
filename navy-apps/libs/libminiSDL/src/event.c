@@ -32,9 +32,8 @@ int SDL_WaitEvent(SDL_Event *event) {
   event->type=(buf[0]=='k'&&buf[1]=='d')?SDL_KEYDOWN:SDL_KEYUP;
   event->key.type=event->type;
   buf[strlen(buf)-1]='\0';//把\n去掉
-  printf("key:%s\n",buf+3);
+  printf("%s\n",buf);
   event->key.keysym.sym=SDL_GetKeyFromName(buf+3);//keyname->keycode
-  printf("keycode:%d\n",event->key.keysym.sym);
   return 1;
 }
 
