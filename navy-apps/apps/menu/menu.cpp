@@ -39,8 +39,8 @@ struct MenuItem {
 };
 
 #define nitems (sizeof(items) / sizeof(items[0]))
-#define MAX_PAGE ((nitems - 1) / 10)
-#define MAX_IDX_LAST_PAGE ((nitems - 1) % 10)
+#define MAX_PAGE ((nitems - 1) / 10)//每页十个项目
+#define MAX_IDX_LAST_PAGE ((nitems - 1) % 10)//最后一页多少个项目
 
 static int page = 0;
 static int i_max = 0;
@@ -69,7 +69,7 @@ static void clear_display(void) {
 
 int main(int argc, char *argv[], char *envp[]) {
   SDL_Init(0);
-  screen = SDL_SetVideoMode(0, 0, 32, SDL_HWSURFACE);
+  screen = SDL_SetVideoMode(0, 0, 32, SDL_HWSURFACE);////SDL_HWSURFACE：Surface is stored in video memory
 
   font = new BDF_Font(font_fname);
   logo_sf = SDL_LoadBMP("/share/pictures/projectn.bmp");

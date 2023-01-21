@@ -5,11 +5,70 @@
 #include <stdlib.h>
 
 void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_Rect *dstrect) {
+  /*
+  The width and height in srcrect determine the size of the copied rectangle.
+  Only the position is used in the dstrect (the width and height are ignored).
+  If srcrect is NULL, the entire surface is copied. If dstrect is NULL,
+   then the destination position (upper left corner) is (0, 0).
+  */
   assert(dst && src);
   assert(dst->format->BitsPerPixel == src->format->BitsPerPixel);
+  if(srcrect){
+    if(dstrect){
+      //set dst->pixels[dstrect->y:dstrect->y+src->h][dstrect->x:dstrect->x+src->w]=src->pixels[][]
+      for(int j=0;j<srcrect->h;j++){
+        int y=dstrect->y+j;
+        for(int i=0;i<srcrect->w;i++){
+          int x=dstrect->x+i;
+          ((uint32_t*)dst->pixels)[x+y*dst->w]=((uint32_t*)src->pixels)[i+j*src->w];
+        }
+      }
+    }
+    else{
+      for(int j=0;j<srcrect->h;j++){
+        for(int i=0;i<srcrect->w;i++){
+          ((uint32_t*)dst->pixels)[i+j*dst->w]=((uint32_t*)src->pixels)[i+j*src->w];
+        }
+      }
+    }    
+  }
+  else{
+    if(dstrect){
+      //set dst->pixels[dstrect->y:dstrect->y+src->h][dstrect->x:dstrect->x+src->w]=src->pixels[][]
+      for(int j=0;j<src->h;j++){
+        int y=dstrect->y+j;
+        for(int i=0;i<src->w;i++){
+          int x=dstrect->x+i;
+          ((uint32_t*)dst->pixels)[x+y*dst->w]=((uint32_t*)src->pixels)[i+j*src->w];
+        }
+      }
+    }
+    else{
+      for(int j=0;j<src->h;j++){
+        for(int i=0;i<src->w;i++){
+          ((uint32_t*)dst->pixels)[i+j*dst->w]=((uint32_t*)src->pixels)[i+j*src->w];
+        }
+      }
+    }
+  }
+  //The final blit rectangle is saved in dstrect after all clipping is performed
 }
 
 void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
+  if(dstrect){ 
+    for(int i=0;i<dstrect->h;i++){
+      int y=dstrect->y+i;
+      for(int j=0;j<dstrect->w;j++){
+        int x=dstrect->x+j;
+        ((uint32_t*)dst->pixels)[x+y*dst->w]=color;
+      }
+    }
+    NDL_DrawRect((uint32_t*)dst->pixels,dstrect->x,dstrect->y,dstrect->w,dstrect->h);
+  }
+  else{ // If dstrect is NULL, the whole surface will be filled with color.
+    for(int i=0;i<dst->w*dst->h;i++) ((uint32_t*)dst->pixels)[i]=color;
+    NDL_DrawRect((uint32_t*)dst->pixels,0,0,dst->w,dst->h);
+  }
 }
 
 void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
