@@ -35,7 +35,7 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
   else{
     if(dstrect){
       //set dst->pixels[dstrect->y:dstrect->y+src->h][dstrect->x:dstrect->x+src->w]=src->pixels[][]
-      printf("srcrect==NULL dstrect\n");
+      printf("src->h:%d\tsrc->w:%d\n",src->h,src->w);
       for(int j=0;j<src->h;j++){
         int y=dstrect->y+j;
         for(int i=0;i<src->w;i++){
