@@ -118,7 +118,9 @@ SDL_Surface* SDL_CreateRGBSurface(uint32_t flags, int width, int height, int dep
 
   s->format->BitsPerPixel = depth;
   s->format->BytesPerPixel = depth / 8;
-
+  if(width==0&&height==0){
+    NDL_getScreenShape(&width,&height);
+  }
   s->w = width;
   s->h = height;
   s->pitch = width * depth / 8;//每行多少字节

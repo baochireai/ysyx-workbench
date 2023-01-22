@@ -54,6 +54,10 @@ void NDL_OpenCanvas(int *w, int *h) {
   }
 }
 
+void NDL_getScreenShape(int *w,int *h){
+  *w=screen_w;*h=screen_h;
+}
+
 void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
   //（x,y）为相对画布的位置
   //1.计算画布的位置（剧中）
