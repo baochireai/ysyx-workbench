@@ -109,7 +109,7 @@ int _execve(const char *fname, char * const argv[], char *const envp[]) {
 // But to pass linking, they are defined as dummy functions.
 
 int _fstat(int fd, struct stat *buf) {
-  return _syscall_(SYS_fstat,buf);
+  return _syscall_(SYS_fstat,buf,0,0);
 }
 
 int _stat(const char *fname, struct stat *buf) {
