@@ -4,6 +4,9 @@
 
 #define SDL_STBIMAGE_IMPLEMENTATION
 #include "SDL_stbimage.h"
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <unistd.h>
 
 SDL_Surface* IMG_Load_RW(SDL_RWops *src, int freesrc) {
   assert(src->type == RW_TYPE_MEM);
@@ -12,6 +15,10 @@ SDL_Surface* IMG_Load_RW(SDL_RWops *src, int freesrc) {
 }
 
 SDL_Surface* IMG_Load(const char *filename) {
+  struct stat statbuf;
+  stat(filename, &statbuf);
+  size_t filesize = statbuf.st_size;
+  printf("filesize:%d\n",filesize);
   return NULL;
 }
 
