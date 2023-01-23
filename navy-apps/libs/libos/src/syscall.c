@@ -100,6 +100,7 @@ int _gettimeofday(struct timeval *tv, struct timezone *tz) {
 }
 
 int _execve(const char *fname, char * const argv[], char *const envp[]) {
+  //assert(0);
   _exit(SYS_execve);
   return 0;
 }
@@ -108,7 +109,7 @@ int _execve(const char *fname, char * const argv[], char *const envp[]) {
 // But to pass linking, they are defined as dummy functions.
 
 int _fstat(int fd, struct stat *buf) {
-  return -1;
+  return _syscall_(SYS_fstat,buf);
 }
 
 int _stat(const char *fname, struct stat *buf) {

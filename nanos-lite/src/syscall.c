@@ -3,6 +3,7 @@
 #include "fs.h"
 #include "device.h"
 #include "time.h"
+#include <sys/stat.h>
 //#define strace
 // void SYS_yield(){
 //   asm volatile("li a7, -1; ecall");
@@ -124,6 +125,13 @@ void do_syscall(Context *c) {
       struct timeval *tv=(struct timeval*)c->GPRx;
       tv->tv_usec=((uint64_t)inl(RTC_ADDR+4))|(uint64_t)inl(RTC_ADDR);
       c->GPRx=0;
+      break;
+    }
+    case SYS_fstat:{
+      int fd=c->GPRx;
+      struct stat* statbuf=(struct stat*)c->GPR4;
+      statbuf->st_size=fs_size(fd);
+      c->GPRx=-1;
       break;
     }
     default: panic("Unhandled syscall ID = %d", a[0]);

@@ -16,7 +16,7 @@ SDL_Surface* IMG_Load_RW(SDL_RWops *src, int freesrc) {
 
 SDL_Surface* IMG_Load(const char *filename) {
   struct stat statbuf;
-  stat(filename, &statbuf);
+  fstat(filename, &statbuf);
   size_t filesize = statbuf.st_size;
   printf("filesize:%d\n",filesize);
   return NULL;
