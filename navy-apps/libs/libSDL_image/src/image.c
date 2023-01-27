@@ -21,7 +21,11 @@ SDL_Surface* IMG_Load(const char *filename) {
   fstat(fd, &statbuf);
   size_t filesize = statbuf.st_size;
   printf("filesize:%d\n",filesize);
-  unsigned char* buf=malloc(filesize);
+  unsigned char* buf=(unsigned char*)malloc(filesize*sizeof(char));
+  if(buf==NULL){
+    printf("malloc memery error!\n");
+    assert(0);
+  }
   size_t readsize=read(fd,buf,filesize);
   if(readsize!=filesize) assert(0);
   SDL_Surface* imgSurface_p=STBIMG_LoadFromMemory(buf,filesize);
