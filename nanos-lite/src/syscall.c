@@ -131,7 +131,7 @@ void do_syscall(Context *c) {
       int fd=c->GPRx;
       struct stat* statbuf=(struct stat*)c->GPR4;
       statbuf->st_size=fs_size(fd);
-      c->GPRx=-1;
+      c->GPRx=0;//0获取成功 -1error
       break;
     }
     default: panic("Unhandled syscall ID = %d", a[0]);
