@@ -2,7 +2,7 @@
 #include "syscall.h"
 #include "fs.h"
 #include "device.h"
-#include "time.h"
+#include "sys/time.h"
 #include <sys/stat.h>
 //#define strace
 // void SYS_yield(){

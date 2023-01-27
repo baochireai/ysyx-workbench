@@ -15,14 +15,15 @@ SDL_Surface* IMG_Load_RW(SDL_RWops *src, int freesrc) {
 }
 
 SDL_Surface* IMG_Load(const char *filename) {
+  printf("open %s\n",filename);
   int fd=open(filename,0);
   struct stat statbuf;
   fstat(fd, &statbuf);
   size_t filesize = statbuf.st_size;
   unsigned char* buf=malloc(filesize);
-  size_t readsize=fread(fd,buf,filesize);
+  size_t readsize=read(fd,buf,filesize);
   if(readsize!=filesize) assert(0);
-  SDL_Surface* imgSurface_p=STBIMG_LoadFromMemory();
+  SDL_Surface* imgSurface_p=STBIMG_LoadFromMemory(buf,filesize);
   free(buf);
   close(fd);
   printf("filesize:%d\n",filesize);
