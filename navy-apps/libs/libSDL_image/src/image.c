@@ -6,7 +6,10 @@
 #include "SDL_stbimage.h"
 #include <sys/types.h>
 #include <sys/stat.h>
+#include <fcntl.h>
 #include <unistd.h>
+#include <assert.h>
+#include <stdlib.h>
 
 SDL_Surface* IMG_Load_RW(SDL_RWops *src, int freesrc) {
   assert(src->type == RW_TYPE_MEM);
@@ -20,7 +23,7 @@ SDL_Surface* IMG_Load(const char *filename) {
   struct stat statbuf;
   fstat(fd, &statbuf);
   size_t filesize = statbuf.st_size;
-  printf("filesize:%d\n",filesize);
+  printf("filesize:%ld\n",filesize);
   unsigned char* buf=(unsigned char*)malloc(filesize*sizeof(char));
   if(buf==NULL){
     printf("malloc memery error!\n");
