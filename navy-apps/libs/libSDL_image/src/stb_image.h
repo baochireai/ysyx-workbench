@@ -5354,7 +5354,7 @@ static int stbi__info_main(stbi__context *s, int *x, int *y, int *comp)
       return 1;
    }
    #endif
-
+   printf("image type isn't png!\n");
    #ifndef STBI_NO_GIF
    if (stbi__gif_info(s, x, y, comp))  return 1;
    #endif
