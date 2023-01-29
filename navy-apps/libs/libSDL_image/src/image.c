@@ -18,12 +18,10 @@ SDL_Surface* IMG_Load_RW(SDL_RWops *src, int freesrc) {
 }
 
 SDL_Surface* IMG_Load(const char *filename) {
-  printf("open %s\n",filename);
   int fd=open(filename,0);
   struct stat statbuf;
   fstat(fd, &statbuf);
   size_t filesize = statbuf.st_size;
-  printf("filesize:%ld\n",filesize);
   unsigned char* buf=(unsigned char*)malloc(filesize*sizeof(char));
   if(buf==NULL){
     printf("malloc memery error!\n");

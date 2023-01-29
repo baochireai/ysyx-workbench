@@ -50,6 +50,9 @@ size_t fs_diskoffset(int fd){
 }
 
 size_t fs_read(int fd, void *buf, size_t len){
+  if(fd==36){
+    printf("open_offset[fd]:%d\tfile_size:%d\tread_len:%d\n",open_offset[fd],file_table[fd].size,len);
+  }
   if(file_table[fd].read!=NULL){
     //printf("read %s\n",file_table[fd].name);
     return file_table[fd].read(buf,0,len);
