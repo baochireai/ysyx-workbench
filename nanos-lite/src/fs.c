@@ -55,7 +55,7 @@ size_t fs_read(int fd, void *buf, size_t len){
     return file_table[fd].read(buf,0,len);
   }
   if(open_offset[fd]+len>file_table[fd].size){//检查是否越界
-    printf("read file cross the border!\n");
+    printf("read file(%s) cross the border!\n",file_table[fd].name);
     len=file_table[fd].size-open_offset[fd];
   }
   printf("disk_offset:%d\n",file_table[fd].disk_offset+open_offset[fd]);
