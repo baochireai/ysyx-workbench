@@ -17,17 +17,19 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
     if(dstrect){
       //set dst->pixels[dstrect->y:dstrect->y+src->h][dstrect->x:dstrect->x+src->w]=src->pixels[][]
       for(int j=0;j<srcrect->h;j++){
-        int y=dstrect->y+j;
+        int y=dstrect->y+j,src_y=srcrect->y+j;
         for(int i=0;i<srcrect->w;i++){
-          int x=dstrect->x+i;
+          int x=dstrect->x+i,src_x=srcrect->x+i;
           ((uint32_t*)dst->pixels)[x+y*dst->w]=((uint32_t*)src->pixels)[i+j*src->w];
         }
       }
     }
     else{
       for(int j=0;j<srcrect->h;j++){
+        int src_y=srcrect->y+j;
         for(int i=0;i<srcrect->w;i++){
-          ((uint32_t*)dst->pixels)[i+j*dst->w]=((uint32_t*)src->pixels)[i+j*src->w];
+          int src_x=srcrect->x+i;
+          ((uint32_t*)dst->pixels)[i+j*dst->w]=((uint32_t*)src->pixels)[src_x+src_y*src->w];
         }
       }
     }    
