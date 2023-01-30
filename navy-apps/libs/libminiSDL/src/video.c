@@ -23,6 +23,9 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
           ((uint32_t*)dst->pixels)[x+y*dst->w]=((uint32_t*)src->pixels)[i+j*src->w];
         }
       }
+      //The final blit rectangle is saved in dstrect 
+      dstrect->w=srcrect->w;
+      dstrect->h=srcrect->h;
     }
     else{
       for(int j=0;j<srcrect->h;j++){
@@ -46,6 +49,8 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
           ((uint32_t*)dst->pixels)[x+y*dst->w]=((uint32_t*)src->pixels)[i+j*src->w];
         }
       }
+      dstrect->w=srcrect->w;
+      dstrect->h=srcrect->h;      
     }
     else{
       for(int j=0;j<src->h;j++){
