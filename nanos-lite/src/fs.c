@@ -50,15 +50,12 @@ size_t fs_diskoffset(int fd){
 }
 
 size_t fs_read(int fd, void *buf, size_t len){
-  if(fd==36){
-    printf("open_offset[fd]:%d\tfile_size:%d\tread_len:%d\n",open_offset[fd],file_table[fd].size,len);
-  }
   if(file_table[fd].read!=NULL){
     //printf("read %s\n",file_table[fd].name);
     return file_table[fd].read(buf,0,len);
   }
   if(open_offset[fd]+len>file_table[fd].size){//检查是否越界
-    printf("read file(%d:%s) cross the border!\n",fd,file_table[fd].name);
+//    printf("read file(%d:%s) cross the border!\n",fd,file_table[fd].name);
     len=file_table[fd].size-open_offset[fd];
   }
   size_t offset=ramdisk_read(buf,file_table[fd].disk_offset+open_offset[fd],  len);
