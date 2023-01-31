@@ -63,6 +63,7 @@ void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
   //1.计算画布的位置（剧中）
   int Canvas_startx=(screen_w-Canvas_w)/2;
   int Canvas_starty=(screen_h-Canvas_h)/2;
+  printf("Canvas Start Point:(%d,%d)\n",Canvas_startx,Canvas_starty);
   //2.计算Rect位置
   int Rect_startx=Canvas_startx+x;
   int Rect_starty=Canvas_starty+y;

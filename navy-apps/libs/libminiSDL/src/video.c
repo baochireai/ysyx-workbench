@@ -28,20 +28,19 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
       dstrect->h=srcrect->h;
     }
     else{
-      printf("src shape:%d*%d(W*H)\n",src->w,src->h);//320*568
-      printf("start point:(x,y)->(%d,%d)\n",srcrect->x,srcrect->y);//17 84
-      printf("range_y:%d-%d\n",srcrect->y,srcrect->y+srcrect->h);//84-484
+      // printf("src shape:%d*%d(W*H)\n",src->w,src->h);//320*568
+      // printf("start point:(x,y)->(%d,%d)\n",srcrect->x,srcrect->y);//17 84
+      // printf("rect shape:%d*%d(W*H)\n",srcrect->w,srcrect->h);//287*400
+      // printf("range_y:%d-%d\n",srcrect->y,srcrect->y+srcrect->h);//84-484
       for(int j=0;j<srcrect->h;j++){
         int src_y=srcrect->y+j;
-        printf("y:%d\n",src_y);
-        printf("x:");
         for(int i=0;i<srcrect->w;i++){
           int src_x=srcrect->x+i;
-          printf("%d\t",src_x);
+          // printf("%d\t",src_x);
           ((uint32_t*)dst->pixels)[i+j*dst->w]=((uint32_t*)src->pixels)[src_x+src_y*src->w];
         }
       }
-      printf("range_x:%d-%d\n",srcrect->x,srcrect->x+srcrect->w);//17 304
+      // printf("range_x:%d-%d\n",srcrect->x,srcrect->x+srcrect->w);//17 304
     }    
   }
   else{
