@@ -47,6 +47,9 @@ static long load_img() {
 
   fseek(fp, 0, SEEK_SET);
   int ret = fread(guest_to_host(RESET_VECTOR), size, 1, fp);//将镜像程序读取到指定内存地址
+  if(ret==0){
+    printf("nemu read img fail(reach the end or errors occur)\n");
+  }
   assert(ret == 1);
 
   fclose(fp);
