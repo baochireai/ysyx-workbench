@@ -30,7 +30,7 @@ static void out_of_bound(paddr_t addr) {
 void init_mem() {
 #if   defined(CONFIG_PMEM_MALLOC)
   printf("(nemu)malloc pmem\n");
-  pmem = malloc(CONFIG_MSIZE);
+  pmem = malloc(CONFIG_MSIZE);//134217728
   assert(pmem);
 #endif
 #ifdef CONFIG_MEM_RANDOM
