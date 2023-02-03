@@ -119,6 +119,8 @@ int NDL_Init(uint32_t flags) {
       if(screen_h!=0) break;         
     }
   }
+  assert(screen_w==400);
+  assert(screen_h==300);
   printf("(NDL)screen_w:%d\tscreen_h:%d\n",screen_w,screen_h);
   return 0;
 }
