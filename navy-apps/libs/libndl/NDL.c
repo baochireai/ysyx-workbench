@@ -107,13 +107,10 @@ int NDL_Init(uint32_t flags) {
   screen_w=0;screen_h=0;
   char disinfo_buf[50];
   size_t length=read(4,disinfo_buf,sizeof(disinfo_buf));//fd=4 /proc/dispinfo
-  printf("%slength:%d\n",disinfo_buf,length);
-  printf("(NDL) init screen_w:%d\tscreen_h:%d\n",screen_w,screen_h);
   for(size_t i=0;i<length;i++){
     if(screen_w==0){
       while(disinfo_buf[i]>='0'&&disinfo_buf[i]<='9'){
         screen_w=screen_w*10+disinfo_buf[i]-'0';i++;
-        printf("width:%d\n",screen_w);
       }    
     }
     else{
