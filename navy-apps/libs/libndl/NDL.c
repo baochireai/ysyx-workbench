@@ -12,7 +12,7 @@
 #include <assert.h>
 static int evtdev = -1;
 static int fbdev = -1;
-static int screen_w = 0, screen_h = 0;
+int screen_w = 0, screen_h = 0;//static 
 static int Canvas_w=0,Canvas_h=0;
 uint32_t NDL_GetTicks() {
   struct timeval tv;
