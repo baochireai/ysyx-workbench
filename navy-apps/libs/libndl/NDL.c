@@ -110,6 +110,7 @@ int NDL_Init(uint32_t flags) {
     if(screen_w==0){
       while(disinfo_buf[i]>='0'&&disinfo_buf[i]<='9'){
         screen_w=screen_w*10+disinfo_buf[i]-'0';i++;
+        printf("width:%d\n",screen_w);
       }    
     }
     else{
