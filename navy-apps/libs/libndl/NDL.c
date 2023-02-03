@@ -119,7 +119,7 @@ int NDL_Init(uint32_t flags) {
       if(screen_h!=0) break;         
     }
   }
-  printf("screen_w:%d\tscreen_h:%d\n",screen_w,screen_h);
+  printf("(NDL)screen_w:%d\tscreen_h:%d\n",screen_w,screen_h);
   return 0;
 }
 
