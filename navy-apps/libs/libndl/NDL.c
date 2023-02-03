@@ -12,7 +12,7 @@
 #include <assert.h>
 static int evtdev = -1;
 static int fbdev = -1;
-int screen_w = 0, screen_h = 0;//static 
+static int screen_w = 0, screen_h = 0;
 static int Canvas_w=0,Canvas_h=0;
 uint32_t NDL_GetTicks() {
   struct timeval tv;
@@ -104,6 +104,7 @@ int NDL_Init(uint32_t flags) {
     evtdev = 3;
   }
   /******获取系统屏幕大小*****/
+  screen_w=0;screen_h=0;
   char disinfo_buf[50];
   size_t length=read(4,disinfo_buf,sizeof(disinfo_buf));//fd=4 /proc/dispinfo
   printf("%slength:%d\n",disinfo_buf,length);
