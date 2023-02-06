@@ -37,6 +37,7 @@ int fs_open(const char *pathname, int flags, int mode){
       return i;
     }
   }
+  printf("can`t find %s\n",pathname);
   assert(0);
   return -1;
 }
