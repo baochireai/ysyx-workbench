@@ -101,6 +101,7 @@ int NDL_QueryAudio() {
 
 int NDL_Init(uint32_t flags) {
   if (getenv("NWM_APP")) {
+    printf("(NDL) env-> NWM_APP\n");
     evtdev = 3;
   }
   /******获取系统屏幕大小*****/
