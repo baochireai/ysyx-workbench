@@ -76,7 +76,6 @@ void *_sbrk(intptr_t increment) {
   if(_syscall_(SYS_brk,new_brk,0,0)==0){
     //系统调用调用成功返回0，则_sbrk更新brk位置,并将旧的brk位置作为返回值
     brk=new_brk;
-    printf("brk:%p\n",brk);
     return brk-increment;
   }
   else return (void*)-1;//若系统调用失败，则返回-1
