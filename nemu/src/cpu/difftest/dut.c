@@ -113,8 +113,8 @@ void difftest_step(vaddr_t pc, vaddr_t npc) {
 
   ref_difftest_exec(1);//REF执行指令
   ref_difftest_regcpy(&ref_r, DIFFTEST_TO_DUT);// 获取REF的寄存器状态到`dut`;
-
-  checkregs(&ref_r, pc);
+  printf("(difftest_step) npc:%08lx\n",npc);  
+  checkregs(&ref_r, npc);
 }
 #else
 void init_difftest(char *ref_so_file, long img_size, int port) { }
