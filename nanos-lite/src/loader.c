@@ -77,7 +77,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
       ramdisk_read((void*)phdr[i].p_vaddr,fs_diskoffset(fd)+phdr[i].p_offset,phdr[i].p_filesz);//loader code and data
   }
   fs_close(fd);
-  printf("hdr->e_entry:0x%08lx",hdr->e_entry);
+  printf("hdr->e_entry:0x%016lx",hdr->e_entry);
   return hdr->e_entry;
 //  return (uintptr_t)(0x83004f48);
 
