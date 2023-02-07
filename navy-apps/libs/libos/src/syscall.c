@@ -65,11 +65,11 @@ int _write(int fd, void *buf, size_t count) {
   return _syscall_(SYS_write, fd, buf, count);
 }
 
-extern char end;
+extern char _end;
 
 void *_sbrk(intptr_t increment) {
   //brk初始位置_end
-  static void* brk=&end;
+  static void* brk=&_end;
   //根据brk位置和increnment得新的brk位置
   void* new_brk=brk+increment;
   //通过系统调用让操作系统更新brk位置
