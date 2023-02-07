@@ -65,17 +65,18 @@ int _write(int fd, void *buf, size_t count) {
   return _syscall_(SYS_write, fd, buf, count);
 }
 
-extern char _end;
-intptr_t brk=(intptr_t)&_end;  //brk初始位置_end
+extern char end;
 
 void *_sbrk(intptr_t increment) {
+  //brk初始位置_end
+  static void* brk=&end;
   //根据brk位置和increnment得新的brk位置
-  intptr_t new_brk=brk+increment;
+  void* new_brk=brk+increment;
   //通过系统调用让操作系统更新brk位置
   if(_syscall_(SYS_brk,new_brk,0,0)==0){
     //系统调用调用成功返回0，则_sbrk更新brk位置,并将旧的brk位置作为返回值
     brk=new_brk;
-    return (void*)(brk-increment);
+    return brk-increment;
   }
   else return (void*)-1;//若系统调用失败，则返回-1
   //return (void *)-1;
