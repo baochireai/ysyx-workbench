@@ -15,7 +15,7 @@ bool isa_difftest_checkregs(CPU_state *ref_r, vaddr_t pc) {
   }
   if(ref_r->pc!=cpu.pc){
     printf("Check-pc fails!\n");
-    printf("(ref)pc:%08lx\n",ref_r->pc);
+    printf("(ref)pc:%08lx\t(dut)pc:%08lx\n",ref_r->pc,cpu.pc);
     return false;
   }
   return true;
