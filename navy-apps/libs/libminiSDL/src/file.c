@@ -1,11 +1,11 @@
 #include <sdl-file.h>
 
 SDL_RWops* SDL_RWFromFile(const char *filename, const char *mode) {
-  printf("SDL_RWFromFile undo") ;    
+  printf("SDL_RWFromFile undo\n") ;    
   return NULL;
 }
 
 SDL_RWops* SDL_RWFromMem(void *mem, int size) {
-  printf("SDL_RWFromMem undo") ;      
+  printf("SDL_RWFromMem undo\n") ;      
   return NULL;
 }
