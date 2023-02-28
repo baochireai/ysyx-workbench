@@ -2,6 +2,8 @@ ifndef TOPNAME
 TOPNAME=top
 endif
 
+#nvboard引脚设置
+
 NXDC_FILES=constr/${TOPNAME}.nxdc
 INC_PATH ?=
 
