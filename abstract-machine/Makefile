@@ -65,7 +65,7 @@ LINKAGE   = $(OBJS) \
 
 ## 3. General Compilation Flags
 
-### (Cross) compilers, 交叉编译 e.g., mips-linux-gnu-g++
+### (Cross) compilers, e.g., mips-linux-gnu-g++
 AS        = $(CROSS_COMPILE)gcc
 CC        = $(CROSS_COMPILE)gcc
 CXX       = $(CROSS_COMPILE)g++
@@ -87,6 +87,7 @@ CFLAGS   += -O2 -MMD -Wall -Werror $(INCFLAGS) \
             -Wno-main -U_FORTIFY_SOURCE
 CXXFLAGS +=  $(CFLAGS) -ffreestanding -fno-rtti -fno-exceptions
 ASFLAGS  += -MMD $(INCFLAGS)
+LDFLAGS  += -z noexecstack
 
 ## 4. Arch-Specific Configurations
 
