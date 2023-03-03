@@ -73,7 +73,13 @@ static int cmd_x(char *args){
   }
   paddr_t Addr;
   if(strAdd!=NULL){
-    sscanf(strAdd,"%x",(unsigned int *)&Addr);
+    //sscanf(strAdd,"%x",(unsigned int *)&Addr);
+    bool success;
+    Addr=expr(strAdd,&success);
+    if(!success){
+      Log("addr expr error!");
+      return 0;
+    }
   }
   else {
     printf("Please input memory addr!\n");

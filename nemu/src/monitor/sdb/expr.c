@@ -88,8 +88,8 @@ static bool make_token(char *e) {
         char *substr_start = e + position;
         int substr_len = pmatch.rm_eo;
 
-        Log("match rules[%d] = \"%s\" at position %d with len %d: %.*s",
-            i, rules[i].regex, position, substr_len, substr_len, substr_start);
+        // Log("match rules[%d] = \"%s\" at position %d with len %d: %.*s",
+        //     i, rules[i].regex, position, substr_len, substr_len, substr_start);
 
         position += substr_len;
 
@@ -129,7 +129,7 @@ static bool make_token(char *e) {
 
     if (i == NR_REGEX) {//No token matched
     //when too long, ^ may indicate wrong position
-      printf("no match at position %d\n%s\n%*.s^\n", position, e, position, "");
+      printf("no match at position %d\n", position);
       return false;
     }
   }
@@ -221,7 +221,7 @@ word_t eval(int p, int q,bool *success) {
         left++;
         continue;
       }
-      else if(length==0||priority[(int)buffer[length-1]]<=priority[curType]){
+      else if(length==0||priority[(int)buffer[length-1]]<=priority[curType]){//length指示符号数
         buffer[length++]=curType;
         op_index=left;
       }
@@ -262,7 +262,7 @@ word_t expr(char *e, bool *success) {
   /* TODO: Insert codes to evaluate the expression. */
   for (int i = 0; i < nr_token; i ++) {
     if (tokens[i].type == '*' && (i == 0 || tokens[i - 1].type == '(') ) {
-      tokens[i].type = TK_DEREF;
+      tokens[i].type = TK_DEREF;//指针
     }
   }
 
