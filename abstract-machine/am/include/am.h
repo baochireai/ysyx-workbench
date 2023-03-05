@@ -26,9 +26,9 @@ typedef struct {
     EVENT_NULL = 0,
     EVENT_YIELD, EVENT_SYSCALL, EVENT_PAGEFAULT, EVENT_ERROR,
     EVENT_IRQ_TIMER, EVENT_IRQ_IODEV,
-  } event;
-  uintptr_t cause, ref;
-  const char *msg;
+  } event;//异常种类
+  uintptr_t cause, ref;//事件补充信息
+  const char *msg;//事件信息字符串
 } Event;
 
 // A protected address space with user memory @area

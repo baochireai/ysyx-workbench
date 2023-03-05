@@ -4,7 +4,7 @@
 extern char _heap_start;
 int main(const char *args);
 
-Area heap = RANGE(&_heap_start, PMEM_END);
+Area heap = RANGE(&_heap_start, PMEM_END);//堆区始末
 #ifndef MAINARGS
 #define MAINARGS ""
 #endif
@@ -21,7 +21,7 @@ void halt(int code) {
   while (1);
 }
 
-void _trm_init() {
+void _trm_init() {//图灵机初始化
   int ret = main(mainargs);
   halt(ret);
 }

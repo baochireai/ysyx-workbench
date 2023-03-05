@@ -43,7 +43,7 @@ endif
 
 INCFLAGS=$(addprefix -I,$(INC_PATH))
 CFLAGS+=$(INCFLAGS) -DTOP_NAME="\"V$(TOPNAME)\""  #-fsanitize=address
-LDFLAGS+= -lSDL2 -lSDL2_image -lreadline -ldl  #-fsanitize=address -lasan
+LDFLAGS+= -lSDL2  -lreadline -ldl  #-fsanitize=address -lasan  -lSDL2_image
 
 LOGS_DIR=$(BUILD_DIR)/logs#存放波形文件
 

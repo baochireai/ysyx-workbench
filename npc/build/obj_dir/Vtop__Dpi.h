@@ -13,17 +13,17 @@ extern "C" {
 
 
     // DPI IMPORTS
-    // DPI import at /home/mrxue/ysyx-workbench/npc/vsrc/top.v:3:30
+    // DPI import at /home/mrxue/ysyx/npc/vsrc/top.v:3:30
     extern void pmem_read(long long raddr, long long* rdata);
-    // DPI import at /home/mrxue/ysyx-workbench/npc/vsrc/top.v:5:30
+    // DPI import at /home/mrxue/ysyx/npc/vsrc/top.v:5:30
     extern void pmem_write(long long waddr, long long wdata, char wmask);
-    // DPI import at /home/mrxue/ysyx-workbench/npc/vsrc/RegisterFile.v:1:30
+    // DPI import at /home/mrxue/ysyx/npc/vsrc/RegisterFile.v:1:30
     extern void set_gpr_ptr(const svOpenArrayHandle a);
-    // DPI import at /home/mrxue/ysyx-workbench/npc/vsrc/ContrGen.v:1:30
+    // DPI import at /home/mrxue/ysyx/npc/vsrc/ContrGen.v:1:30
     extern void set_invalid_inst();
-    // DPI import at /home/mrxue/ysyx-workbench/npc/vsrc/top.v:1:30
+    // DPI import at /home/mrxue/ysyx/npc/vsrc/top.v:1:30
     extern void setebreak();
-    // DPI import at /home/mrxue/ysyx-workbench/npc/vsrc/Intr.v:1:30
+    // DPI import at /home/mrxue/ysyx/npc/vsrc/Intr.v:1:30
     extern void timerIntr_raise(const svLogicVecVal* mcauseRegp);
 
 #ifdef __cplusplus
