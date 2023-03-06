@@ -43,7 +43,7 @@ endif
 
 INCFLAGS=$(addprefix -I,$(INC_PATH))
 CFLAGS+=$(INCFLAGS) -DTOP_NAME="\"V$(TOPNAME)\""  #-fsanitize=address
-LDFLAGS+= -lSDL2  -lreadline -ldl  #-fsanitize=address -lasan  -lSDL2_image
+LDFLAGS+= -lSDL2 -lasan  -fsanitize=address  -lreadline -ldl  #-fsanitize=address   -lSDL2_image 
 
 LOGS_DIR=$(BUILD_DIR)/logs#存放波形文件
 
@@ -65,7 +65,8 @@ build:$(BIN)
 
 run: $(BIN)
 #或者 export LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libasan.so.4
-	@LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libasan.so.4 $(BIN) $(ARGS) $(IMG)
+#	@LD_PRELOAD=/usr/lib/x86_64-linux-gnu/libasan.so.4 
+	$(BIN) $(ARGS) $(IMG)
 
 sim:
 	gtkwave -o   $(LOGS_DIR)/top.vcd $(LOGS_DIR)/top.sav

@@ -24,7 +24,7 @@ module top(
     //wire [31:0] Inst;
     
     assign raddr=pc;
-    assign Inst=(pc[2:0]==3'd0)?rdata[31:0]:rdata[63:32];
+    assign Inst=(pc[2:0]==3'd0)?rdata[31:0]:rdata[63:32];//内存8字节对齐读取
     
     wire [63:0] R_rs1;
     wire [63:0] R_rs2;
