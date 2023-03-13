@@ -4,7 +4,7 @@
 struct Context {
   // TODO: fix the order of these members to match trap.S
   uintptr_t gpr[32],mcause,mstatus,mepc;
-  void *pdir;
+  void *pdir;//地址空间
 };
 
 #define GPR1 gpr[17] // a7
