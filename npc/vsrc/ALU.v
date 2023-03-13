@@ -29,8 +29,8 @@ module ALU(
     }));
 
     //ALU操作码解码
-    wire US_S=ALUct[3];//有无符号
-    wire Sub_Add=(ALUct[2:0]==3'b010|ALUct[3:0]==4'b1000)?1'b1:1'b0;//尚未解码
+    wire US_S=ALUct[0];//有无符号
+    wire Sub_Add=ALUct[3];
     wire A_L=ALUct[3];//算术/逻辑
     wire L_R=(ALUct[2:0]==3'b001)?1'b1:1'b0;//左移/右移(ALUct[2:0]==101)
 
@@ -80,14 +80,16 @@ module ALU(
         4'd0,adder,
         4'd1,shift,
         4'd2,{63'd0,Less},
-        4'd3,ALUB,
+        4'd3,{63'd0,Less},//ALUB,
         4'd4,XOR,//((ALUct[3]==1'b1)?REM:
         4'd5,shift,
         4'd6,OR, //((ALUct[3]==1'b1)?MUL:
         4'd7,AND,//((ALUct[3]==1'b1)?DIV:
-        4'd8,REM,
-        4'd9,MUL,
-        4'd10,DIV
+        4'd8,MUL,        
+        4'd14,REM,//111x
+        4'd15,REM,
+        4'd12,DIV,//110x
+        4'd13,DIV
     }));
 
     assign ALUres=isTuncate?((isSext==1'b1)?{{32{ALUout[31]}},ALUout[31:0]}:{32'd0,ALUout[31:0]}):ALUout;

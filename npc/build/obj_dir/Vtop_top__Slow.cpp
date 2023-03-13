@@ -44,16 +44,16 @@ void Vtop_top___settle__TOP__top__1(Vtop_top* vlSelf) {
     vlSelf->__PVT__DataMem__DOT__deMemOP__DOT__pair_list[2U] = 0x203U;
     vlSelf->__PVT__DataMem__DOT__deMemOP__DOT__pair_list[3U] = 0x301U;
     vlSelf->__PVT__ContrGen__DOT__deExtop__DOT__pair_list[0U] = 0x39aU;
-    vlSelf->__PVT__ContrGen__DOT__deExtop__DOT__pair_list[1U] = 0xdaU;
-    vlSelf->__PVT__ContrGen__DOT__deExtop__DOT__pair_list[2U] = 0x1d9U;
+    vlSelf->__PVT__ContrGen__DOT__deExtop__DOT__pair_list[1U] = 0x33aU;
+    vlSelf->__PVT__ContrGen__DOT__deExtop__DOT__pair_list[2U] = 0x37eU;
     vlSelf->__PVT__ContrGen__DOT__deExtop__DOT__pair_list[3U] = 0x31cU;
-    vlSelf->__PVT__ContrGen__DOT__deExtop__DOT__pair_list[4U] = 0x11bU;
-    vlSelf->__PVT__ContrGen__DOT__deExtop__DOT__pair_list[5U] = 0x33aU;
-    vlSelf->__PVT__ContrGen__DOT__deExtop__DOT__pair_list[6U] = 0x37eU;
-    vlSelf->__PVT__ContrGen__DOT__deExtop__DOT__pair_list[7U] = 0x1bdU;
-    vlSelf->__PVT__ContrGen__DOT__deExtop__DOT__pair_list[8U] = 0xbdU;
+    vlSelf->__PVT__ContrGen__DOT__deExtop__DOT__pair_list[4U] = 0x1aU;
+    vlSelf->__PVT__ContrGen__DOT__deExtop__DOT__pair_list[5U] = 0x11bU;
+    vlSelf->__PVT__ContrGen__DOT__deExtop__DOT__pair_list[6U] = 0x1bdU;
+    vlSelf->__PVT__ContrGen__DOT__deExtop__DOT__pair_list[7U] = 0xbdU;
+    vlSelf->__PVT__ContrGen__DOT__deExtop__DOT__pair_list[8U] = 0x1d9U;
     vlSelf->__PVT__ContrGen__DOT__deExtop__DOT__pair_list[9U] = 0x199U;
-    vlSelf->__PVT__ContrGen__DOT__deExtop__DOT__pair_list[0xaU] = 0x1aU;
+    vlSelf->__PVT__ContrGen__DOT__deExtop__DOT__pair_list[0xaU] = 0xdaU;
     vlSelf->__PVT__ContrGen__DOT__deExtop__DOT__pair_list[0xbU] = 0x9aU;
     vlSelf->__PVT__ContrGen__DOT__isRegWr__DOT__data_list[0U] 
         = (1U & vlSelf->__PVT__ContrGen__DOT__isRegWr__DOT__pair_list
@@ -467,7 +467,6 @@ void Vtop_top___settle__TOP__top__5(Vtop_top* vlSelf) {
             vlSelf->__PVT__ALUct = 0U;
             vlSelf->__PVT__ALUAsr = 1U;
             vlSelf->__PVT__ALUBsr = 0U;
-            vlSelf->__PVT__Branch = 0U;
             vlSelf->__PVT__MemWr = 0U;
             vlSelf->__PVT__MemOP = 0U;
             vlSelf->__PVT__isTuncate = 0U;
@@ -483,7 +482,6 @@ void Vtop_top___settle__TOP__top__5(Vtop_top* vlSelf) {
             vlSelf->__PVT__ALUct = 0U;
             vlSelf->__PVT__ALUAsr = 0U;
             vlSelf->__PVT__ALUBsr = 0U;
-            vlSelf->__PVT__Branch = 0U;
             vlSelf->__PVT__MemWr = 0U;
             vlSelf->__PVT__MemOP = 0U;
             vlSelf->__PVT__isTuncate = 0U;
@@ -499,7 +497,6 @@ void Vtop_top___settle__TOP__top__5(Vtop_top* vlSelf) {
             vlSelf->__PVT__ALUct = 3U;
             vlSelf->__PVT__ALUAsr = 0U;
             vlSelf->__PVT__ALUBsr = 0U;
-            vlSelf->__PVT__Branch = 0U;
             vlSelf->__PVT__MemWr = 0U;
             vlSelf->__PVT__MemOP = 0U;
             vlSelf->__PVT__isTuncate = 0U;
@@ -515,7 +512,6 @@ void Vtop_top___settle__TOP__top__5(Vtop_top* vlSelf) {
             vlSelf->__PVT__ALUct = 0U;
             vlSelf->__PVT__ALUAsr = 0U;
             vlSelf->__PVT__ALUBsr = 2U;
-            vlSelf->__PVT__Branch = 1U;
             vlSelf->__PVT__MemWr = 0U;
             vlSelf->__PVT__MemOP = 0U;
             vlSelf->__PVT__isTuncate = 0U;
@@ -531,7 +527,6 @@ void Vtop_top___settle__TOP__top__5(Vtop_top* vlSelf) {
             vlSelf->__PVT__ALUct = 0U;
             vlSelf->__PVT__ALUAsr = 0U;
             vlSelf->__PVT__ALUBsr = 2U;
-            vlSelf->__PVT__Branch = 2U;
             vlSelf->__PVT__MemWr = 0U;
             vlSelf->__PVT__MemOP = 0U;
             vlSelf->__PVT__isTuncate = 0U;
@@ -547,7 +542,6 @@ void Vtop_top___settle__TOP__top__5(Vtop_top* vlSelf) {
             vlSelf->__PVT__ALUct = 0U;
             vlSelf->__PVT__ALUAsr = 1U;
             vlSelf->__PVT__ALUBsr = 0U;
-            vlSelf->__PVT__Branch = 0U;
             vlSelf->__PVT__MemWr = 1U;
             vlSelf->__PVT__MemOP = 4U;
             vlSelf->__PVT__isTuncate = 0U;
@@ -563,7 +557,6 @@ void Vtop_top___settle__TOP__top__5(Vtop_top* vlSelf) {
             vlSelf->__PVT__ALUct = 0U;
             vlSelf->__PVT__ALUAsr = 1U;
             vlSelf->__PVT__ALUBsr = 0U;
-            vlSelf->__PVT__Branch = 0U;
             vlSelf->__PVT__MemWr = 0U;
             vlSelf->__PVT__MemOP = 4U;
             vlSelf->__PVT__isTuncate = 0U;
@@ -572,7 +565,6 @@ void Vtop_top___settle__TOP__top__5(Vtop_top* vlSelf) {
             vlSelf->__PVT__ALUct = 0U;
             vlSelf->__PVT__ALUAsr = 1U;
             vlSelf->__PVT__ALUBsr = 1U;
-            vlSelf->__PVT__Branch = 0U;
             vlSelf->__PVT__MemWr = 0U;
             vlSelf->__PVT__MemOP = 0U;
             vlSelf->__PVT__isTuncate = 0U;
@@ -646,7 +638,6 @@ void Vtop_top___settle__TOP__top__5(Vtop_top* vlSelf) {
             vlSelf->__PVT__ALUct = 8U;
             vlSelf->__PVT__ALUAsr = 1U;
             vlSelf->__PVT__ALUBsr = 1U;
-            vlSelf->__PVT__Branch = 0U;
             vlSelf->__PVT__MemWr = 0U;
             vlSelf->__PVT__MemOP = 0U;
             vlSelf->__PVT__isTuncate = 0U;
@@ -662,7 +653,6 @@ void Vtop_top___settle__TOP__top__5(Vtop_top* vlSelf) {
             vlSelf->__PVT__ALUct = 0xaU;
             vlSelf->__PVT__ALUAsr = 1U;
             vlSelf->__PVT__ALUBsr = 0U;
-            vlSelf->__PVT__Branch = 0U;
             vlSelf->__PVT__MemWr = 0U;
             vlSelf->__PVT__MemOP = 0U;
             vlSelf->__PVT__isTuncate = 0U;
@@ -678,7 +668,6 @@ void Vtop_top___settle__TOP__top__5(Vtop_top* vlSelf) {
             vlSelf->__PVT__ALUct = 8U;
             vlSelf->__PVT__ALUAsr = 1U;
             vlSelf->__PVT__ALUBsr = 1U;
-            vlSelf->__PVT__Branch = 4U;
             vlSelf->__PVT__MemWr = 0U;
             vlSelf->__PVT__MemOP = 0U;
             vlSelf->__PVT__isTuncate = 0U;
@@ -694,7 +683,6 @@ void Vtop_top___settle__TOP__top__5(Vtop_top* vlSelf) {
             vlSelf->__PVT__ALUct = 8U;
             vlSelf->__PVT__ALUAsr = 1U;
             vlSelf->__PVT__ALUBsr = 1U;
-            vlSelf->__PVT__Branch = 5U;
             vlSelf->__PVT__MemWr = 0U;
             vlSelf->__PVT__MemOP = 0U;
             vlSelf->__PVT__isTuncate = 0U;
@@ -710,7 +698,6 @@ void Vtop_top___settle__TOP__top__5(Vtop_top* vlSelf) {
             vlSelf->__PVT__ALUct = 0U;
             vlSelf->__PVT__ALUAsr = 1U;
             vlSelf->__PVT__ALUBsr = 0U;
-            vlSelf->__PVT__Branch = 0U;
             vlSelf->__PVT__MemWr = 0U;
             vlSelf->__PVT__MemOP = 5U;
             vlSelf->__PVT__isTuncate = 0U;
@@ -726,7 +713,6 @@ void Vtop_top___settle__TOP__top__5(Vtop_top* vlSelf) {
             vlSelf->__PVT__ALUct = 0U;
             vlSelf->__PVT__ALUAsr = 1U;
             vlSelf->__PVT__ALUBsr = 0U;
-            vlSelf->__PVT__Branch = 0U;
             vlSelf->__PVT__MemWr = 0U;
             vlSelf->__PVT__MemOP = 1U;
             vlSelf->__PVT__isTuncate = 0U;
@@ -739,7 +725,6 @@ void Vtop_top___settle__TOP__top__5(Vtop_top* vlSelf) {
             vlSelf->__PVT__ALUct = 0U;
             vlSelf->__PVT__ALUAsr = 1U;
             vlSelf->__PVT__ALUBsr = 1U;
-            vlSelf->__PVT__Branch = 0U;
             vlSelf->__PVT__MemWr = 0U;
             vlSelf->__PVT__MemOP = 0U;
             vlSelf->__PVT__isTuncate = 1U;
@@ -748,7 +733,6 @@ void Vtop_top___settle__TOP__top__5(Vtop_top* vlSelf) {
             vlSelf->__PVT__ALUct = 0U;
             vlSelf->__PVT__ALUAsr = 1U;
             vlSelf->__PVT__ALUBsr = 0U;
-            vlSelf->__PVT__Branch = 0U;
             vlSelf->__PVT__MemWr = 1U;
             vlSelf->__PVT__MemOP = 2U;
             vlSelf->__PVT__isTuncate = 0U;
@@ -813,7 +797,6 @@ void Vtop_top___settle__TOP__top__5(Vtop_top* vlSelf) {
             vlSelf->__PVT__ALUct = 0xdU;
             vlSelf->__PVT__ALUAsr = 1U;
             vlSelf->__PVT__ALUBsr = 0U;
-            vlSelf->__PVT__Branch = 0U;
             vlSelf->__PVT__MemWr = 0U;
             vlSelf->__PVT__MemOP = 0U;
             vlSelf->__PVT__isTuncate = 0U;
@@ -829,7 +812,6 @@ void Vtop_top___settle__TOP__top__5(Vtop_top* vlSelf) {
             vlSelf->__PVT__ALUct = 0U;
             vlSelf->__PVT__ALUAsr = 1U;
             vlSelf->__PVT__ALUBsr = 0U;
-            vlSelf->__PVT__Branch = 0U;
             vlSelf->__PVT__MemWr = 0U;
             vlSelf->__PVT__MemOP = 3U;
             vlSelf->__PVT__isTuncate = 0U;
@@ -845,7 +827,6 @@ void Vtop_top___settle__TOP__top__5(Vtop_top* vlSelf) {
             vlSelf->__PVT__ALUct = 7U;
             vlSelf->__PVT__ALUAsr = 1U;
             vlSelf->__PVT__ALUBsr = 0U;
-            vlSelf->__PVT__Branch = 0U;
             vlSelf->__PVT__MemWr = 0U;
             vlSelf->__PVT__MemOP = 0U;
             vlSelf->__PVT__isTuncate = 0U;
@@ -858,7 +839,6 @@ void Vtop_top___settle__TOP__top__5(Vtop_top* vlSelf) {
             vlSelf->__PVT__ALUct = 1U;
             vlSelf->__PVT__ALUAsr = 1U;
             vlSelf->__PVT__ALUBsr = 1U;
-            vlSelf->__PVT__Branch = 0U;
             vlSelf->__PVT__MemWr = 0U;
             vlSelf->__PVT__MemOP = 0U;
             vlSelf->__PVT__isTuncate = 1U;
@@ -871,7 +851,6 @@ void Vtop_top___settle__TOP__top__5(Vtop_top* vlSelf) {
             vlSelf->__PVT__ALUct = 7U;
             vlSelf->__PVT__ALUAsr = 1U;
             vlSelf->__PVT__ALUBsr = 1U;
-            vlSelf->__PVT__Branch = 0U;
             vlSelf->__PVT__MemWr = 0U;
             vlSelf->__PVT__MemOP = 0U;
             vlSelf->__PVT__isTuncate = 0U;
@@ -884,7 +863,6 @@ void Vtop_top___settle__TOP__top__5(Vtop_top* vlSelf) {
             vlSelf->__PVT__ALUct = 0xaU;
             vlSelf->__PVT__ALUAsr = 1U;
             vlSelf->__PVT__ALUBsr = 1U;
-            vlSelf->__PVT__Branch = 0U;
             vlSelf->__PVT__MemWr = 0U;
             vlSelf->__PVT__MemOP = 0U;
             vlSelf->__PVT__isTuncate = 0U;
@@ -900,7 +878,6 @@ void Vtop_top___settle__TOP__top__5(Vtop_top* vlSelf) {
             vlSelf->__PVT__ALUct = 4U;
             vlSelf->__PVT__ALUAsr = 1U;
             vlSelf->__PVT__ALUBsr = 0U;
-            vlSelf->__PVT__Branch = 0U;
             vlSelf->__PVT__MemWr = 0U;
             vlSelf->__PVT__MemOP = 0U;
             vlSelf->__PVT__isTuncate = 0U;
@@ -909,7 +886,6 @@ void Vtop_top___settle__TOP__top__5(Vtop_top* vlSelf) {
             vlSelf->__PVT__ALUct = 0xdU;
             vlSelf->__PVT__ALUAsr = 1U;
             vlSelf->__PVT__ALUBsr = 1U;
-            vlSelf->__PVT__Branch = 0U;
             vlSelf->__PVT__MemWr = 0U;
             vlSelf->__PVT__MemOP = 0U;
             vlSelf->__PVT__isTuncate = 1U;
@@ -977,7 +953,6 @@ void Vtop_top___settle__TOP__top__5(Vtop_top* vlSelf) {
             vlSelf->__PVT__ALUct = 6U;
             vlSelf->__PVT__ALUAsr = 1U;
             vlSelf->__PVT__ALUBsr = 1U;
-            vlSelf->__PVT__Branch = 0U;
             vlSelf->__PVT__MemWr = 0U;
             vlSelf->__PVT__MemOP = 0U;
             vlSelf->__PVT__isTuncate = 0U;
@@ -993,7 +968,6 @@ void Vtop_top___settle__TOP__top__5(Vtop_top* vlSelf) {
             vlSelf->__PVT__ALUct = 0U;
             vlSelf->__PVT__ALUAsr = 1U;
             vlSelf->__PVT__ALUBsr = 0U;
-            vlSelf->__PVT__Branch = 0U;
             vlSelf->__PVT__MemWr = 1U;
             vlSelf->__PVT__MemOP = 3U;
             vlSelf->__PVT__isTuncate = 0U;
@@ -1009,7 +983,6 @@ void Vtop_top___settle__TOP__top__5(Vtop_top* vlSelf) {
             vlSelf->__PVT__ALUct = 0U;
             vlSelf->__PVT__ALUAsr = 1U;
             vlSelf->__PVT__ALUBsr = 0U;
-            vlSelf->__PVT__Branch = 0U;
             vlSelf->__PVT__MemWr = 0U;
             vlSelf->__PVT__MemOP = 0U;
             vlSelf->__PVT__isTuncate = 1U;
@@ -1025,7 +998,6 @@ void Vtop_top___settle__TOP__top__5(Vtop_top* vlSelf) {
             vlSelf->__PVT__ALUct = 2U;
             vlSelf->__PVT__ALUAsr = 1U;
             vlSelf->__PVT__ALUBsr = 1U;
-            vlSelf->__PVT__Branch = 6U;
             vlSelf->__PVT__MemWr = 0U;
             vlSelf->__PVT__MemOP = 0U;
             vlSelf->__PVT__isTuncate = 0U;
@@ -1041,7 +1013,6 @@ void Vtop_top___settle__TOP__top__5(Vtop_top* vlSelf) {
             vlSelf->__PVT__ALUct = 2U;
             vlSelf->__PVT__ALUAsr = 1U;
             vlSelf->__PVT__ALUBsr = 1U;
-            vlSelf->__PVT__Branch = 7U;
             vlSelf->__PVT__MemWr = 0U;
             vlSelf->__PVT__MemOP = 0U;
             vlSelf->__PVT__isTuncate = 0U;
@@ -1057,7 +1028,6 @@ void Vtop_top___settle__TOP__top__5(Vtop_top* vlSelf) {
             vlSelf->__PVT__ALUct = 0U;
             vlSelf->__PVT__ALUAsr = 1U;
             vlSelf->__PVT__ALUBsr = 0U;
-            vlSelf->__PVT__Branch = 0U;
             vlSelf->__PVT__MemWr = 1U;
             vlSelf->__PVT__MemOP = 1U;
             vlSelf->__PVT__isTuncate = 0U;
@@ -1070,7 +1040,6 @@ void Vtop_top___settle__TOP__top__5(Vtop_top* vlSelf) {
             vlSelf->__PVT__ALUct = 0x11U;
             vlSelf->__PVT__ALUAsr = 1U;
             vlSelf->__PVT__ALUBsr = 1U;
-            vlSelf->__PVT__Branch = 0U;
             vlSelf->__PVT__MemWr = 0U;
             vlSelf->__PVT__MemOP = 0U;
             vlSelf->__PVT__isTuncate = 1U;
@@ -1079,7 +1048,6 @@ void Vtop_top___settle__TOP__top__5(Vtop_top* vlSelf) {
             vlSelf->__PVT__ALUct = 0x12U;
             vlSelf->__PVT__ALUAsr = 1U;
             vlSelf->__PVT__ALUBsr = 1U;
-            vlSelf->__PVT__Branch = 0U;
             vlSelf->__PVT__MemWr = 0U;
             vlSelf->__PVT__MemOP = 0U;
             vlSelf->__PVT__isTuncate = 1U;
@@ -1150,7 +1118,6 @@ void Vtop_top___settle__TOP__top__5(Vtop_top* vlSelf) {
             vlSelf->__PVT__ALUct = 8U;
             vlSelf->__PVT__ALUAsr = 1U;
             vlSelf->__PVT__ALUBsr = 1U;
-            vlSelf->__PVT__Branch = 0U;
             vlSelf->__PVT__MemWr = 0U;
             vlSelf->__PVT__MemOP = 0U;
             vlSelf->__PVT__isTuncate = 1U;
@@ -1163,7 +1130,6 @@ void Vtop_top___settle__TOP__top__5(Vtop_top* vlSelf) {
             vlSelf->__PVT__ALUct = 0x10U;
             vlSelf->__PVT__ALUAsr = 1U;
             vlSelf->__PVT__ALUBsr = 1U;
-            vlSelf->__PVT__Branch = 0U;
             vlSelf->__PVT__MemWr = 0U;
             vlSelf->__PVT__MemOP = 0U;
             vlSelf->__PVT__isTuncate = 1U;
@@ -1179,7 +1145,6 @@ void Vtop_top___settle__TOP__top__5(Vtop_top* vlSelf) {
             vlSelf->__PVT__ALUct = 0xaU;
             vlSelf->__PVT__ALUAsr = 1U;
             vlSelf->__PVT__ALUBsr = 1U;
-            vlSelf->__PVT__Branch = 7U;
             vlSelf->__PVT__MemWr = 0U;
             vlSelf->__PVT__MemOP = 0U;
             vlSelf->__PVT__isTuncate = 0U;
@@ -1192,7 +1157,6 @@ void Vtop_top___settle__TOP__top__5(Vtop_top* vlSelf) {
             vlSelf->__PVT__ALUct = 2U;
             vlSelf->__PVT__ALUAsr = 1U;
             vlSelf->__PVT__ALUBsr = 1U;
-            vlSelf->__PVT__Branch = 0U;
             vlSelf->__PVT__MemWr = 0U;
             vlSelf->__PVT__MemOP = 0U;
             vlSelf->__PVT__isTuncate = 0U;
@@ -1208,7 +1172,6 @@ void Vtop_top___settle__TOP__top__5(Vtop_top* vlSelf) {
             vlSelf->__PVT__ALUct = 0U;
             vlSelf->__PVT__ALUAsr = 1U;
             vlSelf->__PVT__ALUBsr = 0U;
-            vlSelf->__PVT__Branch = 0U;
             vlSelf->__PVT__MemWr = 0U;
             vlSelf->__PVT__MemOP = 6U;
             vlSelf->__PVT__isTuncate = 0U;
@@ -1224,7 +1187,6 @@ void Vtop_top___settle__TOP__top__5(Vtop_top* vlSelf) {
             vlSelf->__PVT__ALUct = 0U;
             vlSelf->__PVT__ALUAsr = 1U;
             vlSelf->__PVT__ALUBsr = 0U;
-            vlSelf->__PVT__Branch = 0U;
             vlSelf->__PVT__MemWr = 0U;
             vlSelf->__PVT__MemOP = 2U;
             vlSelf->__PVT__isTuncate = 0U;
@@ -1240,7 +1202,6 @@ void Vtop_top___settle__TOP__top__5(Vtop_top* vlSelf) {
             vlSelf->__PVT__ALUct = 1U;
             vlSelf->__PVT__ALUAsr = 1U;
             vlSelf->__PVT__ALUBsr = 0U;
-            vlSelf->__PVT__Branch = 0U;
             vlSelf->__PVT__MemWr = 0U;
             vlSelf->__PVT__MemOP = 0U;
             vlSelf->__PVT__isTuncate = 0U;
@@ -1249,7 +1210,6 @@ void Vtop_top___settle__TOP__top__5(Vtop_top* vlSelf) {
             vlSelf->__PVT__ALUct = 5U;
             vlSelf->__PVT__ALUAsr = 1U;
             vlSelf->__PVT__ALUBsr = 0U;
-            vlSelf->__PVT__Branch = 0U;
             vlSelf->__PVT__MemWr = 0U;
             vlSelf->__PVT__MemOP = 0U;
             vlSelf->__PVT__isTuncate = 0U;
@@ -1315,7 +1275,6 @@ void Vtop_top___settle__TOP__top__5(Vtop_top* vlSelf) {
             vlSelf->__PVT__ALUct = 1U;
             vlSelf->__PVT__ALUAsr = 1U;
             vlSelf->__PVT__ALUBsr = 0U;
-            vlSelf->__PVT__Branch = 0U;
             vlSelf->__PVT__MemWr = 0U;
             vlSelf->__PVT__MemOP = 0U;
             vlSelf->__PVT__isTuncate = 1U;
@@ -1328,7 +1287,6 @@ void Vtop_top___settle__TOP__top__5(Vtop_top* vlSelf) {
             vlSelf->__PVT__ALUct = 0xdU;
             vlSelf->__PVT__ALUAsr = 1U;
             vlSelf->__PVT__ALUBsr = 0U;
-            vlSelf->__PVT__Branch = 0U;
             vlSelf->__PVT__MemWr = 0U;
             vlSelf->__PVT__MemOP = 0U;
             vlSelf->__PVT__isTuncate = 1U;
@@ -1341,7 +1299,6 @@ void Vtop_top___settle__TOP__top__5(Vtop_top* vlSelf) {
             vlSelf->__PVT__ALUct = 0x11U;
             vlSelf->__PVT__ALUAsr = 1U;
             vlSelf->__PVT__ALUBsr = 1U;
-            vlSelf->__PVT__Branch = 0U;
             vlSelf->__PVT__MemWr = 0U;
             vlSelf->__PVT__MemOP = 0U;
             vlSelf->__PVT__isTuncate = 0U;
@@ -1357,7 +1314,6 @@ void Vtop_top___settle__TOP__top__5(Vtop_top* vlSelf) {
             vlSelf->__PVT__ALUct = 5U;
             vlSelf->__PVT__ALUAsr = 1U;
             vlSelf->__PVT__ALUBsr = 0U;
-            vlSelf->__PVT__Branch = 0U;
             vlSelf->__PVT__MemWr = 0U;
             vlSelf->__PVT__MemOP = 0U;
             vlSelf->__PVT__isTuncate = 1U;
@@ -1370,7 +1326,6 @@ void Vtop_top___settle__TOP__top__5(Vtop_top* vlSelf) {
             vlSelf->__PVT__ALUct = 5U;
             vlSelf->__PVT__ALUAsr = 1U;
             vlSelf->__PVT__ALUBsr = 1U;
-            vlSelf->__PVT__Branch = 0U;
             vlSelf->__PVT__MemWr = 0U;
             vlSelf->__PVT__MemOP = 0U;
             vlSelf->__PVT__isTuncate = 1U;
@@ -1386,7 +1341,6 @@ void Vtop_top___settle__TOP__top__5(Vtop_top* vlSelf) {
             vlSelf->__PVT__ALUct = 0xaU;
             vlSelf->__PVT__ALUAsr = 1U;
             vlSelf->__PVT__ALUBsr = 1U;
-            vlSelf->__PVT__Branch = 6U;
             vlSelf->__PVT__MemWr = 0U;
             vlSelf->__PVT__MemOP = 0U;
             vlSelf->__PVT__isTuncate = 0U;
@@ -1402,7 +1356,6 @@ void Vtop_top___settle__TOP__top__5(Vtop_top* vlSelf) {
             vlSelf->__PVT__ALUct = 0xaU;
             vlSelf->__PVT__ALUAsr = 1U;
             vlSelf->__PVT__ALUBsr = 1U;
-            vlSelf->__PVT__Branch = 6U;
             vlSelf->__PVT__MemWr = 0U;
             vlSelf->__PVT__MemOP = 0U;
             vlSelf->__PVT__isTuncate = 0U;
@@ -1411,7 +1364,6 @@ void Vtop_top___settle__TOP__top__5(Vtop_top* vlSelf) {
             vlSelf->__PVT__ALUct = 0x1aU;
             vlSelf->__PVT__ALUAsr = 1U;
             vlSelf->__PVT__ALUBsr = 1U;
-            vlSelf->__PVT__Branch = 0U;
             vlSelf->__PVT__MemWr = 0U;
             vlSelf->__PVT__MemOP = 0U;
             vlSelf->__PVT__isTuncate = 0U;
@@ -1425,7 +1377,6 @@ void Vtop_top___settle__TOP__top__5(Vtop_top* vlSelf) {
         vlSelf->__PVT__ALUct = 0x18U;
         vlSelf->__PVT__ALUAsr = 1U;
         vlSelf->__PVT__ALUBsr = 1U;
-        vlSelf->__PVT__Branch = 0U;
         vlSelf->__PVT__MemWr = 0U;
         vlSelf->__PVT__MemOP = 0U;
         vlSelf->__PVT__isTuncate = 0U;
@@ -1438,7 +1389,6 @@ void Vtop_top___settle__TOP__top__5(Vtop_top* vlSelf) {
         vlSelf->__PVT__ALUct = 0x1aU;
         vlSelf->__PVT__ALUAsr = 1U;
         vlSelf->__PVT__ALUBsr = 1U;
-        vlSelf->__PVT__Branch = 0U;
         vlSelf->__PVT__MemWr = 0U;
         vlSelf->__PVT__MemOP = 0U;
         vlSelf->__PVT__isTuncate = 1U;
@@ -1451,7 +1401,6 @@ void Vtop_top___settle__TOP__top__5(Vtop_top* vlSelf) {
         vlSelf->__PVT__ALUct = 4U;
         vlSelf->__PVT__ALUAsr = 1U;
         vlSelf->__PVT__ALUBsr = 1U;
-        vlSelf->__PVT__Branch = 0U;
         vlSelf->__PVT__MemWr = 0U;
         vlSelf->__PVT__MemOP = 0U;
         vlSelf->__PVT__isTuncate = 0U;
@@ -1464,7 +1413,6 @@ void Vtop_top___settle__TOP__top__5(Vtop_top* vlSelf) {
         vlSelf->__PVT__ALUct = 0U;
         vlSelf->__PVT__ALUAsr = 1U;
         vlSelf->__PVT__ALUBsr = 0U;
-        vlSelf->__PVT__Branch = 0U;
         vlSelf->__PVT__MemWr = 0U;
         vlSelf->__PVT__MemOP = 7U;
         vlSelf->__PVT__isTuncate = 0U;
@@ -1477,7 +1425,6 @@ void Vtop_top___settle__TOP__top__5(Vtop_top* vlSelf) {
         vlSelf->__PVT__ALUct = 6U;
         vlSelf->__PVT__ALUAsr = 1U;
         vlSelf->__PVT__ALUBsr = 0U;
-        vlSelf->__PVT__Branch = 0U;
         vlSelf->__PVT__MemWr = 0U;
         vlSelf->__PVT__MemOP = 0U;
         vlSelf->__PVT__isTuncate = 0U;
@@ -1490,7 +1437,6 @@ void Vtop_top___settle__TOP__top__5(Vtop_top* vlSelf) {
         vlSelf->__PVT__ALUct = 1U;
         vlSelf->__PVT__ALUAsr = 1U;
         vlSelf->__PVT__ALUBsr = 1U;
-        vlSelf->__PVT__Branch = 0U;
         vlSelf->__PVT__MemWr = 0U;
         vlSelf->__PVT__MemOP = 0U;
         vlSelf->__PVT__isTuncate = 0U;
@@ -1503,7 +1449,6 @@ void Vtop_top___settle__TOP__top__5(Vtop_top* vlSelf) {
         vlSelf->__PVT__ALUct = 1U;
         vlSelf->__PVT__ALUAsr = 0U;
         vlSelf->__PVT__ALUBsr = 0U;
-        vlSelf->__PVT__Branch = 0U;
         vlSelf->__PVT__MemWr = 0U;
         vlSelf->__PVT__MemOP = 0U;
         vlSelf->__PVT__isTuncate = 0U;
@@ -1512,7 +1457,6 @@ void Vtop_top___settle__TOP__top__5(Vtop_top* vlSelf) {
         vlSelf->__PVT__ALUct = 1U;
         vlSelf->__PVT__ALUAsr = 0U;
         vlSelf->__PVT__ALUBsr = 0U;
-        vlSelf->__PVT__Branch = 0U;
         vlSelf->__PVT__MemWr = 0U;
         vlSelf->__PVT__MemOP = 0U;
         vlSelf->__PVT__isTuncate = 0U;
@@ -2061,6 +2005,13 @@ void Vtop_top___settle__TOP__top__5(Vtop_top* vlSelf) {
               [3U]));
     vlSelf->__PVT__RegWr = ((IData)(vlSelf->__PVT__ContrGen__DOT__isRegWr__DOT__hit) 
                             & (IData)(vlSelf->__PVT__ContrGen__DOT__isRegWr__DOT__lut_out));
+    vlSelf->__PVT__Branch = ((4U == (IData)(vlSelf->__PVT__Extop))
+                              ? (5U & (vlSelf->Inst 
+                                       >> 0xcU)) : 
+                             ((6U == (IData)(vlSelf->__PVT__Extop))
+                               ? 6U : ((0x67U == (0x7fU 
+                                                  & vlSelf->Inst))
+                                        ? 7U : 2U)));
     vlSelf->__PVT__ImmGen__DOT__isRegWr__DOT__pair_list[0U][0U] 
         = vlSelf->ImmGen__DOT____Vcellinp__isRegWr__lut[0U];
     vlSelf->__PVT__ImmGen__DOT__isRegWr__DOT__pair_list[0U][1U] 
@@ -2718,24 +2669,20 @@ void Vtop_top___settle__TOP__top__5(Vtop_top* vlSelf) {
         = (3U & (vlSelf->ALU__DOT__BarrelShifter__DOT____Vcellinp__ShifterMux__lut[8U] 
                  >> 6U));
     vlSelf->GenNextPC__DOT____Vcellinp__dePCsrc__lut 
-        = (0x4ea80000ULL | (QData)((IData)((0x531cU 
-                                            | ((((0U 
-                                                  != vlSelf->__PVT__ALU__DOT__adder)
-                                                  ? 1U
-                                                  : 3U) 
+        = (((QData)((IData)(((0U != vlSelf->__PVT__ALU__DOT__adder)
+                              ? 1U : 3U))) << 0x1eU) 
+           | (QData)((IData)((0x898537eU | ((((0U != vlSelf->__PVT__ALU__DOT__adder)
+                                               ? 3U
+                                               : 1U) 
+                                             << 0x19U) 
+                                            | ((((IData)(vlSelf->__PVT__Less)
+                                                  ? 3U
+                                                  : 1U) 
                                                 << 0xfU) 
-                                               | ((((0U 
-                                                     != vlSelf->__PVT__ALU__DOT__adder)
-                                                     ? 3U
-                                                     : 1U) 
-                                                   << 0xaU) 
-                                                  | ((((IData)(vlSelf->__PVT__Less)
-                                                        ? 1U
-                                                        : 3U) 
-                                                      << 5U) 
-                                                     | ((IData)(vlSelf->__PVT__Less)
-                                                         ? 3U
-                                                         : 1U))))))));
+                                               | (((IData)(vlSelf->__PVT__Less)
+                                                    ? 1U
+                                                    : 3U) 
+                                                  << 0xaU)))))));
     vlSelf->__PVT__ALU__DOT__diver__DOT__lut_out = 
         ((- (QData)((IData)(((IData)(vlSelf->ALU__DOT____Vcellinp__diver__key) 
                              == vlSelf->__PVT__ALU__DOT__diver__DOT__key_list
@@ -3867,23 +3814,6 @@ void Vtop_top___ctor_var_reset(Vtop_top* vlSelf) {
     vlSelf->__PVT__isTuncate = 0;
     vlSelf->__PVT__isSext = 0;
     VL_ZERO_RESET_W(198, vlSelf->__Vcellinp__RegWsrcMux__lut);
-    vlSelf->GenNextPC__DOT____Vcellinp__dePCsrc__lut = 0;
-    vlSelf->GenNextPC__DOT____Vcellout__dePCsrc__out = 0;
-    vlSelf->__PVT__GenNextPC__DOT__Bsrc = 0;
-    for (int __Vi0=0; __Vi0<7; ++__Vi0) {
-        vlSelf->__PVT__GenNextPC__DOT__dePCsrc__DOT__pair_list[__Vi0] = 0;
-    }
-    for (int __Vi0=0; __Vi0<7; ++__Vi0) {
-        vlSelf->__PVT__GenNextPC__DOT__dePCsrc__DOT__key_list[__Vi0] = 0;
-    }
-    for (int __Vi0=0; __Vi0<7; ++__Vi0) {
-        vlSelf->__PVT__GenNextPC__DOT__dePCsrc__DOT__data_list[__Vi0] = 0;
-    }
-    vlSelf->__PVT__GenNextPC__DOT__dePCsrc__DOT__lut_out = 0;
-    vlSelf->__PVT__GenNextPC__DOT__dePCsrc__DOT__hit = 0;
-    for (int __Vi0=0; __Vi0<32; ++__Vi0) {
-        vlSelf->__PVT__RegisterFile__DOT__rf[__Vi0] = 0;
-    }
     for (int __Vi0=0; __Vi0<12; ++__Vi0) {
         vlSelf->__PVT__ContrGen__DOT__deExtop__DOT__pair_list[__Vi0] = 0;
     }
@@ -3928,6 +3858,23 @@ void Vtop_top___ctor_var_reset(Vtop_top* vlSelf) {
     }
     vlSelf->__PVT__ContrGen__DOT__RegSrcMux__DOT__lut_out = 0;
     vlSelf->__PVT__ContrGen__DOT__RegSrcMux__DOT__hit = 0;
+    vlSelf->GenNextPC__DOT____Vcellinp__dePCsrc__lut = 0;
+    vlSelf->GenNextPC__DOT____Vcellout__dePCsrc__out = 0;
+    vlSelf->__PVT__GenNextPC__DOT__Bsrc = 0;
+    for (int __Vi0=0; __Vi0<7; ++__Vi0) {
+        vlSelf->__PVT__GenNextPC__DOT__dePCsrc__DOT__pair_list[__Vi0] = 0;
+    }
+    for (int __Vi0=0; __Vi0<7; ++__Vi0) {
+        vlSelf->__PVT__GenNextPC__DOT__dePCsrc__DOT__key_list[__Vi0] = 0;
+    }
+    for (int __Vi0=0; __Vi0<7; ++__Vi0) {
+        vlSelf->__PVT__GenNextPC__DOT__dePCsrc__DOT__data_list[__Vi0] = 0;
+    }
+    vlSelf->__PVT__GenNextPC__DOT__dePCsrc__DOT__lut_out = 0;
+    vlSelf->__PVT__GenNextPC__DOT__dePCsrc__DOT__hit = 0;
+    for (int __Vi0=0; __Vi0<32; ++__Vi0) {
+        vlSelf->__PVT__RegisterFile__DOT__rf[__Vi0] = 0;
+    }
     VL_ZERO_RESET_W(335, vlSelf->ImmGen__DOT____Vcellinp__isRegWr__lut);
     for (int __Vi0=0; __Vi0<5; ++__Vi0) {
         VL_ZERO_RESET_W(67, vlSelf->__PVT__ImmGen__DOT__isRegWr__DOT__pair_list[__Vi0]);

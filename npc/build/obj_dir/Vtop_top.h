@@ -46,8 +46,6 @@ VL_MODULE(Vtop_top) {
         CData/*0:0*/ __PVT__clint_re;
         CData/*0:0*/ __PVT__isTuncate;
         CData/*0:0*/ __PVT__isSext;
-        CData/*1:0*/ __PVT__GenNextPC__DOT__dePCsrc__DOT__lut_out;
-        CData/*0:0*/ __PVT__GenNextPC__DOT__dePCsrc__DOT__hit;
         CData/*2:0*/ __PVT__ContrGen__DOT__deExtop__DOT__lut_out;
         CData/*0:0*/ __PVT__ContrGen__DOT__deExtop__DOT__hit;
         CData/*0:0*/ __PVT__ContrGen__DOT__isIntr__DOT__lut_out;
@@ -56,6 +54,8 @@ VL_MODULE(Vtop_top) {
         CData/*0:0*/ __PVT__ContrGen__DOT__isRegWr__DOT__hit;
         CData/*1:0*/ __PVT__ContrGen__DOT__RegSrcMux__DOT__lut_out;
         CData/*0:0*/ __PVT__ContrGen__DOT__RegSrcMux__DOT__hit;
+        CData/*1:0*/ __PVT__GenNextPC__DOT__dePCsrc__DOT__lut_out;
+        CData/*0:0*/ __PVT__GenNextPC__DOT__dePCsrc__DOT__hit;
         CData/*0:0*/ __PVT__ImmGen__DOT__isRegWr__DOT__hit;
         CData/*0:0*/ __PVT__ALU__DOT__Sub_Add;
         CData/*0:0*/ __PVT__ALU__DOT__deALUBsr__DOT__hit;
@@ -102,10 +102,6 @@ VL_MODULE(Vtop_top) {
         QData/*63:0*/ __PVT__RegWsrcMux__DOT__lut_out;
         QData/*63:0*/ __PVT__clintU__DOT__mtime;
         QData/*63:0*/ __PVT__clintU__DOT__mtimecmp;
-        VlUnpacked<CData/*4:0*/, 7> __PVT__GenNextPC__DOT__dePCsrc__DOT__pair_list;
-        VlUnpacked<CData/*2:0*/, 7> __PVT__GenNextPC__DOT__dePCsrc__DOT__key_list;
-        VlUnpacked<CData/*1:0*/, 7> __PVT__GenNextPC__DOT__dePCsrc__DOT__data_list;
-        VlUnpacked<QData/*63:0*/, 32> __PVT__RegisterFile__DOT__rf;
         VlUnpacked<SData/*9:0*/, 12> __PVT__ContrGen__DOT__deExtop__DOT__pair_list;
         VlUnpacked<CData/*6:0*/, 12> __PVT__ContrGen__DOT__deExtop__DOT__key_list;
         VlUnpacked<CData/*2:0*/, 12> __PVT__ContrGen__DOT__deExtop__DOT__data_list;
@@ -118,6 +114,10 @@ VL_MODULE(Vtop_top) {
         VlUnpacked<SData/*8:0*/, 2> __PVT__ContrGen__DOT__RegSrcMux__DOT__pair_list;
         VlUnpacked<CData/*6:0*/, 2> __PVT__ContrGen__DOT__RegSrcMux__DOT__key_list;
         VlUnpacked<CData/*1:0*/, 2> __PVT__ContrGen__DOT__RegSrcMux__DOT__data_list;
+        VlUnpacked<CData/*4:0*/, 7> __PVT__GenNextPC__DOT__dePCsrc__DOT__pair_list;
+        VlUnpacked<CData/*2:0*/, 7> __PVT__GenNextPC__DOT__dePCsrc__DOT__key_list;
+        VlUnpacked<CData/*1:0*/, 7> __PVT__GenNextPC__DOT__dePCsrc__DOT__data_list;
+        VlUnpacked<QData/*63:0*/, 32> __PVT__RegisterFile__DOT__rf;
         VlUnpacked<VlWide<3>/*66:0*/, 5> __PVT__ImmGen__DOT__isRegWr__DOT__pair_list;
         VlUnpacked<CData/*2:0*/, 5> __PVT__ImmGen__DOT__isRegWr__DOT__key_list;
         VlUnpacked<QData/*63:0*/, 5> __PVT__ImmGen__DOT__isRegWr__DOT__data_list;
