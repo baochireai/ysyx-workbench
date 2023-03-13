@@ -3843,9 +3843,6 @@ void Vtop_top___ctor_var_reset(Vtop_top* vlSelf) {
     vlSelf->Inst = 0;
     vlSelf->pc = 0;
     vlSelf->__PVT__rdata = 0;
-    vlSelf->__PVT__waddr = 0;
-    vlSelf->__PVT__wdata = 0;
-    vlSelf->__PVT__wmask = 0;
     vlSelf->__PVT__R_rs1 = 0;
     vlSelf->__PVT__R_rs2 = 0;
     vlSelf->__PVT__ALUct = 0;
@@ -3856,6 +3853,7 @@ void Vtop_top___ctor_var_reset(Vtop_top* vlSelf) {
     vlSelf->__PVT__Imm = 0;
     vlSelf->__PVT__ALUres = 0;
     vlSelf->__PVT__Branch = 0;
+    vlSelf->__PVT__waddr = 0;
     vlSelf->__PVT__Less = 0;
     vlSelf->__PVT__MemOP = 0;
     vlSelf->__PVT__RegSrc = 0;

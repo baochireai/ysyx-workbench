@@ -8,12 +8,12 @@ module AXI_slave
     //Write address channel
     input  AWVALID,
     output reg AWREADY,
-    input [AWIDTH-1,0] AWADDR,
+    input [AWIDTH-1:0] AWADDR,
     //Write data channel
     input  WVALID,
     output reg WREADY,
-    input [DWIDTH-1,0] WDATA,
-    input [DWIDTH/8-1,0] WSTRB,
+    input [DWIDTH-1:0] WDATA,
+    input [DWIDTH/8-1:0] WSTRB,
     //write response channel
     input  BREADY,
     output reg BVALID,
@@ -21,7 +21,7 @@ module AXI_slave
     //Read address channel
     input  ARVALID,
     output reg ARREADY,
-    input [AWIDTH-1,0] ARADDR,
+    input [AWIDTH-1:0] ARADDR,
     //Read data channel
     input  RREADY,
     output reg RVALID,
@@ -32,7 +32,7 @@ module AXI_slave
     output reg[AWIDTH-1:0] awaddr,
     output reg[DWIDTH/8-1:0] wstrb,
     output reg[AWIDTH-1:0] araddr,    
-    input  [DWIDTH-1:0] rdata,
+    input  [DWIDTH-1:0] rdata
 );
 
   /*
@@ -64,14 +64,14 @@ module AXI_slave
 
   always @(posedge ACLK or negedge ARESTn) begin
     if(!ARESTn) begin 
-      AWREADY<=1'b1;awaddr<=AWIDTH'd0;
+      AWREADY<=1'b1;awaddr<={AWIDTH{1'b0}};
     end
     else
       case (AW_state)
         AW_IDEL: AWREADY<=1'b1;
         AW_VALID: begin  AWREADY<=1'b0;awaddr<=AWADDR; end
         AW_WAIT: AWREADY<=1'b0;
-        default: begin AWREADY<=1'b1;awaddr<=AWIDTH'd0; end
+        default: begin AWREADY<=1'b1;awaddr<={AWIDTH{1'b0}}; end
       endcase
   end
 
@@ -104,14 +104,14 @@ module AXI_slave
 
   always @(posedge ACLK or negedge ARESTn) begin
     if(!ARESTn) begin 
-      WREADY<=1'b1;wdata<=DWIDTH'd0;
+      WREADY<=1'b1;wdata<={DWIDTH{1'b0}};
     end
     else
       case (W_state)
         W_IDEL: WREADY<=1'b1;
         W_VALID: begin  WREADY<=1'b0;wdata<=WDATA;wstrb<=WSTRB; end
         W_WAIT: WREADY<=1'b0;
-        default: begin WREADY<=1'b1;wdata<=DWIDTH'd0; end
+        default: begin WREADY<=1'b1;wdata<={DWIDTH{1'b0}}; end
       endcase
   end
 
@@ -154,7 +154,7 @@ module AXI_slave
 
   always @(posedge ACLK or negedge ARESTn) begin
     if(!ARESTn) begin 
-      WREADY<=1'b1;wdata<=DWIDTH'd0;
+      WREADY<=1'b1;wdata<={DWIDTH{1'b0}};
     end
     else
       case (B_state)

@@ -8,12 +8,12 @@ module AXI_master
     //Write address channel
     output reg AWVALID,
     input AWREADY,
-    output reg[AWIDTH-1,0] AWADDR,
+    output reg[AWIDTH-1:0] AWADDR,
     //Write data channel
     output reg WVALID,
     input WREADY,
-    output reg[DWIDTH-1,0] WDATA,
-    output reg[DWIDTH/8-1,0] WSTRB,
+    output reg[DWIDTH-1:0] WDATA,
+    output reg[DWIDTH/8-1:0] WSTRB,
     //write response channel
     output reg BREADY,
     input BVALID,
@@ -21,7 +21,7 @@ module AXI_master
     //Read address channel
     output reg ARVALID,
     input ARREADY,
-    output reg[AWIDTH-1,0] ARADDR,
+    output reg[AWIDTH-1:0] ARADDR,
     //Read data channel
     output reg RREADY,
     input RVALID,
@@ -32,7 +32,7 @@ module AXI_master
     input [AWIDTH-1:0] awaddr,
     input [DWIDTH-1:0] wdata,
     input [DWIDTH/8-1:0] wstrb,
-    output reg[DWIDTH-1:0] rdata,
+    output reg[DWIDTH-1:0] rdata
 );
 
   /*
@@ -41,7 +41,7 @@ module AXI_master
   1.等待写请求(空闲状态),给出写地址并置位有效位
   2.等待接受位
   */
-  parameter [1:0] AW_IDLE=2'b00,AW_VALID=2'b00,AW_WAIT=2'b00;
+  parameter [1:0] AW_IDLE=2'b00,AW_VALID=2'b01,AW_WAIT=2'b10;
   reg[1:0] AW_state,AW_next_state;
 
   always @(posedge ACLK or negedge ARESTn) begin   //状态变化
@@ -51,7 +51,7 @@ module AXI_master
 
   always @(*) begin  //下一状态
     case (AW_state)
-      AW_IDLE: if(awaddr>AWIDTH'd0) AW_next_state=AW_VALID;
+      AW_IDLE: if(awaddr>{AWIDTH{1'b0}}) AW_next_state=AW_VALID;
                else AW_next_state=AW_IDLE;
       AW_VALID: AW_next_state=AW_WAIT;
       AW_WAIT: if(AWREADY) AW_next_state=AW_IDLE;
@@ -62,11 +62,11 @@ module AXI_master
 
   always @(posedge ACLK or negedge ARESTn) begin
     if(!ARESTn) begin
-      AW_VALID <=1'b0;AWADDR<=AWIDTH'd0;
+      AW_VALID <=1'b0;AWADDR<={AWIDTH{1'b0}};
     end
     else
         case (AW_state)
-          AW_IDLE: begin AWVALID=1'b0;AWADDR=AWIDTH'd0; end
+          AW_IDLE: begin AWVALID=1'b0;AWADDR={AWIDTH{1'b0}}; end//{ID_WIDTH{1'b0}}
           AW_VALID: begin AWVALID=1'b1;AWADDR=awaddr;  end//一个时钟周期能够读完
           AW_WAIT: AWVALID=1'b1;
           default: AWVALID=1'b0;
@@ -80,7 +80,7 @@ module AXI_master
   2.VAILD:发出写数据和有效位
   3.WAIT:等待ready
   */
-  parameter [1:0] W_IDLE=2'b00,W_VALID=2'b00,W_WAIT=2'b00;
+  parameter [1:0] W_IDLE=2'b00,W_VALID=2'b01,W_WAIT=2'b10;
   reg[1:0] W_state,W_next_state;
 
   always @(posedge ACLK or negedge ARESTn) begin   //状态变化
@@ -90,7 +90,7 @@ module AXI_master
 
   always @(*) begin  //下一状态
     case (W_state)
-      W_IDLE: if(awaddr>AWIDTH'd0) W_next_state=W_VALID;
+      W_IDLE: if(awaddr>{AWIDTH{1'b0}}) W_next_state=W_VALID;
                else W_next_state=W_IDLE;
       W_VALID: W_next_state=W_WAIT;
       W_WAIT:if(WREADY) W_next_state=W_IDLE;
@@ -101,11 +101,11 @@ module AXI_master
 
   always @(posedge ACLK or negedge ARESTn) begin
     if(!ARESTn) begin
-      W_VALID <=1'b0;WDATA<=DWIDTH'd0;
+      W_VALID <=1'b0;WDATA<={DWIDTH{1'b0}};
     end
     else
         case (W_state)
-          W_IDLE: begin WVALID=1'b0;WDATA=DWIDTH'd0; end
+          W_IDLE: begin WVALID=1'b0;WDATA={DWIDTH{1'b0}}; end
           W_VALID: begin WVALID=1'b1;WDATA=wdata;  end//一个时钟周期能够读完
           W_WAIT: WVALID=1'b1;
           default: W_VALID=1'b0;
@@ -128,7 +128,7 @@ module AXI_master
 
   always @(*) begin  //下一状态
     case (W_state)
-      W_IDLE: if(awaddr>AWIDTH'd0) W_next_state=W_VALID;
+      W_IDLE: if(awaddr>{AWIDTH{1'b0}}) W_next_state=W_VALID;
                else W_next_state=W_IDLE;
       W_VALID: W_next_state=W_WAIT;
       W_WAIT:if(WREADY) W_next_state=W_IDLE;
@@ -139,11 +139,11 @@ module AXI_master
 
   always @(posedge ACLK or negedge ARESTn) begin
     if(!ARESTn) begin
-      W_VALID <=1'b0;WDATA<=DWIDTH'd0;
+      W_VALID <=1'b0;WDATA<={DWIDTH{1'b0}};
     end
     else
         case (W_state)
-          W_IDLE: begin WVALID=1'b0;WDATA=DWIDTH'd0; end
+          W_IDLE: begin WVALID=1'b0;WDATA={DWIDTH{1'b0}}; end
           W_VALID: begin WVALID=1'b1;WDATA=wdata;  end//一个时钟周期能够读完
           W_WAIT: WVALID=1'b1;
           default: W_VALID=1'b0;

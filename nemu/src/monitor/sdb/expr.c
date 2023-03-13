@@ -22,19 +22,19 @@ static struct rule {
   {" +", TK_NOTYPE},    // spaces  +:匹配1次或多次  
   {"\\+", '+'},         // plus
   {"==", TK_EQ},        // equal
-  {"0x[0-9a-fA-F]+",TK_NUM_X},
+  {"0x[0-9a-fA-F]+",TK_NUM_X},//16进制数
   {"[0-9]+",TK_NUM_H},//十进制整数
   {"\\-",'-'},
   {"\\*",'*'},
   {"\\/",'/'},
   {"\\(",'('},
   {"\\)",')'},
-  {"[$]+[a-z]*[0-9]*",TK_REG},
+  {"[$]+[a-z]*[0-9]*",TK_REG},//寄存器
   {"!=",TK_NEQ},
-  {"&&",TK_AND}
+  {"&&",TK_AND}//逻辑与
 };
 
-#define NR_REGEX ARRLEN(rules)
+#define NR_REGEX ARRLEN(rules)//regex正则项的数量
 
 static regex_t re[NR_REGEX] = {};
 static int priority[255];
@@ -45,6 +45,7 @@ void init_regex() {
   int i;
   char error_msg[128];
   int ret;
+  //初始化优先级
   priority[TK_DEREF]=-1;
   priority['*']=0;priority['/']=0;
   priority['+']=1;priority['-']=1;
@@ -87,8 +88,8 @@ static bool make_token(char *e) {
         char *substr_start = e + position;
         int substr_len = pmatch.rm_eo;
 
-        Log("match rules[%d] = \"%s\" at position %d with len %d: %.*s",
-            i, rules[i].regex, position, substr_len, substr_len, substr_start);
+        // Log("match rules[%d] = \"%s\" at position %d with len %d: %.*s",
+        //     i, rules[i].regex, position, substr_len, substr_len, substr_start);
 
         position += substr_len;
 
@@ -128,7 +129,7 @@ static bool make_token(char *e) {
 
     if (i == NR_REGEX) {//No token matched
     //when too long, ^ may indicate wrong position
-      printf("no match at position %d\n%s\n%*.s^\n", position, e, position, "");
+      printf("no match at position %d\n", position);
       return false;
     }
   }
@@ -220,7 +221,7 @@ word_t eval(int p, int q,bool *success) {
         left++;
         continue;
       }
-      else if(length==0||priority[(int)buffer[length-1]]<=priority[curType]){
+      else if(length==0||priority[(int)buffer[length-1]]<=priority[curType]){//length指示符号数
         buffer[length++]=curType;
         op_index=left;
       }
@@ -261,7 +262,7 @@ word_t expr(char *e, bool *success) {
   /* TODO: Insert codes to evaluate the expression. */
   for (int i = 0; i < nr_token; i ++) {
     if (tokens[i].type == '*' && (i == 0 || tokens[i - 1].type == '(') ) {
-      tokens[i].type = TK_DEREF;
+      tokens[i].type = TK_DEREF;//指针
     }
   }
 

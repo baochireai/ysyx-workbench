@@ -1,13 +1,12 @@
-ENTRY(_start)
-PHDRS { text PT_LOAD; data PT_LOAD; }
+ENTRY(_start)/*设置入口地址为_start*/
 
 SECTIONS {
-  /* _pmem_start and _entry_offset are defined in LDFLAGS */
+  /* _pmem_start and _entry_offset are defined in LDFLAGS (架构的makefile中)*/
   . = _pmem_start + _entry_offset;
   .text : {
     *(entry)
     *(.text*)
-  } : text
+  }
   etext = .;
   _etext = .;
   .rodata : {
@@ -15,7 +14,7 @@ SECTIONS {
   }
   .data : {
     *(.data)
-  } : data
+  }
   edata = .;
   _data = .;
   .bss : {

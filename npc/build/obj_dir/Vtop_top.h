@@ -30,7 +30,6 @@ VL_MODULE(Vtop_top) {
     // LOCAL SIGNALS
     // Anonymous structures to workaround compiler member-count bugs
     struct {
-        CData/*7:0*/ __PVT__wmask;
         CData/*4:0*/ __PVT__ALUct;
         CData/*2:0*/ __PVT__Extop;
         CData/*0:0*/ __PVT__RegWr;
@@ -75,12 +74,11 @@ VL_MODULE(Vtop_top) {
         SData/*15:0*/ __PVT__DataMem__DOT__extmask;
         VlWide<4>/*127:0*/ __PVT__DataMem__DOT__data;
         QData/*63:0*/ __PVT__rdata;
-        QData/*63:0*/ __PVT__waddr;
-        QData/*63:0*/ __PVT__wdata;
         QData/*63:0*/ __PVT__R_rs1;
         QData/*63:0*/ __PVT__R_rs2;
         QData/*63:0*/ __PVT__Imm;
         QData/*63:0*/ __PVT__ALUres;
+        QData/*63:0*/ __PVT__waddr;
         QData/*63:0*/ __PVT__MemOut;
         QData/*63:0*/ __PVT__RegWdata;
         QData/*63:0*/ __PVT__GenNextPC__DOT__Bsrc;
@@ -94,10 +92,10 @@ VL_MODULE(Vtop_top) {
         QData/*63:0*/ __PVT__ALU__DOT__ALUout;
         QData/*63:0*/ __PVT__ALU__DOT__deALUBsr__DOT__lut_out;
         QData/*63:0*/ __PVT__ALU__DOT__Adder__DOT__t_no_Cin;
-    };
-    struct {
         QData/*63:0*/ __PVT__ALU__DOT__BarrelShifter__DOT__ShifterMux__DOT__lut_out;
         QData/*63:0*/ __PVT__ALU__DOT__diver__DOT__lut_out;
+    };
+    struct {
         QData/*63:0*/ __PVT__ALU__DOT__remer__DOT__lut_out;
         QData/*63:0*/ __PVT__ALU__DOT__deExtop__DOT__lut_out;
         QData/*63:0*/ __PVT__DataMem__DOT__sext__DOT__lut_out;

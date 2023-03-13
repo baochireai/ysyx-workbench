@@ -12,19 +12,13 @@ module top(
     output [31:0] Inst,
     output [63:0] pc
 );
-    wire [63:0] raddr,rdata,waddr,wdata;
-    wire [7:0] wmask;
-
+    //IF取值
+    wire [63:0] raddr,rdata;
+    assign raddr=pc;
     always @(*) begin
         pmem_read(raddr, rdata);
-        //pmem_write(waddr, wdata, wmask);
     end
-    
-    //wire [63:0] pc;
-    //wire [31:0] Inst;
-    
-    assign raddr=pc;
-    assign Inst=(pc[2:0]==3'd0)?rdata[31:0]:rdata[63:32];
+    assign Inst=(pc[2:0]==3'd0)?rdata[31:0]:rdata[63:32];//内存8字节对齐读取
     
     wire [63:0] R_rs1;
     wire [63:0] R_rs2;
@@ -70,14 +64,15 @@ module top(
     PC PC(.clk(clk),.rst(rst),.isIntrPC(isIntrPC),.NextPC(NextPC),.IntrPC(IntrPC),.pc(pc));
     
 
-    GenNextPC GenNextPC(.Branch(Branch),.imm(Imm),.PC(pc),.R_rs1(R_rs1),.NextPC(NextPC),.Less(Less),.Zero(Zero));
-    RegisterFile RegisterFile(.rs1(Inst[19:15]),.rs2(Inst[24:20]),.waddr(Inst[11:7]),.R_rs1(R_rs1),.R_rs2(R_rs2),
-                .clk(clk),.wdata(RegWdata),.wen(RegWr));
-
     wire isTuncate,isSext;
     ContrGen ContrGen(.opcode(Inst[6:0]),.func3(Inst[14:12]),.func7(Inst[31:25]),.ALUct(ALUct),.Extop(Extop),
       .RegWr(RegWr),.ALUAsr(ALUAsr),.ALUBsr(ALUBsr),.Branch(Branch),.MemOP(MemOP),.MemWr(MemWr),.RegSrc(RegSrc),
       .isTuncate(isTuncate),.isSext(isSext),.IntrEn(IntrEn));
+      
+    GenNextPC GenNextPC(.Branch(Branch),.imm(Imm),.PC(pc),.R_rs1(R_rs1),.NextPC(NextPC),.Less(Less),.Zero(Zero));
+    RegisterFile RegisterFile(.rs1(Inst[19:15]),.rs2(Inst[24:20]),.waddr(Inst[11:7]),.R_rs1(R_rs1),.R_rs2(R_rs2),
+                .clk(clk),.wdata(RegWdata),.wen(RegWr));
+
     
     ImmGen ImmGen(.Inst(Inst[31:7]),.Extop(Extop),.Imm(Imm));
 

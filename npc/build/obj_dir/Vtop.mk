@@ -4,7 +4,7 @@
 # Execute this makefile from the object directory:
 #    make -f Vtop.mk
 
-default: /home/mrxue/ysyx-workbench/npc/build/top
+default: /home/mrxue/ysyx/npc/build/top
 
 ### Constants...
 # Perl executable (from $PERL)
@@ -35,21 +35,22 @@ VM_PREFIX = Vtop
 VM_MODPREFIX = Vtop
 # User CFLAGS (from -CFLAGS on Verilator command line)
 VM_USER_CFLAGS = \
-	-I/home/mrxue/ysyx-workbench/npc/include \
-	-I/home/mrxue/ysyx-workbench/npc/include/difftest \
-	-I/home/mrxue/ysyx-workbench/npc/include/cpu \
-	-I/home/mrxue/ysyx-workbench/npc/include/memory \
-	-I/home/mrxue/ysyx-workbench/npc/include/monitor \
-	-I/home/mrxue/ysyx-workbench/npc/include/reg \
-	-I/home/mrxue/ysyx-workbench/npc/include/monitor/sdb \
-	-I/home/mrxue/ysyx-workbench/npc/include/utils \
-	-I/home/mrxue/ysyx-workbench/nvboard/include \
+	-I/home/mrxue/ysyx/npc/include \
+	-I/home/mrxue/ysyx/npc/include/difftest \
+	-I/home/mrxue/ysyx/npc/include/cpu \
+	-I/home/mrxue/ysyx/npc/include/memory \
+	-I/home/mrxue/ysyx/npc/include/monitor \
+	-I/home/mrxue/ysyx/npc/include/reg \
+	-I/home/mrxue/ysyx/npc/include/monitor/sdb \
+	-I/home/mrxue/ysyx/npc/include/utils \
+	-I/home/mrxue/ysyx/nvboard/include \
 	-DTOP_NAME="Vtop" \
 
 # User LDLIBS (from -LDFLAGS on Verilator command line)
 VM_USER_LDLIBS = \
 	-lSDL2 \
-	-lSDL2_image \
+	-lasan \
+	-fsanitize=address \
 	-lreadline \
 	-ldl \
 
@@ -66,14 +67,14 @@ VM_USER_CLASSES = \
 
 # User .cpp directories (from .cpp's on Verilator command line)
 VM_USER_DIR = \
-	/home/mrxue/ysyx-workbench/npc/csrc \
-	/home/mrxue/ysyx-workbench/npc/csrc/cpu \
-	/home/mrxue/ysyx-workbench/npc/csrc/difftest \
-	/home/mrxue/ysyx-workbench/npc/csrc/memory \
-	/home/mrxue/ysyx-workbench/npc/csrc/monitor \
-	/home/mrxue/ysyx-workbench/npc/csrc/monitor/sdb \
-	/home/mrxue/ysyx-workbench/npc/csrc/reg \
-	/home/mrxue/ysyx-workbench/npc/csrc/utils \
+	/home/mrxue/ysyx/npc/csrc \
+	/home/mrxue/ysyx/npc/csrc/cpu \
+	/home/mrxue/ysyx/npc/csrc/difftest \
+	/home/mrxue/ysyx/npc/csrc/memory \
+	/home/mrxue/ysyx/npc/csrc/monitor \
+	/home/mrxue/ysyx/npc/csrc/monitor/sdb \
+	/home/mrxue/ysyx/npc/csrc/reg \
+	/home/mrxue/ysyx/npc/csrc/utils \
 
 
 ### Default rules...
@@ -85,25 +86,25 @@ include $(VERILATOR_ROOT)/include/verilated.mk
 ### Executable rules... (from --exe)
 VPATH += $(VM_USER_DIR)
 
-cpu_exec.o: /home/mrxue/ysyx-workbench/npc/csrc/cpu/cpu_exec.c
+cpu_exec.o: /home/mrxue/ysyx/npc/csrc/cpu/cpu_exec.c
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
-dut.o: /home/mrxue/ysyx-workbench/npc/csrc/difftest/dut.c
+dut.o: /home/mrxue/ysyx/npc/csrc/difftest/dut.c
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
-memory.o: /home/mrxue/ysyx-workbench/npc/csrc/memory/memory.c
+memory.o: /home/mrxue/ysyx/npc/csrc/memory/memory.c
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
-monitor.o: /home/mrxue/ysyx-workbench/npc/csrc/monitor/monitor.c
+monitor.o: /home/mrxue/ysyx/npc/csrc/monitor/monitor.c
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
-sdb.o: /home/mrxue/ysyx-workbench/npc/csrc/monitor/sdb/sdb.c
+sdb.o: /home/mrxue/ysyx/npc/csrc/monitor/sdb/sdb.c
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
-reg.o: /home/mrxue/ysyx-workbench/npc/csrc/reg/reg.c
+reg.o: /home/mrxue/ysyx/npc/csrc/reg/reg.c
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
-sim_main.o: /home/mrxue/ysyx-workbench/npc/csrc/sim_main.cpp
+sim_main.o: /home/mrxue/ysyx/npc/csrc/sim_main.cpp
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
-timer.o: /home/mrxue/ysyx-workbench/npc/csrc/utils/timer.c
+timer.o: /home/mrxue/ysyx/npc/csrc/utils/timer.c
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
 
 ### Link rules... (from --exe)
-/home/mrxue/ysyx-workbench/npc/build/top: $(VK_USER_OBJS) $(VK_GLOBAL_OBJS) $(VM_PREFIX)__ALL.a $(VM_HIER_LIBS)
+/home/mrxue/ysyx/npc/build/top: $(VK_USER_OBJS) $(VK_GLOBAL_OBJS) $(VM_PREFIX)__ALL.a $(VM_HIER_LIBS)
 	$(LINK) $(LDFLAGS) $^ $(LOADLIBES) $(LDLIBS) $(LIBS) $(SC_LIBS) -o $@
 
 
