@@ -59,12 +59,14 @@ module ContrGen(
     // reg [2:0] MulOpt;
     // assign MulOpt=func3;
 
-    assign ALUct={isMul,func7[5],func3};//func7[5] 加减和逻辑算术 func3[0]有无符号
+    reg [4:0] GeneralALUct;
+    assign GeneralALUct={isMul,func7[5],func3};//func7[5] 加减和逻辑算术 func3[0]有无符号
 
     wire islui=(opcode==7'b0110111)?1'b1:1'b0;
     wire isauipc=(opcode==7'b0010111)?1'b1:1'b0;
     wire isMemW=(opcode==7'b0100011)?1'b1:1'b0;
     wire isMemR=(opcode==7'b0000011)?1'b1:1'b0;
+    assign ALUct=
     
     MuxKeyInternal #(1,7,1,1) isIntr(.out(IntrEn),.key(opcode),.default_out(1'b0),.lut({
     7'b1110011,1'b1//ecall mret csrrw csrrsb1
