@@ -74,7 +74,12 @@ module ContrGen(
                     (islui?5'b00011://直接输出B
                     (isMul?MulALUct:
                     (IntALUct))));
-    
+    //5'b 00 010
+
+    // 17'bzzzzzzz_110_1100011:begin //bltu
+    //     ALUct=5'b01010;ALUAsr=1'b1;ALUBsr=2'd1;Branch=3'd7;MemWr=1'b0;MemOP=3'd0;isTuncate=1'b0;isSext=1'b0;
+    // end    
+
     MuxKeyInternal #(1,7,1,1) isIntr(.out(IntrEn),.key(opcode),.default_out(1'b0),.lut({
     7'b1110011,1'b1//ecall mret csrrw csrrsb1
     }));
