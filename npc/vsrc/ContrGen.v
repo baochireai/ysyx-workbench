@@ -55,14 +55,14 @@ module ContrGen(
     // reg [2:0] IntOpt;
     // assign IntOpt=func3;
     //整数运算（乘除法）
-    wire isMul=((opcode==7'b0110011)&&(func7[0]==1'b1))?1'b1:1'b0;
+    wire isMul=((opcode==7'b0110011||opcode==7'b0111011)&&(func7[0]==1'b1))?1'b1:1'b0;
     // reg [2:0] MulOpt;
     // assign MulOpt=func3;
 
-    reg [4:0] IntALUct;
-    assign IntALUct=(func3==3'b011)?5'b01010:{1'b0,func7[5],func3};
+    reg [4:0] IntALUct,MulALUct;
+    assign IntALUct=(func3==3'b011)?5'b01010:{1'b0,func7[5]&((|func3)|(opcode[5])),func3};
 
-    assign MulALUct={1'b1,func7[5],func3};//func7[5] 加减和逻辑算术 func3[0]有无符号
+    assign MulALUct={1'b1,func3[0],func3};//func7[5] 加减和逻辑算术 func3[0]有无符号
 
     wire islui=(opcode==7'b0110111)?1'b1:1'b0;
     wire isauipc=(opcode==7'b0010111)?1'b1:1'b0;
@@ -70,7 +70,7 @@ module ContrGen(
     wire isMemR=(opcode==7'b0000011)?1'b1:1'b0;
 
     assign ALUct=(isauipc|isMemW|isMemR|isJal|isJalr)?5'b00000://加法
-                    (isconditionalJump?5'b01000://减法
+                    (isconditionalJump?{1'b0,!func3[1],3'b010}://条件跳转  减法有无符号置位
                     (islui?5'b00011://直接输出B
                     (isMul?MulALUct:
                     (IntALUct))));
