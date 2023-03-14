@@ -30,7 +30,6 @@ VL_MODULE(Vtop_top) {
     // LOCAL SIGNALS
     // Anonymous structures to workaround compiler member-count bugs
     struct {
-        CData/*7:0*/ __PVT__wmask;
         CData/*4:0*/ __PVT__ALUct;
         CData/*2:0*/ __PVT__Extop;
         CData/*0:0*/ __PVT__RegWr;
@@ -47,8 +46,6 @@ VL_MODULE(Vtop_top) {
         CData/*0:0*/ __PVT__clint_re;
         CData/*0:0*/ __PVT__isTuncate;
         CData/*0:0*/ __PVT__isSext;
-        CData/*1:0*/ __PVT__GenNextPC__DOT__dePCsrc__DOT__lut_out;
-        CData/*0:0*/ __PVT__GenNextPC__DOT__dePCsrc__DOT__hit;
         CData/*2:0*/ __PVT__ContrGen__DOT__deExtop__DOT__lut_out;
         CData/*0:0*/ __PVT__ContrGen__DOT__deExtop__DOT__hit;
         CData/*0:0*/ __PVT__ContrGen__DOT__isIntr__DOT__lut_out;
@@ -57,8 +54,9 @@ VL_MODULE(Vtop_top) {
         CData/*0:0*/ __PVT__ContrGen__DOT__isRegWr__DOT__hit;
         CData/*1:0*/ __PVT__ContrGen__DOT__RegSrcMux__DOT__lut_out;
         CData/*0:0*/ __PVT__ContrGen__DOT__RegSrcMux__DOT__hit;
+        CData/*1:0*/ __PVT__GenNextPC__DOT__dePCsrc__DOT__lut_out;
+        CData/*0:0*/ __PVT__GenNextPC__DOT__dePCsrc__DOT__hit;
         CData/*0:0*/ __PVT__ImmGen__DOT__isRegWr__DOT__hit;
-        CData/*0:0*/ __PVT__ALU__DOT__Sub_Add;
         CData/*0:0*/ __PVT__ALU__DOT__deALUBsr__DOT__hit;
         CData/*5:0*/ __PVT__ALU__DOT__BarrelShifter__DOT__shamt;
         CData/*0:0*/ __PVT__ALU__DOT__BarrelShifter__DOT__ShifterMux__DOT__hit;
@@ -75,12 +73,11 @@ VL_MODULE(Vtop_top) {
         SData/*15:0*/ __PVT__DataMem__DOT__extmask;
         VlWide<4>/*127:0*/ __PVT__DataMem__DOT__data;
         QData/*63:0*/ __PVT__rdata;
-        QData/*63:0*/ __PVT__waddr;
-        QData/*63:0*/ __PVT__wdata;
         QData/*63:0*/ __PVT__R_rs1;
         QData/*63:0*/ __PVT__R_rs2;
         QData/*63:0*/ __PVT__Imm;
         QData/*63:0*/ __PVT__ALUres;
+        QData/*63:0*/ __PVT__waddr;
         QData/*63:0*/ __PVT__MemOut;
         QData/*63:0*/ __PVT__RegWdata;
         QData/*63:0*/ __PVT__GenNextPC__DOT__Bsrc;
@@ -89,25 +86,22 @@ VL_MODULE(Vtop_top) {
         QData/*63:0*/ __PVT__ALU__DOT__ALUB;
         QData/*63:0*/ __PVT__ALU__DOT__adder;
         QData/*63:0*/ __PVT__ALU__DOT__shift;
+        QData/*63:0*/ __PVT__ALU__DOT__MUL;
         QData/*63:0*/ __PVT__ALU__DOT__DIV;
         QData/*63:0*/ __PVT__ALU__DOT__REM;
         QData/*63:0*/ __PVT__ALU__DOT__ALUout;
         QData/*63:0*/ __PVT__ALU__DOT__deALUBsr__DOT__lut_out;
         QData/*63:0*/ __PVT__ALU__DOT__Adder__DOT__t_no_Cin;
-    };
-    struct {
         QData/*63:0*/ __PVT__ALU__DOT__BarrelShifter__DOT__ShifterMux__DOT__lut_out;
         QData/*63:0*/ __PVT__ALU__DOT__diver__DOT__lut_out;
+    };
+    struct {
         QData/*63:0*/ __PVT__ALU__DOT__remer__DOT__lut_out;
         QData/*63:0*/ __PVT__ALU__DOT__deExtop__DOT__lut_out;
         QData/*63:0*/ __PVT__DataMem__DOT__sext__DOT__lut_out;
         QData/*63:0*/ __PVT__RegWsrcMux__DOT__lut_out;
         QData/*63:0*/ __PVT__clintU__DOT__mtime;
         QData/*63:0*/ __PVT__clintU__DOT__mtimecmp;
-        VlUnpacked<CData/*4:0*/, 7> __PVT__GenNextPC__DOT__dePCsrc__DOT__pair_list;
-        VlUnpacked<CData/*2:0*/, 7> __PVT__GenNextPC__DOT__dePCsrc__DOT__key_list;
-        VlUnpacked<CData/*1:0*/, 7> __PVT__GenNextPC__DOT__dePCsrc__DOT__data_list;
-        VlUnpacked<QData/*63:0*/, 32> __PVT__RegisterFile__DOT__rf;
         VlUnpacked<SData/*9:0*/, 12> __PVT__ContrGen__DOT__deExtop__DOT__pair_list;
         VlUnpacked<CData/*6:0*/, 12> __PVT__ContrGen__DOT__deExtop__DOT__key_list;
         VlUnpacked<CData/*2:0*/, 12> __PVT__ContrGen__DOT__deExtop__DOT__data_list;
@@ -120,6 +114,10 @@ VL_MODULE(Vtop_top) {
         VlUnpacked<SData/*8:0*/, 2> __PVT__ContrGen__DOT__RegSrcMux__DOT__pair_list;
         VlUnpacked<CData/*6:0*/, 2> __PVT__ContrGen__DOT__RegSrcMux__DOT__key_list;
         VlUnpacked<CData/*1:0*/, 2> __PVT__ContrGen__DOT__RegSrcMux__DOT__data_list;
+        VlUnpacked<CData/*4:0*/, 7> __PVT__GenNextPC__DOT__dePCsrc__DOT__pair_list;
+        VlUnpacked<CData/*2:0*/, 7> __PVT__GenNextPC__DOT__dePCsrc__DOT__key_list;
+        VlUnpacked<CData/*1:0*/, 7> __PVT__GenNextPC__DOT__dePCsrc__DOT__data_list;
+        VlUnpacked<QData/*63:0*/, 32> __PVT__RegisterFile__DOT__rf;
         VlUnpacked<VlWide<3>/*66:0*/, 5> __PVT__ImmGen__DOT__isRegWr__DOT__pair_list;
         VlUnpacked<CData/*2:0*/, 5> __PVT__ImmGen__DOT__isRegWr__DOT__key_list;
         VlUnpacked<QData/*63:0*/, 5> __PVT__ImmGen__DOT__isRegWr__DOT__data_list;
@@ -135,9 +133,9 @@ VL_MODULE(Vtop_top) {
         VlUnpacked<VlWide<3>/*65:0*/, 4> __PVT__ALU__DOT__remer__DOT__pair_list;
         VlUnpacked<CData/*1:0*/, 4> __PVT__ALU__DOT__remer__DOT__key_list;
         VlUnpacked<QData/*63:0*/, 4> __PVT__ALU__DOT__remer__DOT__data_list;
-        VlUnpacked<VlWide<3>/*67:0*/, 11> __PVT__ALU__DOT__deExtop__DOT__pair_list;
-        VlUnpacked<CData/*3:0*/, 11> __PVT__ALU__DOT__deExtop__DOT__key_list;
-        VlUnpacked<QData/*63:0*/, 11> __PVT__ALU__DOT__deExtop__DOT__data_list;
+        VlUnpacked<VlWide<3>/*67:0*/, 16> __PVT__ALU__DOT__deExtop__DOT__pair_list;
+        VlUnpacked<CData/*3:0*/, 16> __PVT__ALU__DOT__deExtop__DOT__key_list;
+        VlUnpacked<QData/*63:0*/, 16> __PVT__ALU__DOT__deExtop__DOT__data_list;
         VlUnpacked<SData/*9:0*/, 4> __PVT__DataMem__DOT__deMemOP__DOT__pair_list;
         VlUnpacked<CData/*1:0*/, 4> __PVT__DataMem__DOT__deMemOP__DOT__key_list;
         VlUnpacked<CData/*7:0*/, 4> __PVT__DataMem__DOT__deMemOP__DOT__data_list;
@@ -160,7 +158,7 @@ VL_MODULE(Vtop_top) {
     VlWide<7>/*197:0*/ ALU__DOT____Vcellinp__deALUBsr__lut;
     VlWide<9>/*263:0*/ ALU__DOT____Vcellinp__diver__lut;
     VlWide<9>/*263:0*/ ALU__DOT____Vcellinp__remer__lut;
-    VlWide<24>/*747:0*/ ALU__DOT____Vcellinp__deExtop__lut;
+    VlWide<34>/*1087:0*/ ALU__DOT____Vcellinp__deExtop__lut;
     VlWide<9>/*263:0*/ ALU__DOT__BarrelShifter__DOT____Vcellinp__ShifterMux__lut;
     VlWide<9>/*263:0*/ DataMem__DOT____Vcellinp__sext__lut;
     QData/*34:0*/ GenNextPC__DOT____Vcellinp__dePCsrc__lut;
