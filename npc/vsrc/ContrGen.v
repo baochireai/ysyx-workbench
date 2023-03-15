@@ -49,20 +49,15 @@ module ContrGen(
     wire isJalr=(opcode==7'b1100111)?1'b1:1'b0;
 
     assign Branch=isconditionalJump?BranchOpt:(isJal?3'b110:(isJalr?3'b111:3'b010));
+    //ALU控制信号译码
 
-    // //整数运算（加减、位运算、逻辑运算）
-    // wire isIntOpt=((opcode==7'b0011011)||(opcode==7'b0110011)&&(func7[0]==1'b0))?1'b1:1'b0;
-    // reg [2:0] IntOpt;
-    // assign IntOpt=func3;
-    //整数运算（乘除法）
     wire isMul=((opcode==7'b0110011||opcode==7'b0111011)&&(func7[0]==1'b1))?1'b1:1'b0;
-    // reg [2:0] MulOpt;
-    // assign MulOpt=func3;
 
     reg [4:0] IntALUct,MulALUct;
+        //整数运算（加减、比较、位运算、移位运算） 无符号的全在b011处理了
     assign IntALUct=(func3==3'b011)?5'b01010:{1'b0,func7[5]&((|func3)|(opcode[5])),func3};
-
-    assign MulALUct={1'b1,func3[0],func3};//func7[5] 加减和逻辑算术 func3[0]有无符号
+        //整数运算（乘除法）
+    assign MulALUct={1'b1,func3[0],func3};//func7[5] 逻辑算术 func3[0]有无符号
 
     wire islui=(opcode==7'b0110111)?1'b1:1'b0;
     wire isauipc=(opcode==7'b0010111)?1'b1:1'b0;
@@ -70,15 +65,11 @@ module ContrGen(
     wire isMemR=(opcode==7'b0000011)?1'b1:1'b0;
 
     assign ALUct=(isauipc|isMemW|isMemR|isJal|isJalr)?5'b00000://加法
-                    (isconditionalJump?{1'b0,!func3[1],3'b010}://条件跳转  减法有无符号置位
+                    (isconditionalJump?{1'b0,func3[1],3'b010}://条件跳转  减法有无符号置位
                     (islui?5'b00011://直接输出B
                     (isMul?MulALUct:
                     (IntALUct))));
-    //5'b 00 010
 
-    // 17'bzzzzzzz_110_1100011:begin //bltu
-    //     ALUct=5'b01010;ALUAsr=1'b1;ALUBsr=2'd1;Branch=3'd7;MemWr=1'b0;MemOP=3'd0;isTuncate=1'b0;isSext=1'b0;
-    // end    
 
     MuxKeyInternal #(1,7,1,1) isIntr(.out(IntrEn),.key(opcode),.default_out(1'b0),.lut({
     7'b1110011,1'b1//ecall mret csrrw csrrsb1
@@ -96,10 +87,20 @@ module ContrGen(
     // wire isExcpDate=opcode==7'b0011011;
     // assign RegSrc=isMem?2'd1:isExcpDate?2'd2:2'd0;//读存储或者异常处理指令
     MuxKeyInternal #(2,7,2,1) RegSrcMux(.out(RegSrc),.key(opcode),.default_out(2'd0),.lut({
-    7'b0000011,2'd1,
-    7'b1110011,2'd2
+    7'b0000011,2'd1,                                                     
+    7'b1110011,2'd2//Intr中csr的值
     }));
     //assign RegSrc=(Extop==3'd3)?2'd1:(opcode==7'b0011011)?2'd2:2'd0;
+
+    //ALUAsr  1:R_rs1 0:PC
+    MuxKeyInternal #(,3,1,1) deALUAsr(.out(ALUAsr),.key(Extop),.default_out(1'b1),.lut({
+    3'd2,2',                                                     
+    7'b1110011,2'd2
+    }));
+
+    assign ALUAsr=(Extop==3'd2)|(Extop==3'd1)|(opcode[6:2]==5'b01101);//ALUAsr:1 Rs1 0 PC
+
+    assign ALUBsr=(Extop==3'd2)?2'b00:(Extop==3'd1?2'b01:);
 
     always @(*) begin
         casez ({func7,func3,opcode})

@@ -1644,10 +1644,8 @@ VL_INLINE_OPT void Vtop_top___sequent__TOP__top__3(Vtop_top* vlSelf) {
                              | (0x67U == (0x7fU & vlSelf->Inst)))
                              ? 0U : ((4U == (IData)(vlSelf->__PVT__Extop))
                                       ? (2U | (8U & 
-                                               ((~ 
-                                                 (vlSelf->Inst 
-                                                  >> 0xdU)) 
-                                                << 3U)))
+                                               (vlSelf->Inst 
+                                                >> 0xaU)))
                                       : ((0x37U == 
                                           (0x7fU & vlSelf->Inst))
                                           ? 3U : ((
@@ -1748,17 +1746,19 @@ VL_INLINE_OPT void Vtop_top___sequent__TOP__top__3(Vtop_top* vlSelf) {
         = ((2U & ((IData)(vlSelf->__PVT__ALUct) >> 2U)) 
            | (1U == (7U & (IData)(vlSelf->__PVT__ALUct))));
     vlSelf->ALU__DOT____Vcellinp__diver__key = ((2U 
-                                                 & ((~ 
-                                                     ((IData)(vlSelf->__PVT__ALUct) 
-                                                      >> 3U)) 
-                                                    << 1U)) 
+                                                 & ((IData)(vlSelf->__PVT__ALUct) 
+                                                    >> 2U)) 
                                                 | (IData)(vlSelf->__PVT__isTuncate));
     vlSelf->ALU__DOT____Vcellinp__remer__key = ((2U 
-                                                 & ((~ 
-                                                     ((IData)(vlSelf->__PVT__ALUct) 
-                                                      >> 3U)) 
-                                                    << 1U)) 
+                                                 & ((IData)(vlSelf->__PVT__ALUct) 
+                                                    >> 2U)) 
                                                 | (IData)(vlSelf->__PVT__isTuncate));
+    vlSelf->__PVT__ALU__DOT__Sub_Add = ((2U == (7U 
+                                                & (IData)(vlSelf->__PVT__ALUct))) 
+                                        | (IData)((8U 
+                                                   == 
+                                                   (0xfU 
+                                                    & (IData)(vlSelf->__PVT__ALUct)))));
     vlSelf->__PVT__ImmGen__DOT__isRegWr__DOT__data_list[0U] 
         = (((QData)((IData)(vlSelf->__PVT__ImmGen__DOT__isRegWr__DOT__pair_list
                             [0U][1U])) << 0x20U) | (QData)((IData)(
@@ -1958,8 +1958,8 @@ VL_INLINE_OPT void Vtop_top___sequent__TOP__top__3(Vtop_top* vlSelf) {
     vlSelf->__PVT__ALU__DOT__MUL = (vlSelf->__PVT__ALU__DOT__ALUA 
                                     * vlSelf->__PVT__ALU__DOT__ALUB);
     vlSelf->__PVT__ALU__DOT__Adder__DOT__t_no_Cin = 
-        ((- (QData)((IData)((1U & ((IData)(vlSelf->__PVT__ALUct) 
-                                   >> 3U))))) ^ vlSelf->__PVT__ALU__DOT__ALUB);
+        ((- (QData)((IData)(vlSelf->__PVT__ALU__DOT__Sub_Add))) 
+         ^ vlSelf->__PVT__ALU__DOT__ALUB);
     __Vtemp107[0U] = (IData)((QData)((IData)(VL_DIV_III(32, (IData)(vlSelf->__PVT__ALU__DOT__ALUA), (IData)(vlSelf->__PVT__ALU__DOT__ALUB)))));
     __Vtemp107[1U] = (IData)(((QData)((IData)(VL_DIV_III(32, (IData)(vlSelf->__PVT__ALU__DOT__ALUA), (IData)(vlSelf->__PVT__ALU__DOT__ALUB)))) 
                               >> 0x20U));
@@ -2049,8 +2049,7 @@ VL_INLINE_OPT void Vtop_top___sequent__TOP__top__3(Vtop_top* vlSelf) {
         = ((IData)(vlSelf->__PVT__ALU__DOT__ALUB) & 
            ((IData)(vlSelf->__PVT__isTuncate) ? 0x1fU
              : 0x3fU));
-    VL_EXTEND_WI(65,1, __Vtemp118, (1U & ((IData)(vlSelf->__PVT__ALUct) 
-                                          >> 3U)));
+    VL_EXTEND_WI(65,1, __Vtemp118, (IData)(vlSelf->__PVT__ALU__DOT__Sub_Add));
     vlSelf->__PVT__ALU__DOT__adder = ((vlSelf->__PVT__ALU__DOT__ALUA 
                                        + vlSelf->__PVT__ALU__DOT__Adder__DOT__t_no_Cin) 
                                       + (((QData)((IData)(
@@ -2245,11 +2244,12 @@ VL_INLINE_OPT void Vtop_top___sequent__TOP__top__3(Vtop_top* vlSelf) {
     VL_EXTEND_WQ(65,64, __Vtemp151, vlSelf->__PVT__ALU__DOT__ALUA);
     VL_EXTEND_WQ(65,64, __Vtemp152, vlSelf->__PVT__ALU__DOT__Adder__DOT__t_no_Cin);
     VL_ADD_W(3, __Vtemp153, __Vtemp151, __Vtemp152);
-    VL_EXTEND_WI(65,1, __Vtemp154, (1U & ((IData)(vlSelf->__PVT__ALUct) 
-                                          >> 3U)));
+    VL_EXTEND_WI(65,1, __Vtemp154, (IData)(vlSelf->__PVT__ALU__DOT__Sub_Add));
     VL_ADD_W(3, __Vtemp155, __Vtemp153, __Vtemp154);
     vlSelf->__PVT__Less = (1U & ((8U & (IData)(vlSelf->__PVT__ALUct))
-                                  ? ((IData)((vlSelf->__PVT__ALU__DOT__adder 
+                                  ? ((IData)(vlSelf->__PVT__ALU__DOT__Sub_Add) 
+                                     ^ (1U & __Vtemp155[2U]))
+                                  : ((IData)((vlSelf->__PVT__ALU__DOT__adder 
                                               >> 0x3fU)) 
                                      ^ (((1U & (IData)(
                                                        (vlSelf->__PVT__ALU__DOT__ALUA 
@@ -2262,10 +2262,7 @@ VL_INLINE_OPT void Vtop_top___sequent__TOP__top__3(Vtop_top* vlSelf) {
                                                           >> 0x3fU))) 
                                            != (1U & (IData)(
                                                             (vlSelf->__PVT__ALU__DOT__ALUA 
-                                                             >> 0x3fU))))))
-                                  : (((IData)(vlSelf->__PVT__ALUct) 
-                                      >> 3U) ^ (1U 
-                                                & __Vtemp155[2U]))));
+                                                             >> 0x3fU))))))));
     vlSelf->__PVT__ALU__DOT__diver__DOT__data_list[0U] 
         = (((QData)((IData)(vlSelf->__PVT__ALU__DOT__diver__DOT__pair_list
                             [0U][1U])) << 0x20U) | (QData)((IData)(

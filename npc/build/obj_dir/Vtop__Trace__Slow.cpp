@@ -251,7 +251,7 @@ void Vtop___024root__traceInitSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
         tracep->declQuad(c+295,"top ALU ALUB", false,-1, 63,0);
         tracep->declBit(c+297,"top ALU US_S", false,-1);
         tracep->declBit(c+298,"top ALU Sub_Add", false,-1);
-        tracep->declBit(c+298,"top ALU A_L", false,-1);
+        tracep->declBit(c+297,"top ALU A_L", false,-1);
         tracep->declBit(c+299,"top ALU L_R", false,-1);
         tracep->declQuad(c+300,"top ALU adder", false,-1, 63,0);
         tracep->declBit(c+302,"top ALU Carry", false,-1);
@@ -297,7 +297,7 @@ void Vtop___024root__traceInitSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
         tracep->declBus(c+822,"top ALU BarrelShifter SHT_LEN", false,-1, 31,0);
         tracep->declQuad(c+293,"top ALU BarrelShifter din", false,-1, 63,0);
         tracep->declBus(c+352,"top ALU BarrelShifter shamtin", false,-1, 5,0);
-        tracep->declBit(c+298,"top ALU BarrelShifter A_L", false,-1);
+        tracep->declBit(c+297,"top ALU BarrelShifter A_L", false,-1);
         tracep->declBit(c+299,"top ALU BarrelShifter L_R", false,-1);
         tracep->declBit(c+123,"top ALU BarrelShifter isTuncate", false,-1);
         tracep->declQuad(c+306,"top ALU BarrelShifter dout", false,-1, 63,0);
@@ -906,17 +906,15 @@ void Vtop___024root__traceFullSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
         tracep->fullBit(oldp+292,(vlSymsp->TOP__top.__PVT__ImmGen__DOT__isRegWr__DOT__hit));
         tracep->fullQData(oldp+293,(vlSymsp->TOP__top.__PVT__ALU__DOT__ALUA),64);
         tracep->fullQData(oldp+295,(vlSymsp->TOP__top.__PVT__ALU__DOT__ALUB),64);
-        tracep->fullBit(oldp+297,((1U & (~ ((IData)(vlSymsp->TOP__top.__PVT__ALUct) 
-                                            >> 3U)))));
-        tracep->fullBit(oldp+298,((1U & ((IData)(vlSymsp->TOP__top.__PVT__ALUct) 
+        tracep->fullBit(oldp+297,((1U & ((IData)(vlSymsp->TOP__top.__PVT__ALUct) 
                                          >> 3U))));
+        tracep->fullBit(oldp+298,(vlSymsp->TOP__top.__PVT__ALU__DOT__Sub_Add));
         tracep->fullBit(oldp+299,((1U == (7U & (IData)(vlSymsp->TOP__top.__PVT__ALUct)))));
         tracep->fullQData(oldp+300,(vlSymsp->TOP__top.__PVT__ALU__DOT__adder),64);
         VL_EXTEND_WQ(65,64, __Vtemp2, vlSymsp->TOP__top.__PVT__ALU__DOT__ALUA);
         VL_EXTEND_WQ(65,64, __Vtemp3, vlSymsp->TOP__top.__PVT__ALU__DOT__Adder__DOT__t_no_Cin);
         VL_ADD_W(3, __Vtemp4, __Vtemp2, __Vtemp3);
-        VL_EXTEND_WI(65,1, __Vtemp5, (1U & ((IData)(vlSymsp->TOP__top.__PVT__ALUct) 
-                                            >> 3U)));
+        VL_EXTEND_WI(65,1, __Vtemp5, (IData)(vlSymsp->TOP__top.__PVT__ALU__DOT__Sub_Add));
         VL_ADD_W(3, __Vtemp6, __Vtemp4, __Vtemp5);
         tracep->fullBit(oldp+302,((1U & __Vtemp6[2U])));
         tracep->fullBit(oldp+303,((((1U & (IData)((vlSymsp->TOP__top.__PVT__ALU__DOT__ALUA 
@@ -950,12 +948,10 @@ void Vtop___024root__traceFullSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
         VL_EXTEND_WQ(65,64, __Vtemp9, vlSymsp->TOP__top.__PVT__ALU__DOT__ALUA);
         VL_EXTEND_WQ(65,64, __Vtemp10, vlSymsp->TOP__top.__PVT__ALU__DOT__Adder__DOT__t_no_Cin);
         VL_ADD_W(3, __Vtemp11, __Vtemp9, __Vtemp10);
-        VL_EXTEND_WI(65,1, __Vtemp12, (1U & ((IData)(vlSymsp->TOP__top.__PVT__ALUct) 
-                                             >> 3U)));
+        VL_EXTEND_WI(65,1, __Vtemp12, (IData)(vlSymsp->TOP__top.__PVT__ALU__DOT__Sub_Add));
         VL_ADD_W(3, __Vtemp13, __Vtemp11, __Vtemp12);
-        tracep->fullBit(oldp+305,((1U & (((IData)(vlSymsp->TOP__top.__PVT__ALUct) 
-                                          >> 3U) ^ 
-                                         (1U & __Vtemp13[2U])))));
+        tracep->fullBit(oldp+305,((1U & ((IData)(vlSymsp->TOP__top.__PVT__ALU__DOT__Sub_Add) 
+                                         ^ (1U & __Vtemp13[2U])))));
         tracep->fullQData(oldp+306,(vlSymsp->TOP__top.__PVT__ALU__DOT__shift),64);
         tracep->fullQData(oldp+308,((vlSymsp->TOP__top.__PVT__ALU__DOT__ALUA 
                                      ^ vlSymsp->TOP__top.__PVT__ALU__DOT__ALUB)),64);

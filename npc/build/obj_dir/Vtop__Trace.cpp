@@ -329,17 +329,15 @@ void Vtop___024root__traceChgSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep) 
             tracep->chgBit(oldp+291,(vlSymsp->TOP__top.__PVT__ImmGen__DOT__isRegWr__DOT__hit));
             tracep->chgQData(oldp+292,(vlSymsp->TOP__top.__PVT__ALU__DOT__ALUA),64);
             tracep->chgQData(oldp+294,(vlSymsp->TOP__top.__PVT__ALU__DOT__ALUB),64);
-            tracep->chgBit(oldp+296,((1U & (~ ((IData)(vlSymsp->TOP__top.__PVT__ALUct) 
-                                               >> 3U)))));
-            tracep->chgBit(oldp+297,((1U & ((IData)(vlSymsp->TOP__top.__PVT__ALUct) 
+            tracep->chgBit(oldp+296,((1U & ((IData)(vlSymsp->TOP__top.__PVT__ALUct) 
                                             >> 3U))));
+            tracep->chgBit(oldp+297,(vlSymsp->TOP__top.__PVT__ALU__DOT__Sub_Add));
             tracep->chgBit(oldp+298,((1U == (7U & (IData)(vlSymsp->TOP__top.__PVT__ALUct)))));
             tracep->chgQData(oldp+299,(vlSymsp->TOP__top.__PVT__ALU__DOT__adder),64);
             VL_EXTEND_WQ(65,64, __Vtemp18, vlSymsp->TOP__top.__PVT__ALU__DOT__ALUA);
             VL_EXTEND_WQ(65,64, __Vtemp19, vlSymsp->TOP__top.__PVT__ALU__DOT__Adder__DOT__t_no_Cin);
             VL_ADD_W(3, __Vtemp20, __Vtemp18, __Vtemp19);
-            VL_EXTEND_WI(65,1, __Vtemp21, (1U & ((IData)(vlSymsp->TOP__top.__PVT__ALUct) 
-                                                 >> 3U)));
+            VL_EXTEND_WI(65,1, __Vtemp21, (IData)(vlSymsp->TOP__top.__PVT__ALU__DOT__Sub_Add));
             VL_ADD_W(3, __Vtemp22, __Vtemp20, __Vtemp21);
             tracep->chgBit(oldp+301,((1U & __Vtemp22[2U])));
             tracep->chgBit(oldp+302,((((1U & (IData)(
@@ -378,11 +376,9 @@ void Vtop___024root__traceChgSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep) 
             VL_EXTEND_WQ(65,64, __Vtemp25, vlSymsp->TOP__top.__PVT__ALU__DOT__ALUA);
             VL_EXTEND_WQ(65,64, __Vtemp26, vlSymsp->TOP__top.__PVT__ALU__DOT__Adder__DOT__t_no_Cin);
             VL_ADD_W(3, __Vtemp27, __Vtemp25, __Vtemp26);
-            VL_EXTEND_WI(65,1, __Vtemp28, (1U & ((IData)(vlSymsp->TOP__top.__PVT__ALUct) 
-                                                 >> 3U)));
+            VL_EXTEND_WI(65,1, __Vtemp28, (IData)(vlSymsp->TOP__top.__PVT__ALU__DOT__Sub_Add));
             VL_ADD_W(3, __Vtemp29, __Vtemp27, __Vtemp28);
-            tracep->chgBit(oldp+304,((1U & (((IData)(vlSymsp->TOP__top.__PVT__ALUct) 
-                                             >> 3U) 
+            tracep->chgBit(oldp+304,((1U & ((IData)(vlSymsp->TOP__top.__PVT__ALU__DOT__Sub_Add) 
                                             ^ (1U & 
                                                __Vtemp29[2U])))));
             tracep->chgQData(oldp+305,(vlSymsp->TOP__top.__PVT__ALU__DOT__shift),64);

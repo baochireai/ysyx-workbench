@@ -57,6 +57,7 @@ VL_MODULE(Vtop_top) {
         CData/*1:0*/ __PVT__GenNextPC__DOT__dePCsrc__DOT__lut_out;
         CData/*0:0*/ __PVT__GenNextPC__DOT__dePCsrc__DOT__hit;
         CData/*0:0*/ __PVT__ImmGen__DOT__isRegWr__DOT__hit;
+        CData/*0:0*/ __PVT__ALU__DOT__Sub_Add;
         CData/*0:0*/ __PVT__ALU__DOT__deALUBsr__DOT__hit;
         CData/*5:0*/ __PVT__ALU__DOT__BarrelShifter__DOT__shamt;
         CData/*0:0*/ __PVT__ALU__DOT__BarrelShifter__DOT__ShifterMux__DOT__hit;
@@ -93,9 +94,9 @@ VL_MODULE(Vtop_top) {
         QData/*63:0*/ __PVT__ALU__DOT__deALUBsr__DOT__lut_out;
         QData/*63:0*/ __PVT__ALU__DOT__Adder__DOT__t_no_Cin;
         QData/*63:0*/ __PVT__ALU__DOT__BarrelShifter__DOT__ShifterMux__DOT__lut_out;
-        QData/*63:0*/ __PVT__ALU__DOT__diver__DOT__lut_out;
     };
     struct {
+        QData/*63:0*/ __PVT__ALU__DOT__diver__DOT__lut_out;
         QData/*63:0*/ __PVT__ALU__DOT__remer__DOT__lut_out;
         QData/*63:0*/ __PVT__ALU__DOT__deExtop__DOT__lut_out;
         QData/*63:0*/ __PVT__DataMem__DOT__sext__DOT__lut_out;

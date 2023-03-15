@@ -20,7 +20,7 @@ module ALU(
 
     /*操作数解码*/
     wire [63:0] ALUA,ALUB;
-    //bltu    ALUAsr:1 ALUB:01
+
     assign ALUA=ALUAsr?R_rs1:PC;
     
     MuxKeyInternal #(3,2,64,1) deALUBsr(.out(ALUB),.key(ALUBsr),.default_out(64'd0),.lut({
@@ -30,8 +30,8 @@ module ALU(
     }));
 
     //ALU操作码解码
-    wire US_S=!ALUct[3];//有无符号
-    wire Sub_Add=ALUct[3];
+    wire US_S=ALUct[3];//有无符号
+    wire Sub_Add=ALUct[2:0]==3'b010||(ALUct[2:0]==3'b000&&ALUct[3]==1'b1);
     wire A_L=ALUct[3];//算术/逻辑
     wire L_R=(ALUct[2:0]==3'b001)?1'b1:1'b0;//左移/右移(ALUct[2:0]==101)
 
