@@ -49,20 +49,15 @@ module ContrGen(
     wire isJalr=(opcode==7'b1100111)?1'b1:1'b0;
 
     assign Branch=isconditionalJump?BranchOpt:(isJal?3'b110:(isJalr?3'b111:3'b010));
+    //ALU控制信号译码
 
-    // //整数运算（加减、位运算、逻辑运算）
-    // wire isIntOpt=((opcode==7'b0011011)||(opcode==7'b0110011)&&(func7[0]==1'b0))?1'b1:1'b0;
-    // reg [2:0] IntOpt;
-    // assign IntOpt=func3;
-    //整数运算（乘除法）
     wire isMul=((opcode==7'b0110011||opcode==7'b0111011)&&(func7[0]==1'b1))?1'b1:1'b0;
-    // reg [2:0] MulOpt;
-    // assign MulOpt=func3;
 
     reg [4:0] IntALUct,MulALUct;
+        //整数运算（加减、比较、位运算、移位运算） 无符号的全在b011处理了
     assign IntALUct=(func3==3'b011)?5'b01010:{1'b0,func7[5]&((|func3)|(opcode[5])),func3};
-
-    assign MulALUct={1'b1,func3[0],func3};//func7[5] 加减和逻辑算术 func3[0]有无符号
+        //整数运算（乘除法）
+    assign MulALUct={1'b1,func3[0],func3};//func7[5] 逻辑算术 func3[0]有无符号
 
     wire islui=(opcode==7'b0110111)?1'b1:1'b0;
     wire isauipc=(opcode==7'b0010111)?1'b1:1'b0;
@@ -70,14 +65,11 @@ module ContrGen(
     wire isMemR=(opcode==7'b0000011)?1'b1:1'b0;
 
     assign ALUct=(isauipc|isMemW|isMemR|isJal|isJalr)?5'b00000://加法
-                    (isconditionalJump?{1'b0,!func3[1],3'b010}://条件跳转  减法有无符号置位
+                    (isconditionalJump?{1'b0,func3[1],3'b010}://条件跳转  减法有无符号置位
                     (islui?5'b00011://直接输出B
                     (isMul?MulALUct:
                     (IntALUct))));
 
-    // 17'bzzzzzzz_110_1100011:begin //bltu
-    //     ALUct=5'b01010;ALUAsr=1'b1;ALUBsr=2'd1;Branch=3'd7;MemWr=1'b0;MemOP=3'd0;isTuncate=1'b0;isSext=1'b0;
-    // end    
 
     MuxKeyInternal #(1,7,1,1) isIntr(.out(IntrEn),.key(opcode),.default_out(1'b0),.lut({
     7'b1110011,1'b1//ecall mret csrrw csrrsb1
@@ -95,192 +87,204 @@ module ContrGen(
     // wire isExcpDate=opcode==7'b0011011;
     // assign RegSrc=isMem?2'd1:isExcpDate?2'd2:2'd0;//读存储或者异常处理指令
     MuxKeyInternal #(2,7,2,1) RegSrcMux(.out(RegSrc),.key(opcode),.default_out(2'd0),.lut({
-    7'b0000011,2'd1,
-    7'b1110011,2'd2
+    7'b0000011,2'd1,                                                     
+    7'b1110011,2'd2//Intr中csr的值
     }));
     //assign RegSrc=(Extop==3'd3)?2'd1:(opcode==7'b0011011)?2'd2:2'd0;
+
+    //ALUAsr  1:R_rs1 0:PC
+    // MuxKeyInternal #(,3,1,1) deALUAsr(.out(ALUAsr),.key(Extop),.default_out(1'b1),.lut({
+    // 3'd2,2',                                                     
+    // 7'b1110011,2'd2
+    // }));
+
+    assign ALUAsr=((Extop==3'd2)&(!isJalr))|(Extop==3'd1)|(Extop==3'd3)|(Extop==3'd4);//ALUAsr:1 Rs1 0 PC
+
+    assign ALUBsr=((Extop==3'd2)|(opcode[6:2]==5'b01101)|(opcode[6:2]==5'b00101)|(Extop==3'd3)|(!(|opcode[6:2])))?2'b00:
+                    ((Extop==3'd1|Extop==3'd4)?2'b01:
+                    ((isJal|isJalr)?2'b10:2'b11));
 
     always @(*) begin
         casez ({func7,func3,opcode})
             17'bzzzzzzz_000_0010011:begin//addi 
-                ALUAsr=1'b1;ALUBsr=2'd0;MemWr=1'b0;MemOP=3'd0;isTuncate=1'b0;isSext=1'b0;
+                 MemWr=1'b0;MemOP=3'd0;isTuncate=1'b0;isSext=1'b0;
             end
             17'bzzzzzzz_zzz_0010111:begin //auipc
-                ALUAsr=1'b0;ALUBsr=2'd0;MemWr=1'b0;MemOP=3'd0;isTuncate=1'b0;isSext=1'b0;
+                 MemWr=1'b0;MemOP=3'd0;isTuncate=1'b0;isSext=1'b0;
             end
             17'bzzzzzzz_zzz_0110111:begin //lui
-                ALUAsr=1'b0;ALUBsr=2'd0;MemWr=1'b0;MemOP=3'd0;isTuncate=1'b0;isSext=1'b0;
+                 MemWr=1'b0;MemOP=3'd0;isTuncate=1'b0;isSext=1'b0;
             end
             17'bzzzzzzz_zzz_1101111:begin //jal
-                ALUAsr=1'b0;ALUBsr=2'd2;MemWr=1'b0;MemOP=3'd0;isTuncate=1'b0;isSext=1'b0;//无条件跳转PC目标
+                 MemWr=1'b0;MemOP=3'd0;isTuncate=1'b0;isSext=1'b0;//无条件跳转PC目标
             end
             17'bzzzzzzz_000_1100111:begin //jalr
-                ALUAsr=1'b0;ALUBsr=2'd2;MemWr=1'b0;MemOP=3'd0;isTuncate=1'b0;isSext=1'b0;//无条件跳转寄存器目标 
+                 MemWr=1'b0;MemOP=3'd0;isTuncate=1'b0;isSext=1'b0;//无条件跳转寄存器目标 
             end
             17'bzzzzzzz_011_0100011:begin //sd
-                ALUAsr=1'b1;ALUBsr=2'd0;MemWr=1'b1;MemOP=3'b100;isTuncate=1'b0;isSext=1'b0;
+                 MemWr=1'b1;MemOP=3'b100;isTuncate=1'b0;isSext=1'b0;
             end
             17'bzzzzzzz_011_0000011:begin //ld
-                ALUAsr=1'b1;ALUBsr=2'd0;MemWr=1'b0;MemOP=3'b100;isTuncate=1'b0;isSext=1'b0;
+                 MemWr=1'b0;MemOP=3'b100;isTuncate=1'b0;isSext=1'b0;
             end
             17'b0000000_000_0110011:begin //add
-                ALUAsr=1'b1;ALUBsr=2'd1;MemWr=1'b0;MemOP=3'd0;isTuncate=1'b0;isSext=1'b0;
+                 MemWr=1'b0;MemOP=3'd0;isTuncate=1'b0;isSext=1'b0;
             end
             17'b0100000_000_0110011:begin //sub
-                ALUAsr=1'b1;ALUBsr=2'd1;MemWr=1'b0;MemOP=3'd0;isTuncate=1'b0;isSext=1'b0;
+                 MemWr=1'b0;MemOP=3'd0;isTuncate=1'b0;isSext=1'b0;
             end
             17'bzzzzzzz_011_0010011:begin //sltiu
-                ALUAsr=1'b1;ALUBsr=2'd0;MemWr=1'b0;MemOP=3'd0;isTuncate=1'b0;isSext=1'b0;
+                 MemWr=1'b0;MemOP=3'd0;isTuncate=1'b0;isSext=1'b0;
             end
             17'bzzzzzzz_000_1100011:begin //beq
-                ALUAsr=1'b1;ALUBsr=2'd1;MemWr=1'b0;MemOP=3'd0;isTuncate=1'b0;isSext=1'b0;
+                 MemWr=1'b0;MemOP=3'd0;isTuncate=1'b0;isSext=1'b0;
             end
             17'bzzzzzzz_001_1100011:begin //bne
-                ALUAsr=1'b1;ALUBsr=2'd1;MemWr=1'b0;MemOP=3'd0;isTuncate=1'b0;isSext=1'b0;
+                 MemWr=1'b0;MemOP=3'd0;isTuncate=1'b0;isSext=1'b0;
             end
             17'bzzzzzzz_010_0000011:begin //lw
-                ALUAsr=1'b1;ALUBsr=2'd0;MemWr=1'b0;MemOP=3'b101;isTuncate=1'b0;isSext=1'b0;
+                 MemWr=1'b0;MemOP=3'b101;isTuncate=1'b0;isSext=1'b0;
             end
             17'bzzzzzzz_110_0000011:begin //lwu
-                ALUAsr=1'b1;ALUBsr=2'd0;MemWr=1'b0;MemOP=3'b001;isTuncate=1'b0;isSext=1'b0;
+                 MemWr=1'b0;MemOP=3'b001;isTuncate=1'b0;isSext=1'b0;
             end
             17'b0000000_000_0111011:begin //addw
-                ALUAsr=1'b1;ALUBsr=2'd1;MemWr=1'b0;MemOP=3'b000;isTuncate=1'b1;isSext=1'b1;
+                 MemWr=1'b0;MemOP=3'b000;isTuncate=1'b1;isSext=1'b1;
             end
             17'bzzzzzzz_001_0100011:begin //sh
-                ALUAsr=1'b1;ALUBsr=2'd0;MemWr=1'b1;MemOP=3'b010;isTuncate=1'b0;isSext=1'b0;
+                 MemWr=1'b1;MemOP=3'b010;isTuncate=1'b0;isSext=1'b0;
             end
             17'b0100000_101_0010011:begin//srai
-                ALUAsr=1'b1;ALUBsr=2'd0;MemWr=1'b0;MemOP=3'd0;isTuncate=1'b0;isSext=1'b0;
+                 MemWr=1'b0;MemOP=3'd0;isTuncate=1'b0;isSext=1'b0;
             end
             17'bzzzzzzz_100_0000011:begin //lbu
-                ALUAsr=1'b1;ALUBsr=2'd0;MemWr=1'b0;MemOP=3'b011;isTuncate=1'b0;isSext=1'b0;
+                 MemWr=1'b0;MemOP=3'b011;isTuncate=1'b0;isSext=1'b0;
             end
             17'bzzzzzzz_111_0010011:begin //andi
-                ALUAsr=1'b1;ALUBsr=2'd0;MemWr=1'b0;MemOP=3'b000;isTuncate=1'b0;isSext=1'b0;
+                 MemWr=1'b0;MemOP=3'b000;isTuncate=1'b0;isSext=1'b0;
             end
             17'b0000000_001_0111011:begin//sllw
-                ALUAsr=1'b1;ALUBsr=2'd1;MemWr=1'b0;MemOP=3'd0;isTuncate=1'b1;isSext=1'b1;
+                 MemWr=1'b0;MemOP=3'd0;isTuncate=1'b1;isSext=1'b1;
             end
             17'b0000000_111_0110011:begin //and
-                ALUAsr=1'b1;ALUBsr=2'd1;MemWr=1'b0;MemOP=3'b000;isTuncate=1'b0;isSext=1'b0;
+                 MemWr=1'b0;MemOP=3'b000;isTuncate=1'b0;isSext=1'b0;
             end
             17'b0000000_011_0110011:begin //sltu
-                ALUAsr=1'b1;ALUBsr=2'd1;MemWr=1'b0;MemOP=3'd0;isTuncate=1'b0;isSext=1'b0;
+                 MemWr=1'b0;MemOP=3'd0;isTuncate=1'b0;isSext=1'b0;
             end
             17'bzzzzzzz_100_0010011:begin //xori
-                ALUAsr=1'b1;ALUBsr=2'd0;MemWr=1'b0;MemOP=3'b000;isTuncate=1'b0;isSext=1'b0;
+                 MemWr=1'b0;MemOP=3'b000;isTuncate=1'b0;isSext=1'b0;
             end
             17'b0100000_101_0111011:begin//sraw
-                ALUAsr=1'b1;ALUBsr=2'd1;MemWr=1'b0;MemOP=3'd0;isTuncate=1'b1;isSext=1'b1;
+                 MemWr=1'b0;MemOP=3'd0;isTuncate=1'b1;isSext=1'b1;
             end
             17'b0000000_110_0110011:begin //or
-                ALUAsr=1'b1;ALUBsr=2'd1;MemWr=1'b0;MemOP=3'b000;isTuncate=1'b0;isSext=1'b0;
+                 MemWr=1'b0;MemOP=3'b000;isTuncate=1'b0;isSext=1'b0;
             end
             17'bzzzzzzz_000_0100011:begin //sb
-                ALUAsr=1'b1;ALUBsr=2'd0;MemWr=1'b1;MemOP=3'b011;isTuncate=1'b0;isSext=1'b0;
+                 MemWr=1'b1;MemOP=3'b011;isTuncate=1'b0;isSext=1'b0;
             end
             17'bzzzzzzz_000_0011011:begin //addiw
-                ALUAsr=1'b1;ALUBsr=2'd0;MemWr=1'b0;MemOP=3'b000;isTuncate=1'b1;isSext=1'b1;
+                 MemWr=1'b0;MemOP=3'b000;isTuncate=1'b1;isSext=1'b1;
             end
             17'bzzzzzzz_101_1100011:begin //bge
-                ALUAsr=1'b1;ALUBsr=2'd1;MemWr=1'b0;MemOP=3'd0;isTuncate=1'b0;isSext=1'b0;
+                 MemWr=1'b0;MemOP=3'd0;isTuncate=1'b0;isSext=1'b0;
             end
             17'bzzzzzzz_100_1100011:begin //blt
-                ALUAsr=1'b1;ALUBsr=2'd1;MemWr=1'b0;MemOP=3'd0;isTuncate=1'b0;isSext=1'b0;
+                 MemWr=1'b0;MemOP=3'd0;isTuncate=1'b0;isSext=1'b0;
             end
             17'bzzzzzzz_010_0100011:begin //sw
-                ALUAsr=1'b1;ALUBsr=2'd0;MemWr=1'b1;MemOP=3'b001;isTuncate=1'b0;isSext=1'b0;
+                 MemWr=1'b1;MemOP=3'b001;isTuncate=1'b0;isSext=1'b0;
             end
             17'b0000001_000_0111011:begin //mulw
-                ;ALUAsr=1'b1;ALUBsr=2'd1;MemWr=1'b0;MemOP=3'b000;isTuncate=1'b1;isSext=1'b1;
+                ; MemWr=1'b0;MemOP=3'b000;isTuncate=1'b1;isSext=1'b1;
             end
             17'b0000001_100_0111011:begin //divw
-                ;ALUAsr=1'b1;ALUBsr=2'd1;MemWr=1'b0;MemOP=3'b000;isTuncate=1'b1;isSext=1'b1;
+                ; MemWr=1'b0;MemOP=3'b000;isTuncate=1'b1;isSext=1'b1;
             end
             17'b0100000_000_0111011:begin //subw
-                ALUAsr=1'b1;ALUBsr=2'd1;MemWr=1'b0;MemOP=3'd0;isTuncate=1'b1;isSext=1'b1;
+                 MemWr=1'b0;MemOP=3'd0;isTuncate=1'b1;isSext=1'b1;
             end
             17'b0000001_110_0111011:begin //remw
-                ;ALUAsr=1'b1;ALUBsr=2'd1;MemWr=1'b0;MemOP=3'b000;isTuncate=1'b1;isSext=1'b1;
+                ; MemWr=1'b0;MemOP=3'b000;isTuncate=1'b1;isSext=1'b1;
             end
             17'bzzzzzzz_110_1100011:begin //bltu
-                ALUAsr=1'b1;ALUBsr=2'd1;MemWr=1'b0;MemOP=3'd0;isTuncate=1'b0;isSext=1'b0;
+                 MemWr=1'b0;MemOP=3'd0;isTuncate=1'b0;isSext=1'b0;
             end
             17'b0000000_010_0110011:begin //slt
-                ALUAsr=1'b1;ALUBsr=2'd1;MemWr=1'b0;MemOP=3'd0;isTuncate=1'b0;isSext=1'b0;
+                 MemWr=1'b0;MemOP=3'd0;isTuncate=1'b0;isSext=1'b0;
             end
             17'bzzzzzzz_001_0000011:begin //lh
-                ALUAsr=1'b1;ALUBsr=2'd0;MemWr=1'b0;MemOP=3'b110;isTuncate=1'b0;isSext=1'b0;
+                 MemWr=1'b0;MemOP=3'b110;isTuncate=1'b0;isSext=1'b0;
             end
             17'bzzzzzzz_101_0000011:begin //lhu
-                ALUAsr=1'b1;ALUBsr=2'd0;MemWr=1'b0;MemOP=3'b010;isTuncate=1'b0;isSext=1'b0;
+                 MemWr=1'b0;MemOP=3'b010;isTuncate=1'b0;isSext=1'b0;
             end
             17'b000000z_001_0010011:begin//slli
-                ALUAsr=1'b1;ALUBsr=2'd0;MemWr=1'b0;MemOP=3'd0;isTuncate=1'b0;isSext=1'b0;
+                 MemWr=1'b0;MemOP=3'd0;isTuncate=1'b0;isSext=1'b0;
             end
             17'b000000z_101_0010011:begin//srli
-                ALUAsr=1'b1;ALUBsr=2'd0;MemWr=1'b0;MemOP=3'd0;isTuncate=1'b0;isSext=1'b0;
+                 MemWr=1'b0;MemOP=3'd0;isTuncate=1'b0;isSext=1'b0;
             end
             17'b000000z_001_0011011:begin//slliw
-                ALUAsr=1'b1;ALUBsr=2'd0;MemWr=1'b0;MemOP=3'd0;isTuncate=1'b1;isSext=1'b1;
+                 MemWr=1'b0;MemOP=3'd0;isTuncate=1'b1;isSext=1'b1;
             end
             17'b0100000_101_0011011:begin//sraiw
-                ALUAsr=1'b1;ALUBsr=2'd0;MemWr=1'b0;MemOP=3'd0;isTuncate=1'b1;isSext=1'b1;
+                 MemWr=1'b0;MemOP=3'd0;isTuncate=1'b1;isSext=1'b1;
             end
             17'b0000001_000_0110011:begin //mul
-                ;ALUAsr=1'b1;ALUBsr=2'd1;MemWr=1'b0;MemOP=3'b000;isTuncate=1'b0;isSext=1'b0;
+                ; MemWr=1'b0;MemOP=3'b000;isTuncate=1'b0;isSext=1'b0;
             end
             17'b000000z_101_0011011:begin//srliw
-                ALUAsr=1'b1;ALUBsr=2'd0;MemWr=1'b0;MemOP=3'd0;isTuncate=1'b1;isSext=1'b1;
+                 MemWr=1'b0;MemOP=3'd0;isTuncate=1'b1;isSext=1'b1;
             end
             17'b0000000_101_0111011:begin//srlw
-                ALUAsr=1'b1;ALUBsr=2'd1;MemWr=1'b0;MemOP=3'd0;isTuncate=1'b1;isSext=1'b1;
+                 MemWr=1'b0;MemOP=3'd0;isTuncate=1'b1;isSext=1'b1;
             end
             17'bzzzzzzz_111_1100011:begin //bgeu
-                ALUAsr=1'b1;ALUBsr=2'd1;MemWr=1'b0;MemOP=3'd0;isTuncate=1'b0;isSext=1'b0;
+                 MemWr=1'b0;MemOP=3'd0;isTuncate=1'b0;isSext=1'b0;
             end
             17'bzzzzzzz_111_1100011:begin //bgeu
-                ALUAsr=1'b1;ALUBsr=2'd1;MemWr=1'b0;MemOP=3'd0;isTuncate=1'b0;isSext=1'b0;
+                 MemWr=1'b0;MemOP=3'd0;isTuncate=1'b0;isSext=1'b0;
             end
             17'b0000001_101_0110011:begin //divu
-                ;ALUAsr=1'b1;ALUBsr=2'd1;MemWr=1'b0;MemOP=3'b000;isTuncate=1'b0;isSext=1'b0;
+                ; MemWr=1'b0;MemOP=3'b000;isTuncate=1'b0;isSext=1'b0;
             end
             17'b0000001_111_0110011:begin //remu
-                ;ALUAsr=1'b1;ALUBsr=2'd1;MemWr=1'b0;MemOP=3'b000;isTuncate=1'b0;isSext=1'b0;
+                ; MemWr=1'b0;MemOP=3'b000;isTuncate=1'b0;isSext=1'b0;
             end
             17'b0000001_101_0111011:begin //divuw
-                ;ALUAsr=1'b1;ALUBsr=2'd1;MemWr=1'b0;MemOP=3'b000;isTuncate=1'b1;isSext=1'b1;
+                ; MemWr=1'b0;MemOP=3'b000;isTuncate=1'b1;isSext=1'b1;
             end
             17'b0000000_100_0110011:begin //xor
-                ALUAsr=1'b1;ALUBsr=2'd1;MemWr=1'b0;MemOP=3'b000;isTuncate=1'b0;isSext=1'b0;
+                 MemWr=1'b0;MemOP=3'b000;isTuncate=1'b0;isSext=1'b0;
             end
             17'bzzzzzzz_000_0000011:begin //lb
-                ALUAsr=1'b1;ALUBsr=2'd0;MemWr=1'b0;MemOP=3'b111;isTuncate=1'b0;isSext=1'b0;
+                 MemWr=1'b0;MemOP=3'b111;isTuncate=1'b0;isSext=1'b0;
             end
             17'bzzzzzzz_110_0010011:begin //ori
-                ALUAsr=1'b1;ALUBsr=2'd0;MemWr=1'b0;MemOP=3'b000;isTuncate=1'b0;isSext=1'b0;
+                 MemWr=1'b0;MemOP=3'b000;isTuncate=1'b0;isSext=1'b0;
             end
             17'b0000000_001_0110011:begin//sll
-                ALUAsr=1'b1;ALUBsr=2'd1;MemWr=1'b0;MemOP=3'd0;isTuncate=1'b0;isSext=1'b0;
+                 MemWr=1'b0;MemOP=3'd0;isTuncate=1'b0;isSext=1'b0;
             end
             // 17'b0000000_000_1110011:begin//ecall
-            //     ALUAsr=1'b0;ALUBsr=2'd0;MemWr=1'b0;MemOP=3'd0;isTuncate=1'b0;isSext=1'b0;            
+            //      MemWr=1'b0;MemOP=3'd0;isTuncate=1'b0;isSext=1'b0;            
             // end
             // 17'b0011000_000_1110011:begin//mret
-            //     ALUAsr=1'b0;ALUBsr=2'd0;MemWr=1'b0;MemOP=3'd0;isTuncate=1'b0;isSext=1'b0;            
+            //      MemWr=1'b0;MemOP=3'd0;isTuncate=1'b0;isSext=1'b0;            
             // end
             // 17'bzzzzzzz_001_1110011:begin//csrrw
-            //     ALUAsr=1'b0;ALUBsr=2'd0;MemWr=1'b0;MemOP=3'd0;isTuncate=1'b0;isSext=1'b0;            
+            //      MemWr=1'b0;MemOP=3'd0;isTuncate=1'b0;isSext=1'b0;            
             // end
             // 17'bzzzzzzz_010_1110011:begin//csrrs 
-            //     ALUAsr=1'b0;ALUBsr=2'd0;MemWr=1'b0;MemOP=3'd0;isTuncate=1'b0;isSext=1'b0;            
+            //      MemWr=1'b0;MemOP=3'd0;isTuncate=1'b0;isSext=1'b0;            
             // end
             17'bzzzzzzz_zzz_1110011:begin//ecall mret scrrw csrrs csrrsi
-                ALUAsr=1'b0;ALUBsr=2'd0;MemWr=1'b0;MemOP=3'd0;isTuncate=1'b0;isSext=1'b0;            
+                 MemWr=1'b0;MemOP=3'd0;isTuncate=1'b0;isSext=1'b0;            
             end            
             default: begin
-                ALUAsr=1'b0;ALUBsr=2'd0;MemWr=1'b0;MemOP=3'd0;isTuncate=1'b0;isSext=1'b0;set_invalid_inst();
+                 MemWr=1'b0;MemOP=3'd0;isTuncate=1'b0;isSext=1'b0;set_invalid_inst();
             end
         endcase
         end

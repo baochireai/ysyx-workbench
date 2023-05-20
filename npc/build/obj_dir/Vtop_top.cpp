@@ -119,8 +119,6 @@ VL_INLINE_OPT void Vtop_top___sequent__TOP__top__3(Vtop_top* vlSelf) {
            [0U]);
     vlSelf->__PVT__IntrEn = ((IData)(vlSelf->__PVT__ContrGen__DOT__isIntr__DOT__hit) 
                              & (IData)(vlSelf->__PVT__ContrGen__DOT__isIntr__DOT__lut_out));
-    vlSelf->__PVT__R_rs1 = vlSelf->__PVT__RegisterFile__DOT__rf
-        [(0x1fU & (vlSelf->Inst >> 0xfU))];
     if (((((((((0x13U == (0x3ffU & ((0x1fc00U & (vlSelf->Inst 
                                                  >> 0xfU)) 
                                     | ((0x380U & (vlSelf->Inst 
@@ -164,8 +162,6 @@ VL_INLINE_OPT void Vtop_top___sequent__TOP__top__3(Vtop_top* vlSelf) {
                                  | ((0x380U & (vlSelf->Inst 
                                                >> 5U)) 
                                     | (0x7fU & vlSelf->Inst)))))) {
-            vlSelf->__PVT__ALUAsr = 1U;
-            vlSelf->__PVT__ALUBsr = 0U;
             vlSelf->__PVT__MemWr = 0U;
             vlSelf->__PVT__MemOP = 0U;
             vlSelf->__PVT__isTuncate = 0U;
@@ -178,8 +174,6 @@ VL_INLINE_OPT void Vtop_top___sequent__TOP__top__3(Vtop_top* vlSelf) {
                                             >> 5U)) 
                                           | (0x7fU 
                                              & vlSelf->Inst)))))) {
-            vlSelf->__PVT__ALUAsr = 0U;
-            vlSelf->__PVT__ALUBsr = 0U;
             vlSelf->__PVT__MemWr = 0U;
             vlSelf->__PVT__MemOP = 0U;
             vlSelf->__PVT__isTuncate = 0U;
@@ -192,8 +186,6 @@ VL_INLINE_OPT void Vtop_top___sequent__TOP__top__3(Vtop_top* vlSelf) {
                                             >> 5U)) 
                                           | (0x7fU 
                                              & vlSelf->Inst)))))) {
-            vlSelf->__PVT__ALUAsr = 0U;
-            vlSelf->__PVT__ALUBsr = 0U;
             vlSelf->__PVT__MemWr = 0U;
             vlSelf->__PVT__MemOP = 0U;
             vlSelf->__PVT__isTuncate = 0U;
@@ -206,8 +198,6 @@ VL_INLINE_OPT void Vtop_top___sequent__TOP__top__3(Vtop_top* vlSelf) {
                                             >> 5U)) 
                                           | (0x7fU 
                                              & vlSelf->Inst)))))) {
-            vlSelf->__PVT__ALUAsr = 0U;
-            vlSelf->__PVT__ALUBsr = 2U;
             vlSelf->__PVT__MemWr = 0U;
             vlSelf->__PVT__MemOP = 0U;
             vlSelf->__PVT__isTuncate = 0U;
@@ -220,8 +210,6 @@ VL_INLINE_OPT void Vtop_top___sequent__TOP__top__3(Vtop_top* vlSelf) {
                                                >> 5U)) 
                                            | (0x7fU 
                                               & vlSelf->Inst)))))) {
-            vlSelf->__PVT__ALUAsr = 0U;
-            vlSelf->__PVT__ALUBsr = 2U;
             vlSelf->__PVT__MemWr = 0U;
             vlSelf->__PVT__MemOP = 0U;
             vlSelf->__PVT__isTuncate = 0U;
@@ -234,8 +222,6 @@ VL_INLINE_OPT void Vtop_top___sequent__TOP__top__3(Vtop_top* vlSelf) {
                                                 >> 5U)) 
                                             | (0x7fU 
                                                & vlSelf->Inst)))))) {
-            vlSelf->__PVT__ALUAsr = 1U;
-            vlSelf->__PVT__ALUBsr = 0U;
             vlSelf->__PVT__MemWr = 1U;
             vlSelf->__PVT__MemOP = 4U;
             vlSelf->__PVT__isTuncate = 0U;
@@ -248,15 +234,11 @@ VL_INLINE_OPT void Vtop_top___sequent__TOP__top__3(Vtop_top* vlSelf) {
                                                 >> 5U)) 
                                             | (0x7fU 
                                                & vlSelf->Inst)))))) {
-            vlSelf->__PVT__ALUAsr = 1U;
-            vlSelf->__PVT__ALUBsr = 0U;
             vlSelf->__PVT__MemWr = 0U;
             vlSelf->__PVT__MemOP = 4U;
             vlSelf->__PVT__isTuncate = 0U;
             vlSelf->__PVT__isSext = 0U;
         } else {
-            vlSelf->__PVT__ALUAsr = 1U;
-            vlSelf->__PVT__ALUBsr = 1U;
             vlSelf->__PVT__MemWr = 0U;
             vlSelf->__PVT__MemOP = 0U;
             vlSelf->__PVT__isTuncate = 0U;
@@ -327,8 +309,6 @@ VL_INLINE_OPT void Vtop_top___sequent__TOP__top__3(Vtop_top* vlSelf) {
                                                        >> 5U)) 
                                                    | (0x7fU 
                                                       & vlSelf->Inst))))) {
-            vlSelf->__PVT__ALUAsr = 1U;
-            vlSelf->__PVT__ALUBsr = 1U;
             vlSelf->__PVT__MemWr = 0U;
             vlSelf->__PVT__MemOP = 0U;
             vlSelf->__PVT__isTuncate = 0U;
@@ -341,8 +321,6 @@ VL_INLINE_OPT void Vtop_top___sequent__TOP__top__3(Vtop_top* vlSelf) {
                                                 >> 5U)) 
                                             | (0x7fU 
                                                & vlSelf->Inst)))))) {
-            vlSelf->__PVT__ALUAsr = 1U;
-            vlSelf->__PVT__ALUBsr = 0U;
             vlSelf->__PVT__MemWr = 0U;
             vlSelf->__PVT__MemOP = 0U;
             vlSelf->__PVT__isTuncate = 0U;
@@ -355,8 +333,6 @@ VL_INLINE_OPT void Vtop_top___sequent__TOP__top__3(Vtop_top* vlSelf) {
                                                >> 5U)) 
                                            | (0x7fU 
                                               & vlSelf->Inst)))))) {
-            vlSelf->__PVT__ALUAsr = 1U;
-            vlSelf->__PVT__ALUBsr = 1U;
             vlSelf->__PVT__MemWr = 0U;
             vlSelf->__PVT__MemOP = 0U;
             vlSelf->__PVT__isTuncate = 0U;
@@ -369,8 +345,6 @@ VL_INLINE_OPT void Vtop_top___sequent__TOP__top__3(Vtop_top* vlSelf) {
                                                >> 5U)) 
                                            | (0x7fU 
                                               & vlSelf->Inst)))))) {
-            vlSelf->__PVT__ALUAsr = 1U;
-            vlSelf->__PVT__ALUBsr = 1U;
             vlSelf->__PVT__MemWr = 0U;
             vlSelf->__PVT__MemOP = 0U;
             vlSelf->__PVT__isTuncate = 0U;
@@ -383,8 +357,6 @@ VL_INLINE_OPT void Vtop_top___sequent__TOP__top__3(Vtop_top* vlSelf) {
                                                 >> 5U)) 
                                             | (0x7fU 
                                                & vlSelf->Inst)))))) {
-            vlSelf->__PVT__ALUAsr = 1U;
-            vlSelf->__PVT__ALUBsr = 0U;
             vlSelf->__PVT__MemWr = 0U;
             vlSelf->__PVT__MemOP = 5U;
             vlSelf->__PVT__isTuncate = 0U;
@@ -397,8 +369,6 @@ VL_INLINE_OPT void Vtop_top___sequent__TOP__top__3(Vtop_top* vlSelf) {
                                                 >> 5U)) 
                                             | (0x7fU 
                                                & vlSelf->Inst)))))) {
-            vlSelf->__PVT__ALUAsr = 1U;
-            vlSelf->__PVT__ALUBsr = 0U;
             vlSelf->__PVT__MemWr = 0U;
             vlSelf->__PVT__MemOP = 1U;
             vlSelf->__PVT__isTuncate = 0U;
@@ -408,15 +378,11 @@ VL_INLINE_OPT void Vtop_top___sequent__TOP__top__3(Vtop_top* vlSelf) {
                               | ((0x380U & (vlSelf->Inst 
                                             >> 5U)) 
                                  | (0x7fU & vlSelf->Inst))))) {
-            vlSelf->__PVT__ALUAsr = 1U;
-            vlSelf->__PVT__ALUBsr = 1U;
             vlSelf->__PVT__MemWr = 0U;
             vlSelf->__PVT__MemOP = 0U;
             vlSelf->__PVT__isTuncate = 1U;
             vlSelf->__PVT__isSext = 1U;
         } else {
-            vlSelf->__PVT__ALUAsr = 1U;
-            vlSelf->__PVT__ALUBsr = 0U;
             vlSelf->__PVT__MemWr = 1U;
             vlSelf->__PVT__MemOP = 2U;
             vlSelf->__PVT__isTuncate = 0U;
@@ -478,8 +444,6 @@ VL_INLINE_OPT void Vtop_top___sequent__TOP__top__3(Vtop_top* vlSelf) {
                                                        >> 5U)) 
                                                    | (0x7fU 
                                                       & vlSelf->Inst))))) {
-            vlSelf->__PVT__ALUAsr = 1U;
-            vlSelf->__PVT__ALUBsr = 0U;
             vlSelf->__PVT__MemWr = 0U;
             vlSelf->__PVT__MemOP = 0U;
             vlSelf->__PVT__isTuncate = 0U;
@@ -492,8 +456,6 @@ VL_INLINE_OPT void Vtop_top___sequent__TOP__top__3(Vtop_top* vlSelf) {
                                                 >> 5U)) 
                                             | (0x7fU 
                                                & vlSelf->Inst)))))) {
-            vlSelf->__PVT__ALUAsr = 1U;
-            vlSelf->__PVT__ALUBsr = 0U;
             vlSelf->__PVT__MemWr = 0U;
             vlSelf->__PVT__MemOP = 3U;
             vlSelf->__PVT__isTuncate = 0U;
@@ -506,8 +468,6 @@ VL_INLINE_OPT void Vtop_top___sequent__TOP__top__3(Vtop_top* vlSelf) {
                                                 >> 5U)) 
                                             | (0x7fU 
                                                & vlSelf->Inst)))))) {
-            vlSelf->__PVT__ALUAsr = 1U;
-            vlSelf->__PVT__ALUBsr = 0U;
             vlSelf->__PVT__MemWr = 0U;
             vlSelf->__PVT__MemOP = 0U;
             vlSelf->__PVT__isTuncate = 0U;
@@ -517,8 +477,6 @@ VL_INLINE_OPT void Vtop_top___sequent__TOP__top__3(Vtop_top* vlSelf) {
                               | ((0x380U & (vlSelf->Inst 
                                             >> 5U)) 
                                  | (0x7fU & vlSelf->Inst))))) {
-            vlSelf->__PVT__ALUAsr = 1U;
-            vlSelf->__PVT__ALUBsr = 1U;
             vlSelf->__PVT__MemWr = 0U;
             vlSelf->__PVT__MemOP = 0U;
             vlSelf->__PVT__isTuncate = 1U;
@@ -528,8 +486,6 @@ VL_INLINE_OPT void Vtop_top___sequent__TOP__top__3(Vtop_top* vlSelf) {
                                | ((0x380U & (vlSelf->Inst 
                                              >> 5U)) 
                                   | (0x7fU & vlSelf->Inst))))) {
-            vlSelf->__PVT__ALUAsr = 1U;
-            vlSelf->__PVT__ALUBsr = 1U;
             vlSelf->__PVT__MemWr = 0U;
             vlSelf->__PVT__MemOP = 0U;
             vlSelf->__PVT__isTuncate = 0U;
@@ -539,8 +495,6 @@ VL_INLINE_OPT void Vtop_top___sequent__TOP__top__3(Vtop_top* vlSelf) {
                                | ((0x380U & (vlSelf->Inst 
                                              >> 5U)) 
                                   | (0x7fU & vlSelf->Inst))))) {
-            vlSelf->__PVT__ALUAsr = 1U;
-            vlSelf->__PVT__ALUBsr = 1U;
             vlSelf->__PVT__MemWr = 0U;
             vlSelf->__PVT__MemOP = 0U;
             vlSelf->__PVT__isTuncate = 0U;
@@ -553,15 +507,11 @@ VL_INLINE_OPT void Vtop_top___sequent__TOP__top__3(Vtop_top* vlSelf) {
                                                 >> 5U)) 
                                             | (0x7fU 
                                                & vlSelf->Inst)))))) {
-            vlSelf->__PVT__ALUAsr = 1U;
-            vlSelf->__PVT__ALUBsr = 0U;
             vlSelf->__PVT__MemWr = 0U;
             vlSelf->__PVT__MemOP = 0U;
             vlSelf->__PVT__isTuncate = 0U;
             vlSelf->__PVT__isSext = 0U;
         } else {
-            vlSelf->__PVT__ALUAsr = 1U;
-            vlSelf->__PVT__ALUBsr = 1U;
             vlSelf->__PVT__MemWr = 0U;
             vlSelf->__PVT__MemOP = 0U;
             vlSelf->__PVT__isTuncate = 1U;
@@ -626,8 +576,6 @@ VL_INLINE_OPT void Vtop_top___sequent__TOP__top__3(Vtop_top* vlSelf) {
                         | ((0x380U & (vlSelf->Inst 
                                       >> 5U)) | (0x7fU 
                                                  & vlSelf->Inst))))) {
-            vlSelf->__PVT__ALUAsr = 1U;
-            vlSelf->__PVT__ALUBsr = 1U;
             vlSelf->__PVT__MemWr = 0U;
             vlSelf->__PVT__MemOP = 0U;
             vlSelf->__PVT__isTuncate = 0U;
@@ -640,8 +588,6 @@ VL_INLINE_OPT void Vtop_top___sequent__TOP__top__3(Vtop_top* vlSelf) {
                                                >> 5U)) 
                                            | (0x7fU 
                                               & vlSelf->Inst)))))) {
-            vlSelf->__PVT__ALUAsr = 1U;
-            vlSelf->__PVT__ALUBsr = 0U;
             vlSelf->__PVT__MemWr = 1U;
             vlSelf->__PVT__MemOP = 3U;
             vlSelf->__PVT__isTuncate = 0U;
@@ -654,8 +600,6 @@ VL_INLINE_OPT void Vtop_top___sequent__TOP__top__3(Vtop_top* vlSelf) {
                                                >> 5U)) 
                                            | (0x7fU 
                                               & vlSelf->Inst)))))) {
-            vlSelf->__PVT__ALUAsr = 1U;
-            vlSelf->__PVT__ALUBsr = 0U;
             vlSelf->__PVT__MemWr = 0U;
             vlSelf->__PVT__MemOP = 0U;
             vlSelf->__PVT__isTuncate = 1U;
@@ -668,8 +612,6 @@ VL_INLINE_OPT void Vtop_top___sequent__TOP__top__3(Vtop_top* vlSelf) {
                                                 >> 5U)) 
                                             | (0x7fU 
                                                & vlSelf->Inst)))))) {
-            vlSelf->__PVT__ALUAsr = 1U;
-            vlSelf->__PVT__ALUBsr = 1U;
             vlSelf->__PVT__MemWr = 0U;
             vlSelf->__PVT__MemOP = 0U;
             vlSelf->__PVT__isTuncate = 0U;
@@ -682,8 +624,6 @@ VL_INLINE_OPT void Vtop_top___sequent__TOP__top__3(Vtop_top* vlSelf) {
                                                 >> 5U)) 
                                             | (0x7fU 
                                                & vlSelf->Inst)))))) {
-            vlSelf->__PVT__ALUAsr = 1U;
-            vlSelf->__PVT__ALUBsr = 1U;
             vlSelf->__PVT__MemWr = 0U;
             vlSelf->__PVT__MemOP = 0U;
             vlSelf->__PVT__isTuncate = 0U;
@@ -696,8 +636,6 @@ VL_INLINE_OPT void Vtop_top___sequent__TOP__top__3(Vtop_top* vlSelf) {
                                                 >> 5U)) 
                                             | (0x7fU 
                                                & vlSelf->Inst)))))) {
-            vlSelf->__PVT__ALUAsr = 1U;
-            vlSelf->__PVT__ALUBsr = 0U;
             vlSelf->__PVT__MemWr = 1U;
             vlSelf->__PVT__MemOP = 1U;
             vlSelf->__PVT__isTuncate = 0U;
@@ -707,15 +645,11 @@ VL_INLINE_OPT void Vtop_top___sequent__TOP__top__3(Vtop_top* vlSelf) {
                                | ((0x380U & (vlSelf->Inst 
                                              >> 5U)) 
                                   | (0x7fU & vlSelf->Inst))))) {
-            vlSelf->__PVT__ALUAsr = 1U;
-            vlSelf->__PVT__ALUBsr = 1U;
             vlSelf->__PVT__MemWr = 0U;
             vlSelf->__PVT__MemOP = 0U;
             vlSelf->__PVT__isTuncate = 1U;
             vlSelf->__PVT__isSext = 1U;
         } else {
-            vlSelf->__PVT__ALUAsr = 1U;
-            vlSelf->__PVT__ALUBsr = 1U;
             vlSelf->__PVT__MemWr = 0U;
             vlSelf->__PVT__MemOP = 0U;
             vlSelf->__PVT__isTuncate = 1U;
@@ -783,8 +717,6 @@ VL_INLINE_OPT void Vtop_top___sequent__TOP__top__3(Vtop_top* vlSelf) {
                                                        >> 5U)) 
                                                    | (0x7fU 
                                                       & vlSelf->Inst))))) {
-            vlSelf->__PVT__ALUAsr = 1U;
-            vlSelf->__PVT__ALUBsr = 1U;
             vlSelf->__PVT__MemWr = 0U;
             vlSelf->__PVT__MemOP = 0U;
             vlSelf->__PVT__isTuncate = 1U;
@@ -794,8 +726,6 @@ VL_INLINE_OPT void Vtop_top___sequent__TOP__top__3(Vtop_top* vlSelf) {
                                | ((0x380U & (vlSelf->Inst 
                                              >> 5U)) 
                                   | (0x7fU & vlSelf->Inst))))) {
-            vlSelf->__PVT__ALUAsr = 1U;
-            vlSelf->__PVT__ALUBsr = 1U;
             vlSelf->__PVT__MemWr = 0U;
             vlSelf->__PVT__MemOP = 0U;
             vlSelf->__PVT__isTuncate = 1U;
@@ -808,8 +738,6 @@ VL_INLINE_OPT void Vtop_top___sequent__TOP__top__3(Vtop_top* vlSelf) {
                                                 >> 5U)) 
                                             | (0x7fU 
                                                & vlSelf->Inst)))))) {
-            vlSelf->__PVT__ALUAsr = 1U;
-            vlSelf->__PVT__ALUBsr = 1U;
             vlSelf->__PVT__MemWr = 0U;
             vlSelf->__PVT__MemOP = 0U;
             vlSelf->__PVT__isTuncate = 0U;
@@ -819,8 +747,6 @@ VL_INLINE_OPT void Vtop_top___sequent__TOP__top__3(Vtop_top* vlSelf) {
                                | ((0x380U & (vlSelf->Inst 
                                              >> 5U)) 
                                   | (0x7fU & vlSelf->Inst))))) {
-            vlSelf->__PVT__ALUAsr = 1U;
-            vlSelf->__PVT__ALUBsr = 1U;
             vlSelf->__PVT__MemWr = 0U;
             vlSelf->__PVT__MemOP = 0U;
             vlSelf->__PVT__isTuncate = 0U;
@@ -833,8 +759,6 @@ VL_INLINE_OPT void Vtop_top___sequent__TOP__top__3(Vtop_top* vlSelf) {
                                                >> 5U)) 
                                            | (0x7fU 
                                               & vlSelf->Inst)))))) {
-            vlSelf->__PVT__ALUAsr = 1U;
-            vlSelf->__PVT__ALUBsr = 0U;
             vlSelf->__PVT__MemWr = 0U;
             vlSelf->__PVT__MemOP = 6U;
             vlSelf->__PVT__isTuncate = 0U;
@@ -847,8 +771,6 @@ VL_INLINE_OPT void Vtop_top___sequent__TOP__top__3(Vtop_top* vlSelf) {
                                                 >> 5U)) 
                                             | (0x7fU 
                                                & vlSelf->Inst)))))) {
-            vlSelf->__PVT__ALUAsr = 1U;
-            vlSelf->__PVT__ALUBsr = 0U;
             vlSelf->__PVT__MemWr = 0U;
             vlSelf->__PVT__MemOP = 2U;
             vlSelf->__PVT__isTuncate = 0U;
@@ -861,15 +783,11 @@ VL_INLINE_OPT void Vtop_top___sequent__TOP__top__3(Vtop_top* vlSelf) {
                                                  >> 5U)) 
                                              | (0x7fU 
                                                 & vlSelf->Inst)))))) {
-            vlSelf->__PVT__ALUAsr = 1U;
-            vlSelf->__PVT__ALUBsr = 0U;
             vlSelf->__PVT__MemWr = 0U;
             vlSelf->__PVT__MemOP = 0U;
             vlSelf->__PVT__isTuncate = 0U;
             vlSelf->__PVT__isSext = 0U;
         } else {
-            vlSelf->__PVT__ALUAsr = 1U;
-            vlSelf->__PVT__ALUBsr = 0U;
             vlSelf->__PVT__MemWr = 0U;
             vlSelf->__PVT__MemOP = 0U;
             vlSelf->__PVT__isTuncate = 0U;
@@ -932,8 +850,6 @@ VL_INLINE_OPT void Vtop_top___sequent__TOP__top__3(Vtop_top* vlSelf) {
                                    | ((0x380U & (vlSelf->Inst 
                                                  >> 5U)) 
                                       | (0x7fU & vlSelf->Inst)))))) {
-            vlSelf->__PVT__ALUAsr = 1U;
-            vlSelf->__PVT__ALUBsr = 0U;
             vlSelf->__PVT__MemWr = 0U;
             vlSelf->__PVT__MemOP = 0U;
             vlSelf->__PVT__isTuncate = 1U;
@@ -943,8 +859,6 @@ VL_INLINE_OPT void Vtop_top___sequent__TOP__top__3(Vtop_top* vlSelf) {
                                 | ((0x380U & (vlSelf->Inst 
                                               >> 5U)) 
                                    | (0x7fU & vlSelf->Inst))))) {
-            vlSelf->__PVT__ALUAsr = 1U;
-            vlSelf->__PVT__ALUBsr = 0U;
             vlSelf->__PVT__MemWr = 0U;
             vlSelf->__PVT__MemOP = 0U;
             vlSelf->__PVT__isTuncate = 1U;
@@ -954,8 +868,6 @@ VL_INLINE_OPT void Vtop_top___sequent__TOP__top__3(Vtop_top* vlSelf) {
                                | ((0x380U & (vlSelf->Inst 
                                              >> 5U)) 
                                   | (0x7fU & vlSelf->Inst))))) {
-            vlSelf->__PVT__ALUAsr = 1U;
-            vlSelf->__PVT__ALUBsr = 1U;
             vlSelf->__PVT__MemWr = 0U;
             vlSelf->__PVT__MemOP = 0U;
             vlSelf->__PVT__isTuncate = 0U;
@@ -968,8 +880,6 @@ VL_INLINE_OPT void Vtop_top___sequent__TOP__top__3(Vtop_top* vlSelf) {
                                                   >> 5U)) 
                                               | (0x7fU 
                                                  & vlSelf->Inst)))))) {
-            vlSelf->__PVT__ALUAsr = 1U;
-            vlSelf->__PVT__ALUBsr = 0U;
             vlSelf->__PVT__MemWr = 0U;
             vlSelf->__PVT__MemOP = 0U;
             vlSelf->__PVT__isTuncate = 1U;
@@ -979,8 +889,6 @@ VL_INLINE_OPT void Vtop_top___sequent__TOP__top__3(Vtop_top* vlSelf) {
                                | ((0x380U & (vlSelf->Inst 
                                              >> 5U)) 
                                   | (0x7fU & vlSelf->Inst))))) {
-            vlSelf->__PVT__ALUAsr = 1U;
-            vlSelf->__PVT__ALUBsr = 1U;
             vlSelf->__PVT__MemWr = 0U;
             vlSelf->__PVT__MemOP = 0U;
             vlSelf->__PVT__isTuncate = 1U;
@@ -993,8 +901,6 @@ VL_INLINE_OPT void Vtop_top___sequent__TOP__top__3(Vtop_top* vlSelf) {
                                                 >> 5U)) 
                                             | (0x7fU 
                                                & vlSelf->Inst)))))) {
-            vlSelf->__PVT__ALUAsr = 1U;
-            vlSelf->__PVT__ALUBsr = 1U;
             vlSelf->__PVT__MemWr = 0U;
             vlSelf->__PVT__MemOP = 0U;
             vlSelf->__PVT__isTuncate = 0U;
@@ -1007,15 +913,11 @@ VL_INLINE_OPT void Vtop_top___sequent__TOP__top__3(Vtop_top* vlSelf) {
                                                 >> 5U)) 
                                             | (0x7fU 
                                                & vlSelf->Inst)))))) {
-            vlSelf->__PVT__ALUAsr = 1U;
-            vlSelf->__PVT__ALUBsr = 1U;
             vlSelf->__PVT__MemWr = 0U;
             vlSelf->__PVT__MemOP = 0U;
             vlSelf->__PVT__isTuncate = 0U;
             vlSelf->__PVT__isSext = 0U;
         } else {
-            vlSelf->__PVT__ALUAsr = 1U;
-            vlSelf->__PVT__ALUBsr = 1U;
             vlSelf->__PVT__MemWr = 0U;
             vlSelf->__PVT__MemOP = 0U;
             vlSelf->__PVT__isTuncate = 0U;
@@ -1026,8 +928,6 @@ VL_INLINE_OPT void Vtop_top___sequent__TOP__top__3(Vtop_top* vlSelf) {
                            ((0x380U & (vlSelf->Inst 
                                        >> 5U)) | (0x7fU 
                                                   & vlSelf->Inst))))) {
-        vlSelf->__PVT__ALUAsr = 1U;
-        vlSelf->__PVT__ALUBsr = 1U;
         vlSelf->__PVT__MemWr = 0U;
         vlSelf->__PVT__MemOP = 0U;
         vlSelf->__PVT__isTuncate = 0U;
@@ -1037,8 +937,6 @@ VL_INLINE_OPT void Vtop_top___sequent__TOP__top__3(Vtop_top* vlSelf) {
                            ((0x380U & (vlSelf->Inst 
                                        >> 5U)) | (0x7fU 
                                                   & vlSelf->Inst))))) {
-        vlSelf->__PVT__ALUAsr = 1U;
-        vlSelf->__PVT__ALUBsr = 1U;
         vlSelf->__PVT__MemWr = 0U;
         vlSelf->__PVT__MemOP = 0U;
         vlSelf->__PVT__isTuncate = 1U;
@@ -1048,8 +946,6 @@ VL_INLINE_OPT void Vtop_top___sequent__TOP__top__3(Vtop_top* vlSelf) {
                            ((0x380U & (vlSelf->Inst 
                                        >> 5U)) | (0x7fU 
                                                   & vlSelf->Inst))))) {
-        vlSelf->__PVT__ALUAsr = 1U;
-        vlSelf->__PVT__ALUBsr = 1U;
         vlSelf->__PVT__MemWr = 0U;
         vlSelf->__PVT__MemOP = 0U;
         vlSelf->__PVT__isTuncate = 0U;
@@ -1059,8 +955,6 @@ VL_INLINE_OPT void Vtop_top___sequent__TOP__top__3(Vtop_top* vlSelf) {
                                  | ((0x380U & (vlSelf->Inst 
                                                >> 5U)) 
                                     | (0x7fU & vlSelf->Inst)))))) {
-        vlSelf->__PVT__ALUAsr = 1U;
-        vlSelf->__PVT__ALUBsr = 0U;
         vlSelf->__PVT__MemWr = 0U;
         vlSelf->__PVT__MemOP = 7U;
         vlSelf->__PVT__isTuncate = 0U;
@@ -1070,8 +964,6 @@ VL_INLINE_OPT void Vtop_top___sequent__TOP__top__3(Vtop_top* vlSelf) {
                                      | ((0x380U & (vlSelf->Inst 
                                                    >> 5U)) 
                                         | (0x7fU & vlSelf->Inst)))))) {
-        vlSelf->__PVT__ALUAsr = 1U;
-        vlSelf->__PVT__ALUBsr = 0U;
         vlSelf->__PVT__MemWr = 0U;
         vlSelf->__PVT__MemOP = 0U;
         vlSelf->__PVT__isTuncate = 0U;
@@ -1081,8 +973,6 @@ VL_INLINE_OPT void Vtop_top___sequent__TOP__top__3(Vtop_top* vlSelf) {
                           ((0x380U & (vlSelf->Inst 
                                       >> 5U)) | (0x7fU 
                                                  & vlSelf->Inst))))) {
-        vlSelf->__PVT__ALUAsr = 1U;
-        vlSelf->__PVT__ALUBsr = 1U;
         vlSelf->__PVT__MemWr = 0U;
         vlSelf->__PVT__MemOP = 0U;
         vlSelf->__PVT__isTuncate = 0U;
@@ -1092,21 +982,19 @@ VL_INLINE_OPT void Vtop_top___sequent__TOP__top__3(Vtop_top* vlSelf) {
                                    | ((0x380U & (vlSelf->Inst 
                                                  >> 5U)) 
                                       | (0x7fU & vlSelf->Inst)))))) {
-        vlSelf->__PVT__ALUAsr = 0U;
-        vlSelf->__PVT__ALUBsr = 0U;
         vlSelf->__PVT__MemWr = 0U;
         vlSelf->__PVT__MemOP = 0U;
         vlSelf->__PVT__isTuncate = 0U;
         vlSelf->__PVT__isSext = 0U;
     } else {
-        vlSelf->__PVT__ALUAsr = 0U;
-        vlSelf->__PVT__ALUBsr = 0U;
         vlSelf->__PVT__MemWr = 0U;
         vlSelf->__PVT__MemOP = 0U;
         vlSelf->__PVT__isTuncate = 0U;
         vlSelf->__PVT__isSext = 0U;
         Vtop___024unit____Vdpiimwrap_set_invalid_inst_TOP____024unit();
     }
+    vlSelf->__PVT__R_rs1 = vlSelf->__PVT__RegisterFile__DOT__rf
+        [(0x1fU & (vlSelf->Inst >> 0xfU))];
     vlSelf->__PVT__R_rs2 = vlSelf->__PVT__RegisterFile__DOT__rf
         [(0x1fU & (vlSelf->Inst >> 0x14U))];
     vlSelf->__PVT__ContrGen__DOT__deExtop__DOT__lut_out 
@@ -1590,9 +1478,6 @@ VL_INLINE_OPT void Vtop_top___sequent__TOP__top__3(Vtop_top* vlSelf) {
                                            : 0U);
     vlSelf->__PVT__DataMem__DOT__RdEn = ((0U != (IData)(vlSelf->__PVT__MemOP)) 
                                          & (~ (IData)(vlSelf->__PVT__MemWr)));
-    vlSelf->__PVT__ALU__DOT__ALUA = ((IData)(vlSelf->__PVT__ALUAsr)
-                                      ? vlSelf->__PVT__R_rs1
-                                      : vlSelf->pc);
     vlSelf->__PVT__ContrGen__DOT__isRegWr__DOT__lut_out 
         = (((IData)(vlSelf->__PVT__Extop) == vlSelf->__PVT__ContrGen__DOT__isRegWr__DOT__key_list
             [0U]) & vlSelf->__PVT__ContrGen__DOT__isRegWr__DOT__data_list
@@ -1644,10 +1529,8 @@ VL_INLINE_OPT void Vtop_top___sequent__TOP__top__3(Vtop_top* vlSelf) {
                              | (0x67U == (0x7fU & vlSelf->Inst)))
                              ? 0U : ((4U == (IData)(vlSelf->__PVT__Extop))
                                       ? (2U | (8U & 
-                                               ((~ 
-                                                 (vlSelf->Inst 
-                                                  >> 0xdU)) 
-                                                << 3U)))
+                                               (vlSelf->Inst 
+                                                >> 0xaU)))
                                       : ((0x37U == 
                                           (0x7fU & vlSelf->Inst))
                                           ? 3U : ((
@@ -1689,6 +1572,38 @@ VL_INLINE_OPT void Vtop_top___sequent__TOP__top__3(Vtop_top* vlSelf) {
                                                     | (7U 
                                                        & (vlSelf->Inst 
                                                           >> 0xcU))))))));
+    vlSelf->__PVT__ALU__DOT__ALUA = ((((((2U == (IData)(vlSelf->__PVT__Extop)) 
+                                         & (0x67U != 
+                                            (0x7fU 
+                                             & vlSelf->Inst))) 
+                                        | (1U == (IData)(vlSelf->__PVT__Extop))) 
+                                       | (3U == (IData)(vlSelf->__PVT__Extop))) 
+                                      | (4U == (IData)(vlSelf->__PVT__Extop)))
+                                      ? vlSelf->__PVT__R_rs1
+                                      : vlSelf->pc);
+    vlSelf->__PVT__ALUBsr = ((1U & (((((2U == (IData)(vlSelf->__PVT__Extop)) 
+                                       | (0xdU == (0x1fU 
+                                                   & (vlSelf->Inst 
+                                                      >> 2U)))) 
+                                      | (5U == (0x1fU 
+                                                & (vlSelf->Inst 
+                                                   >> 2U)))) 
+                                     | (3U == (IData)(vlSelf->__PVT__Extop))) 
+                                    | (~ (IData)((0U 
+                                                  != 
+                                                  (0x1fU 
+                                                   & (vlSelf->Inst 
+                                                      >> 2U)))))))
+                              ? 0U : (((1U == (IData)(vlSelf->__PVT__Extop)) 
+                                       | (4U == (IData)(vlSelf->__PVT__Extop)))
+                                       ? 1U : (((6U 
+                                                 == (IData)(vlSelf->__PVT__Extop)) 
+                                                | (0x67U 
+                                                   == 
+                                                   (0x7fU 
+                                                    & vlSelf->Inst)))
+                                                ? 2U
+                                                : 3U)));
     vlSelf->__PVT__ImmGen__DOT__isRegWr__DOT__pair_list[0U][0U] 
         = vlSelf->ImmGen__DOT____Vcellinp__isRegWr__lut[0U];
     vlSelf->__PVT__ImmGen__DOT__isRegWr__DOT__pair_list[0U][1U] 
@@ -1748,17 +1663,19 @@ VL_INLINE_OPT void Vtop_top___sequent__TOP__top__3(Vtop_top* vlSelf) {
         = ((2U & ((IData)(vlSelf->__PVT__ALUct) >> 2U)) 
            | (1U == (7U & (IData)(vlSelf->__PVT__ALUct))));
     vlSelf->ALU__DOT____Vcellinp__diver__key = ((2U 
-                                                 & ((~ 
-                                                     ((IData)(vlSelf->__PVT__ALUct) 
-                                                      >> 3U)) 
-                                                    << 1U)) 
+                                                 & ((IData)(vlSelf->__PVT__ALUct) 
+                                                    >> 2U)) 
                                                 | (IData)(vlSelf->__PVT__isTuncate));
     vlSelf->ALU__DOT____Vcellinp__remer__key = ((2U 
-                                                 & ((~ 
-                                                     ((IData)(vlSelf->__PVT__ALUct) 
-                                                      >> 3U)) 
-                                                    << 1U)) 
+                                                 & ((IData)(vlSelf->__PVT__ALUct) 
+                                                    >> 2U)) 
                                                 | (IData)(vlSelf->__PVT__isTuncate));
+    vlSelf->__PVT__ALU__DOT__Sub_Add = ((2U == (7U 
+                                                & (IData)(vlSelf->__PVT__ALUct))) 
+                                        | (IData)((8U 
+                                                   == 
+                                                   (0xfU 
+                                                    & (IData)(vlSelf->__PVT__ALUct)))));
     vlSelf->__PVT__ImmGen__DOT__isRegWr__DOT__data_list[0U] 
         = (((QData)((IData)(vlSelf->__PVT__ImmGen__DOT__isRegWr__DOT__pair_list
                             [0U][1U])) << 0x20U) | (QData)((IData)(
@@ -1958,8 +1875,8 @@ VL_INLINE_OPT void Vtop_top___sequent__TOP__top__3(Vtop_top* vlSelf) {
     vlSelf->__PVT__ALU__DOT__MUL = (vlSelf->__PVT__ALU__DOT__ALUA 
                                     * vlSelf->__PVT__ALU__DOT__ALUB);
     vlSelf->__PVT__ALU__DOT__Adder__DOT__t_no_Cin = 
-        ((- (QData)((IData)((1U & ((IData)(vlSelf->__PVT__ALUct) 
-                                   >> 3U))))) ^ vlSelf->__PVT__ALU__DOT__ALUB);
+        ((- (QData)((IData)(vlSelf->__PVT__ALU__DOT__Sub_Add))) 
+         ^ vlSelf->__PVT__ALU__DOT__ALUB);
     __Vtemp107[0U] = (IData)((QData)((IData)(VL_DIV_III(32, (IData)(vlSelf->__PVT__ALU__DOT__ALUA), (IData)(vlSelf->__PVT__ALU__DOT__ALUB)))));
     __Vtemp107[1U] = (IData)(((QData)((IData)(VL_DIV_III(32, (IData)(vlSelf->__PVT__ALU__DOT__ALUA), (IData)(vlSelf->__PVT__ALU__DOT__ALUB)))) 
                               >> 0x20U));
@@ -2049,8 +1966,7 @@ VL_INLINE_OPT void Vtop_top___sequent__TOP__top__3(Vtop_top* vlSelf) {
         = ((IData)(vlSelf->__PVT__ALU__DOT__ALUB) & 
            ((IData)(vlSelf->__PVT__isTuncate) ? 0x1fU
              : 0x3fU));
-    VL_EXTEND_WI(65,1, __Vtemp118, (1U & ((IData)(vlSelf->__PVT__ALUct) 
-                                          >> 3U)));
+    VL_EXTEND_WI(65,1, __Vtemp118, (IData)(vlSelf->__PVT__ALU__DOT__Sub_Add));
     vlSelf->__PVT__ALU__DOT__adder = ((vlSelf->__PVT__ALU__DOT__ALUA 
                                        + vlSelf->__PVT__ALU__DOT__Adder__DOT__t_no_Cin) 
                                       + (((QData)((IData)(
@@ -2245,11 +2161,12 @@ VL_INLINE_OPT void Vtop_top___sequent__TOP__top__3(Vtop_top* vlSelf) {
     VL_EXTEND_WQ(65,64, __Vtemp151, vlSelf->__PVT__ALU__DOT__ALUA);
     VL_EXTEND_WQ(65,64, __Vtemp152, vlSelf->__PVT__ALU__DOT__Adder__DOT__t_no_Cin);
     VL_ADD_W(3, __Vtemp153, __Vtemp151, __Vtemp152);
-    VL_EXTEND_WI(65,1, __Vtemp154, (1U & ((IData)(vlSelf->__PVT__ALUct) 
-                                          >> 3U)));
+    VL_EXTEND_WI(65,1, __Vtemp154, (IData)(vlSelf->__PVT__ALU__DOT__Sub_Add));
     VL_ADD_W(3, __Vtemp155, __Vtemp153, __Vtemp154);
     vlSelf->__PVT__Less = (1U & ((8U & (IData)(vlSelf->__PVT__ALUct))
-                                  ? ((IData)((vlSelf->__PVT__ALU__DOT__adder 
+                                  ? ((IData)(vlSelf->__PVT__ALU__DOT__Sub_Add) 
+                                     ^ (1U & __Vtemp155[2U]))
+                                  : ((IData)((vlSelf->__PVT__ALU__DOT__adder 
                                               >> 0x3fU)) 
                                      ^ (((1U & (IData)(
                                                        (vlSelf->__PVT__ALU__DOT__ALUA 
@@ -2262,10 +2179,7 @@ VL_INLINE_OPT void Vtop_top___sequent__TOP__top__3(Vtop_top* vlSelf) {
                                                           >> 0x3fU))) 
                                            != (1U & (IData)(
                                                             (vlSelf->__PVT__ALU__DOT__ALUA 
-                                                             >> 0x3fU))))))
-                                  : (((IData)(vlSelf->__PVT__ALUct) 
-                                      >> 3U) ^ (1U 
-                                                & __Vtemp155[2U]))));
+                                                             >> 0x3fU))))))));
     vlSelf->__PVT__ALU__DOT__diver__DOT__data_list[0U] 
         = (((QData)((IData)(vlSelf->__PVT__ALU__DOT__diver__DOT__pair_list
                             [0U][1U])) << 0x20U) | (QData)((IData)(

@@ -33,7 +33,6 @@ VL_MODULE(Vtop_top) {
         CData/*4:0*/ __PVT__ALUct;
         CData/*2:0*/ __PVT__Extop;
         CData/*0:0*/ __PVT__RegWr;
-        CData/*0:0*/ __PVT__ALUAsr;
         CData/*1:0*/ __PVT__ALUBsr;
         CData/*2:0*/ __PVT__Branch;
         CData/*0:0*/ __PVT__Less;
@@ -57,6 +56,7 @@ VL_MODULE(Vtop_top) {
         CData/*1:0*/ __PVT__GenNextPC__DOT__dePCsrc__DOT__lut_out;
         CData/*0:0*/ __PVT__GenNextPC__DOT__dePCsrc__DOT__hit;
         CData/*0:0*/ __PVT__ImmGen__DOT__isRegWr__DOT__hit;
+        CData/*0:0*/ __PVT__ALU__DOT__Sub_Add;
         CData/*0:0*/ __PVT__ALU__DOT__deALUBsr__DOT__hit;
         CData/*5:0*/ __PVT__ALU__DOT__BarrelShifter__DOT__shamt;
         CData/*0:0*/ __PVT__ALU__DOT__BarrelShifter__DOT__ShifterMux__DOT__hit;
