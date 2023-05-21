@@ -154,7 +154,7 @@ module ContrGen(
             17'bzzzzzzz_001_0100011:begin //sh
                  MemWr=1'b1;MemOP=3'b010;isTuncate=1'b0;isSext=1'b0;
             end
-            17'b0100000_101_0010011:begin//srai
+            17'b010000z_101_0010011:begin//srai
                  MemWr=1'b0;MemOP=3'd0;isTuncate=1'b0;isSext=1'b0;
             end
             17'bzzzzzzz_100_0000011:begin //lbu

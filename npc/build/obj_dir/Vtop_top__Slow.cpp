@@ -688,11 +688,14 @@ void Vtop_top___settle__TOP__top__5(Vtop_top* vlSelf) {
             vlSelf->__PVT__isTuncate = 0U;
             vlSelf->__PVT__isSext = 0U;
         }
-    } else if (((((((((0x8293U == ((0x1fc00U & (vlSelf->Inst 
-                                                >> 0xfU)) 
-                                   | ((0x380U & (vlSelf->Inst 
-                                                 >> 5U)) 
-                                      | (0x7fU & vlSelf->Inst)))) 
+    } else if (((((((((0x8293U == (0x1fbffU & ((0x1fc00U 
+                                                & (vlSelf->Inst 
+                                                   >> 0xfU)) 
+                                               | ((0x380U 
+                                                   & (vlSelf->Inst 
+                                                      >> 5U)) 
+                                                  | (0x7fU 
+                                                     & vlSelf->Inst))))) 
                       | (0x203U == (0x3ffU & ((0x1fc00U 
                                                & (vlSelf->Inst 
                                                   >> 0xfU)) 
@@ -737,13 +740,11 @@ void Vtop_top___settle__TOP__top__5(Vtop_top* vlSelf) {
                                | ((0x380U & (vlSelf->Inst 
                                              >> 5U)) 
                                   | (0x7fU & vlSelf->Inst)))))) {
-        if ((0x8293U == ((0x1fc00U & (vlSelf->Inst 
-                                      >> 0xfU)) | (
-                                                   (0x380U 
-                                                    & (vlSelf->Inst 
-                                                       >> 5U)) 
-                                                   | (0x7fU 
-                                                      & vlSelf->Inst))))) {
+        if ((0x8293U == (0x1fbffU & ((0x1fc00U & (vlSelf->Inst 
+                                                  >> 0xfU)) 
+                                     | ((0x380U & (vlSelf->Inst 
+                                                   >> 5U)) 
+                                        | (0x7fU & vlSelf->Inst)))))) {
             vlSelf->__PVT__MemWr = 0U;
             vlSelf->__PVT__MemOP = 0U;
             vlSelf->__PVT__isTuncate = 0U;
