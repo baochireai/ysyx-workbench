@@ -1882,28 +1882,33 @@ void Vtop_top___settle__TOP__top__5(Vtop_top* vlSelf) {
                                       | (4U == (IData)(vlSelf->__PVT__Extop)))
                                       ? vlSelf->__PVT__R_rs1
                                       : vlSelf->pc);
-    vlSelf->__PVT__ALUBsr = ((1U & (((((2U == (IData)(vlSelf->__PVT__Extop)) 
-                                       | (0xdU == (0x1fU 
-                                                   & (vlSelf->Inst 
-                                                      >> 2U)))) 
-                                      | (5U == (0x1fU 
-                                                & (vlSelf->Inst 
-                                                   >> 2U)))) 
-                                     | (3U == (IData)(vlSelf->__PVT__Extop))) 
-                                    | (~ (IData)((0U 
-                                                  != 
+    vlSelf->__PVT__ALUBsr = (((6U == (IData)(vlSelf->__PVT__Extop)) 
+                              | (0x67U == (0x7fU & vlSelf->Inst)))
+                              ? 2U : ((1U & (((((2U 
+                                                 == (IData)(vlSelf->__PVT__Extop)) 
+                                                | (0xdU 
+                                                   == 
+                                                   (0x1fU 
+                                                    & (vlSelf->Inst 
+                                                       >> 2U)))) 
+                                               | (5U 
+                                                  == 
                                                   (0x1fU 
                                                    & (vlSelf->Inst 
-                                                      >> 2U)))))))
-                              ? 0U : (((1U == (IData)(vlSelf->__PVT__Extop)) 
-                                       | (4U == (IData)(vlSelf->__PVT__Extop)))
-                                       ? 1U : (((6U 
+                                                      >> 2U)))) 
+                                              | (3U 
+                                                 == (IData)(vlSelf->__PVT__Extop))) 
+                                             | (~ (IData)(
+                                                          (0U 
+                                                           != 
+                                                           (0x1fU 
+                                                            & (vlSelf->Inst 
+                                                               >> 2U)))))))
+                                       ? 0U : (((1U 
                                                  == (IData)(vlSelf->__PVT__Extop)) 
-                                                | (0x67U 
-                                                   == 
-                                                   (0x7fU 
-                                                    & vlSelf->Inst)))
-                                                ? 2U
+                                                | (4U 
+                                                   == (IData)(vlSelf->__PVT__Extop)))
+                                                ? 1U
                                                 : 3U)));
     vlSelf->__PVT__ImmGen__DOT__isRegWr__DOT__pair_list[0U][0U] 
         = vlSelf->ImmGen__DOT____Vcellinp__isRegWr__lut[0U];
@@ -2363,8 +2368,7 @@ void Vtop_top___settle__TOP__top__5(Vtop_top* vlSelf) {
                                                                            >> 0x1fU))))))) 
                                     << 0x20U) | (QData)((IData)(vlSelf->__PVT__ALU__DOT__ALUA))) 
                                   >> (IData)(vlSelf->__PVT__ALU__DOT__BarrelShifter__DOT__shamt))
-                               : (vlSelf->__PVT__ALU__DOT__ALUA 
-                                  >> (IData)(vlSelf->__PVT__ALU__DOT__BarrelShifter__DOT__shamt))));
+                               : VL_SHIFTRS_QQI(64,64,6, vlSelf->__PVT__ALU__DOT__ALUA, (IData)(vlSelf->__PVT__ALU__DOT__BarrelShifter__DOT__shamt))));
     __Vtemp568[1U] = (IData)((((IData)(vlSelf->__PVT__isTuncate)
                                 ? ((((QData)((IData)(
                                                      (- (IData)(
@@ -2374,8 +2378,7 @@ void Vtop_top___settle__TOP__top__5(Vtop_top* vlSelf) {
                                                                             >> 0x1fU))))))) 
                                      << 0x20U) | (QData)((IData)(vlSelf->__PVT__ALU__DOT__ALUA))) 
                                    >> (IData)(vlSelf->__PVT__ALU__DOT__BarrelShifter__DOT__shamt))
-                                : (vlSelf->__PVT__ALU__DOT__ALUA 
-                                   >> (IData)(vlSelf->__PVT__ALU__DOT__BarrelShifter__DOT__shamt))) 
+                                : VL_SHIFTRS_QQI(64,64,6, vlSelf->__PVT__ALU__DOT__ALUA, (IData)(vlSelf->__PVT__ALU__DOT__BarrelShifter__DOT__shamt))) 
                               >> 0x20U));
     __Vtemp568[2U] = (2U | ((IData)((vlSelf->__PVT__ALU__DOT__ALUA 
                                      << (IData)(vlSelf->__PVT__ALU__DOT__BarrelShifter__DOT__shamt))) 
