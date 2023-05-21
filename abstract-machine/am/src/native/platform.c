@@ -48,6 +48,7 @@ static void save_example_context() {
 }
 
 static void setup_sigaltstack() {
+  printf("%d\t%d\n",sizeof(thiscpu->sigstack),SIGSTKSZ);
   assert(sizeof(thiscpu->sigstack) == SIGSTKSZ);
   stack_t ss;
   ss.ss_sp = thiscpu->sigstack;
