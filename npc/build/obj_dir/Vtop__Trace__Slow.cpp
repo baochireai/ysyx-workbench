@@ -700,7 +700,12 @@ void Vtop___024root__traceFullSub0(Vtop___024root* vlSelf, VerilatedVcd* tracep)
         tracep->fullCData(oldp+91,(vlSymsp->TOP__top.__PVT__ALUct),5);
         tracep->fullCData(oldp+92,(vlSymsp->TOP__top.__PVT__Extop),3);
         tracep->fullBit(oldp+93,(vlSymsp->TOP__top.__PVT__RegWr));
-        tracep->fullBit(oldp+94,(vlSymsp->TOP__top.__PVT__ALUAsr));
+        tracep->fullBit(oldp+94,((((((2U == (IData)(vlSymsp->TOP__top.__PVT__Extop)) 
+                                     & (0x67U != (0x7fU 
+                                                  & vlSymsp->TOP__top.Inst))) 
+                                    | (1U == (IData)(vlSymsp->TOP__top.__PVT__Extop))) 
+                                   | (3U == (IData)(vlSymsp->TOP__top.__PVT__Extop))) 
+                                  | (4U == (IData)(vlSymsp->TOP__top.__PVT__Extop)))));
         tracep->fullCData(oldp+95,(vlSymsp->TOP__top.__PVT__ALUBsr),2);
         tracep->fullQData(oldp+96,(vlSymsp->TOP__top.__PVT__Imm),64);
         tracep->fullQData(oldp+98,(vlSymsp->TOP__top.__PVT__ALUres),64);

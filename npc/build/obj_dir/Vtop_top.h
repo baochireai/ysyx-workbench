@@ -33,7 +33,6 @@ VL_MODULE(Vtop_top) {
         CData/*4:0*/ __PVT__ALUct;
         CData/*2:0*/ __PVT__Extop;
         CData/*0:0*/ __PVT__RegWr;
-        CData/*0:0*/ __PVT__ALUAsr;
         CData/*1:0*/ __PVT__ALUBsr;
         CData/*2:0*/ __PVT__Branch;
         CData/*0:0*/ __PVT__Less;
@@ -94,9 +93,9 @@ VL_MODULE(Vtop_top) {
         QData/*63:0*/ __PVT__ALU__DOT__deALUBsr__DOT__lut_out;
         QData/*63:0*/ __PVT__ALU__DOT__Adder__DOT__t_no_Cin;
         QData/*63:0*/ __PVT__ALU__DOT__BarrelShifter__DOT__ShifterMux__DOT__lut_out;
+        QData/*63:0*/ __PVT__ALU__DOT__diver__DOT__lut_out;
     };
     struct {
-        QData/*63:0*/ __PVT__ALU__DOT__diver__DOT__lut_out;
         QData/*63:0*/ __PVT__ALU__DOT__remer__DOT__lut_out;
         QData/*63:0*/ __PVT__ALU__DOT__deExtop__DOT__lut_out;
         QData/*63:0*/ __PVT__DataMem__DOT__sext__DOT__lut_out;
