@@ -39,14 +39,14 @@ module DataMem(
         extmask={8'd0,wmask}<<Addr[2:0];
         if(RdEn==1'b1&&WrEn!=1'b1) begin//本还需满足&&clint_en!=1'b1 但是为了difftest支持定时器中断，
                                         //这里还是进入pmem_read以触发指令跳过
-            pmem_read(Addr, data[63:0]);   
-            pmem_read(Addr+64'd8, data[127:64]);
+            pmem_read(Addr[31:0], data[63:0]);   
+            pmem_read(Addr[31:0]+32'd8, data[127:64]);
             data=data>>shift;
         end
 
         if(WrEn==1'b1) begin//&&clint_en!=1'b1 
-            pmem_write(Addr, data[63:0], extmask[7:0]);
-            pmem_write(Addr+64'd8, data[127:64], extmask[15:8]);
+            pmem_write(Addr[31:0], data[63:0], extmask[7:0]);
+            pmem_write(Addr[31:0]+32'd8, data[127:64], extmask[15:8]);
         end
         
     end

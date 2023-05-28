@@ -8,6 +8,7 @@ NXDC_FILES=constr/${TOPNAME}.nxdc
 INC_PATH ?=
 
 VERILATOR=verilator
+VERILATOR_CFLAGS+=$(addprefix -I,$(NPC_HOME)/vsrc)
 VERILATOR_CFLAGS+=-MMD#Generate makefile dependencies
 VERILATOR_CFLAGS+=--build -cc
 VERILATOR_CFLAGS+=-O3#代码优化级别

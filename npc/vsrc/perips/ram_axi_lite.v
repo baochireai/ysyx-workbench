@@ -1,8 +1,14 @@
 // AXI4-Lite RAM module with AWIDTH=32 
+
+import "DPI-C" function void pmem_read(
+  input int raddr, output longint rdata);
+import "DPI-C" function void pmem_write(
+  input int waddr, input longint wdata, input byte wmask);
+
 module ram_axi_lite #(
     parameter AWIDTH = 32, // Address width
-    parameter DWIDTH = 32, //Data width (only 32bits or 64bits)
-    parameter DSIZE = 4
+    parameter DWIDTH = 64, //Data width (only 32bits or 64bits)
+    parameter DSIZE = 8
 )(
     // AXI4-Lite interface signals
     input wire clk,
@@ -31,22 +37,28 @@ module ram_axi_lite #(
 
     // Read data channel signals
     output reg [DWIDTH-1:0] RDATA,
-    output reg RRESP,
+    output reg[1:0] RRESP,
     output reg RVALID,
     input wire RREADY
 );
 
-reg [DWIDTH-1:0] mem[(1<<AWADDR)-1:0];
+reg [DWIDTH-1:0] mem[(1<<AWIDTH)-1:0];
 reg [AWIDTH-1:0] waddr,raddr;
 reg [DSIZE-1:0] wstrb;
 reg wdata_done;
 wire raddr_done;
-intergrate i;
+
+integer i;
+
+initial begin
+    for(i=0;i<(1<<AWADDR)-1;i=i+1)
+        mem[i]='d0;
+end
 
 //write address
 always @(posedge clk or negedge resetn) begin
     if(!resetn) begin
-        awaddr<='d0;
+        waddr<='d0;
         AWREADY<=1'b1;
     end
     else if(AWVALID&AWREADY) begin
@@ -65,16 +77,18 @@ always @(posedge clk or negedge resetn) begin
         wdata_done<=1'b0;
     end
     else if(WVALID&WREADY) begin//write data to memory
-        for(i=0;i<DSIZE;i=i+1)begin
-            if(wstrb[i])
-                mem[waddr][i*8+:8]<=WDATA[i*8+:8];
-        end
+        // for(i=0;i<DSIZE;i=i+1)begin
+        //     if(wstrb[i])
+        //         mem[waddr][i*8+:8]<=WDATA[i*8+:8];
+        // end
+        pmem_write(waddr,WDATA,WSTRB);
         WREADY<=1'b0;
         wdata_done<=1'b1;
     end
-    else
+    else begin
         WREADY<=1'b1;
         wdata_done<=1'b0;    
+    end
 end
 
 //write respose
@@ -87,47 +101,53 @@ always @(posedge clk or negedge resetn) begin
         BRESP<=2'b00;
         BVALID<=1'b1;
     end
-    else if(BVALID&BREADY)//wait for handshake and then clear valid sign.
+    else if(BVALID&BREADY) begin//wait for handshake and then clear valid sign.
         BVALID<=1'b0;
         BRESP<=BRESP;
-    else
-        BRESP<=BRESP;
-        BVALID<=BVALID;
-end
-
-always @(posedge clk or negedge resetn) begin
-    if(!resetn) begin
-        raddr<='d0;
-        ARREADY<=1'b1;
-        raddr_done<=1'b0;
-    end
-    else if(ARVALID&ARREADY) begin
-        raddr<=ARADDR;
-        ARREADY<=1'b0;
-        raddr_done<=1'b1;
     end
     else begin
-        ARREADY<=1'b1;
-        raddr_done<=1'b0;
+        BRESP<=BRESP;
+        BVALID<=BVALID;
     end
 end
+
+// always @(posedge clk or negedge resetn) begin
+//     if(!resetn) begin
+//         raddr<='d0;
+//         ARREADY<=1'b1;
+//         raddr_done<=1'b0;
+//     end
+//     else if(ARVALID&ARREADY) begin
+//         raddr<=ARADDR;
+//         //ARREADY<=1'b0;  one cycle read latency
+//         raddr_done<=1'b1;
+//     end
+//     else begin
+//         ARREADY<=1'b1;
+//         raddr_done<=1'b0;
+//     end
+// end
+
+assign ARREADY=1'b1;//one cycle read latency so keep ready
 
 //read data
 always @(posedge clk or negedge resetn) begin
     if(!resetn) begin
-        RDATA<='d0;
+        //RDATA<='d0;
         RVALID<=1'b0;
         RRESP<=2'b00;
     end
-    else if(raddr_done) begin
-        RDATA<=mem[raddr];
+    else if(ARVALID&&ARREADY) begin
+        pmem_read(ARADDR,RDATA);
         RRESP<=2'b00;
         RVALID<=1'b1;
     end
     else if(RVALID&RREADY)//should wait rready vaild,then invalid rvalid and change dataout.
         RVALID<=1'b0;
-    else
+    else begin
         RVALID<=RVALID;
+        //RDATA<=RDATA;
+    end
 end
 
 endmodule
