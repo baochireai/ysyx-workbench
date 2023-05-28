@@ -38,7 +38,6 @@ VL_ATTR_COLD void Vtop_top___ctor_var_reset(Vtop_top* vlSelf) {
     vlSelf->__PVT__clint_dout = 0;
     vlSelf->__PVT__ifu_arvalid = 0;
     vlSelf->__PVT__ifu_raddr = 0;
-    vlSelf->__PVT__inst_o = 0;
     vlSelf->__PVT__ram_rdata = 0;
     vlSelf->__PVT__ram_rvalid = 0;
     vlSelf->__PVT__ram_rresp = 0;
@@ -52,10 +51,10 @@ VL_ATTR_COLD void Vtop_top___ctor_var_reset(Vtop_top* vlSelf) {
     vlSelf->__PVT__BVALID = 0;
     vlSelf->__PVT__BRESP = 0;
     vlSelf->__PVT__BREADY = 0;
+    vlSelf->__PVT__dpc = 0;
     vlSelf->__PVT__isTuncate = 0;
     vlSelf->__PVT__isSext = 0;
     vlSelf->__PVT__IFU__DOT__valid = 0;
-    vlSelf->__PVT__PC__DOT__dpc = 0;
     for (int __Vi0 = 0; __Vi0 < 2; ++__Vi0) {
         vlSelf->__PVT__ram_axi_lite_u__DOT__mem[__Vi0] = 0;
     }
@@ -111,6 +110,7 @@ VL_ATTR_COLD void Vtop_top___ctor_var_reset(Vtop_top* vlSelf) {
     vlSelf->__PVT__ContrGen__DOT__RegSrcMux__DOT__lut_out = 0;
     vlSelf->__PVT__ContrGen__DOT__RegSrcMux__DOT__hit = 0;
     vlSelf->GenNextPC__DOT____Vcellout__dePCsrc__out = 0;
+    vlSelf->__PVT__GenNextPC__DOT__NextPCp = 0;
     for (int __Vi0 = 0; __Vi0 < 7; ++__Vi0) {
         vlSelf->__PVT__GenNextPC__DOT__dePCsrc__DOT__pair_list[__Vi0] = 0;
     }
@@ -252,12 +252,12 @@ VL_ATTR_COLD void Vtop_top___ctor_var_reset(Vtop_top* vlSelf) {
     vlSelf->__PVT__RegWsrcMux__DOT__hit = 0;
     vlSelf->__PVT__clintU__DOT__mtime = 0;
     vlSelf->__PVT__clintU__DOT__mtimecmp = 0;
-    vlSelf->__VdfgTmp_ha793c56c__0 = 0;
-    vlSelf->__VdfgTmp_h4ea5c6f8__0 = 0;
-    vlSelf->__VdfgTmp_h16f52391__0 = 0;
-    vlSelf->__VdfgTmp_h165fb179__0 = 0;
-    vlSelf->__VdfgTmp_h16ecbd1b__0 = 0;
-    vlSelf->__VdfgTmp_h1673a125__0 = 0;
+    vlSelf->__VdfgTmp_h39e626ab__0 = 0;
+    vlSelf->__VdfgTmp_he69c8120__0 = 0;
+    vlSelf->__VdfgTmp_h640e0a55__0 = 0;
+    vlSelf->__VdfgTmp_h67859fa5__0 = 0;
+    vlSelf->__VdfgTmp_h67f42b9f__0 = 0;
+    vlSelf->__VdfgTmp_h67898f21__0 = 0;
     vlSelf->__Vtask_pmem_read__5__rdata = 0;
     vlSelf->__Vtask_pmem_read__6__rdata = 0;
 }

@@ -81,8 +81,8 @@ class Vtop_top final : public VerilatedModule {
         CData/*0:0*/ __PVT__DataMem__DOT__deMemOP__DOT__hit;
         CData/*0:0*/ __PVT__DataMem__DOT__sext__DOT__hit;
         CData/*0:0*/ __PVT__RegWsrcMux__DOT__hit;
-        CData/*0:0*/ __VdfgTmp_ha793c56c__0;
-        CData/*4:0*/ __VdfgTmp_h4ea5c6f8__0;
+        CData/*0:0*/ __VdfgTmp_h39e626ab__0;
+        CData/*4:0*/ __VdfgTmp_he69c8120__0;
     };
     struct {
         SData/*15:0*/ __PVT__DataMem__DOT__extmask;
@@ -93,10 +93,10 @@ class Vtop_top final : public VerilatedModule {
         IData/*31:0*/ __PVT__ram_axi_lite_u__DOT__raddr;
         IData/*31:0*/ __PVT__ram_axi_lite_u__DOT__i;
         VlWide<4>/*127:0*/ __PVT__DataMem__DOT__data;
-        IData/*31:0*/ __VdfgTmp_h16f52391__0;
-        IData/*31:0*/ __VdfgTmp_h165fb179__0;
-        IData/*31:0*/ __VdfgTmp_h16ecbd1b__0;
-        IData/*31:0*/ __VdfgTmp_h1673a125__0;
+        IData/*31:0*/ __VdfgTmp_h640e0a55__0;
+        IData/*31:0*/ __VdfgTmp_h67859fa5__0;
+        IData/*31:0*/ __VdfgTmp_h67f42b9f__0;
+        IData/*31:0*/ __VdfgTmp_h67898f21__0;
         VL_OUT64(pc,63,0);
         QData/*63:0*/ __PVT__R_rs1;
         QData/*63:0*/ __PVT__R_rs2;
@@ -106,10 +106,10 @@ class Vtop_top final : public VerilatedModule {
         QData/*63:0*/ __PVT__MemOut;
         QData/*63:0*/ __PVT__RegWdata;
         QData/*63:0*/ __PVT__clint_dout;
-        QData/*63:0*/ __PVT__inst_o;
         QData/*63:0*/ __PVT__ram_rdata;
         QData/*63:0*/ __PVT__WDATA;
-        QData/*63:0*/ __PVT__PC__DOT__dpc;
+        QData/*63:0*/ __PVT__dpc;
+        QData/*63:0*/ __PVT__GenNextPC__DOT__NextPCp;
         QData/*63:0*/ __PVT__ImmGen__DOT__isRegWr__DOT__lut_out;
         QData/*63:0*/ __PVT__ALU__DOT__ALUA;
         QData/*63:0*/ __PVT__ALU__DOT__ALUB;
