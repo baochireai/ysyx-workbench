@@ -115,6 +115,14 @@ void init_cpu_exec(int argc,char** argv){
 	// Vtop* top=new Vtop(contextp);
 	top->trace(tfp,99);
 	tfp->open("./build/logs/top.vcd");
+
+	top->clk=0;
+	top->eval();//(cpu_gpr==NULL) eval启动后cpu_gpr才被初始化
+  contextp->timeInc(1);tfp->dump(contextp->time());
+	top->clk=1;
+	top->eval();
+  contextp->timeInc(1);tfp->dump(contextp->time());
+
   top->rst=1;
 	top->clk=0;
 	top->eval();//(cpu_gpr==NULL) eval启动后cpu_gpr才被初始化
@@ -124,27 +132,7 @@ void init_cpu_exec(int argc,char** argv){
   contextp->timeInc(1);tfp->dump(contextp->time());
 	top->rst=0;
 
-	top->clk=0;
-	top->eval();//(cpu_gpr==NULL) eval启动后cpu_gpr才被初始化
-  contextp->timeInc(1);tfp->dump(contextp->time());
-	top->clk=1;
-	top->eval();
-  contextp->timeInc(1);tfp->dump(contextp->time());
 
-	top->clk=0;
-	top->eval();//(cpu_gpr==NULL) eval启动后cpu_gpr才被初始化
-  contextp->timeInc(1);tfp->dump(contextp->time());
-	top->clk=1;
-	top->eval();
-  contextp->timeInc(1);tfp->dump(contextp->time());
-  for(int i=0;i<10;i++){
-    top->clk=0;
-    top->eval();//(cpu_gpr==NULL) eval启动后cpu_gpr才被初始化
-    contextp->timeInc(1);tfp->dump(contextp->time());
-    top->clk=1;
-    top->eval();
-    contextp->timeInc(1);tfp->dump(contextp->time());    
-  }
   is_invalid_inst=false;
   cpu.gpr=cpu_gpr;cpu.pc=top->pc;
 }

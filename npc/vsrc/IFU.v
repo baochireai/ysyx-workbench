@@ -49,6 +49,8 @@ end
 //     end
 // end
 
+assign inst_o=inst_i;
+
 assign RREADY=1'b1;//always ready for data(inst_o can be processed in one cycle)
 
 endmodule
