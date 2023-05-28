@@ -20,8 +20,8 @@ module IFU(
 );
 
 
-always @(posedge clk or negedge resetn) begin
-    if(!resetn) begin
+always @(posedge clk ) begin
+    if(resetn) begin
         ARVALID<=1'b0;
         ARADDR<='d0;
     end 
@@ -34,20 +34,20 @@ always @(posedge clk or negedge resetn) begin
     end
 end
 
-always @(posedge clk or negedge resetn) begin
-    if(!resetn) begin
-        //RREADY<=1'b1;
-        inst_o<='d0;
-    end
-    else if(RVALID) begin
-        inst_o<=inst_i;
-        //RREADY<=1'b0;
-    end
-    else begin
-        inst_o<=inst_o;
-        //RREADY<=1'b1;
-    end
-end
+// always @(posedge clk ) begin
+//     if(resetn) begin
+//         //RREADY<=1'b1;
+//         inst_o<='d0;
+//     end
+//     else if(RVALID) begin
+//         inst_o<=inst_i;
+//         //RREADY<=1'b0;
+//     end
+//     else begin
+//         inst_o<=inst_o;
+//         //RREADY<=1'b1;
+//     end
+// end
 
 assign RREADY=1'b1;//always ready for data(inst_o can be processed in one cycle)
 

@@ -56,8 +56,8 @@ initial begin
 end
 
 //write address
-always @(posedge clk or negedge resetn) begin
-    if(!resetn) begin
+always @(posedge clk ) begin
+    if(resetn) begin
         waddr<='d0;
         AWREADY<=1'b1;
     end
@@ -71,8 +71,8 @@ always @(posedge clk or negedge resetn) begin
 end
 
 //write data
-always @(posedge clk or negedge resetn) begin
-    if(!resetn) begin
+always @(posedge clk ) begin
+    if(resetn) begin
         WREADY<=1'b1;
         wdata_done<=1'b0;
     end
@@ -92,8 +92,8 @@ always @(posedge clk or negedge resetn) begin
 end
 
 //write respose
-always @(posedge clk or negedge resetn) begin
-    if(!resetn) begin
+always @(posedge clk ) begin
+    if(resetn) begin
         BRESP<=2'b00;
         BVALID<=1'b0;
     end
@@ -111,8 +111,8 @@ always @(posedge clk or negedge resetn) begin
     end
 end
 
-// always @(posedge clk or negedge resetn) begin
-//     if(!resetn) begin
+// always @(posedge clk ) begin
+//     if(resetn) begin
 //         raddr<='d0;
 //         ARREADY<=1'b1;
 //         raddr_done<=1'b0;
@@ -131,8 +131,8 @@ end
 assign ARREADY=1'b1;//one cycle read latency so keep ready
 
 //read data
-always @(posedge clk or negedge resetn) begin
-    if(!resetn) begin
+always @(posedge clk ) begin
+    if(resetn) begin
         //RDATA<='d0;
         RVALID<=1'b0;
         RRESP<=2'b00;

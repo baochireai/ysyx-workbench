@@ -9,12 +9,11 @@ module top(
     output [63:0] pc
 );
     //IF取值
-    wire [63:0] raddr,rdata;
-    assign raddr=pc;
-    always @(*) begin
-        pmem_read(raddr[31:0], rdata);
-    end
-    assign Inst=(pc[2:0]==3'd0)?rdata[31:0]:rdata[63:32];//内存8字节对齐读取
+    // wire [63:0] raddr,rdata;
+    // assign raddr=pc;
+    // always @(*) begin
+    //     pmem_read(raddr[31:0], rdata);
+    // end
     
     wire [63:0] R_rs1;
     wire [63:0] R_rs2;
@@ -87,9 +86,12 @@ module top(
     wire BREADY;
     
     /* verilator lint_off PINMISSING */
-    IFU IFU(.clk(clk),.resetn(rst),.pc(pc[`InstAddrBus-1:0]),.ARVALID(ifu_arvalid),.ARADDR(ifu_raddr),.ARREADY(ram_arready),
+    IFU IFU(.clk(clk),.resetn(1'b0),.pc(pc[`InstAddrBus-1:0]),.ARVALID(ifu_arvalid),.ARADDR(ifu_raddr),.ARREADY(ram_arready),
             .RREADY(ifu_ready),.inst_i(ram_rdata),.RVALID(ram_rvalid),.inst_o(inst_o),.ready(1'b1));
     /* verilator lint_on PINMISSING */            
+
+    assign Inst=(pc[2:0]==3'd0)?inst_o[31:0]:inst_o[63:32];//内存8字节对齐读取
+
 
     PC PC(.clk(clk),.rst(rst),.isIntrPC(isIntrPC),.NextPC(NextPC),.IntrPC(IntrPC),.pc(pc));
     
