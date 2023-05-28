@@ -58,7 +58,7 @@ void cpu_exec(uint64_t n){
 #ifdef CONFIG_DIFFTEST
     vaddr_t pc=cpu.pc;
     unsigned int Inst_RTL=top->Inst;
-    //printf("Inst_RTL=%08x\n",Inst_RTL);
+    printf("Inst_RTL=%08x\n",Inst_RTL);
     cpu_exec_once();
     // if(cpu.pc==0x80001300){
     //   //VPI方式
