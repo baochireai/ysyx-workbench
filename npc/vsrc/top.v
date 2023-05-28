@@ -86,14 +86,14 @@ module top(
     wire BREADY;
     wire [63:0] dpc;
     /* verilator lint_off PINMISSING */
-    IFU IFU(.clk(clk),.resetn(1'b0),.pc(dpc[`InstAddrBus-1:0]),.ARVALID(ifu_arvalid),.ARADDR(ifu_raddr),.ARREADY(ram_arready),
+    IFU IFU(.clk(clk),.resetn(rst),.pc(dpc[`InstAddrBus-1:0]),.ARVALID(ifu_arvalid),.ARADDR(ifu_raddr),.ARREADY(ram_arready),
             .RREADY(ifu_ready),.inst_i(ram_rdata),.RVALID(ram_rvalid),.inst_o(inst_o),.ready(1'b1));
     /* verilator lint_on PINMISSING */            
 
     assign Inst=(pc[2:0]==3'd0)?inst_o[31:0]:inst_o[63:32];//内存8字节对齐读取
 
 
-    PC PC(.clk(clk),.rst(rst),.isIntrPC(isIntrPC),.NextPC(NextPC),.IntrPC(IntrPC),.pc(pc),.dpc());
+    PC PC(.clk(clk),.rst(rst),.isIntrPC(isIntrPC),.NextPC(NextPC),.IntrPC(IntrPC),.pc(pc),.dpc(dpc));
     
     ram_axi_lite ram_axi_lite_u(clk,rst,AWADDR,AWVALID,AWREADY,WDATA,WVALID,WREADY,WSTRB,BVALID,BRESP,BREADY,
                               ifu_raddr,ifu_arvalid,ram_arready,ram_rdata,ram_rresp,ram_rvalid,ifu_ready);

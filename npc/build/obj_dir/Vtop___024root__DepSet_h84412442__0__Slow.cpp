@@ -61,7 +61,7 @@ VL_ATTR_COLD void Vtop___024root___stl_sequent__TOP__1(Vtop___024root* vlSelf) {
 VL_ATTR_COLD void Vtop_Intr___stl_sequent__TOP__top__IntrUnit__0(Vtop_Intr* vlSelf);
 VL_ATTR_COLD void Vtop_top___stl_sequent__TOP__top__0(Vtop_top* vlSelf);
 void Vtop_Intr___nba_sequent__TOP__top__IntrUnit__1(Vtop_Intr* vlSelf);
-void Vtop_top___ico_sequent__TOP__top__0(Vtop_top* vlSelf);
+void Vtop_top___nba_sequent__TOP__top__2(Vtop_top* vlSelf);
 
 VL_ATTR_COLD void Vtop___024root___eval_stl(Vtop___024root* vlSelf) {
     if (false && vlSelf) {}  // Prevent unused
@@ -77,6 +77,6 @@ VL_ATTR_COLD void Vtop___024root___eval_stl(Vtop___024root* vlSelf) {
         Vtop_top___stl_sequent__TOP__top__0((&vlSymsp->TOP__top));
         Vtop___024root___stl_sequent__TOP__1(vlSelf);
         Vtop_Intr___nba_sequent__TOP__top__IntrUnit__1((&vlSymsp->TOP__top__IntrUnit));
-        Vtop_top___ico_sequent__TOP__top__0((&vlSymsp->TOP__top));
+        Vtop_top___nba_sequent__TOP__top__2((&vlSymsp->TOP__top));
     }
 }

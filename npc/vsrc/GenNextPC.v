@@ -28,6 +28,6 @@ module GenNextPC(
 
     wire [63:0] NextPCp=(Asrc+Bsrc)&64'hffffffff_ffff_fffe;
 
-    assign NextPC=(!(|NextPCp))?64'h0000000080000000:NextPCp;//最后一位置零
+    assign NextPC=(NextPCp==64'd0)?64'h0000000080000000:NextPCp;//最后一位置零
 
 endmodule

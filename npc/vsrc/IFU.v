@@ -22,8 +22,8 @@ module IFU(
 
 always @(posedge clk ) begin
     if(resetn) begin
-        ARVALID<=1'b0;
-        ARADDR<='d0;
+        ARVALID<=1'b1;
+        ARADDR<=32'h80000000;
     end 
     // else if(ARVALID&ARREADY) begin //needn't wait arready vaild(ram is always waiting raddr)
     //     ARVALID<=1'b0;

@@ -489,11 +489,6 @@ VL_INLINE_OPT void Vtop_Intr___nba_sequent__TOP__top__IntrUnit__1(Vtop_Intr* vlS
     vlSelf->__PVT__csrWData = ((IData)(vlSelf->__PVT__scrDataSrc__DOT__hit)
                                 ? vlSelf->__PVT__scrDataSrc__DOT__lut_out
                                 : 0ULL);
-    vlSelf->__PVT__IntrPC = ((IData)(vlSelf->__PVT__irq_raise)
-                              ? vlSelf->__PVT__mtvec
-                              : ((IData)(vlSelf->__PVT__ismret)
-                                  ? vlSelf->__PVT__mepc
-                                  : vlSymsp->TOP__top.pc));
     if (vlSelf->__PVT__timer_irq) {
         Vtop___024unit____Vdpiimwrap_timerIntr_raise_TOP____024unit(
                                                                     ((IData)(vlSelf->__PVT__irq_raise)
