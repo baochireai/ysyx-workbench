@@ -33,7 +33,7 @@ module IFU(
     input ex_valid
 );
 
-wire [`RegWidth-1:0]  dpc=isIntrPC?IntrPC:(is_jump?JumpPc:pc_o+4);
+wire [`RegWidth-1:0]  dpc=isIntrPC?IntrPC:(is_jump?JumpPc:NextPC+4);
 wire [`RegWidth-1:0] NextPC;
 reg [`INSTWide-1:0] inst;
 //需要寄存的数据（Inst,pc）
