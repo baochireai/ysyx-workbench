@@ -60,6 +60,7 @@ VL_ATTR_COLD void Vtop_top___ctor_var_reset(Vtop_top* vlSelf) {
     vlSelf->__PVT__IFU__DOT__ifu_ready = 0;
     vlSelf->__PVT__IFU__DOT__ex_valid = 0;
     vlSelf->__PVT__IFU__DOT__dpc = 0;
+    vlSelf->__PVT__IFU__DOT__NextPC = 0;
     vlSelf->__PVT__IFU__DOT__inst = 0;
     for (int __Vi0 = 0; __Vi0 < 2; ++__Vi0) {
         vlSelf->__PVT__ram_axi_lite_u__DOT__mem[__Vi0] = 0;

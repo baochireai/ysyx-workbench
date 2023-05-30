@@ -120,6 +120,7 @@ class Vtop_top final : public VerilatedModule {
         QData/*63:0*/ __PVT__ram_rdata;
         QData/*63:0*/ __PVT__WDATA;
         QData/*63:0*/ __PVT__IFU__DOT__dpc;
+        QData/*63:0*/ __PVT__IFU__DOT__NextPC;
         QData/*63:0*/ __PVT__GenNextPC__DOT__NextPCp;
         QData/*63:0*/ __PVT__ImmGen__DOT__isRegWr__DOT__lut_out;
         QData/*63:0*/ __PVT__ALU__DOT__ALUA;
@@ -148,9 +149,9 @@ class Vtop_top final : public VerilatedModule {
         QData/*63:0*/ __Vtask_pmem_read__5__rdata;
         QData/*63:0*/ __Vtask_pmem_read__6__rdata;
         VlUnpacked<QData/*63:0*/, 2> __PVT__ram_axi_lite_u__DOT__mem;
-        VlUnpacked<SData/*9:0*/, 12> __PVT__ContrGen__DOT__deExtop__DOT__pair_list;
     };
     struct {
+        VlUnpacked<SData/*9:0*/, 12> __PVT__ContrGen__DOT__deExtop__DOT__pair_list;
         VlUnpacked<CData/*6:0*/, 12> __PVT__ContrGen__DOT__deExtop__DOT__key_list;
         VlUnpacked<CData/*2:0*/, 12> __PVT__ContrGen__DOT__deExtop__DOT__data_list;
         VlUnpacked<CData/*7:0*/, 1> __PVT__ContrGen__DOT__isIntr__DOT__pair_list;
