@@ -2320,8 +2320,8 @@ VL_ATTR_COLD void Vtop___024root__trace_full_sub_0(Vtop___024root* vlSelf, Veril
     bufp->fullBit(oldp+882,(vlSymsp->TOP__top.__PVT__IFU__DOT__ex_valid));
     bufp->fullIData(oldp+883,(0x20U),32);
     bufp->fullIData(oldp+884,(0U),32);
-    bufp->fullQData(oldp+885,(0x7ffffff8ULL),64);
-    bufp->fullQData(oldp+887,(0x7ffffffcULL),64);
+    bufp->fullQData(oldp+885,(0x7ffffffcULL),64);
+    bufp->fullQData(oldp+887,(0x80000000ULL),64);
     bufp->fullIData(oldp+889,(0x43U),32);
     bufp->fullIData(oldp+890,(5U),32);
     bufp->fullQData(oldp+891,(0xffffffffffffffffULL),64);

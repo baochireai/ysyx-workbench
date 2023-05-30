@@ -206,9 +206,9 @@ VL_INLINE_OPT void Vtop_top___nba_sequent__TOP__top__1(Vtop_top* vlSelf) {
     VlWide<4>/*127:0*/ __Vtemp_heef993b4__0;
     // Body
     if (vlSymsp->TOP.rst) {
-        vlSelf->pc = 0x7ffffff8ULL;
+        vlSelf->pc = 0x7ffffffcULL;
         vlSelf->Inst = 0U;
-        vlSelf->__PVT__IFU__DOT__NextPC = 0x7ffffffcULL;
+        vlSelf->__PVT__IFU__DOT__NextPC = 0x80000000ULL;
     } else {
         vlSelf->pc = vlSelf->__PVT__IFU__DOT__NextPC;
         vlSelf->Inst = vlSelf->__PVT__IFU__DOT__inst;

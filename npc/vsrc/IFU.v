@@ -44,7 +44,7 @@ reg [`INSTWide-1:0] inst;
 
 Reg #(`RegWidth, 64'h0000000080000000) if_pre_pc_reg(.clk(clk),.rst(rst),.din(dpc),.dout(NextPC),.wen(1'b1));
 Reg #(`RegWidth, 64'h000000007ffffffc) if_pc_reg(.clk(clk),.rst(rst),.din(NextPC),.dout(pc_o),.wen(1'b1));
-Reg #(`INSTWide, 32'd0) if_inst_reg(.clk(clk),.rst(rst),.din(inst),.dout(inst_o),.wen(1'b1));
+Reg #(`INSTWide, 32'd0) if_inst_reg(.clk(clk),.rst(rst),.din((NextPC[2:0]==3'd0)?inst_i[31:0]:inst_i[63:32]),.dout(inst_o),.wen(RVALID&RREADY));
 
 
 //ARADDR
@@ -62,17 +62,19 @@ end
 //RDATA
 assign  RREADY=1'b1;
 
-always @(posedge clk ) begin
-    if(rst) begin
-        inst<='d0;
-    end
-    else if(RVALID&RREADY) begin
-        inst<=(NextPC[2:0]==3'd0)?inst_i[31:0]:inst_i[63:32];
-    end
-    else begin
-        inst<=inst;
-    end
-end
+// always @(posedge clk ) begin
+//     if(rst) begin
+//         inst<='d0;
+//     end
+//     else if(RVALID&RREADY) begin
+//         inst<=;
+//     end
+//     else begin
+//         inst<=inst;
+//     end
+// end
+
+
 
 
 endmodule
