@@ -162,8 +162,8 @@ VL_ATTR_COLD void Vtop_top___eval_initial__TOP__top(Vtop_top* vlSelf) {
     vlSelf->__PVT__DataMem__DOT__deMemOP__DOT__pair_list[1U] = 0x10fU;
     vlSelf->__PVT__DataMem__DOT__deMemOP__DOT__pair_list[2U] = 0x203U;
     vlSelf->__PVT__DataMem__DOT__deMemOP__DOT__pair_list[3U] = 0x301U;
-    vlSelf->__PVT__IFU__DOT__NextPC = 0x80000000ULL;
-    vlSelf->pc = 0x7ffffffcULL;
+    vlSelf->__PVT__IFU__DOT__NextPC = 0x7ffffffcULL;
+    vlSelf->pc = 0x7ffffff8ULL;
     vlSelf->Inst = 0U;
     vlSelf->__PVT__ram_axi_lite_u__DOT__i = 0U;
     while (VL_LTS_III(32, vlSelf->__PVT__ram_axi_lite_u__DOT__i, 

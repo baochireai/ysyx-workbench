@@ -166,7 +166,7 @@ VL_INLINE_OPT void Vtop_top___nba_sequent__TOP__top__0(Vtop_top* vlSelf) {
             __Vdly__AWREADY = 1U;
         }
     }
-    vlSelf->__PVT__ifu_arvalid = 1U;
+    vlSelf->__PVT__ifu_arvalid = (1U & (~ (IData)(vlSymsp->TOP.rst)));
     vlSelf->__PVT__WREADY = __Vdly__WREADY;
     vlSelf->__PVT__AWREADY = __Vdly__AWREADY;
 }
@@ -189,9 +189,9 @@ VL_INLINE_OPT void Vtop_top___nba_sequent__TOP__top__1(Vtop_top* vlSelf) {
     VlWide<4>/*127:0*/ __Vtemp_heef993b4__0;
     // Body
     if (vlSymsp->TOP.rst) {
-        vlSelf->pc = 0x7ffffffcULL;
+        vlSelf->pc = 0x7ffffff8ULL;
         vlSelf->Inst = 0U;
-        vlSelf->__PVT__IFU__DOT__NextPC = 0x80000000ULL;
+        vlSelf->__PVT__IFU__DOT__NextPC = 0x7ffffffcULL;
     } else {
         vlSelf->pc = vlSelf->__PVT__IFU__DOT__NextPC;
         if (vlSelf->__PVT__ram_rvalid) {
