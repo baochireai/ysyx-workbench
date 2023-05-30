@@ -88,9 +88,9 @@ VL_INLINE_OPT void Vtop_top___nba_sequent__TOP__top__0(Vtop_top* vlSelf) {
     __Vdlyvset__RegisterFile__DOT__rf__v0 = 0;
     // Body
     __Vdly__AWREADY = vlSelf->__PVT__AWREADY;
-    vlSelf->__Vdly__IFU__DOT__inst = vlSelf->__PVT__IFU__DOT__inst;
     __Vdly__WREADY = vlSelf->__PVT__WREADY;
     __Vdly__ram_rvalid = vlSelf->__PVT__ram_rvalid;
+    vlSelf->__Vdly__IFU__DOT__inst = vlSelf->__PVT__IFU__DOT__inst;
     __Vdly__BVALID = vlSelf->__PVT__BVALID;
     __Vdly__BRESP = vlSelf->__PVT__BRESP;
     __Vdlyvset__RegisterFile__DOT__rf__v0 = 0U;
@@ -2771,7 +2771,7 @@ VL_INLINE_OPT void Vtop_top___nba_sequent__TOP__top__2(Vtop_top* vlSelf) {
                                          ? ((0ULL == vlSelf->__PVT__GenNextPC__DOT__NextPCp)
                                              ? 0x80000000ULL
                                              : vlSelf->__PVT__GenNextPC__DOT__NextPCp)
-                                         : (4ULL + vlSelf->pc)));
+                                         : (4ULL + vlSelf->__PVT__IFU__DOT__NextPC)));
     vlSelf->__PVT__RegWsrcMux__DOT__pair_list[0U][0U] 
         = (IData)(vlSymsp->TOP__top__IntrUnit.__PVT__dout);
     vlSelf->__PVT__RegWsrcMux__DOT__pair_list[0U][1U] 
