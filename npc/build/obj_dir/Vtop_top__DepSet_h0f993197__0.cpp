@@ -166,7 +166,7 @@ VL_INLINE_OPT void Vtop_top___nba_sequent__TOP__top__0(Vtop_top* vlSelf) {
             __Vdly__AWREADY = 1U;
         }
     }
-    vlSelf->__PVT__ifu_arvalid = (1U & (~ (IData)(vlSymsp->TOP.rst)));
+    vlSelf->__PVT__ifu_arvalid = 1U;
     vlSelf->__PVT__WREADY = __Vdly__WREADY;
     vlSelf->__PVT__AWREADY = __Vdly__AWREADY;
 }
