@@ -1204,7 +1204,10 @@ void Vtop___024root__trace_chg_sub_0(Vtop___024root* vlSelf, VerilatedVcd::Buffe
         bufp->chgBit(oldp+666,(vlSymsp->TOP__top.__PVT__GenNextPC__DOT__jump_check__DOT__hit));
         bufp->chgQData(oldp+667,(vlSymsp->TOP__top.__PVT__IFU__DOT__dpc),64);
         bufp->chgQData(oldp+669,(vlSymsp->TOP__top.__PVT__IFU__DOT__NextPC),64);
-        bufp->chgIData(oldp+671,(vlSymsp->TOP__top.__PVT__IFU__DOT__inst),32);
+        bufp->chgIData(oldp+671,(((0U == (7U & (IData)(vlSymsp->TOP__top.__PVT__IFU__DOT__NextPC)))
+                                   ? (IData)(vlSymsp->TOP__top.__PVT__ram_rdata)
+                                   : (IData)((vlSymsp->TOP__top.__PVT__ram_rdata 
+                                              >> 0x20U)))),32);
         bufp->chgIData(oldp+672,((vlSymsp->TOP__top.Inst 
                                   >> 7U)),25);
         __Vtemp_h75f56fbe__0[0U] = (IData)((((- (QData)((IData)(

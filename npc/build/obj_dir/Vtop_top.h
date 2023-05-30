@@ -94,6 +94,7 @@ class Vtop_top final : public VerilatedModule {
         CData/*0:0*/ __PVT__RegWsrcMux__DOT__hit;
         CData/*0:0*/ __VdfgTmp_hd4f657a4__0;
         CData/*4:0*/ __VdfgTmp_h1f2041f1__0;
+        CData/*0:0*/ __Vdly__ram_rvalid;
         SData/*15:0*/ __PVT__DataMem__DOT__extmask;
         VL_OUT(Inst,31,0);
         IData/*31:0*/ __PVT__ifu_raddr;
@@ -107,7 +108,6 @@ class Vtop_top final : public VerilatedModule {
         IData/*31:0*/ __VdfgTmp_h8588955e__0;
         IData/*31:0*/ __VdfgTmp_h8507bb64__0;
         IData/*31:0*/ __VdfgTmp_h858486fa__0;
-        IData/*31:0*/ __Vdly__IFU__DOT__inst;
         VL_OUT64(pc,63,0);
         QData/*63:0*/ __PVT__R_rs1;
         QData/*63:0*/ __PVT__R_rs2;

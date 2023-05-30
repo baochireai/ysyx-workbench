@@ -42,15 +42,15 @@ reg [`INSTWide-1:0] inst;
 //wire popline_wen=ifu_valid&id_ready;
 //什么时候可以接收新数据(写入寄存器)
 
-Reg #(`RegWidth, 64'h0000000080000000) if_pre_pc_reg(.clk(clk),.rst(rst),.din(dpc),.dout(NextPC),.wen(1'b1));
-Reg #(`RegWidth, 64'h000000007ffffffc) if_pc_reg(.clk(clk),.rst(rst),.din(NextPC),.dout(pc_o),.wen(1'b1));
+Reg #(`RegWidth, 64'h000000007ffffffc) if_pre_pc_reg(.clk(clk),.rst(rst),.din(dpc),.dout(NextPC),.wen(1'b1));
+Reg #(`RegWidth, 64'h000000007ffffff8) if_pc_reg(.clk(clk),.rst(rst),.din(NextPC),.dout(pc_o),.wen(1'b1));
 Reg #(`INSTWide, 32'd0) if_inst_reg(.clk(clk),.rst(rst),.din((NextPC[2:0]==3'd0)?inst_i[31:0]:inst_i[63:32]),.dout(inst_o),.wen(RVALID&RREADY));
 
 
 //ARADDR
 always @(posedge clk ) begin
     if(rst) begin
-        ARVALID<=1'b1;
+        ARVALID<=1'b0;
         ARADDR<=32'h80000000;
     end 
     else begin
