@@ -48,7 +48,7 @@ Reg #(`INSTWide, 32'd0) if_inst_reg(.clk(clk),.rst(rst),.din(inst),.dout(inst_o)
 //ARADDR
 always @(posedge clk ) begin
     if(rst) begin
-        ARVALID<=1'b0;
+        ARVALID<=1'b1;
         ARADDR<=32'h80000000;
     end 
     else begin
