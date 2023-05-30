@@ -2,55 +2,75 @@
 
 module IFU(
     input clk,
-    input resetn,
-    input [`InstAddrBus-1:0] pc,
-    //AXI-lite
+    input rst,
+    //from ex
+    input isIntrPC,
+    input is_jump,
+    input [`RegWidth-1:0] JumpPc,
+    input [`RegWidth-1:0] IntrPC,
+
+    //frome ctrl 
+    input pipeline_hold,
+
+    //AXI-lite to imem
     output reg ARVALID,
-    output reg [`InstAddrBus-1:0] ARADDR,
+    output reg [`MemAddrBus-1:0] ARADDR,
     input ARREADY,
 
     output reg RREADY,
-    input [`INSTBus-1:0] inst_i,
+    input [`MemDataBus-1:0] inst_i,
     input RVALID,
+    
     // data to IDU
-    output reg [`INSTBus-1:0] inst_o,
+    output reg [`INSTWide-1:0] inst_o,
+    output reg [63:0] pc_o,
+
     // handshake to IDU
-    output reg valid,
-    input ready
+    output reg ifu_valid,
+    input id_ready,
+    //handshake to EX
+    output ifu_ready,
+    input ex_valid
 );
 
+wire [`RegWidth-1:0]  dpc=isIntrPC?IntrPC:(is_jump?JumpPc:pc_o+4);
+reg [`INSTWide-1:0] inst;
+//需要寄存的数据（Inst,pc）
 
+//什么时候将新数据写入寄存器（ID读取了寄存器有效，写入新数据有失效）
+//wire popline_wen=ifu_valid&id_ready;
+//什么时候可以接收新数据(写入寄存器)
+
+Reg #(`RegWidth, 64'h000000007ffffffc) if_pc_reg(.clk(clk),.rst(rst),.din(dpc),.dout(pc_o),.wen(1'b1));
+Reg #(`INSTWide, 32'd0) if_inst_reg(.clk(clk),.rst(rst),.din(inst),.dout(inst_o),.wen(1'b1));
+
+
+//ARADDR
 always @(posedge clk ) begin
-    if(resetn) begin
-        ARVALID<=1'b1;
+    if(rst) begin
+        ARVALID<=1'b0;
         ARADDR<=32'h80000000;
     end 
-    // else if(ARVALID&ARREADY) begin //needn't wait arready vaild(ram is always waiting raddr)
-    //     ARVALID<=1'b0;
-    // end
     else begin
         ARVALID<=1'b1;
-        ARADDR<=pc;
+        ARADDR<=dpc[`MemAddrBus-1:0];
     end
 end
 
-// always @(posedge clk ) begin
-//     if(resetn) begin
-//         //RREADY<=1'b1;
-//         inst_o<='d0;
-//     end
-//     else if(RVALID) begin
-//         inst_o<=inst_i;
-//         //RREADY<=1'b0;
-//     end
-//     else begin
-//         inst_o<=inst_o;
-//         //RREADY<=1'b1;
-//     end
-// end
+//RDATA
+assign  RREADY=1'b1;
 
-assign inst_o=inst_i;
+always @(posedge clk ) begin
+    if(rst) begin
+        inst<='d0;
+    end
+    else if(RVALID&RREADY) begin
+        inst<=(pc_o[2:0]==3'd0)?inst_i[31:0]:inst_i[63:32];
+    end
+    else begin
+        inst<=inst;
+    end
+end
 
-assign RREADY=1'b1;//always ready for data(inst_o can be processed in one cycle)
 
 endmodule

@@ -58,8 +58,9 @@ void cpu_exec(uint64_t n){
 #ifdef CONFIG_DIFFTEST
     vaddr_t pc=cpu.pc;
     unsigned int Inst_RTL=top->Inst;
-    printf("Inst_RTL=%08x\n",Inst_RTL);
+    printf("PC=%08x\tInst_RTL=%08x\n",pc,Inst_RTL);
     cpu_exec_once();
+    printf("next_pc=%08x\n",cpu.pc);
     // if(cpu.pc==0x80001300){
     //   //VPI方式
     //   VerilatedVpi::callValueCbs();
@@ -125,12 +126,14 @@ void init_cpu_exec(int argc,char** argv){
   contextp->timeInc(1);tfp->dump(contextp->time());
 	top->rst=0;
 
+  for(int i=0;i<10;i++){
   top->clk=0;
   top->eval();//(cpu_gpr==NULL) eval启动后cpu_gpr才被初始化
   contextp->timeInc(1);tfp->dump(contextp->time());
   top->clk=1;
   top->eval();
-  contextp->timeInc(1);tfp->dump(contextp->time());  
+  contextp->timeInc(1);tfp->dump(contextp->time());      
+  }
 
   is_invalid_inst=false;
   cpu.gpr=cpu_gpr;cpu.pc=top->pc;

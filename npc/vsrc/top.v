@@ -58,24 +58,23 @@ module top(
 
     //IFU to RAM
     wire ifu_arvalid;
-    wire [`InstAddrBus-1:0] ifu_raddr;
+    wire [`MemAddrBus-1:0] ifu_raddr;
     wire  ifu_ready;
     //IFU to ID
-    wire [`INSTBus-1:0] inst_o;
 
     //RAM to IFU
     wire ram_arready;
-    wire [`INSTBus-1:0] ram_rdata;
+    wire [`MemDataBus-1:0] ram_rdata;
     wire ram_rvalid;
     wire [1:0] ram_rresp;
 
     // Write address channel signals
-    wire [`InstAddrBus-1:0] AWADDR;
+    wire [`MemAddrBus-1:0] AWADDR;
      wire AWVALID;
      wire AWREADY;
 
     // Write data channel signals
-     wire [`INSTBus-1:0] WDATA;//only 32bits or 64bits
+     wire [`MemDataBus-1:0] WDATA;//only 32bits or 64bits
      wire WVALID;
      wire WREADY;
     wire[7:0] WSTRB;//indicate which byte is write enabled.
@@ -84,16 +83,11 @@ module top(
     wire BVALID;
     wire [1:0] BRESP;//2'b00 正常访问成功 2'b01独占访问成功 2'b10 SLVERR 2'b11 DCERR互连解码错误
     wire BREADY;
-    wire [63:0] dpc;
+    wire is_jump;
     /* verilator lint_off PINMISSING */
-    IFU IFU(.clk(clk),.resetn(rst),.pc(dpc[`InstAddrBus-1:0]),.ARVALID(ifu_arvalid),.ARADDR(ifu_raddr),.ARREADY(ram_arready),
-            .RREADY(ifu_ready),.inst_i(ram_rdata),.RVALID(ram_rvalid),.inst_o(inst_o),.ready(1'b1));
+    IFU IFU(.clk(clk),.rst(rst),.is_jump(is_jump),.JumpPc(NextPC),.isIntrPC(isIntrPC),.IntrPC(IntrPC),.ARVALID(ifu_arvalid),.ARADDR(ifu_raddr),.ARREADY(ram_arready),
+            .RREADY(ifu_ready),.inst_i(ram_rdata),.RVALID(ram_rvalid),.inst_o(Inst),.pc_o(pc));
     /* verilator lint_on PINMISSING */            
-
-    assign Inst=(pc[2:0]==3'd0)?inst_o[31:0]:inst_o[63:32];//内存8字节对齐读取
-
-
-    PC PC(.clk(clk),.rst(rst),.isIntrPC(isIntrPC),.NextPC(NextPC),.IntrPC(IntrPC),.pc(pc),.dpc(dpc));
     
     ram_axi_lite ram_axi_lite_u(clk,rst,AWADDR,AWVALID,AWREADY,WDATA,WVALID,WREADY,WSTRB,BVALID,BRESP,BREADY,
                               ifu_raddr,ifu_arvalid,ram_arready,ram_rdata,ram_rresp,ram_rvalid,ifu_ready);
@@ -103,7 +97,7 @@ module top(
       .RegWr(RegWr),.ALUAsr(ALUAsr),.ALUBsr(ALUBsr),.Branch(Branch),.MemOP(MemOP),.MemWr(MemWr),.RegSrc(RegSrc),
       .isTuncate(isTuncate),.isSext(isSext),.IntrEn(IntrEn));
       
-    GenNextPC GenNextPC(.Branch(Branch),.imm(Imm),.PC(pc),.R_rs1(R_rs1),.NextPC(NextPC),.Less(Less),.Zero(Zero));
+    GenNextPC GenNextPC(.Branch(Branch),.imm(Imm),.PC(pc),.R_rs1(R_rs1),.NextPC(NextPC),.Less(Less),.Zero(Zero),.is_jump(is_jump));
     RegisterFile RegisterFile(.rs1(Inst[19:15]),.rs2(Inst[24:20]),.waddr(Inst[11:7]),.R_rs1(R_rs1),.R_rs2(R_rs2),
                 .clk(clk),.wdata(RegWdata),.wen(RegWr));
 

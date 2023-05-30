@@ -241,6 +241,12 @@ VL_INLINE_OPT void Vtop_Intr___nba_sequent__TOP__top__IntrUnit__0(Vtop_Intr* vlS
          | (IData)(vlSelf->__PVT__irq_raise))) {
         vlSelf->__PVT__mstatus = vlSelf->__PVT__mstatusIn;
     }
+    if ((((IData)(vlSelf->__PVT__ismepc) & (IData)(vlSymsp->TOP__top.__PVT__IntrEn)) 
+         | (IData)(vlSelf->__PVT__irq_raise))) {
+        vlSelf->__PVT__mepc = ((IData)(vlSelf->__PVT__irq_raise)
+                                ? vlSymsp->TOP__top.pc
+                                : vlSelf->__PVT__csrWData);
+    }
     if (((0x305U == (vlSymsp->TOP__top.Inst >> 0x14U)) 
          & (IData)(vlSymsp->TOP__top.__PVT__IntrEn))) {
         vlSelf->__PVT__mtvec = vlSelf->__PVT__csrWData;
@@ -248,12 +254,6 @@ VL_INLINE_OPT void Vtop_Intr___nba_sequent__TOP__top__IntrUnit__0(Vtop_Intr* vlS
     if (((0x304U == (vlSymsp->TOP__top.Inst >> 0x14U)) 
          & (IData)(vlSymsp->TOP__top.__PVT__IntrEn))) {
         vlSelf->__PVT__mie = vlSelf->__PVT__csrWData;
-    }
-    if ((((IData)(vlSelf->__PVT__ismepc) & (IData)(vlSymsp->TOP__top.__PVT__IntrEn)) 
-         | (IData)(vlSelf->__PVT__irq_raise))) {
-        vlSelf->__PVT__mepc = ((IData)(vlSelf->__PVT__irq_raise)
-                                ? vlSymsp->TOP__top.pc
-                                : vlSelf->__PVT__csrWData);
     }
     vlSelf->__PVT__timer_irq = ((vlSymsp->TOP__top.__PVT__clintU__DOT__mtime 
                                  > vlSymsp->TOP__top.__PVT__clintU__DOT__mtimecmp) 
