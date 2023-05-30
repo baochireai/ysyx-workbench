@@ -34,6 +34,7 @@ module IFU(
 );
 
 wire [`RegWidth-1:0]  dpc=isIntrPC?IntrPC:(is_jump?JumpPc:pc_o+4);
+wire [`RegWidth-1:0] NextPC;
 reg [`INSTWide-1:0] inst;
 //需要寄存的数据（Inst,pc）
 
@@ -41,7 +42,8 @@ reg [`INSTWide-1:0] inst;
 //wire popline_wen=ifu_valid&id_ready;
 //什么时候可以接收新数据(写入寄存器)
 
-Reg #(`RegWidth, 64'h000000007ffffffc) if_pc_reg(.clk(clk),.rst(rst),.din(dpc),.dout(pc_o),.wen(1'b1));
+Reg #(`RegWidth, 64'h0000000080000000) if_pre_pc_reg(.clk(clk),.rst(rst),.din(dpc),.dout(NextPC),.wen(1'b1));
+Reg #(`RegWidth, 64'd0) if_pc_reg(.clk(clk),.rst(rst),.din(NextPC),.dout(pc_o),.wen(1'b1));
 Reg #(`INSTWide, 32'd0) if_inst_reg(.clk(clk),.rst(rst),.din(inst),.dout(inst_o),.wen(1'b1));
 
 
@@ -65,7 +67,7 @@ always @(posedge clk ) begin
         inst<='d0;
     end
     else if(RVALID&RREADY) begin
-        inst<=(pc_o[2:0]==3'd0)?inst_i[31:0]:inst_i[63:32];
+        inst<=(NextPC[2:0]==3'd0)?inst_i[31:0]:inst_i[63:32];
     end
     else begin
         inst<=inst;
