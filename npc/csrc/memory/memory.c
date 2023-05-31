@@ -4,10 +4,10 @@ static uint8_t pmem[CONFIG_MSIZE] PG_ALIGN = {};
 unsigned long img[]={0xffc10113,0xff010113,0x0b098993,0x01813a83,0x00100073};
 
 /**DPI**/
-extern "C" void pmem_read(long long raddr, long long *rdata) {
+extern "C" void pmem_read(int raddr, long long *rdata) {
   bool mread_debug=false;
   if(mread_debug){
-    printf("(npc)pc:%08lx\traddr:%08llx\t",cpu.pc+4,raddr);
+    printf("(npc)pc:%08lx\traddr:%08x\t",cpu.pc+4,raddr);
   }
 
   // 总是读取地址为`raddr & ~0x7ull`的8字节返回给`rdata`
@@ -32,7 +32,7 @@ extern "C" void pmem_read(long long raddr, long long *rdata) {
   }
 }
 
-extern "C" void pmem_write(long long waddr, long long wdata, char wmask) {
+extern "C" void pmem_write(int waddr, long long wdata, char wmask) {
   // 总是往地址为`waddr & ~0x7ull`的8字节按写掩码`wmask`写入`wdata`
   // `wmask`中每比特表示`wdata`中1个字节的掩码,
   // 如`wmask = 0x3`代表只写入最低2个字节, 内存中的其它字节保持不变

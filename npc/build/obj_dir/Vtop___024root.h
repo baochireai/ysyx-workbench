@@ -5,49 +5,46 @@
 #ifndef VERILATED_VTOP___024ROOT_H_
 #define VERILATED_VTOP___024ROOT_H_  // guard
 
-#include "verilated_heavy.h"
-
-//==========
+#include "verilated.h"
 
 class Vtop__Syms;
-class Vtop_VerilatedVcd;
 class Vtop_top;
 class Vtop___024unit;
 
 
-//----------
-
-VL_MODULE(Vtop___024root) {
+class Vtop___024root final : public VerilatedModule {
   public:
     // CELLS
     Vtop_top* top;
     Vtop___024unit* __PVT____024unit;
 
-    // PORTS
+    // DESIGN SPECIFIC STATE
     VL_IN8(clk,0,0);
     VL_IN8(rst,0,0);
+    CData/*0:0*/ __Vtrigprevexpr___TOP__clk__0;
+    CData/*0:0*/ __VactContinue;
     VL_OUT(Inst,31,0);
+    IData/*31:0*/ __VstlIterCount;
+    IData/*31:0*/ __VicoIterCount;
+    IData/*31:0*/ __VactIterCount;
     VL_OUT64(pc,63,0);
-
-    // LOCAL VARIABLES
-    CData/*0:0*/ __Vclklast__TOP__clk;
-    VlUnpacked<CData/*0:0*/, 2> __Vm_traceActivity;
+    VlUnpacked<CData/*0:0*/, 3> __Vm_traceActivity;
+    VlTriggerVec<1> __VstlTriggered;
+    VlTriggerVec<1> __VicoTriggered;
+    VlTriggerVec<1> __VactTriggered;
+    VlTriggerVec<1> __VnbaTriggered;
 
     // INTERNAL VARIABLES
-    Vtop__Syms* vlSymsp;  // Symbol table
+    Vtop__Syms* const vlSymsp;
 
     // CONSTRUCTORS
-  private:
-    VL_UNCOPYABLE(Vtop___024root);  ///< Copying not allowed
-  public:
-    Vtop___024root(const char* name);
+    Vtop___024root(Vtop__Syms* symsp, const char* v__name);
     ~Vtop___024root();
+    VL_UNCOPYABLE(Vtop___024root);
 
     // INTERNAL METHODS
-    void __Vconfigure(Vtop__Syms* symsp, bool first);
+    void __Vconfigure(bool first);
 } VL_ATTR_ALIGNED(VL_CACHE_LINE_BYTES);
-
-//----------
 
 
 #endif  // guard

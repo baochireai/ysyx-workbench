@@ -33,8 +33,8 @@ static inline bool in_pmem(paddr_t addr) {
 }
 
 void init_mem();
-extern "C" void pmem_read(long long raddr, long long *rdata);
-extern "C" void pmem_write(long long waddr, long long wdata, char wmask);
+extern "C" void pmem_read(int raddr, long long *rdata);
+extern "C" void pmem_write(int waddr, long long wdata, char wmask);
 uint8_t* guest_to_host(paddr_t paddr);
 
 #endif

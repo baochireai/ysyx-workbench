@@ -100,10 +100,12 @@ module ContrGen(
 
     assign ALUAsr=((Extop==3'd2)&(!isJalr))|(Extop==3'd1)|(Extop==3'd3)|(Extop==3'd4);//ALUAsr:1 Rs1 0 PC
 
-    assign ALUBsr=((Extop==3'd2)|(opcode[6:2]==5'b01101)|(opcode[6:2]==5'b00101)|(Extop==3'd3)|(!(|opcode[6:2])))?2'b00:
-                    ((Extop==3'd1|Extop==3'd4)?2'b01:
-                    ((isJal|isJalr)?2'b10:2'b11));
-
+//     assign ALUBsr=((Extop==3'd2)|(opcode[6:2]==5'b01101)|(opcode[6:2]==5'b00101)|(Extop==3'd3)|(!(|opcode[6:2])))?2'b00:
+//                     ((Extop==3'd1|Extop==3'd4)?2'b01:
+//                     ((isJal|isJalr)?2'b10:2'b11));
+    assign ALUBsr=(isJal|isJalr)?2'b10:(((Extop==3'd2)|(opcode[6:2]==5'b01101)|(opcode[6:2]==5'b00101)|(Extop==3'd3)|(!(|opcode[6:2])))?2'b00:
+                  ((Extop==3'd1|Extop==3'd4)?2'b01:2'b11));
+//ALUBsr->0:Imm ALUBsr->1:R_sr2 ALUBsr->2:4
     always @(*) begin
         casez ({func7,func3,opcode})
             17'bzzzzzzz_000_0010011:begin//addi 

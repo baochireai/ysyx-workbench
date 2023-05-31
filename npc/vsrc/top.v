@@ -1,9 +1,5 @@
+`include "defines.v"
 import "DPI-C" function void setebreak();
-
-import "DPI-C" function void pmem_read(
-  input longint raddr, output longint rdata);
-import "DPI-C" function void pmem_write(
-  input longint waddr, input longint wdata, input byte wmask);
 
 module top(
     input clk,
@@ -13,12 +9,11 @@ module top(
     output [63:0] pc
 );
     //IF取值
-    wire [63:0] raddr,rdata;
-    assign raddr=pc;
-    always @(*) begin
-        pmem_read(raddr, rdata);
-    end
-    assign Inst=(pc[2:0]==3'd0)?rdata[31:0]:rdata[63:32];//内存8字节对齐读取
+    // wire [63:0] raddr,rdata;
+    // assign raddr=pc;
+    // always @(*) begin
+    //     pmem_read(raddr[31:0], rdata);
+    // end
     
     wire [63:0] R_rs1;
     wire [63:0] R_rs2;
@@ -61,15 +56,48 @@ module top(
 
     wire [63:0] clint_dout;
 
-    PC PC(.clk(clk),.rst(rst),.isIntrPC(isIntrPC),.NextPC(NextPC),.IntrPC(IntrPC),.pc(pc));
+    //IFU to RAM
+    wire ifu_arvalid;
+    wire [`MemAddrBus-1:0] ifu_raddr;
+    wire  ifu_ready;
+    //IFU to ID
+
+    //RAM to IFU
+    wire ram_arready;
+    wire [`MemDataBus-1:0] ram_rdata;
+    wire ram_rvalid;
+    wire [1:0] ram_rresp;
+
+    // Write address channel signals
+    wire [`MemAddrBus-1:0] AWADDR;
+     wire AWVALID;
+     wire AWREADY;
+
+    // Write data channel signals
+     wire [`MemDataBus-1:0] WDATA;//only 32bits or 64bits
+     wire WVALID;
+     wire WREADY;
+    wire[7:0] WSTRB;//indicate which byte is write enabled.
+
+    // Write response channel signals
+    wire BVALID;
+    wire [1:0] BRESP;//2'b00 正常访问成功 2'b01独占访问成功 2'b10 SLVERR 2'b11 DCERR互连解码错误
+    wire BREADY;
+    wire is_jump;
+    /* verilator lint_off PINMISSING */
+    IFU IFU(.clk(clk),.rst(rst),.is_jump(is_jump),.JumpPc(NextPC),.isIntrPC(isIntrPC),.IntrPC(IntrPC),.ARVALID(ifu_arvalid),.ARADDR(ifu_raddr),.ARREADY(ram_arready),
+            .RREADY(ifu_ready),.inst_i(ram_rdata),.RVALID(ram_rvalid),.inst_o(Inst),.pc_o(pc));
+    /* verilator lint_on PINMISSING */            
     
+    ram_axi_lite ram_axi_lite_u(clk,rst,AWADDR,AWVALID,AWREADY,WDATA,WVALID,WREADY,WSTRB,BVALID,BRESP,BREADY,
+                              ifu_raddr,ifu_arvalid,ram_arready,ram_rdata,ram_rresp,ram_rvalid,ifu_ready);
 
     wire isTuncate,isSext;
     ContrGen ContrGen(.opcode(Inst[6:0]),.func3(Inst[14:12]),.func7(Inst[31:25]),.ALUct(ALUct),.Extop(Extop),
       .RegWr(RegWr),.ALUAsr(ALUAsr),.ALUBsr(ALUBsr),.Branch(Branch),.MemOP(MemOP),.MemWr(MemWr),.RegSrc(RegSrc),
       .isTuncate(isTuncate),.isSext(isSext),.IntrEn(IntrEn));
       
-    GenNextPC GenNextPC(.Branch(Branch),.imm(Imm),.PC(pc),.R_rs1(R_rs1),.NextPC(NextPC),.Less(Less),.Zero(Zero));
+    GenNextPC GenNextPC(.Branch(Branch),.imm(Imm),.PC(pc),.R_rs1(R_rs1),.NextPC(NextPC),.Less(Less),.Zero(Zero),.is_jump(is_jump));
     RegisterFile RegisterFile(.rs1(Inst[19:15]),.rs2(Inst[24:20]),.waddr(Inst[11:7]),.R_rs1(R_rs1),.R_rs2(R_rs2),
                 .clk(clk),.wdata(RegWdata),.wen(RegWr));
 
