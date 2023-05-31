@@ -1,13 +1,11 @@
-import "DPI-C" function void set_invalid_inst();
-module ContrGen(
-//     input[6:0] opcode,
-//     input [2:0] func3,
-//     input [6:0] func7,
-     //from ifu
-     input [`INSTWide-1:0] id_inst,
-    //to EX
+//import "DPI-C" function void set_invalid_inst();
+module ID(
+    // input[6:0] opcode,
+    // input [2:0] func3,
+    // input [6:0] func7,
+    input [`INSTWide-1:0] id_inst,
     output reg [4:0] ALUct,//加法器加(b0000)、加法器减、移位（左移、逻辑右移、逻辑左移）、异或、逻辑或、逻辑与、直接输出(b0001)
-    output reg [`RegWidth-1:0] Imm,
+    output [2:0] Extop,//六种指令格式立即数
     output RegWr,//结果写回寄存器
     output reg ALUAsr,//ALUAsr->0:PC ALUAsr->1:R_sr1
     output reg [1:0] ALUBsr,//ALUBsr->0:Imm ALUBsr->1:R_sr2 ALUBsr->2:4
@@ -20,10 +18,8 @@ module ContrGen(
     output IntrEn
 );
 
-    wire [2:0] Extop;
-
     wire [6:0] opcode=id_inst[6:0];
-    wire [2:0] func3=id_inst[14:12];
+    wire [2:0] func3=id_inst[2:0];
     wire [6:0] func7=id_inst[31:25];
 
     //指令类型
@@ -299,8 +295,6 @@ module ContrGen(
             end
         endcase
         end
-
-     ImmGen ImmGenU(id_inst[`immBus],Extop,Imm);
 
 endmodule
 

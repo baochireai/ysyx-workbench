@@ -1,5 +1,5 @@
 module ImmGen(
-    input [31:7] Inst,
+    input [`immBus] Inst,
     input [2:0] Extop,//指令格式
     output [63:0] Imm
 );

@@ -43,7 +43,7 @@ reg [`INSTWide-1:0] inst;
 //什么时候可以接收新数据(写入寄存器)
 
 Reg #(`RegWidth, 64'h000000007ffffffc) if_pre_pc_reg(.clk(clk),.rst(rst),.din(dpc),.dout(NextPC),.wen(1'b1));
-Reg #(`RegWidth, 64'h000000007ffffff8) if_pc_reg(.clk(clk),.rst(rst),.din(NextPC),.dout(pc_o),.wen(1'b1));
+Reg #(`RegWidth, 64'h000000007ffffff8) id_pc_reg(.clk(clk),.rst(rst),.din(NextPC),.dout(pc_o),.wen(1'b1));
 Reg #(`INSTWide, 32'd0) if_inst_reg(.clk(clk),.rst(rst),.din((NextPC[2:0]==3'd0)?inst_i[31:0]:inst_i[63:32]),.dout(inst_o),.wen(RVALID&RREADY));
 
 

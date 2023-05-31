@@ -93,16 +93,13 @@ module top(
                               ifu_raddr,ifu_arvalid,ram_arready,ram_rdata,ram_rresp,ram_rvalid,ifu_ready);
 
     wire isTuncate,isSext;
-    ContrGen ContrGen(.opcode(Inst[6:0]),.func3(Inst[14:12]),.func7(Inst[31:25]),.ALUct(ALUct),.Extop(Extop),
+    ContrGen ContrGen(.id_inst(Inst),.ALUct(ALUct),.Imm(Imm),
       .RegWr(RegWr),.ALUAsr(ALUAsr),.ALUBsr(ALUBsr),.Branch(Branch),.MemOP(MemOP),.MemWr(MemWr),.RegSrc(RegSrc),
       .isTuncate(isTuncate),.isSext(isSext),.IntrEn(IntrEn));
       
     GenNextPC GenNextPC(.Branch(Branch),.imm(Imm),.PC(pc),.R_rs1(R_rs1),.NextPC(NextPC),.Less(Less),.Zero(Zero),.is_jump(is_jump));
     RegisterFile RegisterFile(.rs1(Inst[19:15]),.rs2(Inst[24:20]),.waddr(Inst[11:7]),.R_rs1(R_rs1),.R_rs2(R_rs2),
                 .clk(clk),.wdata(RegWdata),.wen(RegWr));
-
-    
-    ImmGen ImmGen(.Inst(Inst[31:7]),.Extop(Extop),.Imm(Imm));
 
     ALU ALU(.ALUAsr(ALUAsr),.PC(pc),.R_rs1(R_rs1),.ALUBsr(ALUBsr),.Imm(Imm),.R_rs2(R_rs2),.ALUct(ALUct),
             .ALUres(ALUres),.Less(Less),.Zero(Zero),.isTuncate(isTuncate),.isSext(isSext));

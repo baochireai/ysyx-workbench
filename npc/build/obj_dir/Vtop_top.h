@@ -54,7 +54,8 @@ class Vtop_top final : public VerilatedModule {
         CData/*7:0*/ __PVT__ram_axi_lite_u__DOT__wstrb;
         CData/*0:0*/ __PVT__ram_axi_lite_u__DOT__wdata_done;
         CData/*0:0*/ __PVT__ram_axi_lite_u__DOT__raddr_done;
-        CData/*0:0*/ ContrGen__DOT____VdfgTmp_h708a31d5__0;
+        CData/*2:0*/ __PVT__ContrGen__DOT__Extop;
+        CData/*0:0*/ ContrGen__DOT____VdfgTmp_h27ae0f59__0;
         CData/*2:0*/ __PVT__ContrGen__DOT__deExtop__DOT__lut_out;
         CData/*0:0*/ __PVT__ContrGen__DOT__deExtop__DOT__hit;
         CData/*0:0*/ __PVT__ContrGen__DOT__isIntr__DOT__lut_out;
@@ -63,12 +64,12 @@ class Vtop_top final : public VerilatedModule {
         CData/*0:0*/ __PVT__ContrGen__DOT__isRegWr__DOT__hit;
         CData/*1:0*/ __PVT__ContrGen__DOT__RegSrcMux__DOT__lut_out;
         CData/*0:0*/ __PVT__ContrGen__DOT__RegSrcMux__DOT__hit;
+        CData/*0:0*/ __PVT__ContrGen__DOT__ImmGenU__DOT__isRegWr__DOT__hit;
         CData/*1:0*/ GenNextPC__DOT____Vcellout__dePCsrc__out;
         CData/*0:0*/ __PVT__GenNextPC__DOT__jump_check__DOT__lut_out;
         CData/*0:0*/ __PVT__GenNextPC__DOT__jump_check__DOT__hit;
         CData/*1:0*/ __PVT__GenNextPC__DOT__dePCsrc__DOT__lut_out;
         CData/*0:0*/ __PVT__GenNextPC__DOT__dePCsrc__DOT__hit;
-        CData/*0:0*/ __PVT__ImmGen__DOT__isRegWr__DOT__hit;
         CData/*0:0*/ __PVT__ALU__DOT__US_S;
         CData/*0:0*/ __PVT__ALU__DOT__Sub_Add;
         CData/*0:0*/ __PVT__ALU__DOT__lessS;
@@ -82,9 +83,9 @@ class Vtop_top final : public VerilatedModule {
         CData/*0:0*/ __PVT__ALU__DOT__BarrelShifter__DOT__ShifterMux__DOT__hit;
         CData/*0:0*/ __PVT__ALU__DOT__diver__DOT__hit;
         CData/*0:0*/ __PVT__ALU__DOT__remer__DOT__hit;
-        CData/*0:0*/ __PVT__ALU__DOT__deExtop__DOT__hit;
     };
     struct {
+        CData/*0:0*/ __PVT__ALU__DOT__deExtop__DOT__hit;
         CData/*0:0*/ __PVT__DataMem__DOT__clint_en;
         CData/*7:0*/ __PVT__DataMem__DOT__wmask;
         CData/*0:0*/ __PVT__DataMem__DOT__RdEn;
@@ -92,8 +93,8 @@ class Vtop_top final : public VerilatedModule {
         CData/*0:0*/ __PVT__DataMem__DOT__deMemOP__DOT__hit;
         CData/*0:0*/ __PVT__DataMem__DOT__sext__DOT__hit;
         CData/*0:0*/ __PVT__RegWsrcMux__DOT__hit;
-        CData/*0:0*/ __VdfgTmp_hd4f657a4__0;
-        CData/*4:0*/ __VdfgTmp_h1f2041f1__0;
+        CData/*0:0*/ __VdfgTmp_h1618d5a6__0;
+        CData/*4:0*/ __VdfgTmp_hc486e734__0;
         CData/*0:0*/ __Vdly__ram_rvalid;
         SData/*15:0*/ __PVT__DataMem__DOT__extmask;
         VL_OUT(Inst,31,0);
@@ -104,10 +105,10 @@ class Vtop_top final : public VerilatedModule {
         IData/*31:0*/ __PVT__ram_axi_lite_u__DOT__raddr;
         IData/*31:0*/ __PVT__ram_axi_lite_u__DOT__i;
         VlWide<4>/*127:0*/ __PVT__DataMem__DOT__data;
-        IData/*31:0*/ __VdfgTmp_h850e38ae__0;
-        IData/*31:0*/ __VdfgTmp_h8588955e__0;
-        IData/*31:0*/ __VdfgTmp_h8507bb64__0;
-        IData/*31:0*/ __VdfgTmp_h858486fa__0;
+        IData/*31:0*/ __VdfgTmp_h76dcbd69__0;
+        IData/*31:0*/ __VdfgTmp_h755a1488__0;
+        IData/*31:0*/ __VdfgTmp_h7504b383__0;
+        IData/*31:0*/ __VdfgTmp_h755e34ec__0;
         VL_OUT64(pc,63,0);
         QData/*63:0*/ __PVT__R_rs1;
         QData/*63:0*/ __PVT__R_rs2;
@@ -121,8 +122,8 @@ class Vtop_top final : public VerilatedModule {
         QData/*63:0*/ __PVT__WDATA;
         QData/*63:0*/ __PVT__IFU__DOT__dpc;
         QData/*63:0*/ __PVT__IFU__DOT__NextPC;
+        QData/*63:0*/ __PVT__ContrGen__DOT__ImmGenU__DOT__isRegWr__DOT__lut_out;
         QData/*63:0*/ __PVT__GenNextPC__DOT__NextPCp;
-        QData/*63:0*/ __PVT__ImmGen__DOT__isRegWr__DOT__lut_out;
         QData/*63:0*/ __PVT__ALU__DOT__ALUA;
         QData/*63:0*/ __PVT__ALU__DOT__ALUB;
         QData/*63:0*/ __PVT__ALU__DOT__adder;
@@ -148,9 +149,9 @@ class Vtop_top final : public VerilatedModule {
         QData/*63:0*/ __PVT__clintU__DOT__mtimecmp;
         QData/*63:0*/ __Vtask_pmem_read__5__rdata;
         QData/*63:0*/ __Vtask_pmem_read__6__rdata;
-        VlUnpacked<QData/*63:0*/, 2> __PVT__ram_axi_lite_u__DOT__mem;
     };
     struct {
+        VlUnpacked<QData/*63:0*/, 2> __PVT__ram_axi_lite_u__DOT__mem;
         VlUnpacked<SData/*9:0*/, 12> __PVT__ContrGen__DOT__deExtop__DOT__pair_list;
         VlUnpacked<CData/*6:0*/, 12> __PVT__ContrGen__DOT__deExtop__DOT__key_list;
         VlUnpacked<CData/*2:0*/, 12> __PVT__ContrGen__DOT__deExtop__DOT__data_list;
@@ -163,6 +164,9 @@ class Vtop_top final : public VerilatedModule {
         VlUnpacked<SData/*8:0*/, 2> __PVT__ContrGen__DOT__RegSrcMux__DOT__pair_list;
         VlUnpacked<CData/*6:0*/, 2> __PVT__ContrGen__DOT__RegSrcMux__DOT__key_list;
         VlUnpacked<CData/*1:0*/, 2> __PVT__ContrGen__DOT__RegSrcMux__DOT__data_list;
+        VlUnpacked<VlWide<3>/*66:0*/, 5> __PVT__ContrGen__DOT__ImmGenU__DOT__isRegWr__DOT__pair_list;
+        VlUnpacked<CData/*2:0*/, 5> __PVT__ContrGen__DOT__ImmGenU__DOT__isRegWr__DOT__key_list;
+        VlUnpacked<QData/*63:0*/, 5> __PVT__ContrGen__DOT__ImmGenU__DOT__isRegWr__DOT__data_list;
         VlUnpacked<CData/*3:0*/, 7> __PVT__GenNextPC__DOT__jump_check__DOT__pair_list;
         VlUnpacked<CData/*2:0*/, 7> __PVT__GenNextPC__DOT__jump_check__DOT__key_list;
         VlUnpacked<CData/*0:0*/, 7> __PVT__GenNextPC__DOT__jump_check__DOT__data_list;
@@ -170,9 +174,6 @@ class Vtop_top final : public VerilatedModule {
         VlUnpacked<CData/*2:0*/, 7> __PVT__GenNextPC__DOT__dePCsrc__DOT__key_list;
         VlUnpacked<CData/*1:0*/, 7> __PVT__GenNextPC__DOT__dePCsrc__DOT__data_list;
         VlUnpacked<QData/*63:0*/, 32> __PVT__RegisterFile__DOT__rf;
-        VlUnpacked<VlWide<3>/*66:0*/, 5> __PVT__ImmGen__DOT__isRegWr__DOT__pair_list;
-        VlUnpacked<CData/*2:0*/, 5> __PVT__ImmGen__DOT__isRegWr__DOT__key_list;
-        VlUnpacked<QData/*63:0*/, 5> __PVT__ImmGen__DOT__isRegWr__DOT__data_list;
         VlUnpacked<VlWide<3>/*65:0*/, 3> __PVT__ALU__DOT__deALUBsr__DOT__pair_list;
         VlUnpacked<CData/*1:0*/, 3> __PVT__ALU__DOT__deALUBsr__DOT__key_list;
         VlUnpacked<QData/*63:0*/, 3> __PVT__ALU__DOT__deALUBsr__DOT__data_list;
