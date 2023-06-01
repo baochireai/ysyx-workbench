@@ -126,7 +126,7 @@ void init_cpu_exec(int argc,char** argv){
   contextp->timeInc(1);tfp->dump(contextp->time());
 	top->rst=0;
 
-  for(int i=0;i<2;i++){
+  for(int i=0;i<4;i++){
   top->clk=0;
   top->eval();//(cpu_gpr==NULL) eval启动后cpu_gpr才被初始化
   contextp->timeInc(1);tfp->dump(contextp->time());

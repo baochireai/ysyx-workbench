@@ -84,38 +84,59 @@ module top(
     wire [1:0] BRESP;//2'b00 正常访问成功 2'b01独占访问成功 2'b10 SLVERR 2'b11 DCERR互连解码错误
     wire BREADY;
     wire is_jump;
+    wire [`RegWidth-1:0] id_pc;
+    wire [`INSTWide-1:0] id_inst;
+
+    wire [`RegWidth-1:0] ex_pc;
+    wire [`INSTWide-1:0] ex_inst;
+
+    //IDU to regs
+    wire [4:0] rs1;
+    wire [4:0] rs2;
     /* verilator lint_off PINMISSING */
     IFU IFU(.clk(clk),.rst(rst),.is_jump(is_jump),.JumpPc(NextPC),.isIntrPC(isIntrPC),.IntrPC(IntrPC),.ARVALID(ifu_arvalid),.ARADDR(ifu_raddr),.ARREADY(ram_arready),
-            .RREADY(ifu_ready),.inst_i(ram_rdata),.RVALID(ram_rvalid),.inst_o(Inst),.pc_o(pc));
+            .RREADY(ifu_ready),.inst_i(ram_rdata),.RVALID(ram_rvalid),.inst_o(id_inst),.pc_o(id_pc));
     /* verilator lint_on PINMISSING */            
     
     ram_axi_lite ram_axi_lite_u(clk,rst,AWADDR,AWVALID,AWREADY,WDATA,WVALID,WREADY,WSTRB,BVALID,BRESP,BREADY,
                               ifu_raddr,ifu_arvalid,ram_arready,ram_rdata,ram_rresp,ram_rvalid,ifu_ready);
 
     wire isTuncate,isSext;
-    ContrGen ContrGen(.id_inst(Inst),.ALUct(ALUct),.Imm(Imm),
-      .RegWr(RegWr),.ALUAsr(ALUAsr),.ALUBsr(ALUBsr),.Branch(Branch),.MemOP(MemOP),.MemWr(MemWr),.RegSrc(RegSrc),
+    //wire [`INSTWide-1:0] ex_inst;
+    /* verilator lint_off PINMISSING */
+    IDU IDU(.clk(clk),.rst(rst),.id_inst(id_inst),.id_pc(id_pc),.R_rs1_i(R_rs1),.R_rs2_i(R_rs2),.rs1(rs1),.rs2(rs2),.ALUct(ALUct),.Imm(Imm),
+      .ALUAsr(ALUAsr),.ALUBsr(ALUBsr),.inst_o(ex_inst),.pc_o(ex_pc),.RegWr(RegWr),.Branch(Branch),.MemOP(MemOP),.MemWr(MemWr),.RegSrc(RegSrc),
       .isTuncate(isTuncate),.isSext(isSext),.IntrEn(IntrEn));
-      
-    GenNextPC GenNextPC(.Branch(Branch),.imm(Imm),.PC(pc),.R_rs1(R_rs1),.NextPC(NextPC),.Less(Less),.Zero(Zero),.is_jump(is_jump));
-    RegisterFile RegisterFile(.rs1(Inst[19:15]),.rs2(Inst[24:20]),.waddr(Inst[11:7]),.R_rs1(R_rs1),.R_rs2(R_rs2),
+    /* verilator lint_on PINMISSING */
+    
+    wire [`RegWidth-1:0]mem_Rrs1,mem_Rrs2;
+    wire [2:0] mem_MemOP;
+    wire mem_MemWr;
+    wire mem_IntrEn;
+    wire [1:0] BW_RegSrc;
+
+    EXU EXU(.clk(clk),.rst(rst),.exu_inst(ex_inst),.exu_pc(ex_pc),.ALUAsr(ALUAsr),.ALUBsr(ALUBsr),.ALUct(ALUct),
+          .isTuncate(isTuncate),.isSext(isSext),.MemOP_i(MemOP),.MemWr_i(MemWr),.IntrEn(IntrEn), .Branch(Branch),.RegSrc(RegSrc),
+          .R_rs1(R_rs1),.R_rs2(R_rs2),.Imm(Imm),
+          .wb_ALUres(ALUres),.R_rs1_o(mem_Rrs1),.R_rs2_o(mem_Rrs2),.MemOP_o(mem_MemOP),.MemWr_o(mem_MemWr),.IntrEn_o(mem_IntrEn),
+          .NextPC(NextPC),.is_jump(is_jump),.RegSrc_o(BW_RegSrc),.inst_o(Inst),.pc_o(pc));    
+
+    RegisterFile RegisterFile(.rs1(rs1),.rs2(rs2),.waddr(Inst[11:7]),.R_rs1(R_rs1),.R_rs2(R_rs2),
                 .clk(clk),.wdata(RegWdata),.wen(RegWr));
 
-    ALU ALU(.ALUAsr(ALUAsr),.PC(pc),.R_rs1(R_rs1),.ALUBsr(ALUBsr),.Imm(Imm),.R_rs2(R_rs2),.ALUct(ALUct),
-            .ALUres(ALUres),.Less(Less),.Zero(Zero),.isTuncate(isTuncate),.isSext(isSext));
     
-    DataMem DataMem(.clk(clk),.Addr(ALUres),.MemOP(MemOP),.DataIn(R_rs2),.WrEn(MemWr),.DataOut(MemOut),.clint_we(clint_we),.clint_re(clint_re));
+    DataMem DataMem(.clk(clk),.Addr(ALUres),.MemOP(mem_MemOP),.DataIn(mem_Rrs2),.WrEn(mem_MemWr),.DataOut(MemOut),.clint_we(clint_we),.clint_re(clint_re));
 
-    MuxKeyInternal #(3,2,64,1) RegWsrcMux(.out(RegWdata),.key(RegSrc),.default_out(64'd0),.lut({
+    MuxKeyInternal #(3,2,64,1) RegWsrcMux(.out(RegWdata),.key(BW_RegSrc),.default_out(64'd0),.lut({
         2'd0,ALUres,
         2'd1,clint_re?clint_dout:MemOut,//clint memory map
         2'd2,IntrOut
     }));
 
-    Intr IntrUnit(.clk(clk),.IntrEn(IntrEn),.clint_mtip(clint_mtip),.pc(pc),.R_rs1(R_rs1),.zimm(Inst[19:15]),.csr(Inst[31:20]),.func3(Inst[14:12]),
+    Intr IntrUnit(.clk(clk),.IntrEn(mem_IntrEn),.clint_mtip(clint_mtip),.pc(pc),.R_rs1(mem_Rrs1),.zimm(Inst[19:15]),.csr(Inst[31:20]),.func3(Inst[14:12]),
       .isIntrPC(isIntrPC),.IntrPC(IntrPC),.dout(IntrOut));
 
-    clint clintU(.clk(clk),.clint_din(R_rs2),.clint_addr(ALUres),.we(clint_we),.re(clint_re),
+    clint clintU(.clk(clk),.clint_din(mem_Rrs2),.clint_addr(ALUres),.we(clint_we),.re(clint_re),
                  .clint_mtip(clint_mtip),.clint_dout(clint_dout));
     always @(*) begin
         if (Inst==32'h00100073)

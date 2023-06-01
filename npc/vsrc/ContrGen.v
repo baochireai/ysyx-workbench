@@ -8,9 +8,11 @@ module ContrGen(
     //to EX
     output reg [4:0] ALUct,//加法器加(b0000)、加法器减、移位（左移、逻辑右移、逻辑左移）、异或、逻辑或、逻辑与、直接输出(b0001)
     output reg [`RegWidth-1:0] Imm,
-    output RegWr,//结果写回寄存器
     output reg ALUAsr,//ALUAsr->0:PC ALUAsr->1:R_sr1
     output reg [1:0] ALUBsr,//ALUBsr->0:Imm ALUBsr->1:R_sr2 ALUBsr->2:4
+    //to WB
+    output RegWr,//结果写回寄存器
+
     output reg [2:0] Branch,
     output MemWr,
     output [2:0] MemOP,
@@ -19,6 +21,7 @@ module ContrGen(
     output isSext,
     output IntrEn
 );
+
 
     wire [2:0] Extop;
 

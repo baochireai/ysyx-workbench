@@ -61,16 +61,16 @@ VL_INLINE_OPT void Vtop_Intr___ico_sequent__TOP__top__IntrUnit__0(Vtop_Intr* vlS
                    >> 0x20U));
     vlSelf->__PVT__scrDataSrc__DOT__pair_list[2U][2U] = 5U;
     vlSelf->__PVT__scrDataSrc__DOT__pair_list[3U][0U] 
-        = (IData)(((~ vlSymsp->TOP__top.__PVT__R_rs1) 
+        = (IData)(((~ vlSymsp->TOP__top.__PVT__mem_Rrs1) 
                    & vlSelf->__PVT__dout));
     vlSelf->__PVT__scrDataSrc__DOT__pair_list[3U][1U] 
-        = (IData)((((~ vlSymsp->TOP__top.__PVT__R_rs1) 
+        = (IData)((((~ vlSymsp->TOP__top.__PVT__mem_Rrs1) 
                     & vlSelf->__PVT__dout) >> 0x20U));
     vlSelf->__PVT__scrDataSrc__DOT__pair_list[3U][2U] = 3U;
     vlSelf->__PVT__scrDataSrc__DOT__pair_list[4U][0U] 
-        = (IData)((vlSelf->__PVT__dout | vlSymsp->TOP__top.__PVT__R_rs1));
+        = (IData)((vlSelf->__PVT__dout | vlSymsp->TOP__top.__PVT__mem_Rrs1));
     vlSelf->__PVT__scrDataSrc__DOT__pair_list[4U][1U] 
-        = (IData)(((vlSelf->__PVT__dout | vlSymsp->TOP__top.__PVT__R_rs1) 
+        = (IData)(((vlSelf->__PVT__dout | vlSymsp->TOP__top.__PVT__mem_Rrs1) 
                    >> 0x20U));
     vlSelf->__PVT__scrDataSrc__DOT__pair_list[4U][2U] = 2U;
     vlSelf->__PVT__scrDataSrc__DOT__data_list[0U] = 
@@ -86,9 +86,9 @@ VL_INLINE_OPT void Vtop_Intr___ico_sequent__TOP__top__IntrUnit__0(Vtop_Intr* vlS
          | (QData)((IData)((0x1fU & (vlSymsp->TOP__top.Inst 
                                      >> 0xfU)))));
     vlSelf->__PVT__scrDataSrc__DOT__data_list[3U] = 
-        ((~ vlSymsp->TOP__top.__PVT__R_rs1) & vlSelf->__PVT__dout);
+        ((~ vlSymsp->TOP__top.__PVT__mem_Rrs1) & vlSelf->__PVT__dout);
     vlSelf->__PVT__scrDataSrc__DOT__data_list[4U] = 
-        (vlSelf->__PVT__dout | vlSymsp->TOP__top.__PVT__R_rs1);
+        (vlSelf->__PVT__dout | vlSymsp->TOP__top.__PVT__mem_Rrs1);
     vlSelf->__PVT__scrDataSrc__DOT__lut_out = ((- (QData)((IData)(
                                                                   ((7U 
                                                                     & (vlSymsp->TOP__top.Inst 
@@ -232,27 +232,34 @@ VL_INLINE_OPT void Vtop_Intr___nba_sequent__TOP__top__IntrUnit__0(Vtop_Intr* vlS
     Vtop__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     VL_DEBUG_IF(VL_DBG_MSGF("+        Vtop_Intr___nba_sequent__TOP__top__IntrUnit__0\n"); );
     // Body
-    if ((((IData)(vlSelf->__PVT__ismcase) & (IData)(vlSymsp->TOP__top.__PVT__IntrEn)) 
+    vlSelf->__PVT__scrDataSrc__DOT__pair_list[5U][0U] 
+        = (IData)(vlSymsp->TOP__top.__PVT__mem_Rrs1);
+    vlSelf->__PVT__scrDataSrc__DOT__pair_list[5U][1U] 
+        = (IData)((vlSymsp->TOP__top.__PVT__mem_Rrs1 
+                   >> 0x20U));
+    vlSelf->__PVT__scrDataSrc__DOT__pair_list[5U][2U] = 1U;
+    vlSelf->__PVT__scrDataSrc__DOT__data_list[5U] = vlSymsp->TOP__top.__PVT__mem_Rrs1;
+    if ((((IData)(vlSelf->__PVT__ismcase) & (IData)(vlSymsp->TOP__top.__PVT__mem_IntrEn)) 
          | (IData)(vlSelf->__PVT__irq_raise))) {
         vlSelf->mcase = ((IData)(vlSelf->__PVT__irq_raise)
                           ? vlSelf->__PVT__eNo : vlSelf->__PVT__csrWData);
     }
-    if ((((IData)(vlSelf->__PVT__ismstatus) & (IData)(vlSymsp->TOP__top.__PVT__IntrEn)) 
+    if ((((IData)(vlSelf->__PVT__ismstatus) & (IData)(vlSymsp->TOP__top.__PVT__mem_IntrEn)) 
          | (IData)(vlSelf->__PVT__irq_raise))) {
         vlSelf->__PVT__mstatus = vlSelf->__PVT__mstatusIn;
     }
-    if ((((IData)(vlSelf->__PVT__ismepc) & (IData)(vlSymsp->TOP__top.__PVT__IntrEn)) 
+    if ((((IData)(vlSelf->__PVT__ismepc) & (IData)(vlSymsp->TOP__top.__PVT__mem_IntrEn)) 
          | (IData)(vlSelf->__PVT__irq_raise))) {
         vlSelf->__PVT__mepc = ((IData)(vlSelf->__PVT__irq_raise)
                                 ? vlSymsp->TOP__top.pc
                                 : vlSelf->__PVT__csrWData);
     }
     if (((0x305U == (vlSymsp->TOP__top.Inst >> 0x14U)) 
-         & (IData)(vlSymsp->TOP__top.__PVT__IntrEn))) {
+         & (IData)(vlSymsp->TOP__top.__PVT__mem_IntrEn))) {
         vlSelf->__PVT__mtvec = vlSelf->__PVT__csrWData;
     }
     if (((0x304U == (vlSymsp->TOP__top.Inst >> 0x14U)) 
-         & (IData)(vlSymsp->TOP__top.__PVT__IntrEn))) {
+         & (IData)(vlSymsp->TOP__top.__PVT__mem_IntrEn))) {
         vlSelf->__PVT__mie = vlSelf->__PVT__csrWData;
     }
     vlSelf->__PVT__timer_irq = ((vlSymsp->TOP__top.__PVT__clintU__DOT__mtime 
@@ -275,13 +282,7 @@ VL_INLINE_OPT void Vtop_Intr___nba_sequent__TOP__top__IntrUnit__1(Vtop_Intr* vlS
                                            >> 0x14U)));
     vlSelf->__PVT__isecall = ((~ (IData)((0U != (0xfff07000U 
                                                  & vlSymsp->TOP__top.Inst)))) 
-                              & (IData)(vlSymsp->TOP__top.__PVT__IntrEn));
-    vlSelf->__PVT__scrDataSrc__DOT__pair_list[5U][0U] 
-        = (IData)(vlSymsp->TOP__top.__PVT__R_rs1);
-    vlSelf->__PVT__scrDataSrc__DOT__pair_list[5U][1U] 
-        = (IData)((vlSymsp->TOP__top.__PVT__R_rs1 >> 0x20U));
-    vlSelf->__PVT__scrDataSrc__DOT__pair_list[5U][2U] = 1U;
-    vlSelf->__PVT__scrDataSrc__DOT__data_list[5U] = vlSymsp->TOP__top.__PVT__R_rs1;
+                              & (IData)(vlSymsp->TOP__top.__PVT__mem_IntrEn));
     vlSelf->__PVT__ismstatus = ((0x300U == (vlSymsp->TOP__top.Inst 
                                             >> 0x14U)) 
                                 | (IData)(vlSelf->__PVT__ismret));
@@ -365,16 +366,16 @@ VL_INLINE_OPT void Vtop_Intr___nba_sequent__TOP__top__IntrUnit__1(Vtop_Intr* vlS
                    >> 0x20U));
     vlSelf->__PVT__scrDataSrc__DOT__pair_list[2U][2U] = 5U;
     vlSelf->__PVT__scrDataSrc__DOT__pair_list[3U][0U] 
-        = (IData)(((~ vlSymsp->TOP__top.__PVT__R_rs1) 
+        = (IData)(((~ vlSymsp->TOP__top.__PVT__mem_Rrs1) 
                    & vlSelf->__PVT__dout));
     vlSelf->__PVT__scrDataSrc__DOT__pair_list[3U][1U] 
-        = (IData)((((~ vlSymsp->TOP__top.__PVT__R_rs1) 
+        = (IData)((((~ vlSymsp->TOP__top.__PVT__mem_Rrs1) 
                     & vlSelf->__PVT__dout) >> 0x20U));
     vlSelf->__PVT__scrDataSrc__DOT__pair_list[3U][2U] = 3U;
     vlSelf->__PVT__scrDataSrc__DOT__pair_list[4U][0U] 
-        = (IData)((vlSelf->__PVT__dout | vlSymsp->TOP__top.__PVT__R_rs1));
+        = (IData)((vlSelf->__PVT__dout | vlSymsp->TOP__top.__PVT__mem_Rrs1));
     vlSelf->__PVT__scrDataSrc__DOT__pair_list[4U][1U] 
-        = (IData)(((vlSelf->__PVT__dout | vlSymsp->TOP__top.__PVT__R_rs1) 
+        = (IData)(((vlSelf->__PVT__dout | vlSymsp->TOP__top.__PVT__mem_Rrs1) 
                    >> 0x20U));
     vlSelf->__PVT__scrDataSrc__DOT__pair_list[4U][2U] = 2U;
     vlSelf->__PVT__scrDataSrc__DOT__data_list[0U] = 
@@ -390,9 +391,9 @@ VL_INLINE_OPT void Vtop_Intr___nba_sequent__TOP__top__IntrUnit__1(Vtop_Intr* vlS
          | (QData)((IData)((0x1fU & (vlSymsp->TOP__top.Inst 
                                      >> 0xfU)))));
     vlSelf->__PVT__scrDataSrc__DOT__data_list[3U] = 
-        ((~ vlSymsp->TOP__top.__PVT__R_rs1) & vlSelf->__PVT__dout);
+        ((~ vlSymsp->TOP__top.__PVT__mem_Rrs1) & vlSelf->__PVT__dout);
     vlSelf->__PVT__scrDataSrc__DOT__data_list[4U] = 
-        (vlSelf->__PVT__dout | vlSymsp->TOP__top.__PVT__R_rs1);
+        (vlSelf->__PVT__dout | vlSymsp->TOP__top.__PVT__mem_Rrs1);
     vlSelf->__PVT__scrDataSrc__DOT__lut_out = ((- (QData)((IData)(
                                                                   ((7U 
                                                                     & (vlSymsp->TOP__top.Inst 
