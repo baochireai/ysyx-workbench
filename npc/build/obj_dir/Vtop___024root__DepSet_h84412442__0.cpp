@@ -65,8 +65,8 @@ VL_INLINE_OPT void Vtop___024root___nba_sequent__TOP__0(Vtop___024root* vlSelf) 
     Vtop__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vtop___024root___nba_sequent__TOP__0\n"); );
     // Body
-    vlSelf->pc = vlSymsp->TOP__top.pc;
     vlSelf->Inst = vlSymsp->TOP__top.Inst;
+    vlSelf->pc = vlSymsp->TOP__top.pc;
 }
 
 void Vtop_top___nba_sequent__TOP__top__0(Vtop_top* vlSelf);
