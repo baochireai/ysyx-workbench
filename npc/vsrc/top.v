@@ -102,10 +102,11 @@ module top(
                               ifu_raddr,ifu_arvalid,ram_arready,ram_rdata,ram_rresp,ram_rvalid,ifu_ready);
 
     wire isTuncate,isSext;
+    wire [`RegWidth-1:0] ex_Rrs1,ex_Rrs2;
     //wire [`INSTWide-1:0] ex_inst;
     /* verilator lint_off PINMISSING */
     IDU IDU(.clk(clk),.rst(rst),.id_inst(id_inst),.id_pc(id_pc),.R_rs1_i(R_rs1),.R_rs2_i(R_rs2),.rs1(rs1),.rs2(rs2),.ALUct(ALUct),.Imm(Imm),
-      .ALUAsr(ALUAsr),.ALUBsr(ALUBsr),.inst_o(ex_inst),.pc_o(ex_pc),.RegWr(RegWr),.Branch(Branch),.MemOP(MemOP),.MemWr(MemWr),.RegSrc(RegSrc),
+      .ALUAsr(ALUAsr),.ALUBsr(ALUBsr),.inst_o(ex_inst),.pc_o(ex_pc),.R_rs1_o(ex_Rrs1),.R_rs2_o(ex_Rrs2),.RegWr(RegWr),.Branch(Branch),.MemOP(MemOP),.MemWr(MemWr),.RegSrc(RegSrc),
       .isTuncate(isTuncate),.isSext(isSext),.IntrEn(IntrEn));
     /* verilator lint_on PINMISSING */
     
@@ -117,7 +118,7 @@ module top(
 
     EXU EXU(.clk(clk),.rst(rst),.exu_inst(ex_inst),.exu_pc(ex_pc),.ALUAsr(ALUAsr),.ALUBsr(ALUBsr),.ALUct(ALUct),
           .isTuncate(isTuncate),.isSext(isSext),.MemOP_i(MemOP),.MemWr_i(MemWr),.IntrEn(IntrEn), .Branch(Branch),.RegSrc(RegSrc),
-          .R_rs1(R_rs1),.R_rs2(R_rs2),.Imm(Imm),
+          .R_rs1(ex_Rrs1),.R_rs2(ex_Rrs2),.Imm(Imm),
           .wb_ALUres(ALUres),.R_rs1_o(mem_Rrs1),.R_rs2_o(mem_Rrs2),.MemOP_o(mem_MemOP),.MemWr_o(mem_MemWr),.IntrEn_o(mem_IntrEn),
           .NextPC(NextPC),.is_jump(is_jump),.RegSrc_o(BW_RegSrc),.inst_o(Inst),.pc_o(pc));    
 
