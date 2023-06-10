@@ -413,7 +413,7 @@ void Vtop___024root__trace_chg_sub_0(Vtop___024root* vlSelf, VerilatedVcd::Buffe
         bufp->chgQData(oldp+251,(vlSymsp->TOP__top__WB.__PVT__IntrPC),64);
         bufp->chgBit(oldp+253,(vlSymsp->TOP__top.__PVT__ifu_arvalid));
         bufp->chgIData(oldp+254,(vlSymsp->TOP__top.__PVT__ifu_raddr),32);
-        bufp->chgQData(oldp+255,(vlSymsp->TOP__top.__PVT__ram_rdata),64);
+        bufp->chgQData(oldp+255,(vlSymsp->TOP__top.__PVT__ram_axi_lite_u__DOT__RDATA_d),64);
         bufp->chgBit(oldp+257,(vlSymsp->TOP__top.__PVT__ram_rvalid));
         bufp->chgCData(oldp+258,(vlSymsp->TOP__top.__PVT__ram_rresp),2);
         bufp->chgBit(oldp+259,(vlSymsp->TOP__top.__PVT__AWREADY));
@@ -1314,7 +1314,10 @@ void Vtop___024root__trace_chg_sub_0(Vtop___024root* vlSelf, VerilatedVcd::Buffe
         bufp->chgBit(oldp+715,(vlSymsp->TOP__top.__PVT__IFU__DOT__popline_wen));
         bufp->chgQData(oldp+716,(vlSymsp->TOP__top.__PVT__IFU__DOT__dpc),64);
         bufp->chgQData(oldp+718,(vlSymsp->TOP__top.__PVT__IFU__DOT__NextPC),64);
-        bufp->chgIData(oldp+720,((IData)(vlSymsp->TOP__top.__PVT__IFU__DOT__NextPC)),32);
+        bufp->chgIData(oldp+720,(((0U == (7U & (IData)(vlSymsp->TOP__top.__PVT__IFU__DOT__NextPC)))
+                                   ? (IData)(vlSymsp->TOP__top.__PVT__ram_axi_lite_u__DOT__RDATA_d)
+                                   : (IData)((vlSymsp->TOP__top.__PVT__ram_axi_lite_u__DOT__RDATA_d 
+                                              >> 0x20U)))),32);
         bufp->chgBit(oldp+721,(vlSymsp->TOP__top.__PVT__LSU__DOT__isclint));
         bufp->chgBit(oldp+722,(((~ (IData)(vlSymsp->TOP__top.__PVT__mem_MemWr)) 
                                 & (0U != (IData)(vlSymsp->TOP__top.__PVT__mem_MemOP)))));

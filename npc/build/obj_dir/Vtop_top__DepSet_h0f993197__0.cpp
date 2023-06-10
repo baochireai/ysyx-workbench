@@ -134,7 +134,8 @@ VL_INLINE_OPT void Vtop_top___nba_sequent__TOP__top__0(Vtop_top* vlSelf) {
         vlSelf->__PVT__ram_rresp = 0U;
     } else if (vlSelf->__PVT__ifu_arvalid) {
         Vtop___024unit____Vdpiimwrap_pmem_read_TOP____024unit(vlSelf->__PVT__ifu_raddr, __Vtask_pmem_read__2__rdata);
-        vlSelf->__PVT__ram_rdata = __Vtask_pmem_read__2__rdata;
+        vlSelf->__PVT__ram_axi_lite_u__DOT__RDATA_d 
+            = __Vtask_pmem_read__2__rdata;
         vlSelf->__PVT__ram_rresp = 0U;
         __Vdly__ram_rvalid = 1U;
     } else {
@@ -968,7 +969,10 @@ VL_INLINE_OPT void Vtop_top___nba_sequent__TOP__top__1(Vtop_top* vlSelf) {
     if (vlSymsp->TOP.rst) {
         vlSelf->__PVT__id_inst = 0U;
     } else if (vlSelf->__PVT__IFU__DOT__popline_wen) {
-        vlSelf->__PVT__id_inst = (IData)(vlSelf->__PVT__IFU__DOT__NextPC);
+        vlSelf->__PVT__id_inst = ((0U == (7U & (IData)(vlSelf->__PVT__IFU__DOT__NextPC)))
+                                   ? (IData)(vlSelf->__PVT__ram_axi_lite_u__DOT__RDATA_d)
+                                   : (IData)((vlSelf->__PVT__ram_axi_lite_u__DOT__RDATA_d 
+                                              >> 0x20U)));
     }
     vlSelf->__PVT__IDU__DOT__ContrGenU__DOT__ImmGenU__DOT__isRegWr__DOT__pair_list[0U][0U] 
         = (IData)((((- (QData)((IData)((vlSelf->__PVT__id_inst 

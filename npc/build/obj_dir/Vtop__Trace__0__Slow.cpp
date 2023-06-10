@@ -1121,6 +1121,7 @@ VL_ATTR_COLD void Vtop___024root__trace_init_sub__TOP__top__0(Vtop___024root* vl
     tracep->declBit(c+785,"wdata_done", false,-1);
     tracep->declBit(c+1040,"raddr_done", false,-1);
     tracep->declBus(c+129,"i", false,-1, 31,0);
+    tracep->declQuad(c+256,"RDATA_d", false,-1, 63,0);
     tracep->popNamePrefix(1);
     tracep->pushNamePrefix("witf ");
     tracep->declBit(c+957,"clk", false,-1);
@@ -2009,7 +2010,7 @@ VL_ATTR_COLD void Vtop___024root__trace_full_sub_0(Vtop___024root* vlSelf, Veril
     bufp->fullQData(oldp+252,(vlSymsp->TOP__top__WB.__PVT__IntrPC),64);
     bufp->fullBit(oldp+254,(vlSymsp->TOP__top.__PVT__ifu_arvalid));
     bufp->fullIData(oldp+255,(vlSymsp->TOP__top.__PVT__ifu_raddr),32);
-    bufp->fullQData(oldp+256,(vlSymsp->TOP__top.__PVT__ram_rdata),64);
+    bufp->fullQData(oldp+256,(vlSymsp->TOP__top.__PVT__ram_axi_lite_u__DOT__RDATA_d),64);
     bufp->fullBit(oldp+258,(vlSymsp->TOP__top.__PVT__ram_rvalid));
     bufp->fullCData(oldp+259,(vlSymsp->TOP__top.__PVT__ram_rresp),2);
     bufp->fullBit(oldp+260,(vlSymsp->TOP__top.__PVT__AWREADY));
@@ -2883,7 +2884,10 @@ VL_ATTR_COLD void Vtop___024root__trace_full_sub_0(Vtop___024root* vlSelf, Veril
     bufp->fullBit(oldp+716,(vlSymsp->TOP__top.__PVT__IFU__DOT__popline_wen));
     bufp->fullQData(oldp+717,(vlSymsp->TOP__top.__PVT__IFU__DOT__dpc),64);
     bufp->fullQData(oldp+719,(vlSymsp->TOP__top.__PVT__IFU__DOT__NextPC),64);
-    bufp->fullIData(oldp+721,((IData)(vlSymsp->TOP__top.__PVT__IFU__DOT__NextPC)),32);
+    bufp->fullIData(oldp+721,(((0U == (7U & (IData)(vlSymsp->TOP__top.__PVT__IFU__DOT__NextPC)))
+                                ? (IData)(vlSymsp->TOP__top.__PVT__ram_axi_lite_u__DOT__RDATA_d)
+                                : (IData)((vlSymsp->TOP__top.__PVT__ram_axi_lite_u__DOT__RDATA_d 
+                                           >> 0x20U)))),32);
     bufp->fullBit(oldp+722,(vlSymsp->TOP__top.__PVT__LSU__DOT__isclint));
     bufp->fullBit(oldp+723,(((~ (IData)(vlSymsp->TOP__top.__PVT__mem_MemWr)) 
                              & (0U != (IData)(vlSymsp->TOP__top.__PVT__mem_MemOP)))));

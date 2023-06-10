@@ -133,7 +133,7 @@ wire [DWIDTH-1:0] RDATA_d;
 //read data
 always @(posedge clk ) begin
     if(resetn) begin
-        //RDATA<='d0;
+        RDATA_d<='d0;
         RVALID<=1'b0;
         RRESP<=2'b00;
     end
@@ -144,8 +144,10 @@ always @(posedge clk ) begin
     end
     else if(RVALID&RREADY)//should wait rready vaild,then invalid rvalid and change dataout.
         RVALID<=1'b0;
+        RDATA_d<=RDATA_d;
     else begin
         RVALID<=RVALID;
+        RDATA_d<=RDATA_d;
         //RDATA<=RDATA;
     end
 end
