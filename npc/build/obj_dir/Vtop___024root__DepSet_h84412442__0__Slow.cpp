@@ -10,7 +10,8 @@
 #include "Vtop___024root.h"
 
 VL_ATTR_COLD void Vtop_top___eval_initial__TOP__top(Vtop_top* vlSelf);
-VL_ATTR_COLD void Vtop_Intr___eval_initial__TOP__top__IntrUnit(Vtop_Intr* vlSelf);
+VL_ATTR_COLD void Vtop_WB___eval_initial__TOP__top__WB(Vtop_WB* vlSelf);
+VL_ATTR_COLD void Vtop_Intr___eval_initial__TOP__top__WB__IntrUnit(Vtop_Intr* vlSelf);
 
 VL_ATTR_COLD void Vtop___024root___eval_initial(Vtop___024root* vlSelf) {
     if (false && vlSelf) {}  // Prevent unused
@@ -21,7 +22,8 @@ VL_ATTR_COLD void Vtop___024root___eval_initial(Vtop___024root* vlSelf) {
     vlSelf->__Vm_traceActivity[2U] = 1U;
     vlSelf->__Vm_traceActivity[1U] = 1U;
     vlSelf->__Vm_traceActivity[0U] = 1U;
-    Vtop_Intr___eval_initial__TOP__top__IntrUnit((&vlSymsp->TOP__top__IntrUnit));
+    Vtop_WB___eval_initial__TOP__top__WB((&vlSymsp->TOP__top__WB));
+    Vtop_Intr___eval_initial__TOP__top__WB__IntrUnit((&vlSymsp->TOP__top__WB__IntrUnit));
     vlSelf->__Vtrigprevexpr___TOP__clk__0 = vlSelf->clk;
 }
 
@@ -47,13 +49,14 @@ VL_ATTR_COLD void Vtop___024root___stl_sequent__TOP__0(Vtop___024root* vlSelf) {
     Vtop__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vtop___024root___stl_sequent__TOP__0\n"); );
     // Body
-    vlSelf->pc = vlSymsp->TOP__top.pc;
-    vlSelf->Inst = vlSymsp->TOP__top.Inst;
+    vlSelf->pc = vlSymsp->TOP__top.__PVT__wb_pc;
+    vlSelf->Inst = vlSymsp->TOP__top.__PVT__wb_inst;
 }
 
 VL_ATTR_COLD void Vtop_top___stl_sequent__TOP__top__0(Vtop_top* vlSelf);
-VL_ATTR_COLD void Vtop_Intr___stl_sequent__TOP__top__IntrUnit__0(Vtop_Intr* vlSelf);
-void Vtop_top___nba_sequent__TOP__top__2(Vtop_top* vlSelf);
+VL_ATTR_COLD void Vtop_WB___stl_sequent__TOP__top__WB__0(Vtop_WB* vlSelf);
+VL_ATTR_COLD void Vtop_Intr___stl_sequent__TOP__top__WB__IntrUnit__0(Vtop_Intr* vlSelf);
+void Vtop_WB___ico_sequent__TOP__top__WB__0(Vtop_WB* vlSelf);
 
 VL_ATTR_COLD void Vtop___024root___eval_stl(Vtop___024root* vlSelf) {
     if (false && vlSelf) {}  // Prevent unused
@@ -66,7 +69,8 @@ VL_ATTR_COLD void Vtop___024root___eval_stl(Vtop___024root* vlSelf) {
         vlSelf->__Vm_traceActivity[1U] = 1U;
         vlSelf->__Vm_traceActivity[0U] = 1U;
         Vtop___024root___stl_sequent__TOP__0(vlSelf);
-        Vtop_Intr___stl_sequent__TOP__top__IntrUnit__0((&vlSymsp->TOP__top__IntrUnit));
-        Vtop_top___nba_sequent__TOP__top__2((&vlSymsp->TOP__top));
+        Vtop_WB___stl_sequent__TOP__top__WB__0((&vlSymsp->TOP__top__WB));
+        Vtop_Intr___stl_sequent__TOP__top__WB__IntrUnit__0((&vlSymsp->TOP__top__WB__IntrUnit));
+        Vtop_WB___ico_sequent__TOP__top__WB__0((&vlSymsp->TOP__top__WB));
     }
 }

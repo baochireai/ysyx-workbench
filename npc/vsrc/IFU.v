@@ -10,7 +10,7 @@ module IFU(
     input [`RegWidth-1:0] IntrPC,
 
     //frome ctrl 
-    input pipeline_hold,
+    //input pipeline_hold,
 
     //AXI-lite to imem
     output reg ARVALID,
@@ -27,11 +27,25 @@ module IFU(
 
     // handshake to IDU
     output reg ifu_valid,
-    input id_ready,
-    //handshake to EX
+    input idu_ready,
+    //handshake to wb
     output ifu_ready,
-    input ex_valid
+    input wb_valid
 );
+
+// assign ifu_valid_next=popline_wen;
+
+// assign ifu_ready=1'b1;
+
+// wire popline_wen=idu_ready;
+
+assign ifu_ready=1'b1;
+//reg有数据但将被读|reg没有数据
+wire ifu_valid_next=(ifu_valid&idu_ready)|(!ifu_valid);
+
+Reg #(1,'d0) ifu_valid_reg(clk,rst,ifu_valid_next,ifu_valid,1'b1);
+
+wire popline_wen=ifu_valid_next;
 
 wire [`RegWidth-1:0]  dpc=isIntrPC?IntrPC:(is_jump?JumpPc:NextPC+4);
 wire [`RegWidth-1:0] NextPC;
@@ -42,9 +56,10 @@ reg [`INSTWide-1:0] inst;
 //wire popline_wen=ifu_valid&id_ready;
 //什么时候可以接收新数据(写入寄存器)
 
-Reg #(`RegWidth, 64'h000000007ffffffc) if_pre_pc_reg(.clk(clk),.rst(rst),.din(dpc),.dout(NextPC),.wen(1'b1));
-Reg #(`RegWidth, 64'h000000007ffffff8) id_pc_reg(.clk(clk),.rst(rst),.din(NextPC),.dout(pc_o),.wen(1'b1));
-Reg #(`INSTWide, 32'd0) if_inst_reg(.clk(clk),.rst(rst),.din((NextPC[2:0]==3'd0)?inst_i[31:0]:inst_i[63:32]),.dout(inst_o),.wen(RVALID&RREADY));
+Reg #(`RegWidth, 64'h000000007ffffffc) if_pre_pc_reg(.clk(clk),.rst(rst),.din(dpc),.dout(NextPC),.wen(popline_wen));
+Reg #(`RegWidth, 64'h000000007ffffff8) id_pc_reg(.clk(clk),.rst(rst),.din(NextPC),.dout(pc_o),.wen(popline_wen));
+Reg #(`INSTWide, 32'd0) if_inst_reg(.clk(clk),.rst(rst),.din((NextPC[2:0]==3'd0)?inst_i[31:0]:inst_i[63:32]),.dout(inst_o),.wen(popline_wen));
+Reg #(1, 'd0) if_valid_reg(.clk(clk),.rst(rst),.din(ifu_valid_next),.dout(ifu_valid),.wen(RVALID&RREADY));
 
 
 //ARADDR

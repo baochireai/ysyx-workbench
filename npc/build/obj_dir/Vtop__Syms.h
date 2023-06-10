@@ -17,6 +17,7 @@
 #include "Vtop___024root.h"
 #include "Vtop_top.h"
 #include "Vtop___024unit.h"
+#include "Vtop_WB.h"
 #include "Vtop_Intr.h"
 
 // DPI TYPES for DPI Export callbacks (Internal use)
@@ -35,11 +36,13 @@ class Vtop__Syms final : public VerilatedSyms {
     Vtop___024root                 TOP;
     Vtop___024unit                 TOP____024unit;
     Vtop_top                       TOP__top;
-    Vtop_Intr                      TOP__top__IntrUnit;
+    Vtop_WB                        TOP__top__WB;
+    Vtop_Intr                      TOP__top__WB__IntrUnit;
 
     // SCOPE NAMES
     VerilatedScope __Vscope_top;
-    VerilatedScope __Vscope_top__IntrUnit;
+    VerilatedScope __Vscope_top__WB;
+    VerilatedScope __Vscope_top__WB__IntrUnit;
 
     // SCOPE HIERARCHY
     VerilatedHierarchy __Vhier;

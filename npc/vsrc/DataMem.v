@@ -9,15 +9,8 @@ module DataMem(
     input [2:0] MemOP,//MemOP[1:0]:2'd3 1字节读写 2'd2 2字节读写 2'd1 4字节读写 2'd0 8字节读写 MemOP[2]是否带符号扩增 MemOP[2:0] 3'd0无操作
     input [63:0] DataIn,
     input WrEn,
-    output [63:0] DataOut,
-    output clint_we,
-    output clint_re
+    output [63:0] DataOut
 );
-
-    wire clint_en;
-    assign clint_en=(Addr>=64'h2000000&Addr<=64'h200BFFF)?1'b1:1'b0;
-    assign clint_we=clint_en&WrEn;
-    assign clint_re=clint_en&RdEn;
 
     wire [7:0] wmask;    
     MuxKeyInternal #(4,2,8, 1) deMemOP (.out(wmask),.key(MemOP[1:0]),.default_out(8'd0),.lut({

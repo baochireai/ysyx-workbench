@@ -8,10 +8,10 @@
 #include "Vtop__Syms.h"
 #include "Vtop_Intr.h"
 
-VL_ATTR_COLD void Vtop_Intr___eval_initial__TOP__top__IntrUnit(Vtop_Intr* vlSelf) {
+VL_ATTR_COLD void Vtop_Intr___eval_initial__TOP__top__WB__IntrUnit(Vtop_Intr* vlSelf) {
     if (false && vlSelf) {}  // Prevent unused
     Vtop__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
-    VL_DEBUG_IF(VL_DBG_MSGF("+        Vtop_Intr___eval_initial__TOP__top__IntrUnit\n"); );
+    VL_DEBUG_IF(VL_DBG_MSGF("+          Vtop_Intr___eval_initial__TOP__top__WB__IntrUnit\n"); );
     // Body
     vlSelf->__PVT__scrDataSrc__DOT__key_list[0U] = 7U;
     vlSelf->__PVT__scrDataSrc__DOT__key_list[1U] = 6U;
@@ -39,7 +39,7 @@ VL_ATTR_COLD void Vtop_Intr___eval_initial__TOP__top__IntrUnit(Vtop_Intr* vlSelf
 VL_ATTR_COLD void Vtop_Intr___ctor_var_reset(Vtop_Intr* vlSelf) {
     if (false && vlSelf) {}  // Prevent unused
     Vtop__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
-    VL_DEBUG_IF(VL_DBG_MSGF("+        Vtop_Intr___ctor_var_reset\n"); );
+    VL_DEBUG_IF(VL_DBG_MSGF("+          Vtop_Intr___ctor_var_reset\n"); );
     // Body
     vlSelf->__PVT__clk = 0;
     vlSelf->__PVT__IntrEn = 0;
