@@ -157,10 +157,6 @@ VL_ATTR_COLD void Vtop_top___eval_initial__TOP__top(Vtop_top* vlSelf) {
     vlSelf->__PVT__LSU__DOT__DataMem__DOT__deMemOP__DOT__pair_list[2U] = 0x203U;
     vlSelf->__PVT__LSU__DOT__DataMem__DOT__deMemOP__DOT__pair_list[3U] = 0x301U;
     vlSelf->__PVT__ifu_ready = 1U;
-    vlSelf->__PVT__IFU__DOT__NextPC = 0x7ffffffcULL;
-    vlSelf->__PVT__id_pc = 0x7ffffff8ULL;
-    vlSelf->__PVT__id_inst = 0U;
-    vlSelf->__PVT__ifu_valid = 0U;
     vlSelf->__PVT__ram_axi_lite_u__DOT__i = 0U;
     while (VL_LTS_III(32, vlSelf->__PVT__ram_axi_lite_u__DOT__i, 
                       (((0x1fU >= vlSelf->__PVT__AWADDR)
@@ -172,63 +168,7 @@ VL_ATTR_COLD void Vtop_top___eval_initial__TOP__top(Vtop_top* vlSelf) {
         vlSelf->__PVT__ram_axi_lite_u__DOT__i = ((IData)(1U) 
                                                  + vlSelf->__PVT__ram_axi_lite_u__DOT__i);
     }
-    vlSelf->__PVT__idu_valid = 0U;
-    vlSelf->__PVT__ex_inst = 0U;
-    vlSelf->__PVT__ex_pc = 0ULL;
-    vlSelf->__PVT__exu_ALUct = 0U;
-    vlSelf->__PVT__exu_Imm = 0ULL;
-    vlSelf->__PVT__exu_ALUAsr = 0U;
-    vlSelf->__PVT__exu_ALUBsr = 0U;
-    vlSelf->__PVT__exu_isTuncate = 0U;
-    vlSelf->__PVT__exu_isSext = 0U;
-    vlSelf->__PVT__exu_RegWr = 0U;
-    vlSelf->__PVT__exu_RegSrc = 0U;
-    vlSelf->__PVT__exu_Branch = 2U;
-    vlSelf->__PVT__exu_MemWr = 0U;
-    vlSelf->__PVT__exu_MemOP = 0U;
-    vlSelf->__PVT__exu_IntrEn = 0U;
-    vlSelf->__PVT__ex_Rrs1 = 0ULL;
-    vlSelf->__PVT__ex_Rrs2 = 0ULL;
-    vlSelf->__PVT__ALUres = 0ULL;
-    vlSelf->__PVT__mem_Rrs2 = 0ULL;
-    vlSelf->__PVT__mem_Rrs1 = 0ULL;
-    vlSelf->__PVT__mem_MemOP = 0U;
-    vlSelf->__PVT__mem_MemWr = 0U;
-    vlSelf->__PVT__mem_IntrEn = 0U;
-    vlSelf->__PVT__lsu_inst = 0U;
-    vlSelf->__PVT__lsu_pc = 0ULL;
-    vlSelf->__PVT__lsu_RegSrc = 0U;
-    vlSelf->__PVT__lsu_Regwr = 0U;
-    vlSelf->__PVT__wb_IntrEn = 0U;
-    vlSelf->__PVT__wb_pc = 0ULL;
-    vlSelf->__PVT__wb_Rrs1 = 0ULL;
-    vlSelf->__PVT__clint_mtip = 0U;
-    vlSelf->__PVT__wb_inst = 0U;
-    vlSelf->__PVT__wb_ALUres = 0ULL;
-    vlSelf->__PVT__wb_RegWr = 0U;
-    vlSelf->__PVT__wb_RegSrc = 0U;
     vlSelf->__PVT__LSU__DOT__clintU__DOT__mtime = 0ULL;
-    vlSelf->__PVT__LSU__DOT__clintU__DOT__mtimecmp = 0xffffffffffffffffULL;
-    vlSelf->__PVT__witf__DOT__depth_gt1__DOT__wptr_flg_r = 0U;
-    vlSelf->__PVT__witf__DOT__wptr_r = 0U;
-    vlSelf->__PVT__witf__DOT__depth_gt1__DOT__rptr_flg_r = 0U;
-    vlSelf->__PVT__witf__DOT__rptr_r = 0U;
-    vlSelf->witf__DOT____Vcellout__witf_entries__BRA__0__KET____DOT__vld_reg____pinNumber4 = 0U;
-    vlSelf->witf__DOT____Vcellout__witf_entries__BRA__0__KET____DOT__rdidx_reg____pinNumber4 = 0U;
-    vlSelf->witf__DOT____Vcellout__witf_entries__BRA__1__KET____DOT__vld_reg____pinNumber4 = 0U;
-    vlSelf->witf__DOT____Vcellout__witf_entries__BRA__1__KET____DOT__rdidx_reg____pinNumber4 = 0U;
-    vlSelf->witf__DOT____Vcellout__witf_entries__BRA__2__KET____DOT__vld_reg____pinNumber4 = 0U;
-    vlSelf->witf__DOT____Vcellout__witf_entries__BRA__2__KET____DOT__rdidx_reg____pinNumber4 = 0U;
-    vlSelf->witf__DOT____Vcellout__witf_entries__BRA__3__KET____DOT__vld_reg____pinNumber4 = 0U;
-    vlSelf->witf__DOT____Vcellout__witf_entries__BRA__3__KET____DOT__rdidx_reg____pinNumber4 = 0U;
-    vlSelf->witf__DOT____Vcellout__witf_entries__BRA__4__KET____DOT__vld_reg____pinNumber4 = 0U;
-    vlSelf->witf__DOT____Vcellout__witf_entries__BRA__4__KET____DOT__rdidx_reg____pinNumber4 = 0U;
-    vlSelf->witf__DOT____Vcellout__witf_entries__BRA__5__KET____DOT__vld_reg____pinNumber4 = 0U;
-    vlSelf->witf__DOT____Vcellout__witf_entries__BRA__5__KET____DOT__rdidx_reg____pinNumber4 = 0U;
-    vlSelf->witf__DOT____Vcellout__witf_entries__BRA__6__KET____DOT__vld_reg____pinNumber4 = 0U;
-    vlSelf->witf__DOT____Vcellout__witf_entries__BRA__6__KET____DOT__rdidx_reg____pinNumber4 = 0U;
-    vlSelf->witf__DOT____Vcellout__witf_entries__BRA__7__KET____DOT__vld_reg____pinNumber4 = 0U;
-    vlSelf->witf__DOT____Vcellout__witf_entries__BRA__7__KET____DOT__rdidx_reg____pinNumber4 = 0U;
 }
 
 VL_ATTR_COLD void Vtop_top___ctor_var_reset(Vtop_top* vlSelf) {

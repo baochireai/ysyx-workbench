@@ -29,11 +29,6 @@ VL_ATTR_COLD void Vtop_Intr___eval_initial__TOP__top__WB__IntrUnit(Vtop_Intr* vl
     vlSelf->__PVT__CSRwEn__DOT__pair_list[1U][0U] = 0xbU;
     vlSelf->__PVT__CSRwEn__DOT__pair_list[1U][1U] = 0U;
     vlSelf->__PVT__CSRwEn__DOT__pair_list[1U][2U] = 1U;
-    vlSelf->__PVT__mtvec = 0ULL;
-    vlSelf->__PVT__mepc = 0ULL;
-    vlSelf->mcase = 0ULL;
-    vlSelf->__PVT__mstatus = 0xa00001800ULL;
-    vlSelf->__PVT__mie = 0ULL;
 }
 
 VL_ATTR_COLD void Vtop_Intr___ctor_var_reset(Vtop_Intr* vlSelf) {

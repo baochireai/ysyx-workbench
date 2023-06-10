@@ -20,8 +20,6 @@ VL_ATTR_COLD void Vtop_WB___eval_initial__TOP__top__WB(Vtop_WB* vlSelf) {
     vlSelf->__PVT__RegWsrcMux__DOT__key_list[1U] = 1U;
     vlSelf->__PVT__RegWsrcMux__DOT__key_list[2U] = 0U;
     Vtop___024unit____Vdpiimwrap_set_gpr_ptr__Vdpioc2_TOP____024unit(vlSelf->__PVT__RegisterFile__DOT__rf);
-    vlSelf->__PVT__isIntrPC = 0U;
-    vlSelf->__PVT__IntrPC = 0ULL;
 }
 
 VL_ATTR_COLD void Vtop_WB___stl_sequent__TOP__top__WB__0(Vtop_WB* vlSelf) {
