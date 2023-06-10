@@ -830,7 +830,7 @@ VL_ATTR_COLD void Vtop___024root__trace_init_sub__TOP__top__0(Vtop___024root* vl
     tracep->declBit(c+958,"rst", false,-1);
     tracep->declBus(c+638,"din", false,-1, 0,0);
     tracep->declBus(c+268,"dout", false,-1, 0,0);
-    tracep->declBit(c+639,"wen", false,-1);
+    tracep->declBit(c+980,"wen", false,-1);
     tracep->popNamePrefix(2);
     tracep->pushNamePrefix("IFU ");
     tracep->declBit(c+957,"clk", false,-1);

@@ -47,12 +47,13 @@ VL_INLINE_OPT void Vtop_top___nba_sequent__TOP__top__0(Vtop_top* vlSelf) {
                                              ? vlSelf->__PVT__mem_Rrs2
                                              : (1ULL 
                                                 + vlSelf->__PVT__LSU__DOT__clintU__DOT__mtime));
+    vlSelf->__PVT__idu_valid = ((~ (IData)(vlSymsp->TOP.rst)) 
+                                & (IData)(vlSelf->__PVT__IDU__DOT__idu_valid_next));
     if (vlSymsp->TOP.rst) {
         __Vdly__BRESP = 0U;
         __Vdly__BVALID = 0U;
         vlSelf->__PVT__witf__DOT__depth_gt1__DOT__rptr_flg_r = 0U;
         vlSelf->__PVT__witf__DOT__depth_gt1__DOT__wptr_flg_r = 0U;
-        vlSelf->__PVT__idu_valid = 0U;
         vlSelf->witf__DOT____Vcellout__witf_entries__BRA__7__KET____DOT__vld_reg____pinNumber4 = 0U;
         vlSelf->witf__DOT____Vcellout__witf_entries__BRA__6__KET____DOT__vld_reg____pinNumber4 = 0U;
         vlSelf->witf__DOT____Vcellout__witf_entries__BRA__5__KET____DOT__vld_reg____pinNumber4 = 0U;
@@ -80,9 +81,6 @@ VL_INLINE_OPT void Vtop_top___nba_sequent__TOP__top__0(Vtop_top* vlSelf) {
         if (vlSelf->__PVT__witf__DOT__depth_gt1__DOT__wptr_flg_ena) {
             vlSelf->__PVT__witf__DOT__depth_gt1__DOT__wptr_flg_r 
                 = vlSelf->__PVT__witf__DOT__depth_gt1__DOT__wptr_flg_nxt;
-        }
-        if (vlSelf->__PVT__IDU__DOT__popline_wen) {
-            vlSelf->__PVT__idu_valid = vlSelf->__PVT__IDU__DOT__idu_valid_next;
         }
         if (((IData)(vlSelf->witf__DOT____Vcellinp__witf_entries__BRA__7__KET____DOT__rdidx_reg____pinNumber5) 
              | (IData)(vlSelf->witf__DOT____VdfgTmp_h08e2d86c__0))) {
@@ -359,11 +357,11 @@ VL_INLINE_OPT void Vtop_top___nba_sequent__TOP__top__0(Vtop_top* vlSelf) {
         __Vdly__WREADY = 1U;
         vlSelf->__PVT__ram_axi_lite_u__DOT__wdata_done = 0U;
     }
+    vlSelf->IDU__DOT____VdfgTmp_hd66fa622__0 = 1U;
     vlSelf->__PVT__witf__DOT__depth_gt1__DOT__rptr_flg_nxt 
         = (1U & (~ (IData)(vlSelf->__PVT__witf__DOT__depth_gt1__DOT__rptr_flg_r)));
     vlSelf->__PVT__witf__DOT__depth_gt1__DOT__wptr_flg_nxt 
         = (1U & (~ (IData)(vlSelf->__PVT__witf__DOT__depth_gt1__DOT__wptr_flg_r)));
-    vlSelf->IDU__DOT____VdfgTmp_hd66fa622__0 = 1U;
     vlSelf->__PVT__ifu_arvalid = 1U;
     vlSelf->__PVT__witf_full = (((IData)(vlSelf->__PVT__witf__DOT__rptr_r) 
                                  == (IData)(vlSelf->__PVT__witf__DOT__wptr_r)) 
