@@ -46,8 +46,8 @@ wire ifu_valid_next=(ifu_valid&!idu_ready)|
                     ((!ifu_valid)|(ifu_valid&idu_ready));
 
 Reg #(1,'d0) ifu_valid_reg(clk,rst,ifu_valid_next,ifu_valid,1'b1);
-
-wire popline_wen=ifu_valid_next;
+//（reg有数据且将被读取|reg没有数据）&（有新数据）
+wire popline_wen=((ifu_valid&idu_ready)|(!ifu_valid));
 
 wire [`RegWidth-1:0]  dpc=isIntrPC?IntrPC:(is_jump?JumpPc:NextPC+4);
 wire [`RegWidth-1:0] NextPC;

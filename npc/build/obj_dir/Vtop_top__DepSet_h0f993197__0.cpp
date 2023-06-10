@@ -2643,9 +2643,11 @@ VL_INLINE_OPT void Vtop_top___nba_sequent__TOP__top__1(Vtop_top* vlSelf) {
         = ((~ (IData)((0U != (IData)(vlSelf->__PVT__witf__DOT__rd_match_rs1idx)))) 
            & (IData)(vlSelf->__PVT__RegWr_d));
     vlSelf->__PVT__IFU__DOT__ifu_valid_next = (1U & 
-                                               ((~ (IData)(vlSelf->__PVT__ifu_valid)) 
-                                                | ((IData)(vlSelf->__PVT__idu_ready) 
-                                                   & (IData)(vlSelf->__PVT__ifu_valid))));
+                                               (((~ (IData)(vlSelf->__PVT__idu_ready)) 
+                                                 & (IData)(vlSelf->__PVT__ifu_valid)) 
+                                                | ((~ (IData)(vlSelf->__PVT__ifu_valid)) 
+                                                   | ((IData)(vlSelf->__PVT__idu_ready) 
+                                                      & (IData)(vlSelf->__PVT__ifu_valid)))));
     vlSelf->__PVT__IDU__DOT__popline_wen = ((IData)(vlSelf->IDU__DOT____VdfgTmp_hd66fa622__0) 
                                             & ((IData)(vlSelf->__PVT__idu_valid) 
                                                & (IData)(vlSelf->IDU__DOT____VdfgTmp_h23869681__0)));
