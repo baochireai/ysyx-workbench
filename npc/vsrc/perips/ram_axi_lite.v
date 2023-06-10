@@ -129,7 +129,7 @@ end
 // end
 
 assign ARREADY=1'b1;//one cycle read latency so keep ready
-
+wire [DWIDTH-1:0] RDATA_d;
 //read data
 always @(posedge clk ) begin
     if(resetn) begin
@@ -138,7 +138,7 @@ always @(posedge clk ) begin
         RRESP<=2'b00;
     end
     else if(ARVALID&&ARREADY) begin
-        pmem_read(ARADDR,RDATA);
+        pmem_read(ARADDR,RDATA_d);
         RRESP<=2'b00;
         RVALID<=1'b1;
     end
@@ -149,6 +149,8 @@ always @(posedge clk ) begin
         //RDATA<=RDATA;
     end
 end
+
+assign RDATA=RDATA_d;
 
 endmodule
 
