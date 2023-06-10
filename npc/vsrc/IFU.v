@@ -60,6 +60,7 @@ wire [`INSTWide-1:0] inst=(NextPC[2:0]==3'd0)?inst_i[31:0]:inst_i[63:32];
 
 Reg #(`RegWidth, 64'h000000007ffffffc) if_pre_pc_reg(.clk(clk),.rst(rst),.din(dpc),.dout(NextPC),.wen(popline_wen));
 Reg #(`RegWidth, 64'h000000007ffffff8) id_pc_reg(.clk(clk),.rst(rst),.din(NextPC),.dout(pc_o),.wen(popline_wen));
+
 Reg #(`INSTWide, 32'd0) if_inst_reg(.clk(clk),.rst(rst),.din(inst),.dout(inst_o),.wen(popline_wen));
 
 Reg #(1, 'd0) if_valid_reg(.clk(clk),.rst(rst),.din(ifu_valid_next),.dout(ifu_valid),.wen(1'b1));

@@ -154,6 +154,7 @@ VL_INLINE_OPT void Vtop_top___nba_sequent__TOP__top__0(Vtop_top* vlSelf) {
                                     > vlSelf->__PVT__LSU__DOT__clintU__DOT__mtimecmp));
     vlSelf->__PVT__BRESP = __Vdly__BRESP;
     vlSelf->__PVT__BVALID = __Vdly__BVALID;
+    vlSelf->__PVT__ram_rvalid = __Vdly__ram_rvalid;
     vlSelf->__PVT__LSU__DOT__clintU__DOT__mtime = __Vdly__LSU__DOT__clintU__DOT__mtime;
     if (vlSymsp->TOP.rst) {
         vlSelf->__PVT__witf__DOT__wptr_r = 0U;
@@ -357,6 +358,8 @@ VL_INLINE_OPT void Vtop_top___nba_sequent__TOP__top__0(Vtop_top* vlSelf) {
     vlSelf->IDU__DOT____VdfgTmp_hd66fa622__0 = 1U;
     vlSelf->__PVT__ifu_valid = ((~ (IData)(vlSymsp->TOP.rst)) 
                                 & (IData)(vlSelf->__PVT__IFU__DOT__ifu_valid_next));
+    vlSelf->__PVT__ifu_valid = ((~ (IData)(vlSymsp->TOP.rst)) 
+                                & (IData)(vlSelf->__PVT__IFU__DOT__ifu_valid_next));
     vlSelf->__PVT__witf_full = (((IData)(vlSelf->__PVT__witf__DOT__rptr_r) 
                                  == (IData)(vlSelf->__PVT__witf__DOT__wptr_r)) 
                                 & ((IData)(vlSelf->__PVT__witf__DOT__depth_gt1__DOT__rptr_flg_r) 
@@ -439,7 +442,6 @@ VL_INLINE_OPT void Vtop_top___nba_sequent__TOP__top__0(Vtop_top* vlSelf) {
     if (vlSymsp->TOP.rst) {
         vlSelf->__PVT__ifu_raddr = 0x80000000U;
         vlSelf->__PVT__lsu_RegSrc = 0U;
-        vlSelf->__PVT__ifu_valid = 0U;
         vlSelf->__PVT__exu_MemWr = 0U;
         vlSelf->__PVT__exu_MemOP = 0U;
         vlSelf->__PVT__mem_Rrs1 = 0ULL;
@@ -455,9 +457,6 @@ VL_INLINE_OPT void Vtop_top___nba_sequent__TOP__top__0(Vtop_top* vlSelf) {
     } else {
         vlSelf->__PVT__ifu_raddr = (IData)(vlSelf->__PVT__IFU__DOT__dpc);
         vlSelf->__PVT__lsu_RegSrc = vlSelf->__PVT__exu_RegSrc;
-        if (((IData)(vlSelf->__PVT__ifu_ready) & (IData)(vlSelf->__PVT__ram_rvalid))) {
-            vlSelf->__PVT__ifu_valid = vlSelf->__PVT__IFU__DOT__ifu_valid_next;
-        }
         vlSelf->__PVT__mem_Rrs1 = vlSelf->__PVT__ex_Rrs1;
         if (((IData)(vlSelf->__PVT__AWVALID) & (IData)(vlSelf->__PVT__AWREADY))) {
             vlSelf->__PVT__ram_axi_lite_u__DOT__waddr 
@@ -494,7 +493,6 @@ VL_INLINE_OPT void Vtop_top___nba_sequent__TOP__top__0(Vtop_top* vlSelf) {
         }
     }
     vlSelf->__PVT__WREADY = __Vdly__WREADY;
-    vlSelf->__PVT__ram_rvalid = __Vdly__ram_rvalid;
     vlSelf->__PVT__AWREADY = __Vdly__AWREADY;
     vlSelf->__PVT__LSU__DOT__isclint = ((0x2000000ULL 
                                          <= vlSelf->__PVT__ALUres) 
