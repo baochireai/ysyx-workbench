@@ -198,6 +198,7 @@ VL_ATTR_COLD void Vtop_top___ctor_var_reset(Vtop_top* vlSelf) {
     vlSelf->__PVT__ifu_arvalid = 0;
     vlSelf->__PVT__ifu_raddr = 0;
     vlSelf->__PVT__ifu_ready = 0;
+    vlSelf->__PVT__ram_rdata = 0;
     vlSelf->__PVT__ram_rvalid = 0;
     vlSelf->__PVT__ram_rresp = 0;
     vlSelf->__PVT__AWADDR = 0;
@@ -262,7 +263,6 @@ VL_ATTR_COLD void Vtop_top___ctor_var_reset(Vtop_top* vlSelf) {
     vlSelf->__PVT__ram_axi_lite_u__DOT__wdata_done = 0;
     vlSelf->__PVT__ram_axi_lite_u__DOT__raddr_done = 0;
     vlSelf->__PVT__ram_axi_lite_u__DOT__i = 0;
-    vlSelf->__PVT__ram_axi_lite_u__DOT__RDATA_d = 0;
     vlSelf->__PVT__IDU__DOT__popline_wen = 0;
     vlSelf->__PVT__IDU__DOT__Imm_d = 0;
     vlSelf->__PVT__IDU__DOT__MemWr_d = 0;
@@ -513,6 +513,7 @@ VL_ATTR_COLD void Vtop_top___ctor_var_reset(Vtop_top* vlSelf) {
     vlSelf->__VdfgTmp_h7492a8f3__0 = 0;
     vlSelf->__VdfgTmp_h77a512b4__0 = 0;
     vlSelf->__VdfgTmp_h749ef897__0 = 0;
+    vlSelf->__Vtask_pmem_read__2__rdata = 0;
     vlSelf->__Vtask_pmem_read__4__rdata = 0;
     vlSelf->__Vtask_pmem_read__5__rdata = 0;
 }

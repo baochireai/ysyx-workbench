@@ -186,6 +186,7 @@ class Vtop_top final : public VerilatedModule {
         QData/*63:0*/ __PVT__RegWdata;
         QData/*63:0*/ __PVT__IntrOut;
         QData/*63:0*/ __PVT__clint_dout;
+        QData/*63:0*/ __PVT__ram_rdata;
         QData/*63:0*/ __PVT__WDATA;
         QData/*63:0*/ __PVT__id_pc;
         QData/*63:0*/ __PVT__ex_Rrs1;
@@ -201,7 +202,6 @@ class Vtop_top final : public VerilatedModule {
         QData/*63:0*/ __PVT__wb_Rrs1;
         QData/*63:0*/ __PVT__IFU__DOT__dpc;
         QData/*63:0*/ __PVT__IFU__DOT__NextPC;
-        QData/*63:0*/ __PVT__ram_axi_lite_u__DOT__RDATA_d;
         QData/*63:0*/ __PVT__IDU__DOT__Imm_d;
         QData/*63:0*/ __PVT__IDU__DOT__ContrGenU__DOT__ImmGenU__DOT__isRegWr__DOT__lut_out;
         QData/*63:0*/ __PVT__EXU__DOT__ex_alu__DOT__ALUA;
@@ -230,6 +230,7 @@ class Vtop_top final : public VerilatedModule {
         QData/*63:0*/ __PVT__LSU__DOT__DataMem__DOT__sext__DOT__lut_out;
         QData/*63:0*/ __PVT__LSU__DOT__clintU__DOT__mtime;
         QData/*63:0*/ __PVT__LSU__DOT__clintU__DOT__mtimecmp;
+        QData/*63:0*/ __Vtask_pmem_read__2__rdata;
         QData/*63:0*/ __Vtask_pmem_read__4__rdata;
         QData/*63:0*/ __Vtask_pmem_read__5__rdata;
         VlUnpacked<QData/*63:0*/, 2> __PVT__ram_axi_lite_u__DOT__mem;

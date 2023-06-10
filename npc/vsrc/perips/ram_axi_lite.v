@@ -129,30 +129,32 @@ end
 // end
 
 assign ARREADY=1'b1;//one cycle read latency so keep ready
-wire [DWIDTH-1:0] RDATA_d;
+
 //read data
 always @(posedge clk ) begin
     if(resetn) begin
-        RDATA_d<='d0;
         RVALID<=1'b0;
         RRESP<=2'b00;
+        raddr<=`MemAddrBus'd0;
     end
     else if(ARVALID&&ARREADY) begin
-        pmem_read(ARADDR,RDATA_d);
+        raddr<=ARADDR;
         RRESP<=2'b00;
         RVALID<=1'b1;
     end
-    else if(RVALID&RREADY)//should wait rready vaild,then invalid rvalid and change dataout.
+    else if(RVALID&RREADY)begin//should wait rready vaild,then invalid rvalid and change dataout.
         RVALID<=1'b0;
-        RDATA_d<=RDATA_d;
-    else begin
+    end
+    else  begin
         RVALID<=RVALID;
-        RDATA_d<=RDATA_d;
         //RDATA<=RDATA;
     end
 end
 
-assign RDATA=RDATA_d;
+always@(*) begin
+    pmem_read(raddr,RDATA);
+end
+
 
 endmodule
 
