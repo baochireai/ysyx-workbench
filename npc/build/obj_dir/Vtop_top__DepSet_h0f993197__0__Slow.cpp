@@ -1554,10 +1554,6 @@ VL_ATTR_COLD void Vtop_top___stl_sequent__TOP__top__0(Vtop_top* vlSelf) {
     vlSelf->__PVT__IDU__DOT__popline_wen = ((IData)(vlSelf->IDU__DOT____VdfgTmp_hd66fa622__0) 
                                             & ((IData)(vlSelf->__PVT__idu_valid) 
                                                & (IData)(vlSelf->IDU__DOT____VdfgTmp_h23869681__0)));
-    vlSelf->__PVT__IDU__DOT__idu_valid_next = ((IData)(vlSelf->__PVT__idu_valid) 
-                                               & ((IData)(vlSelf->__PVT__idu_ready) 
-                                                  & ((IData)(vlSelf->__PVT__ifu_valid) 
-                                                     & (IData)(vlSelf->IDU__DOT____VdfgTmp_h23869681__0))));
     __Vtemp_hdff02329__0[0U] = (IData)(vlSelf->__PVT__mem_Rrs2);
     __Vtemp_hdff02329__0[1U] = (IData)((vlSelf->__PVT__mem_Rrs2 
                                         >> 0x20U));

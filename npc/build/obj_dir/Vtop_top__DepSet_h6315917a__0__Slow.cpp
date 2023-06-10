@@ -323,7 +323,6 @@ VL_ATTR_COLD void Vtop_top___ctor_var_reset(Vtop_top* vlSelf) {
     vlSelf->__PVT__ram_axi_lite_u__DOT__wdata_done = 0;
     vlSelf->__PVT__ram_axi_lite_u__DOT__raddr_done = 0;
     vlSelf->__PVT__ram_axi_lite_u__DOT__i = 0;
-    vlSelf->__PVT__IDU__DOT__idu_valid_next = 0;
     vlSelf->__PVT__IDU__DOT__popline_wen = 0;
     vlSelf->__PVT__IDU__DOT__Imm_d = 0;
     vlSelf->__PVT__IDU__DOT__MemWr_d = 0;

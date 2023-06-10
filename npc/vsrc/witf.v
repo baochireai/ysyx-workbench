@@ -43,7 +43,7 @@ wire witfrd_match_disprs2;
 
       wire wptr_flg_r;//写指针MSB额外标志位
       wire wptr_flg_nxt = ~wptr_flg_r;
-      wire wptr_flg_ena = (wptr_r == (`WITF_DEPTH-1)) & Regwr&isRAW;//标志位取反信号
+      wire wptr_flg_ena = (wptr_r == (`WITF_DEPTH-1)) & Regwr&(!isRAW);//标志位取反信号
             
       Reg #(1,'d0) wptr_flg_reg(clk,rst,wptr_flg_nxt,wptr_flg_r,wptr_flg_ena);
       
@@ -51,7 +51,7 @@ wire witfrd_match_disprs2;
       
       assign wptr_nxt = wptr_flg_ena ? `WITF_AWIDTH'b0 : (wptr_r + 1'b1);
       
-      Reg #(`WITF_AWIDTH,'d0) wptr_reg(clk,rst,wptr_nxt,wptr_r,Regwr&isRAW);
+      Reg #(`WITF_AWIDTH,'d0) wptr_reg(clk,rst,wptr_nxt,wptr_r,Regwr&(!isRAW));
       
       wire rptr_flg_r;//读指针MSB额外标志位
       wire rptr_flg_nxt = ~rptr_flg_r;
@@ -81,7 +81,7 @@ wire witfrd_match_disprs2;
   generate //{
       for (i=0; i<`WITF_DEPTH; i=i+1) begin:witf_entries//{
   
-        assign vld_set[i] = Regwr & isRAW & (wptr_r == i);
+        assign vld_set[i] = Regwr & (!isRAW) & (wptr_r == i);
         assign vld_clr[i] = isWB & (rptr_r == i);
         assign vld_ena[i] = vld_set[i] |   vld_clr[i];
         assign vld_nxt[i] = vld_set[i] | (~vld_clr[i]);
