@@ -54,8 +54,8 @@ assign idu_ready=((idu_valid&exu_ready)|(!idu_valid)) & (!witf_full&!isRAW);
 //witf WAR !WAR
 //数据没被读取  数据被读取了或者reg没有数据但是来了新数据
 
-wire idu_valid_next=(idu_valid&(!exu_ready)|//数据没被读取
-                    (( (idu_valid&exu_ready)|(!idu_valid) )&( idu_ready&ifu_valid&(!isRAW)&(!witf_full))))?1'b1:1'b0;
+wire idu_valid_next=idu_valid&(!exu_ready)|//数据没被读取
+                    (( (idu_valid&exu_ready)|(!idu_valid) )&( idu_ready&ifu_valid&(!isRAW)&(!witf_full)));
 
 Reg #(1,'d0) idu_valid_reg(clk,rst,idu_valid_next,idu_valid,1'b1);
 

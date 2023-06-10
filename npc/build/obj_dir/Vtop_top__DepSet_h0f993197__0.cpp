@@ -2640,7 +2640,8 @@ VL_INLINE_OPT void Vtop_top___nba_sequent__TOP__top__1(Vtop_top* vlSelf) {
         vlSelf->__PVT__EXU__DOT__Less = vlSelf->__PVT__EXU__DOT__ex_alu__DOT__lessS;
     }
     vlSelf->witf__DOT____Vcellinp__depth_gt1__DOT__wptr_reg____pinNumber5 
-        = ((IData)(vlSelf->__PVT__RegWr_d) & (0U != (IData)(vlSelf->__PVT__witf__DOT__rd_match_rs1idx)));
+        = ((~ (IData)((0U != (IData)(vlSelf->__PVT__witf__DOT__rd_match_rs1idx)))) 
+           & (IData)(vlSelf->__PVT__RegWr_d));
     vlSelf->__PVT__IFU__DOT__ifu_valid_next = (1U & 
                                                ((~ (IData)(vlSelf->__PVT__ifu_valid)) 
                                                 | ((IData)(vlSelf->__PVT__idu_ready) 
