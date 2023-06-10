@@ -968,7 +968,7 @@ VL_INLINE_OPT void Vtop_top___nba_sequent__TOP__top__1(Vtop_top* vlSelf) {
     if (vlSymsp->TOP.rst) {
         vlSelf->__PVT__id_inst = 0U;
     } else if (vlSelf->__PVT__IFU__DOT__popline_wen) {
-        vlSelf->__PVT__id_inst = (IData)(vlSelf->__PVT__ram_rdata);
+        vlSelf->__PVT__id_inst = 0x115c1e4U;
     }
     vlSelf->__PVT__IDU__DOT__ContrGenU__DOT__ImmGenU__DOT__isRegWr__DOT__pair_list[0U][0U] 
         = (IData)((((- (QData)((IData)((vlSelf->__PVT__id_inst 
