@@ -232,6 +232,7 @@ VL_ATTR_COLD void Vtop_top___ctor_var_reset(Vtop_top* vlSelf) {
     vlSelf->__PVT__exu_MemOP = 0;
     vlSelf->__PVT__exu_MemWr = 0;
     vlSelf->__PVT__exu_RegSrc = 0;
+    vlSelf->__PVT__isRAW = 0;
     vlSelf->__PVT__witf_full = 0;
     vlSelf->__PVT__mem_Rrs1 = 0;
     vlSelf->__PVT__mem_Rrs2 = 0;
@@ -467,7 +468,6 @@ VL_ATTR_COLD void Vtop_top___ctor_var_reset(Vtop_top* vlSelf) {
     for (int __Vi0 = 0; __Vi0 < 8; ++__Vi0) {
         vlSelf->__PVT__witf__DOT__rdidx_r[__Vi0] = 0;
     }
-    vlSelf->__PVT__witf__DOT__rd_match_rs1idx = 0;
     vlSelf->__PVT__witf__DOT__depth_gt1__DOT__wptr_flg_r = 0;
     vlSelf->__PVT__witf__DOT__depth_gt1__DOT__wptr_flg_nxt = 0;
     vlSelf->__PVT__witf__DOT__depth_gt1__DOT__wptr_flg_ena = 0;

@@ -1266,61 +1266,88 @@ VL_ATTR_COLD void Vtop_top___stl_sequent__TOP__top__0(Vtop_top* vlSelf) {
         = ((IData)(vlSelf->__PVT__IDU__DOT__ContrGenU__DOT__deExtop__DOT__hit)
             ? (IData)(vlSelf->__PVT__IDU__DOT__ContrGenU__DOT__deExtop__DOT__lut_out)
             : 0U);
-    vlSelf->__PVT__witf__DOT__rd_match_rs1idx = ((((IData)(vlSelf->witf__DOT____Vcellout__witf_entries__BRA__7__KET____DOT__vld_reg____pinNumber4) 
-                                                   & ((IData)(vlSelf->witf__DOT____Vcellout__witf_entries__BRA__7__KET____DOT__rdidx_reg____pinNumber4) 
-                                                      == 
-                                                      (0x1fU 
-                                                       & (vlSelf->__PVT__id_inst 
-                                                          >> 0xfU)))) 
-                                                  << 7U) 
-                                                 | ((((IData)(vlSelf->witf__DOT____Vcellout__witf_entries__BRA__6__KET____DOT__vld_reg____pinNumber4) 
-                                                      & ((IData)(vlSelf->witf__DOT____Vcellout__witf_entries__BRA__6__KET____DOT__rdidx_reg____pinNumber4) 
-                                                         == 
-                                                         (0x1fU 
-                                                          & (vlSelf->__PVT__id_inst 
-                                                             >> 0xfU)))) 
-                                                     << 6U) 
-                                                    | ((((IData)(vlSelf->witf__DOT____Vcellout__witf_entries__BRA__5__KET____DOT__vld_reg____pinNumber4) 
-                                                         & ((IData)(vlSelf->witf__DOT____Vcellout__witf_entries__BRA__5__KET____DOT__rdidx_reg____pinNumber4) 
-                                                            == 
-                                                            (0x1fU 
-                                                             & (vlSelf->__PVT__id_inst 
-                                                                >> 0xfU)))) 
-                                                        << 5U) 
-                                                       | ((((IData)(vlSelf->witf__DOT____Vcellout__witf_entries__BRA__4__KET____DOT__vld_reg____pinNumber4) 
-                                                            & ((IData)(vlSelf->witf__DOT____Vcellout__witf_entries__BRA__4__KET____DOT__rdidx_reg____pinNumber4) 
-                                                               == 
-                                                               (0x1fU 
-                                                                & (vlSelf->__PVT__id_inst 
-                                                                   >> 0xfU)))) 
-                                                           << 4U) 
-                                                          | ((((IData)(vlSelf->witf__DOT____Vcellout__witf_entries__BRA__3__KET____DOT__vld_reg____pinNumber4) 
-                                                               & ((IData)(vlSelf->witf__DOT____Vcellout__witf_entries__BRA__3__KET____DOT__rdidx_reg____pinNumber4) 
-                                                                  == 
-                                                                  (0x1fU 
-                                                                   & (vlSelf->__PVT__id_inst 
-                                                                      >> 0xfU)))) 
-                                                              << 3U) 
-                                                             | ((((IData)(vlSelf->witf__DOT____Vcellout__witf_entries__BRA__2__KET____DOT__vld_reg____pinNumber4) 
-                                                                  & ((IData)(vlSelf->witf__DOT____Vcellout__witf_entries__BRA__2__KET____DOT__rdidx_reg____pinNumber4) 
-                                                                     == 
-                                                                     (0x1fU 
-                                                                      & (vlSelf->__PVT__id_inst 
-                                                                         >> 0xfU)))) 
-                                                                 << 2U) 
-                                                                | ((((IData)(vlSelf->witf__DOT____Vcellout__witf_entries__BRA__1__KET____DOT__vld_reg____pinNumber4) 
-                                                                     & ((IData)(vlSelf->witf__DOT____Vcellout__witf_entries__BRA__1__KET____DOT__rdidx_reg____pinNumber4) 
-                                                                        == 
-                                                                        (0x1fU 
-                                                                         & (vlSelf->__PVT__id_inst 
-                                                                            >> 0xfU)))) 
-                                                                    << 1U) 
-                                                                   | ((IData)(vlSelf->witf__DOT____Vcellout__witf_entries__BRA__0__KET____DOT__vld_reg____pinNumber4) 
-                                                                      & ((IData)(vlSelf->witf__DOT____Vcellout__witf_entries__BRA__0__KET____DOT__rdidx_reg____pinNumber4) 
-                                                                         == 
-                                                                         (0x1fU 
-                                                                          & (vlSelf->__PVT__id_inst 
-                                                                             >> 0xfU)))))))))));
+    vlSelf->__PVT__isRAW = ((((IData)(vlSelf->witf__DOT____Vcellout__witf_entries__BRA__7__KET____DOT__vld_reg____pinNumber4) 
+                              & ((IData)(vlSelf->witf__DOT____Vcellout__witf_entries__BRA__7__KET____DOT__rdidx_reg____pinNumber4) 
+                                 == (0x1fU & (vlSelf->__PVT__id_inst 
+                                              >> 0xfU)))) 
+                             | (((IData)(vlSelf->witf__DOT____Vcellout__witf_entries__BRA__6__KET____DOT__vld_reg____pinNumber4) 
+                                 & ((IData)(vlSelf->witf__DOT____Vcellout__witf_entries__BRA__6__KET____DOT__rdidx_reg____pinNumber4) 
+                                    == (0x1fU & (vlSelf->__PVT__id_inst 
+                                                 >> 0xfU)))) 
+                                | (((IData)(vlSelf->witf__DOT____Vcellout__witf_entries__BRA__5__KET____DOT__vld_reg____pinNumber4) 
+                                    & ((IData)(vlSelf->witf__DOT____Vcellout__witf_entries__BRA__5__KET____DOT__rdidx_reg____pinNumber4) 
+                                       == (0x1fU & 
+                                           (vlSelf->__PVT__id_inst 
+                                            >> 0xfU)))) 
+                                   | (((IData)(vlSelf->witf__DOT____Vcellout__witf_entries__BRA__4__KET____DOT__vld_reg____pinNumber4) 
+                                       & ((IData)(vlSelf->witf__DOT____Vcellout__witf_entries__BRA__4__KET____DOT__rdidx_reg____pinNumber4) 
+                                          == (0x1fU 
+                                              & (vlSelf->__PVT__id_inst 
+                                                 >> 0xfU)))) 
+                                      | (((IData)(vlSelf->witf__DOT____Vcellout__witf_entries__BRA__3__KET____DOT__vld_reg____pinNumber4) 
+                                          & ((IData)(vlSelf->witf__DOT____Vcellout__witf_entries__BRA__3__KET____DOT__rdidx_reg____pinNumber4) 
+                                             == (0x1fU 
+                                                 & (vlSelf->__PVT__id_inst 
+                                                    >> 0xfU)))) 
+                                         | (((IData)(vlSelf->witf__DOT____Vcellout__witf_entries__BRA__2__KET____DOT__vld_reg____pinNumber4) 
+                                             & ((IData)(vlSelf->witf__DOT____Vcellout__witf_entries__BRA__2__KET____DOT__rdidx_reg____pinNumber4) 
+                                                == 
+                                                (0x1fU 
+                                                 & (vlSelf->__PVT__id_inst 
+                                                    >> 0xfU)))) 
+                                            | (((IData)(vlSelf->witf__DOT____Vcellout__witf_entries__BRA__1__KET____DOT__vld_reg____pinNumber4) 
+                                                & ((IData)(vlSelf->witf__DOT____Vcellout__witf_entries__BRA__1__KET____DOT__rdidx_reg____pinNumber4) 
+                                                   == 
+                                                   (0x1fU 
+                                                    & (vlSelf->__PVT__id_inst 
+                                                       >> 0xfU)))) 
+                                               | ((IData)(vlSelf->witf__DOT____Vcellout__witf_entries__BRA__0__KET____DOT__vld_reg____pinNumber4) 
+                                                  & ((IData)(vlSelf->witf__DOT____Vcellout__witf_entries__BRA__0__KET____DOT__rdidx_reg____pinNumber4) 
+                                                     == 
+                                                     (0x1fU 
+                                                      & (vlSelf->__PVT__id_inst 
+                                                         >> 0xfU))))))))))) 
+                            | (((IData)(vlSelf->witf__DOT____Vcellout__witf_entries__BRA__7__KET____DOT__vld_reg____pinNumber4) 
+                                & ((IData)(vlSelf->witf__DOT____Vcellout__witf_entries__BRA__7__KET____DOT__rdidx_reg____pinNumber4) 
+                                   == (0x1fU & (vlSelf->__PVT__id_inst 
+                                                >> 0x14U)))) 
+                               | (((IData)(vlSelf->witf__DOT____Vcellout__witf_entries__BRA__6__KET____DOT__vld_reg____pinNumber4) 
+                                   & ((IData)(vlSelf->witf__DOT____Vcellout__witf_entries__BRA__6__KET____DOT__rdidx_reg____pinNumber4) 
+                                      == (0x1fU & (vlSelf->__PVT__id_inst 
+                                                   >> 0x14U)))) 
+                                  | (((IData)(vlSelf->witf__DOT____Vcellout__witf_entries__BRA__5__KET____DOT__vld_reg____pinNumber4) 
+                                      & ((IData)(vlSelf->witf__DOT____Vcellout__witf_entries__BRA__5__KET____DOT__rdidx_reg____pinNumber4) 
+                                         == (0x1fU 
+                                             & (vlSelf->__PVT__id_inst 
+                                                >> 0x14U)))) 
+                                     | (((IData)(vlSelf->witf__DOT____Vcellout__witf_entries__BRA__4__KET____DOT__vld_reg____pinNumber4) 
+                                         & ((IData)(vlSelf->witf__DOT____Vcellout__witf_entries__BRA__4__KET____DOT__rdidx_reg____pinNumber4) 
+                                            == (0x1fU 
+                                                & (vlSelf->__PVT__id_inst 
+                                                   >> 0x14U)))) 
+                                        | (((IData)(vlSelf->witf__DOT____Vcellout__witf_entries__BRA__3__KET____DOT__vld_reg____pinNumber4) 
+                                            & ((IData)(vlSelf->witf__DOT____Vcellout__witf_entries__BRA__3__KET____DOT__rdidx_reg____pinNumber4) 
+                                               == (0x1fU 
+                                                   & (vlSelf->__PVT__id_inst 
+                                                      >> 0x14U)))) 
+                                           | (((IData)(vlSelf->witf__DOT____Vcellout__witf_entries__BRA__2__KET____DOT__vld_reg____pinNumber4) 
+                                               & ((IData)(vlSelf->witf__DOT____Vcellout__witf_entries__BRA__2__KET____DOT__rdidx_reg____pinNumber4) 
+                                                  == 
+                                                  (0x1fU 
+                                                   & (vlSelf->__PVT__id_inst 
+                                                      >> 0x14U)))) 
+                                              | (((IData)(vlSelf->witf__DOT____Vcellout__witf_entries__BRA__1__KET____DOT__vld_reg____pinNumber4) 
+                                                  & ((IData)(vlSelf->witf__DOT____Vcellout__witf_entries__BRA__1__KET____DOT__rdidx_reg____pinNumber4) 
+                                                     == 
+                                                     (0x1fU 
+                                                      & (vlSelf->__PVT__id_inst 
+                                                         >> 0x14U)))) 
+                                                 | ((IData)(vlSelf->witf__DOT____Vcellout__witf_entries__BRA__0__KET____DOT__vld_reg____pinNumber4) 
+                                                    & ((IData)(vlSelf->witf__DOT____Vcellout__witf_entries__BRA__0__KET____DOT__rdidx_reg____pinNumber4) 
+                                                       == 
+                                                       (0x1fU 
+                                                        & (vlSelf->__PVT__id_inst 
+                                                           >> 0x14U))))))))))));
     vlSelf->EXU__DOT__ex_alu__DOT__BarrelShifter__DOT____Vcellinp__ShifterMux__key 
         = ((2U & ((IData)(vlSelf->__PVT__exu_ALUct) 
                   >> 2U)) | (1U == (7U & (IData)(vlSelf->__PVT__exu_ALUct))));
@@ -1494,14 +1521,11 @@ VL_ATTR_COLD void Vtop_top___stl_sequent__TOP__top__0(Vtop_top* vlSelf) {
     vlSelf->__PVT__RegWr_d = ((IData)(vlSelf->__PVT__IDU__DOT__ContrGenU__DOT__isRegWr__DOT__hit) 
                               & (IData)(vlSelf->__PVT__IDU__DOT__ContrGenU__DOT__isRegWr__DOT__lut_out));
     vlSelf->IDU__DOT____VdfgTmp_h23869681__0 = (1U 
-                                                & ((~ (IData)(
-                                                              (0U 
-                                                               != (IData)(vlSelf->__PVT__witf__DOT__rd_match_rs1idx)))) 
+                                                & ((~ (IData)(vlSelf->__PVT__isRAW)) 
                                                    & (~ (IData)(vlSelf->__PVT__witf_full))));
     vlSelf->__PVT__idu_ready = ((IData)(vlSelf->IDU__DOT____VdfgTmp_hd66fa622__0) 
                                 & ((~ (IData)(vlSelf->__PVT__witf_full)) 
-                                   & (~ (IData)((0U 
-                                                 != (IData)(vlSelf->__PVT__witf__DOT__rd_match_rs1idx))))));
+                                   & (~ (IData)(vlSelf->__PVT__isRAW))));
     vlSelf->__PVT__LSU__DOT__clint_we = ((IData)(vlSelf->__PVT__LSU__DOT__isclint) 
                                          & (IData)(vlSelf->__PVT__mem_MemWr));
     vlSelf->__PVT__LSU__DOT__Datamem_we = ((~ (IData)(vlSelf->__PVT__LSU__DOT__isclint)) 
@@ -1548,8 +1572,7 @@ VL_ATTR_COLD void Vtop_top___stl_sequent__TOP__top__0(Vtop_top* vlSelf) {
     vlSelf->__PVT__EXU__DOT__ex_alu__DOT__remer__DOT__data_list[2U] 
         = VL_MODDIVS_QQQ(64, vlSelf->__PVT__EXU__DOT__ex_alu__DOT__ALUA, vlSelf->__PVT__EXU__DOT__ex_alu__DOT__ALUA);
     vlSelf->witf__DOT____Vcellinp__depth_gt1__DOT__wptr_reg____pinNumber5 
-        = ((~ (IData)((0U != (IData)(vlSelf->__PVT__witf__DOT__rd_match_rs1idx)))) 
-           & (IData)(vlSelf->__PVT__RegWr_d));
+        = ((~ (IData)(vlSelf->__PVT__isRAW)) & (IData)(vlSelf->__PVT__RegWr_d));
     vlSelf->__PVT__IDU__DOT__popline_wen = ((IData)(vlSelf->IDU__DOT____VdfgTmp_hd66fa622__0) 
                                             & ((IData)(vlSelf->__PVT__ifu_valid) 
                                                & ((IData)(vlSelf->__PVT__idu_ready) 

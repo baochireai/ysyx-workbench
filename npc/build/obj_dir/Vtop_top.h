@@ -56,6 +56,7 @@ class Vtop_top final : public VerilatedModule {
         CData/*2:0*/ __PVT__exu_MemOP;
         CData/*0:0*/ __PVT__exu_MemWr;
         CData/*1:0*/ __PVT__exu_RegSrc;
+        CData/*0:0*/ __PVT__isRAW;
         CData/*0:0*/ __PVT__witf_full;
         CData/*2:0*/ __PVT__mem_MemOP;
         CData/*0:0*/ __PVT__mem_MemWr;
@@ -82,9 +83,9 @@ class Vtop_top final : public VerilatedModule {
         CData/*2:0*/ __PVT__IDU__DOT__ContrGenU__DOT__Extop;
         CData/*0:0*/ IDU__DOT__ContrGenU__DOT____VdfgTmp_h27ae0f59__0;
         CData/*2:0*/ __PVT__IDU__DOT__ContrGenU__DOT__deExtop__DOT__lut_out;
-        CData/*0:0*/ __PVT__IDU__DOT__ContrGenU__DOT__deExtop__DOT__hit;
     };
     struct {
+        CData/*0:0*/ __PVT__IDU__DOT__ContrGenU__DOT__deExtop__DOT__hit;
         CData/*0:0*/ __PVT__IDU__DOT__ContrGenU__DOT__isIntr__DOT__lut_out;
         CData/*0:0*/ __PVT__IDU__DOT__ContrGenU__DOT__isIntr__DOT__hit;
         CData/*0:0*/ __PVT__IDU__DOT__ContrGenU__DOT__isRegWr__DOT__lut_out;
@@ -119,7 +120,6 @@ class Vtop_top final : public VerilatedModule {
         CData/*0:0*/ __PVT__LSU__DOT__DataMem__DOT__sext__DOT__hit;
         CData/*2:0*/ __PVT__witf__DOT__wptr_r;
         CData/*2:0*/ __PVT__witf__DOT__rptr_r;
-        CData/*7:0*/ __PVT__witf__DOT__rd_match_rs1idx;
         CData/*0:0*/ __PVT__witf__DOT__depth_gt1__DOT__wptr_flg_r;
         CData/*0:0*/ __PVT__witf__DOT__depth_gt1__DOT__wptr_flg_nxt;
         CData/*0:0*/ __PVT__witf__DOT__depth_gt1__DOT__wptr_flg_ena;
