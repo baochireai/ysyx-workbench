@@ -62,24 +62,25 @@ wire [`INSTWide-1:0] inst=(NextPC[2:0]==3'd0)?inst_i[31:0]:inst_i[63:32];
 Reg #(`RegWidth, 64'h000000007ffffffc) if_pre_pc_reg(.clk(clk),.rst(rst),.din(dpc),.dout(NextPC),.wen(popline_wen));
 Reg #(`RegWidth, 64'h000000007ffffff8) id_pc_reg(.clk(clk),.rst(rst),.din(NextPC),.dout(pc_o),.wen(popline_wen));
 
-//Reg #(`INSTWide, 32'd0) if_inst_reg(.clk(clk),.rst(rst),.din(inst),.dout(inst_o),.wen(popline_wen));
-assign inst_o=inst;//将ram输出的数据直接给到idu
+Reg #(`INSTWide, 32'd0) if_inst_reg(.clk(clk),.rst(rst),.din(inst),.dout(inst_o),.wen(popline_wen));
 
 Reg #(1, 'd0) if_valid_reg(.clk(clk),.rst(rst),.din(ifu_valid_next),.dout(ifu_valid),.wen(1'b1));
 
 
 //ARADDR
-always @(posedge clk ) begin
-    if(rst) begin
-        ARVALID<=1'b0;
-        ARADDR<=32'd0;
-    end 
-    else begin
-        ARVALID<=1'b1;//组合给出读取地址
-        ARADDR<=dpc[`MemAddrBus-1:0];
-    end
-end
+// always @(posedge clk ) begin
+//     if(rst) begin
+//         ARVALID<=1'b0;
+//         ARADDR<=32'd0;
+//     end 
+//     else begin
+//         ARVALID<=1'b1;//组合给出读取地址
+//         ARADDR<=dpc[`MemAddrBus-1:0];
+//     end
+// end
 
+assign ARVALID=1'b1;
+assign ARADDR=dpc[`MemAddrBus-1:0];
 
 
 //RDATA
