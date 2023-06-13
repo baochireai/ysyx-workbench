@@ -2741,9 +2741,11 @@ VL_INLINE_OPT void Vtop_top___nba_sequent__TOP__top__1(Vtop_top* vlSelf) {
     vlSelf->__PVT__witf__DOT__depth_gt1__DOT__wptr_flg_ena 
         = ((7U == (IData)(vlSelf->__PVT__witf__DOT__wptr_r)) 
            & (IData)(vlSelf->witf__DOT____Vcellinp__depth_gt1__DOT__wptr_reg____pinNumber5));
-    vlSelf->__PVT__IFU__DOT__ifu_valid_next = (((~ (IData)(vlSelf->__PVT__idu_ready)) 
-                                                & (IData)(vlSelf->__PVT__ifu_valid)) 
-                                               | (IData)(vlSelf->__PVT__IFU__DOT__popline_wen));
+    vlSelf->__PVT__IFU__DOT__ifu_valid_next = ((((~ (IData)(vlSelf->__PVT__idu_ready)) 
+                                                 & (IData)(vlSelf->__PVT__ifu_valid)) 
+                                                | (IData)(vlSelf->__PVT__IFU__DOT__popline_wen)) 
+                                               & (0x7ffffffcULL 
+                                                  != vlSelf->__PVT__IFU__DOT__NextPC));
     vlSelf->__PVT__EXU__DOT__GenNextPC__DOT__jump_check__DOT__lut_out 
         = (((IData)(vlSelf->__PVT__exu_Branch) == vlSelf->__PVT__EXU__DOT__GenNextPC__DOT__jump_check__DOT__key_list
             [0U]) & vlSelf->__PVT__EXU__DOT__GenNextPC__DOT__jump_check__DOT__data_list
