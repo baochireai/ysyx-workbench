@@ -110,7 +110,7 @@ wire witfrd_match_disprs2;
   assign witfrd_match_disprs1 = |rd_match_rs1idx;
   assign witfrd_match_disprs2 = |rd_match_rs2idx;
 
-  assign isRAW=witfrd_match_disprs1|witfrd_match_disprs1;
+  assign isRAW=witfrd_match_disprs1|witfrd_match_disprs2;
 
   // assign ret_rdidx = rdidx_r[ret_ptr];
   // assign ret_pc    = pc_r [ret_ptr];

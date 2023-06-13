@@ -8,7 +8,7 @@
 #include <assert.h>
 #include "verilated_dpi.h"
 
-//#define CONFIG_DIFFTEST
+#define CONFIG_DIFFTEST
 #define CONFIG_WAVETRACE
 #define RESET_VECTOR 0x80000000
 
