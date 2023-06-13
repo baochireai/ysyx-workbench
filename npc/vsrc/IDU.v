@@ -60,7 +60,7 @@ wire idu_valid_next=idu_valid&(!exu_ready)|//数据没被读取
 Reg #(1,'d0) idu_valid_reg(clk,rst,idu_valid_next,idu_valid,1'b1);
 
 //（reg有数据但将被读取|reg没数据）&（有新数据且没有数据冲突）
-wire popline_wen=((idu_valid&exu_ready)|(!idu_valid))&(idu_valid&exu_ready&(!isRAW)&(!witf_full));
+wire popline_wen=((idu_valid&exu_ready)|(!idu_valid))&(ifu_valid&idu_ready&(!isRAW)&(!witf_full));
 
 //pipeline reg
 wire [4:0]  ALUct_d;
