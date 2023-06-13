@@ -435,7 +435,7 @@ VL_INLINE_OPT void Vtop_top___nba_sequent__TOP__top__0(Vtop_top* vlSelf) {
             = vlSelf->__PVT__mem_Rrs2;
     }
     if (vlSymsp->TOP.rst) {
-        vlSelf->__PVT__ifu_raddr = 0x80000000U;
+        vlSelf->__PVT__ifu_raddr = 0U;
         vlSelf->__PVT__lsu_RegSrc = 0U;
         vlSelf->__PVT__exu_MemWr = 0U;
         vlSelf->__PVT__exu_MemOP = 0U;
