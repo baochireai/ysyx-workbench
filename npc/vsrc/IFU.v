@@ -71,7 +71,7 @@ Reg #(1, 'd0) if_valid_reg(.clk(clk),.rst(rst),.din(ifu_valid_next),.dout(ifu_va
 always @(posedge clk ) begin
     if(rst) begin
         ARVALID<=1'b0;
-        ARADDR<=32'h80000000;
+        ARADDR<=32'd0;
     end 
     else begin
         ARVALID<=1'b1;
