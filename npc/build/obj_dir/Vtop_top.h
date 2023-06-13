@@ -44,6 +44,8 @@ class Vtop_top final : public VerilatedModule {
         CData/*0:0*/ __PVT__ifu_valid;
         CData/*0:0*/ __PVT__idu_valid;
         CData/*0:0*/ __PVT__idu_ready;
+        CData/*0:0*/ __PVT__exu_valid;
+        CData/*0:0*/ __PVT__exu_ready;
         CData/*0:0*/ __PVT__exu_isTuncate;
         CData/*0:0*/ __PVT__exu_isSext;
         CData/*0:0*/ __PVT__exu_IntrEn;
@@ -70,6 +72,7 @@ class Vtop_top final : public VerilatedModule {
         CData/*7:0*/ __PVT__ram_axi_lite_u__DOT__wstrb;
         CData/*0:0*/ __PVT__ram_axi_lite_u__DOT__wdata_done;
         CData/*0:0*/ __PVT__ram_axi_lite_u__DOT__raddr_done;
+        CData/*0:0*/ __PVT__IDU__DOT__idu_valid_next;
         CData/*0:0*/ __PVT__IDU__DOT__popline_wen;
         CData/*0:0*/ __PVT__IDU__DOT__MemWr_d;
         CData/*2:0*/ __PVT__IDU__DOT__MemOP_d;
@@ -80,11 +83,11 @@ class Vtop_top final : public VerilatedModule {
         CData/*0:0*/ IDU__DOT____VdfgTmp_hd66fa622__0;
         CData/*0:0*/ IDU__DOT____VdfgTmp_h23869681__0;
         CData/*2:0*/ __PVT__IDU__DOT__ContrGenU__DOT__Extop;
+    };
+    struct {
         CData/*0:0*/ IDU__DOT__ContrGenU__DOT____VdfgTmp_h27ae0f59__0;
         CData/*2:0*/ __PVT__IDU__DOT__ContrGenU__DOT__deExtop__DOT__lut_out;
         CData/*0:0*/ __PVT__IDU__DOT__ContrGenU__DOT__deExtop__DOT__hit;
-    };
-    struct {
         CData/*0:0*/ __PVT__IDU__DOT__ContrGenU__DOT__isIntr__DOT__lut_out;
         CData/*0:0*/ __PVT__IDU__DOT__ContrGenU__DOT__isIntr__DOT__hit;
         CData/*0:0*/ __PVT__IDU__DOT__ContrGenU__DOT__isRegWr__DOT__lut_out;
@@ -92,6 +95,7 @@ class Vtop_top final : public VerilatedModule {
         CData/*1:0*/ __PVT__IDU__DOT__ContrGenU__DOT__RegSrcMux__DOT__lut_out;
         CData/*0:0*/ __PVT__IDU__DOT__ContrGenU__DOT__RegSrcMux__DOT__hit;
         CData/*0:0*/ __PVT__IDU__DOT__ContrGenU__DOT__ImmGenU__DOT__isRegWr__DOT__hit;
+        CData/*0:0*/ __PVT__EXU__DOT__popline_wen;
         CData/*0:0*/ __PVT__EXU__DOT__Less;
         CData/*0:0*/ __PVT__EXU__DOT__ex_alu__DOT__Sub_Add;
         CData/*0:0*/ __PVT__EXU__DOT__ex_alu__DOT__lessS;
@@ -145,12 +149,12 @@ class Vtop_top final : public VerilatedModule {
         CData/*4:0*/ witf__DOT____Vcellout__witf_entries__BRA__4__KET____DOT__rdidx_reg____pinNumber4;
         CData/*0:0*/ witf__DOT____Vcellout__witf_entries__BRA__5__KET____DOT__vld_reg____pinNumber4;
         CData/*0:0*/ witf__DOT____Vcellinp__witf_entries__BRA__5__KET____DOT__rdidx_reg____pinNumber5;
+    };
+    struct {
         CData/*4:0*/ witf__DOT____Vcellout__witf_entries__BRA__5__KET____DOT__rdidx_reg____pinNumber4;
         CData/*0:0*/ witf__DOT____Vcellout__witf_entries__BRA__6__KET____DOT__vld_reg____pinNumber4;
         CData/*0:0*/ witf__DOT____Vcellinp__witf_entries__BRA__6__KET____DOT__rdidx_reg____pinNumber5;
         CData/*4:0*/ witf__DOT____Vcellout__witf_entries__BRA__6__KET____DOT__rdidx_reg____pinNumber4;
-    };
-    struct {
         CData/*0:0*/ witf__DOT____Vcellout__witf_entries__BRA__7__KET____DOT__vld_reg____pinNumber4;
         CData/*0:0*/ witf__DOT____Vcellinp__witf_entries__BRA__7__KET____DOT__rdidx_reg____pinNumber5;
         CData/*4:0*/ witf__DOT____Vcellout__witf_entries__BRA__7__KET____DOT__rdidx_reg____pinNumber4;
@@ -162,6 +166,7 @@ class Vtop_top final : public VerilatedModule {
         CData/*0:0*/ witf__DOT____VdfgTmp_h0d4e02d0__0;
         CData/*0:0*/ witf__DOT____VdfgTmp_h0d32c217__0;
         CData/*0:0*/ witf__DOT____VdfgTmp_h0d36223a__0;
+        CData/*0:0*/ __VdfgTmp_h88c342a0__0;
         SData/*15:0*/ __PVT__LSU__DOT__DataMem__DOT__extmask;
         VL_OUT(Inst,31,0);
         IData/*31:0*/ __PVT__AWADDR;
@@ -210,13 +215,13 @@ class Vtop_top final : public VerilatedModule {
         QData/*63:0*/ __PVT__EXU__DOT__ex_alu__DOT__OR;
         QData/*63:0*/ __PVT__EXU__DOT__ex_alu__DOT__AND;
         QData/*63:0*/ __PVT__EXU__DOT__ex_alu__DOT__MUL;
+    };
+    struct {
         QData/*63:0*/ __PVT__EXU__DOT__ex_alu__DOT__DIV;
         QData/*63:0*/ __PVT__EXU__DOT__ex_alu__DOT__REM;
         QData/*63:0*/ __PVT__EXU__DOT__ex_alu__DOT__ALUout;
         QData/*63:0*/ __PVT__EXU__DOT__ex_alu__DOT__deALUBsr__DOT__lut_out;
         QData/*63:0*/ __PVT__EXU__DOT__ex_alu__DOT__Adder__DOT__t_no_Cin;
-    };
-    struct {
         QData/*63:0*/ __PVT__EXU__DOT__ex_alu__DOT__BarrelShifter__DOT__sra;
         QData/*63:0*/ EXU__DOT__ex_alu__DOT__BarrelShifter__DOT____VdfgTmp_h6b945586__0;
         QData/*63:0*/ __PVT__EXU__DOT__ex_alu__DOT__BarrelShifter__DOT__ShifterMux__DOT__lut_out;

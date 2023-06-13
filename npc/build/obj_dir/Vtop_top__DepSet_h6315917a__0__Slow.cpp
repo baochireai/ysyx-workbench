@@ -214,6 +214,8 @@ VL_ATTR_COLD void Vtop_top___ctor_var_reset(Vtop_top* vlSelf) {
     vlSelf->__PVT__ifu_valid = 0;
     vlSelf->__PVT__idu_valid = 0;
     vlSelf->__PVT__idu_ready = 0;
+    vlSelf->__PVT__exu_valid = 0;
+    vlSelf->__PVT__exu_ready = 0;
     vlSelf->__PVT__exu_isTuncate = 0;
     vlSelf->__PVT__exu_isSext = 0;
     vlSelf->__PVT__ex_Rrs1 = 0;
@@ -262,6 +264,7 @@ VL_ATTR_COLD void Vtop_top___ctor_var_reset(Vtop_top* vlSelf) {
     vlSelf->__PVT__ram_axi_lite_u__DOT__wdata_done = 0;
     vlSelf->__PVT__ram_axi_lite_u__DOT__raddr_done = 0;
     vlSelf->__PVT__ram_axi_lite_u__DOT__i = 0;
+    vlSelf->__PVT__IDU__DOT__idu_valid_next = 0;
     vlSelf->__PVT__IDU__DOT__popline_wen = 0;
     vlSelf->__PVT__IDU__DOT__Imm_d = 0;
     vlSelf->__PVT__IDU__DOT__MemWr_d = 0;
@@ -329,6 +332,7 @@ VL_ATTR_COLD void Vtop_top___ctor_var_reset(Vtop_top* vlSelf) {
     }
     vlSelf->__PVT__IDU__DOT__ContrGenU__DOT__ImmGenU__DOT__isRegWr__DOT__lut_out = 0;
     vlSelf->__PVT__IDU__DOT__ContrGenU__DOT__ImmGenU__DOT__isRegWr__DOT__hit = 0;
+    vlSelf->__PVT__EXU__DOT__popline_wen = 0;
     vlSelf->__PVT__EXU__DOT__Less = 0;
     vlSelf->__PVT__EXU__DOT__ex_alu__DOT__ALUA = 0;
     vlSelf->__PVT__EXU__DOT__ex_alu__DOT__ALUB = 0;
@@ -507,6 +511,7 @@ VL_ATTR_COLD void Vtop_top___ctor_var_reset(Vtop_top* vlSelf) {
     vlSelf->witf__DOT____VdfgTmp_h0d4e02d0__0 = 0;
     vlSelf->witf__DOT____VdfgTmp_h0d32c217__0 = 0;
     vlSelf->witf__DOT____VdfgTmp_h0d36223a__0 = 0;
+    vlSelf->__VdfgTmp_h88c342a0__0 = 0;
     vlSelf->__VdfgTmp_h7418121e__0 = 0;
     vlSelf->__VdfgTmp_h7492a8f3__0 = 0;
     vlSelf->__VdfgTmp_h77a512b4__0 = 0;
