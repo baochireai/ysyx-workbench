@@ -42,8 +42,8 @@ module IFU(
 assign ifu_ready=1'b1;
 //reg有数据且没被读取读|reg没有数据
 //reg有数据且没被读取|reg没有数据或者有数据且将被读取但有新数据到来
-wire ifu_valid_next=(ifu_valid&!idu_ready)|
-                    ((!ifu_valid)|(ifu_valid&idu_ready));
+wire ifu_valid_next=((ifu_valid&!idu_ready)|
+                    ((!ifu_valid)|(ifu_valid&idu_ready)))&(NextPC!=64'h000000007ffffffc);
 
 Reg #(1,'d0) ifu_valid_reg(clk,rst,ifu_valid_next,ifu_valid,1'b1);
 //（reg有数据且将被读取|reg没有数据）&（有新数据）
