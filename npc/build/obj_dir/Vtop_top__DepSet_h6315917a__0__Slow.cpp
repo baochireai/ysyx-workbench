@@ -195,8 +195,6 @@ VL_ATTR_COLD void Vtop_top___ctor_var_reset(Vtop_top* vlSelf) {
     vlSelf->__PVT__clint_dout = 0;
     vlSelf->__PVT__RegWr_d = 0;
     vlSelf->__PVT__ifu_is_jump = 0;
-    vlSelf->__PVT__ifu_arvalid = 0;
-    vlSelf->__PVT__ifu_raddr = 0;
     vlSelf->__PVT__ifu_ready = 0;
     vlSelf->__PVT__ram_rdata = 0;
     vlSelf->__PVT__ram_rvalid = 0;

@@ -45,11 +45,16 @@ module EXU(
     input lsu_ready,
     output exu_valid
 );
-//有RAW数据依赖
+//(reg有数据但是将被读取|没有数据)&(当前数据处理完毕)
+assign exu_ready=((exu_valid&lsu_ready)|(!exu_valid));
 
-assign exu_ready=1'b1;
-assign exu_valid=1'b1;
-wire popline_wen=exu_valid&lsu_ready;
+wire exu_valid_next=exu_valid&(!lsu_ready)|//数据没被读取
+                    (( (exu_valid&lsu_ready)|(!exu_valid) )&( exu_ready&idu_valid));
+
+Reg #(1,'d0) exu_valid_reg(clk,rst,exu_valid_next,exu_valid,1'b1);
+
+//（reg有数据但将被读取|reg没数据）&（有新数据且没有数据冲突）
+wire popline_wen=((exu_valid&lsu_ready)|(!exu_valid))&(idu_valid&exu_ready);
 
 wire [`RegWidth-1:0] ALUres;
 wire Less,Zero;
