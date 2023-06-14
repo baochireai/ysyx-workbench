@@ -34,6 +34,9 @@ VL_ATTR_COLD void Vtop_WB___stl_sequent__TOP__top__WB__0(Vtop_WB* vlSelf) {
                    >> 0x20U));
     vlSelf->__PVT__RegWsrcMux__DOT__pair_list[2U][2U] = 0U;
     vlSelf->__PVT__RegWsrcMux__DOT__data_list[2U] = vlSymsp->TOP__top.__PVT__wb_ALUres;
+    vlSelf->__PVT__wb_ready = (1U & ((~ (IData)(vlSelf->__PVT__wb_valid)) 
+                                     | ((IData)(vlSymsp->TOP__top.__PVT__ifu_ready) 
+                                        & (IData)(vlSelf->__PVT__wb_valid))));
     vlSelf->__PVT__RegWsrcMux__DOT__pair_list[1U][0U] 
         = (IData)(vlSymsp->TOP__top.__PVT__memout);
     vlSelf->__PVT__RegWsrcMux__DOT__pair_list[1U][1U] 
@@ -41,4 +44,8 @@ VL_ATTR_COLD void Vtop_WB___stl_sequent__TOP__top__WB__0(Vtop_WB* vlSelf) {
                    >> 0x20U));
     vlSelf->__PVT__RegWsrcMux__DOT__pair_list[1U][2U] = 1U;
     vlSelf->__PVT__RegWsrcMux__DOT__data_list[1U] = vlSymsp->TOP__top.__PVT__memout;
+    vlSelf->__PVT__wb_valid_next = (((~ (IData)(vlSymsp->TOP__top.__PVT__ifu_ready)) 
+                                     & (IData)(vlSelf->__PVT__wb_valid)) 
+                                    | ((IData)(vlSelf->__PVT__wb_ready) 
+                                       & (IData)(vlSymsp->TOP__top.__PVT__lsu_valid)));
 }

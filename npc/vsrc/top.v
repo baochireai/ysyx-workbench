@@ -6,7 +6,8 @@ module top(
     input rst,//高电平有效
     // input [31:0] Inst,
     output [31:0] Inst,
-    output [63:0] pc
+    output [63:0] pc,
+    output valid
 );
     
     wire [63:0] R_rs1;
@@ -157,6 +158,7 @@ module top(
 
     assign Inst=wb_inst;
     assign pc=wb_pc;
+    assign valid=lsu_valid;
 
 endmodule
 

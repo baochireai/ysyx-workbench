@@ -96,6 +96,8 @@ VL_INLINE_OPT void Vtop_WB___nba_sequent__TOP__top__WB__0(Vtop_WB* vlSelf) {
                                                   & (vlSymsp->TOP__top.__PVT__wb_inst 
                                                      >> 7U));
     }
+    vlSelf->__PVT__wb_valid = ((~ (IData)(vlSymsp->TOP.rst)) 
+                               & (IData)(vlSelf->__PVT__wb_valid_next));
     vlSelf->__PVT__isIntrPC = ((~ (IData)(vlSymsp->TOP.rst)) 
                                & (((IData)(vlSymsp->TOP__top.__PVT__wb_IntrEn) 
                                    & (IData)(vlSymsp->TOP__top__WB__IntrUnit.__PVT__ismret)) 
@@ -110,4 +112,11 @@ VL_INLINE_OPT void Vtop_WB___nba_sequent__TOP__top__WB__0(Vtop_WB* vlSelf) {
         vlSelf->__PVT__RegisterFile__DOT__rf[__Vdlyvdim0__RegisterFile__DOT__rf__v0] 
             = __Vdlyvval__RegisterFile__DOT__rf__v0;
     }
+    vlSelf->__PVT__wb_ready = (1U & ((~ (IData)(vlSelf->__PVT__wb_valid)) 
+                                     | ((IData)(vlSymsp->TOP__top.__PVT__ifu_ready) 
+                                        & (IData)(vlSelf->__PVT__wb_valid))));
+    vlSelf->__PVT__wb_valid_next = (((~ (IData)(vlSymsp->TOP__top.__PVT__ifu_ready)) 
+                                     & (IData)(vlSelf->__PVT__wb_valid)) 
+                                    | ((IData)(vlSelf->__PVT__wb_ready) 
+                                       & (IData)(vlSymsp->TOP__top.__PVT__lsu_valid)));
 }

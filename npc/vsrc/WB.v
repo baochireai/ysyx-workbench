@@ -30,8 +30,17 @@ module WB(
     input ifu_ready
 );
 
-assign wb_ready=1'b1;
-assign wb_valid=1'b1;
+//(reg有数据但是将被读取|没有数据)&(当前数据处理完毕)
+assign wb_ready=((wb_valid&ifu_ready)|(!wb_valid));
+
+wire wb_valid_next=wb_valid&(!ifu_ready)|//数据没被读取
+                    (( (wb_valid&ifu_ready)|(!wb_valid) )&( wb_ready&lsu_valid));
+
+Reg #(1,'d0) wb_valid_reg(clk,rst,wb_valid_next,wb_valid,1'b1);
+
+//（reg有数据但将被读取|reg没数据）&（有新数据且没有数据冲突）
+wire popline_wen=((wb_valid&ifu_ready)|(!wb_valid))&(lsu_valid&wb_ready);
+
 
 wire [`RegWidth-1:0] IntrOut,RegWdata,IntrPC_next;
 wire isIntrPC_next;

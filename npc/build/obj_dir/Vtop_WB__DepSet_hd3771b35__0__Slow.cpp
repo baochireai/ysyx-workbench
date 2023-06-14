@@ -34,6 +34,7 @@ VL_ATTR_COLD void Vtop_WB___ctor_var_reset(Vtop_WB* vlSelf) {
     vlSelf->__PVT__wb_ready = 0;
     vlSelf->__PVT__wb_valid = 0;
     vlSelf->__PVT__ifu_ready = 0;
+    vlSelf->__PVT__wb_valid_next = 0;
     vlSelf->__PVT__RegWdata = 0;
     for (int __Vi0 = 0; __Vi0 < 3; ++__Vi0) {
         VL_ZERO_RESET_W(66, vlSelf->__PVT__RegWsrcMux__DOT__pair_list[__Vi0]);

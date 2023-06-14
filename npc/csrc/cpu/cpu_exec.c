@@ -20,13 +20,18 @@ void cpu_exec_once(){
     //printf("PC=%lx\n",cpu.pc);
     //printf("Inst=%x\n",Inst);
   //printf("PC=%lx\n",top->IntrUnit->mcase);
-#ifdef CONFIG_WAVETRACE
-  top->clk=0;top->eval();contextp->timeInc(1);tfp->dump(contextp->time());
-  top->clk=1;top->eval();contextp->timeInc(1);tfp->dump(contextp->time());
-#else
-  top->clk=0;top->eval();
-  top->clk=1;top->eval();
-#endif
+  do
+  {
+    #ifdef CONFIG_WAVETRACE
+      top->clk=0;top->eval();contextp->timeInc(1);tfp->dump(contextp->time());
+      top->clk=1;top->eval();contextp->timeInc(1);tfp->dump(contextp->time());
+    #else
+      top->clk=0;top->eval();
+      top->clk=1;top->eval();
+    #endif
+    printf("top->valid=\t%d\n",top->valid);
+  } while (top->valid!=1);
+  
   cpu.pc=top->pc;
 }
 
@@ -60,7 +65,7 @@ void cpu_exec(uint64_t n){
     unsigned int Inst_RTL=top->Inst;
     printf("PC=%08x\tInst_RTL=%08x\n",pc,Inst_RTL);
     cpu_exec_once();
-    printf("next_pc=%08x\n",cpu.pc);
+    //printf("next_pc=%08x\n",cpu.pc);
     // if(cpu.pc==0x80001300){
     //   //VPI方式
     //   VerilatedVpi::callValueCbs();

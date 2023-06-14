@@ -35,17 +35,25 @@ module LSU(
     input wb_ready
 );
 
-assign lsu_valid=1'b1;
-assign lsu_ready=1'b1;
+//(reg有数据但是将被读取|没有数据)&(当前数据处理完毕)
+assign lsu_ready=((lsu_valid&wb_ready)|(!lsu_valid));
 
-Reg #(1,'d0) wb_IntrEn_reg(clk,rst,IntrEn_i,IntrEn_o,1'b1);
-Reg #(`RegWidth,'d0) wb_pc_reg(clk,rst,lsu_pc,pc_o,1'b1);
-Reg #(`RegWidth,'d0) wb_Rrs1_reg(clk,rst,R_rs1_i,R_rs1_o,1'b1);
-Reg #(1,'d0) wb_mtip_reg(clk,rst,clint_mtip_next,clint_mtip,1'b1);
-Reg #(`INSTWide,'d0) wb_inst_reg(clk,rst,lsu_inst,inst_o,1'b1);
-Reg #(`RegWidth,'d0) wb_alures_reg(clk,rst,addr,ALUres_o,1'b1);
-Reg #(1,'d0) wb_regwr_reg(clk,rst,RegWr_i,RegWr_o,1'b1);
-Reg #(2,'d0) wb_regdataSrc_reg(clk,rst,RegWdata_src_i,RegWdata_src_o,1'b1);
+wire lsu_valid_next=lsu_valid&(!wb_ready)|//数据没被读取
+                    (( (lsu_valid&wb_ready)|(!lsu_valid) )&( lsu_ready&exu_valid));
+
+Reg #(1,'d0) lsu_valid_reg(clk,rst,lsu_valid_next,lsu_valid,1'b1);
+
+//（reg有数据但将被读取|reg没数据）&（有新数据且没有数据冲突）
+wire popline_wen=((lsu_valid&wb_ready)|(!lsu_valid))&(exu_valid&lsu_ready);
+
+Reg #(1,'d0) wb_IntrEn_reg(clk,rst,IntrEn_i,IntrEn_o,popline_wen);
+Reg #(`RegWidth,'d0) wb_pc_reg(clk,rst,lsu_pc,pc_o,popline_wen);
+Reg #(`RegWidth,'d0) wb_Rrs1_reg(clk,rst,R_rs1_i,R_rs1_o,popline_wen);
+Reg #(1,'d0) wb_mtip_reg(clk,rst,clint_mtip_next,clint_mtip,popline_wen);
+Reg #(`INSTWide,'d0) wb_inst_reg(clk,rst,lsu_inst,inst_o,popline_wen);
+Reg #(`RegWidth,'d0) wb_alures_reg(clk,rst,addr,ALUres_o,popline_wen);
+Reg #(1,'d0) wb_regwr_reg(clk,rst,RegWr_i,RegWr_o,popline_wen);
+Reg #(2,'d0) wb_regdataSrc_reg(clk,rst,RegWdata_src_i,RegWdata_src_o,popline_wen);
 
 
 wire isclint=(addr>=64'h2000000&addr<=64'h200BFFF)?1'b1:1'b0;
