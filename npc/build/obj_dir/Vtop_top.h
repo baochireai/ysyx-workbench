@@ -31,6 +31,7 @@ class Vtop_top final : public VerilatedModule {
         CData/*0:0*/ __PVT__clint_re;
         CData/*0:0*/ __PVT__RegWr_d;
         CData/*0:0*/ __PVT__ifu_is_jump;
+        CData/*0:0*/ __PVT__ifu_arvalid;
         CData/*0:0*/ __PVT__ifu_ready;
         CData/*0:0*/ __PVT__ram_rvalid;
         CData/*1:0*/ __PVT__ram_rresp;
@@ -71,7 +72,6 @@ class Vtop_top final : public VerilatedModule {
         CData/*1:0*/ __PVT__wb_RegSrc;
         CData/*0:0*/ __PVT__wb_RegWr;
         CData/*0:0*/ __PVT__IFU__DOT__ifu_valid_next;
-        CData/*0:0*/ __PVT__IFU__DOT__popline_wen;
         CData/*7:0*/ __PVT__ram_axi_lite_u__DOT__wstrb;
         CData/*0:0*/ __PVT__ram_axi_lite_u__DOT__wdata_done;
         CData/*0:0*/ __PVT__ram_axi_lite_u__DOT__raddr_done;
