@@ -79,7 +79,8 @@ Reg #(1, 'd0) if_valid_reg(.clk(clk),.rst(rst),.din(ifu_valid_next),.dout(ifu_va
 //     end
 // end
 
-assign ARVALID=1'b1;
+//
+assign ARVALID=popline_wen;
 assign ARADDR=dpc[`MemAddrBus-1:0];
 
 
