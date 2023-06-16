@@ -46,7 +46,7 @@ module top(
 
     wire RegWr_d;//to wirf
 
-    wire ifu_is_jump;    
+    wire is_jump;    
     wire [63:0] ifu_JumpPc;
     wire ifu_isIntrPC;
     wire [63:0] ifu_IntrPC;
@@ -82,7 +82,7 @@ module top(
     wire ifu_valid,ifu_ready,idu_valid,idu_ready,exu_valid,exu_ready,lsu_valid,lsu_ready,wb_valid,wb_ready;
 
 
-    IFU IFU(.clk(clk),.rst(rst),.is_jump(ifu_is_jump),.JumpPc(ifu_JumpPc),.isIntrPC(ifu_isIntrPC),.IntrPC(ifu_IntrPC),
+    IFU IFU(.clk(clk),.rst(rst),.is_jump(is_jump),.JumpPc(ifu_JumpPc),.isIntrPC(ifu_isIntrPC),.IntrPC(ifu_IntrPC),
           .ARVALID(ifu_arvalid),.ARADDR(ifu_raddr),.ARREADY(ram_arready), .RREADY(ifu_ready),.inst_i(ram_rdata),.RVALID(ram_rvalid),
           .inst_o(id_inst),.pc_o(id_pc),
           .ifu_valid(ifu_valid),.ifu_ready(ifu_ready),.idu_ready(idu_ready),.wb_valid(wb_valid));
@@ -108,7 +108,7 @@ module top(
     wire isRAW;
     wire witf_full,witf_empty;
     //wire [`INSTWide-1:0] ex_inst;
-    IDU IDU(.clk(clk),.rst(rst),.id_inst(id_inst),.id_pc(id_pc),.R_rs1_i(R_rs1),.R_rs2_i(R_rs2),.rs1(rs1),.rs2(rs2),.rd(rd),.RegWr_d(RegWr_d),.isRAW(isRAW),.witf_full(witf_full),.ALUct(exu_ALUct),.Imm(exu_Imm),
+    IDU IDU(.clk(clk),.rst(rst),.id_inst(id_inst),.id_pc(id_pc),.flush_pipeline(is_jump),.R_rs1_i(R_rs1),.R_rs2_i(R_rs2),.rs1(rs1),.rs2(rs2),.rd(rd),.RegWr_d(RegWr_d),.isRAW(isRAW),.witf_full(witf_full),.ALUct(exu_ALUct),.Imm(exu_Imm),
       .ALUAsr(exu_ALUAsr),.ALUBsr(exu_ALUBsr),.inst_o(ex_inst),.pc_o(ex_pc),.R_rs1_o(ex_Rrs1),.R_rs2_o(ex_Rrs2),.RegWr(exu_RegWr),.Branch(exu_Branch),.MemOP(exu_MemOP),.MemWr(exu_MemWr),.RegSrc(exu_RegSrc),
       .isTuncate(exu_isTuncate),.isSext(exu_isSext),.IntrEn(exu_IntrEn),
       .idu_valid(idu_valid),.idu_ready(idu_ready),.exu_ready(exu_ready),.ifu_valid(ifu_valid));
@@ -127,7 +127,7 @@ module top(
           .isTuncate(exu_isTuncate),.isSext(exu_isSext),.Regwr_i(exu_RegWr),.MemOP_i(exu_MemOP),.MemWr_i(exu_MemWr),.IntrEn(exu_IntrEn), .Branch(exu_Branch),.RegSrc(exu_RegSrc),
           .R_rs1(ex_Rrs1),.R_rs2(ex_Rrs2),.Imm(exu_Imm),
           .wb_ALUres(ALUres),.Regwr_o(lsu_Regwr),.R_rs1_o(mem_Rrs1),.R_rs2_o(mem_Rrs2),.MemOP_o(mem_MemOP),.MemWr_o(mem_MemWr),.IntrEn_o(mem_IntrEn),
-          .NextPC(ifu_JumpPc),.is_jump(ifu_is_jump),.RegSrc_o(lsu_RegSrc),.inst_o(lsu_inst),.pc_o(lsu_pc),
+          .NextPC(ifu_JumpPc),.is_jump(is_jump),.RegSrc_o(lsu_RegSrc),.inst_o(lsu_inst),.pc_o(lsu_pc),
           .idu_valid(idu_valid),.lsu_ready(lsu_ready),.exu_ready(exu_ready),.exu_valid(exu_valid));    
 
     wire wb_IntrEn;

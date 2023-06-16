@@ -35,6 +35,16 @@ VL_ATTR_COLD void Vtop_top___stl_sequent__TOP__top__0(Vtop_top* vlSelf) {
         = (1U & (~ (IData)(vlSelf->__PVT__witf__DOT__depth_gt1__DOT__wptr_flg_r)));
     vlSelf->__PVT__witf__DOT__depth_gt1__DOT__rptr_flg_nxt 
         = (1U & (~ (IData)(vlSelf->__PVT__witf__DOT__depth_gt1__DOT__rptr_flg_r)));
+    vlSelf->__PVT__EXU__DOT__ex_alu__DOT__deALUBsr__DOT__pair_list[1U][0U] 
+        = (IData)(vlSelf->__PVT__ex_Rrs2);
+    vlSelf->__PVT__EXU__DOT__ex_alu__DOT__deALUBsr__DOT__pair_list[1U][1U] 
+        = (IData)((vlSelf->__PVT__ex_Rrs2 >> 0x20U));
+    vlSelf->__PVT__EXU__DOT__ex_alu__DOT__deALUBsr__DOT__pair_list[1U][2U] = 1U;
+    vlSelf->__PVT__EXU__DOT__ex_alu__DOT__deALUBsr__DOT__pair_list[2U][0U] 
+        = (IData)(vlSelf->__PVT__exu_Imm);
+    vlSelf->__PVT__EXU__DOT__ex_alu__DOT__deALUBsr__DOT__pair_list[2U][1U] 
+        = (IData)((vlSelf->__PVT__exu_Imm >> 0x20U));
+    vlSelf->__PVT__EXU__DOT__ex_alu__DOT__deALUBsr__DOT__pair_list[2U][2U] = 0U;
     vlSelf->witf__DOT____VdfgTmp_h08e2d86c__0 = ((IData)(vlSelf->__PVT__wb_RegWr) 
                                                  & (7U 
                                                     == (IData)(vlSelf->__PVT__witf__DOT__rptr_r)));
@@ -59,16 +69,6 @@ VL_ATTR_COLD void Vtop_top___stl_sequent__TOP__top__0(Vtop_top* vlSelf) {
     vlSelf->witf__DOT____VdfgTmp_h0d36223a__0 = ((IData)(vlSelf->__PVT__wb_RegWr) 
                                                  & (0U 
                                                     == (IData)(vlSelf->__PVT__witf__DOT__rptr_r)));
-    vlSelf->__PVT__EXU__DOT__ex_alu__DOT__deALUBsr__DOT__pair_list[1U][0U] 
-        = (IData)(vlSelf->__PVT__ex_Rrs2);
-    vlSelf->__PVT__EXU__DOT__ex_alu__DOT__deALUBsr__DOT__pair_list[1U][1U] 
-        = (IData)((vlSelf->__PVT__ex_Rrs2 >> 0x20U));
-    vlSelf->__PVT__EXU__DOT__ex_alu__DOT__deALUBsr__DOT__pair_list[1U][2U] = 1U;
-    vlSelf->__PVT__EXU__DOT__ex_alu__DOT__deALUBsr__DOT__pair_list[2U][0U] 
-        = (IData)(vlSelf->__PVT__exu_Imm);
-    vlSelf->__PVT__EXU__DOT__ex_alu__DOT__deALUBsr__DOT__pair_list[2U][1U] 
-        = (IData)((vlSelf->__PVT__exu_Imm >> 0x20U));
-    vlSelf->__PVT__EXU__DOT__ex_alu__DOT__deALUBsr__DOT__pair_list[2U][2U] = 0U;
     Vtop___024unit____Vdpiimwrap_pmem_read_TOP____024unit(vlSelf->__PVT__ram_axi_lite_u__DOT__raddr, vlSelf->__Vtask_pmem_read__2__rdata);
     vlSelf->__PVT__ram_rdata = vlSelf->__Vtask_pmem_read__2__rdata;
     vlSelf->__PVT__IDU__DOT__ContrGenU__DOT__ImmGenU__DOT__isRegWr__DOT__pair_list[0U][0U] 
@@ -2385,8 +2385,8 @@ VL_ATTR_COLD void Vtop_top___stl_sequent__TOP__top__0(Vtop_top* vlSelf) {
            | ((IData)(vlSelf->__PVT__exu_Branch) == 
               vlSelf->__PVT__EXU__DOT__GenNextPC__DOT__jump_check__DOT__key_list
               [6U]));
-    vlSelf->__PVT__ifu_is_jump = ((IData)(vlSelf->__PVT__EXU__DOT__GenNextPC__DOT__jump_check__DOT__hit) 
-                                  & (IData)(vlSelf->__PVT__EXU__DOT__GenNextPC__DOT__jump_check__DOT__lut_out));
+    vlSelf->__PVT__is_jump = ((IData)(vlSelf->__PVT__EXU__DOT__GenNextPC__DOT__jump_check__DOT__hit) 
+                              & (IData)(vlSelf->__PVT__EXU__DOT__GenNextPC__DOT__jump_check__DOT__lut_out));
     vlSelf->__PVT__EXU__DOT__ex_alu__DOT__deExtop__DOT__lut_out 
         = ((- (QData)((IData)(((IData)(vlSelf->EXU__DOT__ex_alu__DOT____Vcellinp__deExtop__key) 
                                == vlSelf->__PVT__EXU__DOT__ex_alu__DOT__deExtop__DOT__key_list
@@ -2643,6 +2643,8 @@ VL_ATTR_COLD void Vtop_top___stl_sequent__TOP__top__0(Vtop_top* vlSelf) {
         = ((IData)(vlSelf->__PVT__EXU__DOT__GenNextPC__DOT__dePCsrc__DOT__hit)
             ? (IData)(vlSelf->__PVT__EXU__DOT__GenNextPC__DOT__dePCsrc__DOT__lut_out)
             : 1U);
+    vlSelf->IDU__DOT____Vcellinp__idu_valid_reg____pinNumber2 
+        = ((IData)(vlSelf->__PVT__is_jump) | (IData)(vlSymsp->TOP.rst));
     vlSelf->__PVT__EXU__DOT__GenNextPC__DOT__NextPCp 
         = (0xfffffffffffffffeULL & (((2U & (IData)(vlSelf->EXU__DOT__GenNextPC__DOT____Vcellout__dePCsrc__out))
                                       ? vlSelf->__PVT__exu_Imm
@@ -2652,7 +2654,7 @@ VL_ATTR_COLD void Vtop_top___stl_sequent__TOP__top__0(Vtop_top* vlSelf) {
                                                   : vlSelf->__PVT__ex_Rrs1)));
     vlSelf->__PVT__IFU__DOT__dpc = ((IData)(vlSymsp->TOP__top__WB.__PVT__isIntrPC)
                                      ? vlSymsp->TOP__top__WB.__PVT__IntrPC
-                                     : ((IData)(vlSelf->__PVT__ifu_is_jump)
+                                     : ((IData)(vlSelf->__PVT__is_jump)
                                          ? ((0ULL == vlSelf->__PVT__EXU__DOT__GenNextPC__DOT__NextPCp)
                                              ? 0x80000000ULL
                                              : vlSelf->__PVT__EXU__DOT__GenNextPC__DOT__NextPCp)

@@ -2,6 +2,8 @@
 module IDU(
      input clk,
      input rst,
+     //from ctrl
+     input flush_pipeline,
      //from ifu
      input [`INSTWide-1:0] id_inst,
      input [`RegWidth-1:0] id_pc,
@@ -35,7 +37,7 @@ module IDU(
     output[`RegAddrBus] rs2,
     //to witf
     output[`RegAddrBus] rd,
-    output RegWr_d,
+    output disp_en,
 
 
     //handshake from ifu
@@ -57,7 +59,7 @@ assign idu_ready=((idu_valid&exu_ready)|(!idu_valid)) & (!witf_full&!isRAW);
 wire idu_valid_next=idu_valid&(!exu_ready)|//数据没被读取
                     (( (idu_valid&exu_ready)|(!idu_valid) )&( idu_ready&ifu_valid&(!isRAW)&(!witf_full)));
 
-Reg #(1,'d0) idu_valid_reg(clk,rst,idu_valid_next,idu_valid,1'b1);
+Reg #(1,'d0) idu_valid_reg(clk,rst|flush_pipeline,idu_valid_next,idu_valid,1'b1);
 
 //（reg有数据但将被读取|reg没数据）&（有新数据且没有数据冲突）
 wire popline_wen=((idu_valid&exu_ready)|(!idu_valid))&(ifu_valid&idu_ready&(!isRAW)&(!witf_full));
@@ -75,6 +77,7 @@ wire [1:0] RegSrc_d;
 wire isTuncate_d;
 wire isSext_d;
 wire IntrEn_d;
+wire RegWr_d;
 
 Reg #(`INSTWide,'d0) ex_Inst_reg(clk,rst,id_inst,inst_o,popline_wen);
 Reg #(`RegWidth,'d0) ex_pc_reg(clk,rst,id_pc,pc_o,popline_wen);
@@ -106,6 +109,8 @@ ContrGen ContrGenU(.id_inst(id_inst),.ALUct(ALUct_d),.Imm(Imm_d),.RegWr(RegWr_d)
 assign rs1=id_inst[`inst_rs1];
 assign rs2=id_inst[`inst_rs2];
 assign rd=id_inst[`inst_rd];
+
+wire disp_en=
 
 endmodule
 

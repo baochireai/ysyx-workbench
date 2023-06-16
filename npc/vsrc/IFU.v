@@ -43,9 +43,9 @@ wire flush_pipeline=is_jump;
 wire nextpc_valid=((ifu_valid&!idu_ready)|
                     ((!ifu_valid)|(ifu_valid&idu_ready)));
 reg nextpc_valid_r;
-Reg #(1,'d0) nextpc_valid_reg(clk,rst|flush_pipeline,nextpc_valid,nextpc_valid_r,1'b1);
+Reg #(1,'d0) nextpc_valid_reg(clk,rst,nextpc_valid,nextpc_valid_r,1'b1);
     //give inst fetch signals
-wire [`RegWidth-1:0]  dpc=isIntrPC?IntrPC:(is_jump?JumpPc:(nextpc_valid_r?NextPC+4:dpc));
+wire [`RegWidth-1:0]  dpc=isIntrPC?IntrPC:(is_jump?JumpPc:NextPC+4);
 
 wire [`RegWidth-1:0] NextPC;
 
