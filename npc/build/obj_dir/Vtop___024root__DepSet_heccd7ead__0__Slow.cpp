@@ -93,7 +93,22 @@ VL_ATTR_COLD void Vtop___024root___dump_triggers__act(Vtop___024root* vlSelf) {
         VL_DBG_MSGF("         No triggers active\n");
     }
     if ((1ULL & vlSelf->__VactTriggered.word(0U))) {
-        VL_DBG_MSGF("         'act' region trigger index 0 is active: @(posedge clk)\n");
+        VL_DBG_MSGF("         'act' region trigger index 0 is active: @(posedge clk or posedge rst)\n");
+    }
+    if ((2ULL & vlSelf->__VactTriggered.word(0U))) {
+        VL_DBG_MSGF("         'act' region trigger index 1 is active: @(posedge top.EXU.exu_valid_reg.rst_r2 or posedge clk)\n");
+    }
+    if ((4ULL & vlSelf->__VactTriggered.word(0U))) {
+        VL_DBG_MSGF("         'act' region trigger index 2 is active: @(posedge clk)\n");
+    }
+    if ((8ULL & vlSelf->__VactTriggered.word(0U))) {
+        VL_DBG_MSGF("         'act' region trigger index 3 is active: @(posedge top.LSU.clintU.mtimecmp_Reg.rst_r2 or posedge clk)\n");
+    }
+    if ((0x10ULL & vlSelf->__VactTriggered.word(0U))) {
+        VL_DBG_MSGF("         'act' region trigger index 4 is active: @(posedge top.WB.wb_IntrPC_reg.rst_r2 or posedge clk)\n");
+    }
+    if ((0x20ULL & vlSelf->__VactTriggered.word(0U))) {
+        VL_DBG_MSGF("         'act' region trigger index 5 is active: @(posedge top.WB.IntrUnit.mcaseReg.rst_r2 or posedge clk)\n");
     }
 }
 #endif  // VL_DEBUG
@@ -108,7 +123,22 @@ VL_ATTR_COLD void Vtop___024root___dump_triggers__nba(Vtop___024root* vlSelf) {
         VL_DBG_MSGF("         No triggers active\n");
     }
     if ((1ULL & vlSelf->__VnbaTriggered.word(0U))) {
-        VL_DBG_MSGF("         'nba' region trigger index 0 is active: @(posedge clk)\n");
+        VL_DBG_MSGF("         'nba' region trigger index 0 is active: @(posedge clk or posedge rst)\n");
+    }
+    if ((2ULL & vlSelf->__VnbaTriggered.word(0U))) {
+        VL_DBG_MSGF("         'nba' region trigger index 1 is active: @(posedge top.EXU.exu_valid_reg.rst_r2 or posedge clk)\n");
+    }
+    if ((4ULL & vlSelf->__VnbaTriggered.word(0U))) {
+        VL_DBG_MSGF("         'nba' region trigger index 2 is active: @(posedge clk)\n");
+    }
+    if ((8ULL & vlSelf->__VnbaTriggered.word(0U))) {
+        VL_DBG_MSGF("         'nba' region trigger index 3 is active: @(posedge top.LSU.clintU.mtimecmp_Reg.rst_r2 or posedge clk)\n");
+    }
+    if ((0x10ULL & vlSelf->__VnbaTriggered.word(0U))) {
+        VL_DBG_MSGF("         'nba' region trigger index 4 is active: @(posedge top.WB.wb_IntrPC_reg.rst_r2 or posedge clk)\n");
+    }
+    if ((0x20ULL & vlSelf->__VnbaTriggered.word(0U))) {
+        VL_DBG_MSGF("         'nba' region trigger index 5 is active: @(posedge top.WB.IntrUnit.mcaseReg.rst_r2 or posedge clk)\n");
     }
 }
 #endif  // VL_DEBUG
@@ -124,7 +154,12 @@ VL_ATTR_COLD void Vtop___024root___ctor_var_reset(Vtop___024root* vlSelf) {
     vlSelf->pc = 0;
     vlSelf->valid = 0;
     vlSelf->__Vtrigprevexpr___TOP__clk__0 = 0;
-    for (int __Vi0 = 0; __Vi0 < 3; ++__Vi0) {
+    vlSelf->__Vtrigprevexpr___TOP__rst__0 = 0;
+    vlSelf->__Vtrigprevexpr___TOP__top____PVT__EXU__DOT__exu_valid_reg__DOT__rst_r2__0 = 0;
+    vlSelf->__Vtrigprevexpr___TOP__top____PVT__LSU__DOT__clintU__DOT__mtimecmp_Reg__DOT__rst_r2__0 = 0;
+    vlSelf->__Vtrigprevexpr___TOP__top__WB____PVT__wb_IntrPC_reg__DOT__rst_r2__0 = 0;
+    vlSelf->__Vtrigprevexpr___TOP__top__WB__IntrUnit____PVT__mcaseReg__DOT__rst_r2__0 = 0;
+    for (int __Vi0 = 0; __Vi0 < 12; ++__Vi0) {
         vlSelf->__Vm_traceActivity[__Vi0] = 0;
     }
 }

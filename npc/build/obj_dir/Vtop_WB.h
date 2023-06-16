@@ -19,6 +19,7 @@ class Vtop_WB final : public VerilatedModule {
     // DESIGN SPECIFIC STATE
     VL_IN8(__PVT__clk,0,0);
     VL_IN8(__PVT__rst,0,0);
+    CData/*0:0*/ __PVT__wb_IntrPC_reg__DOT__rst_r2;
     VL_IN8(__PVT__IntrEn,0,0);
     VL_IN8(__PVT__clint_mtip,0,0);
     VL_IN8(__PVT__Wdata_src,1,0);
@@ -32,6 +33,9 @@ class Vtop_WB final : public VerilatedModule {
     VL_IN8(__PVT__ifu_ready,0,0);
     CData/*0:0*/ __PVT__wb_valid_next;
     CData/*0:0*/ __PVT__RegWsrcMux__DOT__hit;
+    CData/*0:0*/ __PVT__wb_IntrPC_reg__DOT__rst_r1;
+    CData/*4:0*/ __Vdlyvdim0__RegisterFile__DOT__rf__v0;
+    CData/*0:0*/ __Vdlyvset__RegisterFile__DOT__rf__v0;
     VL_IN(__PVT__wb_inst,31,0);
     VL_IN64(__PVT__wb_pc,63,0);
     VL_IN64(__PVT__ALUres,63,0);
@@ -42,6 +46,7 @@ class Vtop_WB final : public VerilatedModule {
     VL_OUT64(__PVT__R_rs2,63,0);
     QData/*63:0*/ __PVT__RegWdata;
     QData/*63:0*/ __PVT__RegWsrcMux__DOT__lut_out;
+    QData/*63:0*/ __Vdlyvval__RegisterFile__DOT__rf__v0;
     VlUnpacked<VlWide<3>/*65:0*/, 3> __PVT__RegWsrcMux__DOT__pair_list;
     VlUnpacked<CData/*1:0*/, 3> __PVT__RegWsrcMux__DOT__key_list;
     VlUnpacked<QData/*63:0*/, 3> __PVT__RegWsrcMux__DOT__data_list;

@@ -14,6 +14,7 @@ class Vtop_Intr final : public VerilatedModule {
 
     // DESIGN SPECIFIC STATE
     VL_IN8(__PVT__clk,0,0);
+    CData/*0:0*/ __PVT__mcaseReg__DOT__rst_r2;
     VL_IN8(__PVT__IntrEn,0,0);
     VL_IN8(__PVT__clint_mtip,0,0);
     VL_IN8(__PVT__zimm,4,0);
@@ -30,6 +31,7 @@ class Vtop_Intr final : public VerilatedModule {
     CData/*0:0*/ __PVT__ismstatus;
     CData/*0:0*/ __PVT__CSRwEn__DOT__hit;
     CData/*0:0*/ __PVT__scrDataSrc__DOT__hit;
+    CData/*0:0*/ __PVT__mcaseReg__DOT__rst_r1;
     VL_IN16(__PVT__csr,11,0);
     VL_IN64(__PVT__pc,63,0);
     VL_IN64(__PVT__R_rs1,63,0);

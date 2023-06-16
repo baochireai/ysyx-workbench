@@ -86,4 +86,6 @@ VL_ATTR_COLD void Vtop_Intr___ctor_var_reset(Vtop_Intr* vlSelf) {
     }
     vlSelf->__PVT__scrDataSrc__DOT__lut_out = 0;
     vlSelf->__PVT__scrDataSrc__DOT__hit = 0;
+    vlSelf->__PVT__mcaseReg__DOT__rst_r1 = 0;
+    vlSelf->__PVT__mcaseReg__DOT__rst_r2 = 0;
 }

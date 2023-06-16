@@ -50,4 +50,9 @@ VL_ATTR_COLD void Vtop_WB___ctor_var_reset(Vtop_WB* vlSelf) {
     for (int __Vi0 = 0; __Vi0 < 32; ++__Vi0) {
         vlSelf->__PVT__RegisterFile__DOT__rf[__Vi0] = 0;
     }
+    vlSelf->__PVT__wb_IntrPC_reg__DOT__rst_r1 = 0;
+    vlSelf->__PVT__wb_IntrPC_reg__DOT__rst_r2 = 0;
+    vlSelf->__Vdlyvdim0__RegisterFile__DOT__rf__v0 = 0;
+    vlSelf->__Vdlyvval__RegisterFile__DOT__rf__v0 = 0;
+    vlSelf->__Vdlyvset__RegisterFile__DOT__rf__v0 = 0;
 }
