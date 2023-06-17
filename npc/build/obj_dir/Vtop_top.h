@@ -102,6 +102,8 @@ class Vtop_top final : public VerilatedModule {
         CData/*0:0*/ __PVT__EXU__DOT__exu_valid_next;
         CData/*0:0*/ __PVT__EXU__DOT__popline_wen;
         CData/*0:0*/ __PVT__EXU__DOT__Less;
+        CData/*0:0*/ __PVT__EXU__DOT__is_jump_d;
+        CData/*0:0*/ EXU__DOT____VdfgTmp_h0654b1ad__0;
         CData/*0:0*/ __PVT__EXU__DOT__ex_alu__DOT__Sub_Add;
         CData/*0:0*/ __PVT__EXU__DOT__ex_alu__DOT__lessS;
         CData/*0:0*/ __PVT__EXU__DOT__ex_alu__DOT__lessUS;
@@ -147,10 +149,10 @@ class Vtop_top final : public VerilatedModule {
         CData/*4:0*/ witf__DOT____Vcellout__witf_entries__BRA__1__KET____DOT__rdidx_reg____pinNumber4;
         CData/*0:0*/ witf__DOT____Vcellout__witf_entries__BRA__2__KET____DOT__vld_reg____pinNumber4;
         CData/*0:0*/ witf__DOT____Vcellinp__witf_entries__BRA__2__KET____DOT__rdidx_reg____pinNumber5;
-        CData/*4:0*/ witf__DOT____Vcellout__witf_entries__BRA__2__KET____DOT__rdidx_reg____pinNumber4;
-        CData/*0:0*/ witf__DOT____Vcellout__witf_entries__BRA__3__KET____DOT__vld_reg____pinNumber4;
     };
     struct {
+        CData/*4:0*/ witf__DOT____Vcellout__witf_entries__BRA__2__KET____DOT__rdidx_reg____pinNumber4;
+        CData/*0:0*/ witf__DOT____Vcellout__witf_entries__BRA__3__KET____DOT__vld_reg____pinNumber4;
         CData/*0:0*/ witf__DOT____Vcellinp__witf_entries__BRA__3__KET____DOT__rdidx_reg____pinNumber5;
         CData/*4:0*/ witf__DOT____Vcellout__witf_entries__BRA__3__KET____DOT__rdidx_reg____pinNumber4;
         CData/*0:0*/ witf__DOT____Vcellout__witf_entries__BRA__4__KET____DOT__vld_reg____pinNumber4;
@@ -213,10 +215,10 @@ class Vtop_top final : public VerilatedModule {
         QData/*63:0*/ __PVT__wb_Rrs1;
         QData/*63:0*/ __PVT__IFU__DOT__dpc;
         QData/*63:0*/ __PVT__IFU__DOT__NextPC;
-        QData/*63:0*/ __PVT__IDU__DOT__Imm_d;
-        QData/*63:0*/ __PVT__IDU__DOT__ContrGenU__DOT__ImmGenU__DOT__isRegWr__DOT__lut_out;
     };
     struct {
+        QData/*63:0*/ __PVT__IDU__DOT__Imm_d;
+        QData/*63:0*/ __PVT__IDU__DOT__ContrGenU__DOT__ImmGenU__DOT__isRegWr__DOT__lut_out;
         QData/*63:0*/ __PVT__EXU__DOT__ex_alu__DOT__ALUA;
         QData/*63:0*/ __PVT__EXU__DOT__ex_alu__DOT__ALUB;
         QData/*63:0*/ __PVT__EXU__DOT__ex_alu__DOT__adder;
@@ -279,10 +281,10 @@ class Vtop_top final : public VerilatedModule {
         VlUnpacked<CData/*2:0*/, 7> __PVT__EXU__DOT__GenNextPC__DOT__jump_check__DOT__key_list;
         VlUnpacked<CData/*0:0*/, 7> __PVT__EXU__DOT__GenNextPC__DOT__jump_check__DOT__data_list;
         VlUnpacked<CData/*4:0*/, 7> __PVT__EXU__DOT__GenNextPC__DOT__dePCsrc__DOT__pair_list;
-        VlUnpacked<CData/*2:0*/, 7> __PVT__EXU__DOT__GenNextPC__DOT__dePCsrc__DOT__key_list;
-        VlUnpacked<CData/*1:0*/, 7> __PVT__EXU__DOT__GenNextPC__DOT__dePCsrc__DOT__data_list;
     };
     struct {
+        VlUnpacked<CData/*2:0*/, 7> __PVT__EXU__DOT__GenNextPC__DOT__dePCsrc__DOT__key_list;
+        VlUnpacked<CData/*1:0*/, 7> __PVT__EXU__DOT__GenNextPC__DOT__dePCsrc__DOT__data_list;
         VlUnpacked<SData/*9:0*/, 4> __PVT__LSU__DOT__DataMem__DOT__deMemOP__DOT__pair_list;
         VlUnpacked<CData/*1:0*/, 4> __PVT__LSU__DOT__DataMem__DOT__deMemOP__DOT__key_list;
         VlUnpacked<CData/*7:0*/, 4> __PVT__LSU__DOT__DataMem__DOT__deMemOP__DOT__data_list;

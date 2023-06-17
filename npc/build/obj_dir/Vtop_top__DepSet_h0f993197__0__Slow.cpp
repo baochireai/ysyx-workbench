@@ -2579,8 +2579,8 @@ VL_ATTR_COLD void Vtop_top___stl_sequent__TOP__top__0(Vtop_top* vlSelf) {
            | ((IData)(vlSelf->__PVT__exu_Branch) == 
               vlSelf->__PVT__EXU__DOT__GenNextPC__DOT__jump_check__DOT__key_list
               [6U]));
-    vlSelf->__PVT__is_jump = ((IData)(vlSelf->__PVT__EXU__DOT__GenNextPC__DOT__jump_check__DOT__hit) 
-                              & (IData)(vlSelf->__PVT__EXU__DOT__GenNextPC__DOT__jump_check__DOT__lut_out));
+    vlSelf->__PVT__EXU__DOT__is_jump_d = ((IData)(vlSelf->__PVT__EXU__DOT__GenNextPC__DOT__jump_check__DOT__hit) 
+                                          & (IData)(vlSelf->__PVT__EXU__DOT__GenNextPC__DOT__jump_check__DOT__lut_out));
     vlSelf->__PVT__EXU__DOT__GenNextPC__DOT__NextPCp 
         = (0xfffffffffffffffeULL & (((2U & (IData)(vlSelf->EXU__DOT__GenNextPC__DOT____Vcellout__dePCsrc__out))
                                       ? vlSelf->__PVT__exu_Imm
@@ -2588,15 +2588,6 @@ VL_ATTR_COLD void Vtop_top___stl_sequent__TOP__top__0(Vtop_top* vlSelf) {
                                                   & (IData)(vlSelf->EXU__DOT__GenNextPC__DOT____Vcellout__dePCsrc__out))
                                                   ? vlSelf->__PVT__ex_pc
                                                   : vlSelf->__PVT__ex_Rrs1)));
-    vlSelf->IDU__DOT____Vcellinp__idu_valid_reg____pinNumber2 
-        = ((IData)(vlSelf->__PVT__is_jump) | (IData)(vlSymsp->TOP.rst));
-    vlSelf->__PVT__IFU__DOT__dpc = ((IData)(vlSymsp->TOP__top__WB.__PVT__isIntrPC)
-                                     ? vlSymsp->TOP__top__WB.__PVT__IntrPC
-                                     : ((IData)(vlSelf->__PVT__is_jump)
-                                         ? ((0ULL == vlSelf->__PVT__EXU__DOT__GenNextPC__DOT__NextPCp)
-                                             ? 0x80000000ULL
-                                             : vlSelf->__PVT__EXU__DOT__GenNextPC__DOT__NextPCp)
-                                         : (4ULL + vlSelf->__PVT__IFU__DOT__NextPC)));
 }
 
 VL_ATTR_COLD void Vtop_top___stl_sequent__TOP__top__1(Vtop_top* vlSelf) {
@@ -2647,10 +2638,14 @@ VL_ATTR_COLD void Vtop_top___stl_sequent__TOP__top__1(Vtop_top* vlSelf) {
                                             & (IData)(vlSelf->__VdfgTmp_hd805ccc8__0));
     vlSelf->__PVT__exu_ready = (1U & ((~ (IData)(vlSelf->__PVT__exu_valid)) 
                                       | (IData)(vlSelf->__VdfgTmp_hd805ccc8__0)));
-    vlSelf->__PVT__EXU__DOT__popline_wen = ((IData)(vlSelf->__PVT__exu_ready) 
-                                            & (IData)(vlSelf->__PVT__idu_valid));
+    vlSelf->EXU__DOT____VdfgTmp_h0654b1ad__0 = ((IData)(vlSelf->__PVT__idu_valid) 
+                                                & (IData)(vlSelf->__PVT__exu_ready));
     vlSelf->__VdfgTmp_h6b23342a__0 = ((IData)(vlSelf->__PVT__exu_ready) 
                                       & (IData)(vlSelf->__PVT__idu_valid));
+    vlSelf->__PVT__EXU__DOT__popline_wen = ((IData)(vlSelf->__PVT__exu_ready) 
+                                            & (IData)(vlSelf->EXU__DOT____VdfgTmp_h0654b1ad__0));
+    vlSelf->__PVT__is_jump = ((IData)(vlSelf->__PVT__EXU__DOT__is_jump_d) 
+                              & (IData)(vlSelf->EXU__DOT____VdfgTmp_h0654b1ad__0));
     vlSelf->__PVT__EXU__DOT__exu_valid_next = (((~ (IData)(vlSelf->__PVT__lsu_ready)) 
                                                 & (IData)(vlSelf->__PVT__exu_valid)) 
                                                | ((IData)(vlSelf->__PVT__exu_ready) 
@@ -2658,6 +2653,15 @@ VL_ATTR_COLD void Vtop_top___stl_sequent__TOP__top__1(Vtop_top* vlSelf) {
     vlSelf->IDU__DOT____VdfgTmp_hd66fa622__0 = (1U 
                                                 & ((~ (IData)(vlSelf->__PVT__idu_valid)) 
                                                    | (IData)(vlSelf->__VdfgTmp_h6b23342a__0)));
+    vlSelf->IDU__DOT____Vcellinp__idu_valid_reg____pinNumber2 
+        = ((IData)(vlSelf->__PVT__is_jump) | (IData)(vlSymsp->TOP.rst));
+    vlSelf->__PVT__IFU__DOT__dpc = ((IData)(vlSymsp->TOP__top__WB.__PVT__isIntrPC)
+                                     ? vlSymsp->TOP__top__WB.__PVT__IntrPC
+                                     : ((IData)(vlSelf->__PVT__is_jump)
+                                         ? ((0ULL == vlSelf->__PVT__EXU__DOT__GenNextPC__DOT__NextPCp)
+                                             ? 0x80000000ULL
+                                             : vlSelf->__PVT__EXU__DOT__GenNextPC__DOT__NextPCp)
+                                         : (4ULL + vlSelf->__PVT__IFU__DOT__NextPC)));
     vlSelf->__PVT__idu_ready = ((IData)(vlSelf->IDU__DOT____VdfgTmp_hd66fa622__0) 
                                 & ((~ (IData)(vlSelf->__PVT__witf_full)) 
                                    & (~ (IData)(vlSelf->__PVT__isRAW))));

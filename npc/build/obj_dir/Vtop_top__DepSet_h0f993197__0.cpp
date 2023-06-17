@@ -826,6 +826,8 @@ VL_INLINE_OPT void Vtop_top___nba_sequent__TOP__top__1(Vtop_top* vlSelf) {
     }
     vlSelf->__PVT__LSU__DOT__popline_wen = ((IData)(vlSelf->__PVT__lsu_ready) 
                                             & (IData)(vlSelf->__VdfgTmp_hd805ccc8__0));
+    vlSelf->EXU__DOT____VdfgTmp_h0654b1ad__0 = ((IData)(vlSelf->__PVT__idu_valid) 
+                                                & (IData)(vlSelf->__PVT__exu_ready));
     vlSelf->__VdfgTmp_h6b23342a__0 = ((IData)(vlSelf->__PVT__exu_ready) 
                                       & (IData)(vlSelf->__PVT__idu_valid));
     if ((0x100073U == vlSelf->__PVT__wb_inst)) {
@@ -848,7 +850,7 @@ VL_INLINE_OPT void Vtop_top___nba_sequent__TOP__top__1(Vtop_top* vlSelf) {
         vlSelf->__PVT__lsu_pc = vlSelf->__PVT__ex_pc;
     }
     vlSelf->__PVT__EXU__DOT__popline_wen = ((IData)(vlSelf->__PVT__exu_ready) 
-                                            & (IData)(vlSelf->__PVT__idu_valid));
+                                            & (IData)(vlSelf->EXU__DOT____VdfgTmp_h0654b1ad__0));
     if (vlSymsp->TOP.rst) {
         vlSelf->__PVT__ex_inst = 0U;
         vlSelf->__PVT__exu_IntrEn = 0U;
@@ -3080,8 +3082,8 @@ VL_INLINE_OPT void Vtop_top___nba_sequent__TOP__top__1(Vtop_top* vlSelf) {
            | ((IData)(vlSelf->__PVT__exu_Branch) == 
               vlSelf->__PVT__EXU__DOT__GenNextPC__DOT__jump_check__DOT__key_list
               [6U]));
-    vlSelf->__PVT__is_jump = ((IData)(vlSelf->__PVT__EXU__DOT__GenNextPC__DOT__jump_check__DOT__hit) 
-                              & (IData)(vlSelf->__PVT__EXU__DOT__GenNextPC__DOT__jump_check__DOT__lut_out));
+    vlSelf->__PVT__EXU__DOT__is_jump_d = ((IData)(vlSelf->__PVT__EXU__DOT__GenNextPC__DOT__jump_check__DOT__hit) 
+                                          & (IData)(vlSelf->__PVT__EXU__DOT__GenNextPC__DOT__jump_check__DOT__lut_out));
     vlSelf->__PVT__EXU__DOT__GenNextPC__DOT__NextPCp 
         = (0xfffffffffffffffeULL & (((2U & (IData)(vlSelf->EXU__DOT__GenNextPC__DOT____Vcellout__dePCsrc__out))
                                       ? vlSelf->__PVT__exu_Imm
@@ -3089,8 +3091,17 @@ VL_INLINE_OPT void Vtop_top___nba_sequent__TOP__top__1(Vtop_top* vlSelf) {
                                                   & (IData)(vlSelf->EXU__DOT__GenNextPC__DOT____Vcellout__dePCsrc__out))
                                                   ? vlSelf->__PVT__ex_pc
                                                   : vlSelf->__PVT__ex_Rrs1)));
+    vlSelf->__PVT__is_jump = ((IData)(vlSelf->__PVT__EXU__DOT__is_jump_d) 
+                              & (IData)(vlSelf->EXU__DOT____VdfgTmp_h0654b1ad__0));
     vlSelf->IDU__DOT____Vcellinp__idu_valid_reg____pinNumber2 
         = ((IData)(vlSelf->__PVT__is_jump) | (IData)(vlSymsp->TOP.rst));
+    vlSelf->__PVT__IFU__DOT__dpc = ((IData)(vlSymsp->TOP__top__WB.__PVT__isIntrPC)
+                                     ? vlSymsp->TOP__top__WB.__PVT__IntrPC
+                                     : ((IData)(vlSelf->__PVT__is_jump)
+                                         ? ((0ULL == vlSelf->__PVT__EXU__DOT__GenNextPC__DOT__NextPCp)
+                                             ? 0x80000000ULL
+                                             : vlSelf->__PVT__EXU__DOT__GenNextPC__DOT__NextPCp)
+                                         : (4ULL + vlSelf->__PVT__IFU__DOT__NextPC)));
     vlSelf->witf__DOT____Vcellinp__depth_gt1__DOT__wptr_reg____pinNumber5 
         = ((~ (IData)(vlSelf->__PVT__isRAW)) & ((IData)(vlSelf->__PVT__IDU__DOT__RegWr_d) 
                                                 & ((~ (IData)(vlSelf->__PVT__is_jump)) 
@@ -3100,13 +3111,6 @@ VL_INLINE_OPT void Vtop_top___nba_sequent__TOP__top__1(Vtop_top* vlSelf) {
                                                          (0x1fU 
                                                           & (vlSelf->__PVT__id_inst 
                                                              >> 7U)))))));
-    vlSelf->__PVT__IFU__DOT__dpc = ((IData)(vlSymsp->TOP__top__WB.__PVT__isIntrPC)
-                                     ? vlSymsp->TOP__top__WB.__PVT__IntrPC
-                                     : ((IData)(vlSelf->__PVT__is_jump)
-                                         ? ((0ULL == vlSelf->__PVT__EXU__DOT__GenNextPC__DOT__NextPCp)
-                                             ? 0x80000000ULL
-                                             : vlSelf->__PVT__EXU__DOT__GenNextPC__DOT__NextPCp)
-                                         : (4ULL + vlSelf->__PVT__IFU__DOT__NextPC)));
     vlSelf->witf__DOT____Vcellinp__witf_entries__BRA__7__KET____DOT__rdidx_reg____pinNumber5 
         = ((IData)(vlSelf->witf__DOT____Vcellinp__depth_gt1__DOT__wptr_reg____pinNumber5) 
            & (7U == (IData)(vlSelf->__PVT__witf__DOT__wptr_r)));

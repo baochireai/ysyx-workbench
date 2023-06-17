@@ -339,6 +339,8 @@ VL_ATTR_COLD void Vtop_top___ctor_var_reset(Vtop_top* vlSelf) {
     vlSelf->__PVT__EXU__DOT__exu_valid_next = 0;
     vlSelf->__PVT__EXU__DOT__popline_wen = 0;
     vlSelf->__PVT__EXU__DOT__Less = 0;
+    vlSelf->__PVT__EXU__DOT__is_jump_d = 0;
+    vlSelf->EXU__DOT____VdfgTmp_h0654b1ad__0 = 0;
     vlSelf->__PVT__EXU__DOT__ex_alu__DOT__ALUA = 0;
     vlSelf->__PVT__EXU__DOT__ex_alu__DOT__ALUB = 0;
     vlSelf->__PVT__EXU__DOT__ex_alu__DOT__Sub_Add = 0;

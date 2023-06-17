@@ -82,6 +82,6 @@ ALU ex_alu(.ALUAsr(ALUAsr),.PC(exu_pc),.R_rs1(R_rs1),.ALUBsr(ALUBsr), .Imm(Imm),
 wire is_jump_d;
 GenNextPC GenNextPC(.Branch(Branch),.imm(Imm),.PC(exu_pc),.R_rs1(R_rs1),.NextPC(NextPC),.Less(Less),.Zero(Zero),.is_jump(is_jump_d));
 
-assign is_jump=is_jump_d&ifu_valid&exu_ready;
+assign is_jump=is_jump_d&idu_valid&exu_ready;
 
 endmodule
