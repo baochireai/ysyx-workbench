@@ -24,6 +24,7 @@ VL_ATTR_COLD void Vtop_WB___ctor_var_reset(Vtop_WB* vlSelf) {
     vlSelf->__PVT__ALUres = 0;
     vlSelf->__PVT__MemOut = 0;
     vlSelf->__PVT__R_rs1_i = 0;
+    vlSelf->__PVT__wb_en = 0;
     vlSelf->__PVT__isIntrPC = 0;
     vlSelf->__PVT__IntrPC = 0;
     vlSelf->__PVT__rs1 = 0;

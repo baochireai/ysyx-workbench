@@ -110,7 +110,7 @@ assign rs1=id_inst[`inst_rs1];
 assign rs2=id_inst[`inst_rs2];
 assign rd=id_inst[`inst_rd];
 
-wire disp_en=
+assign disp_en=RegWr_d&(!flush_pipeline)&popline_wen&(rd!=5'd0);//0号寄存器不用管
 
 endmodule
 

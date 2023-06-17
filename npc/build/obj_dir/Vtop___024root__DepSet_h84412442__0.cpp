@@ -83,7 +83,9 @@ void Vtop_top___nba_sequent__TOP__top__0(Vtop_top* vlSelf);
 void Vtop_WB___nba_sequent__TOP__top__WB__0(Vtop_WB* vlSelf);
 void Vtop_Intr___nba_sequent__TOP__top__WB__IntrUnit__0(Vtop_Intr* vlSelf);
 void Vtop_top___nba_sequent__TOP__top__1(Vtop_top* vlSelf);
+void Vtop_WB___nba_sequent__TOP__top__WB__1(Vtop_WB* vlSelf);
 void Vtop_Intr___nba_sequent__TOP__top__WB__IntrUnit__1(Vtop_Intr* vlSelf);
+void Vtop_top___nba_sequent__TOP__top__2(Vtop_top* vlSelf);
 
 void Vtop___024root___eval_nba(Vtop___024root* vlSelf) {
     if (false && vlSelf) {}  // Prevent unused
@@ -97,8 +99,10 @@ void Vtop___024root___eval_nba(Vtop___024root* vlSelf) {
         Vtop_Intr___nba_sequent__TOP__top__WB__IntrUnit__0((&vlSymsp->TOP__top__WB__IntrUnit));
         Vtop___024root___nba_sequent__TOP__0(vlSelf);
         Vtop_top___nba_sequent__TOP__top__1((&vlSymsp->TOP__top));
+        Vtop_WB___nba_sequent__TOP__top__WB__1((&vlSymsp->TOP__top__WB));
         Vtop___024root___nba_sequent__TOP__1(vlSelf);
         Vtop_Intr___nba_sequent__TOP__top__WB__IntrUnit__1((&vlSymsp->TOP__top__WB__IntrUnit));
+        Vtop_top___nba_sequent__TOP__top__2((&vlSymsp->TOP__top));
         Vtop_WB___ico_sequent__TOP__top__WB__0((&vlSymsp->TOP__top__WB));
     }
 }

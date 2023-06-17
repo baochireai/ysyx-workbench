@@ -29,7 +29,6 @@ class Vtop_top final : public VerilatedModule {
         CData/*0:0*/ __PVT__clint_mtip;
         CData/*0:0*/ __PVT__clint_we;
         CData/*0:0*/ __PVT__clint_re;
-        CData/*0:0*/ __PVT__RegWr_d;
         CData/*0:0*/ __PVT__is_jump;
         CData/*0:0*/ __PVT__ifu_arvalid;
         CData/*0:0*/ __PVT__ifu_ready;
@@ -83,9 +82,10 @@ class Vtop_top final : public VerilatedModule {
         CData/*1:0*/ __PVT__IDU__DOT__RegSrc_d;
         CData/*0:0*/ __PVT__IDU__DOT__isTuncate_d;
         CData/*0:0*/ __PVT__IDU__DOT__isSext_d;
+        CData/*0:0*/ __PVT__IDU__DOT__IntrEn_d;
     };
     struct {
-        CData/*0:0*/ __PVT__IDU__DOT__IntrEn_d;
+        CData/*0:0*/ __PVT__IDU__DOT__RegWr_d;
         CData/*0:0*/ IDU__DOT____VdfgTmp_hd66fa622__0;
         CData/*0:0*/ IDU__DOT____VdfgTmp_h23869681__0;
         CData/*2:0*/ __PVT__IDU__DOT__ContrGenU__DOT__Extop;
@@ -165,14 +165,14 @@ class Vtop_top final : public VerilatedModule {
         CData/*0:0*/ witf__DOT____Vcellout__witf_entries__BRA__7__KET____DOT__vld_reg____pinNumber4;
         CData/*0:0*/ witf__DOT____Vcellinp__witf_entries__BRA__7__KET____DOT__rdidx_reg____pinNumber5;
         CData/*4:0*/ witf__DOT____Vcellout__witf_entries__BRA__7__KET____DOT__rdidx_reg____pinNumber4;
-        CData/*0:0*/ witf__DOT____VdfgTmp_h08e2d86c__0;
-        CData/*0:0*/ witf__DOT____VdfgTmp_h0d5c35c9__0;
-        CData/*0:0*/ witf__DOT____VdfgTmp_h46770a1e__0;
-        CData/*0:0*/ witf__DOT____VdfgTmp_h467ad5de__0;
-        CData/*0:0*/ witf__DOT____VdfgTmp_h0b2ef0b4__0;
-        CData/*0:0*/ witf__DOT____VdfgTmp_h0d4e02d0__0;
-        CData/*0:0*/ witf__DOT____VdfgTmp_h0d32c217__0;
-        CData/*0:0*/ witf__DOT____VdfgTmp_h0d36223a__0;
+        CData/*0:0*/ witf__DOT____VdfgTmp_h18d0ad63__0;
+        CData/*0:0*/ witf__DOT____VdfgTmp_h1502befe__0;
+        CData/*0:0*/ witf__DOT____VdfgTmp_h5e3be3b1__0;
+        CData/*0:0*/ witf__DOT____VdfgTmp_h5e289ef1__0;
+        CData/*0:0*/ witf__DOT____VdfgTmp_h1b15740b__0;
+        CData/*0:0*/ witf__DOT____VdfgTmp_h1534ebe7__0;
+        CData/*0:0*/ witf__DOT____VdfgTmp_h12e0aba8__0;
+        CData/*0:0*/ witf__DOT____VdfgTmp_h12fccb8d__0;
         CData/*0:0*/ __VdfgTmp_hd805ccc8__0;
         CData/*0:0*/ __VdfgTmp_h6b23342a__0;
         SData/*15:0*/ __PVT__LSU__DOT__DataMem__DOT__extmask;

@@ -23,6 +23,7 @@ class Vtop_WB final : public VerilatedModule {
     VL_IN8(__PVT__clint_mtip,0,0);
     VL_IN8(__PVT__Wdata_src,1,0);
     VL_IN8(__PVT__RegWr,0,0);
+    VL_OUT8(__PVT__wb_en,0,0);
     VL_OUT8(__PVT__isIntrPC,0,0);
     VL_IN8(__PVT__rs1,4,0);
     VL_IN8(__PVT__rs2,4,0);

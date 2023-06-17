@@ -108,10 +108,10 @@ module top(
     wire isRAW;
     wire witf_full,witf_empty;
     //wire [`INSTWide-1:0] ex_inst;
-    IDU IDU(.clk(clk),.rst(rst),.id_inst(id_inst),.id_pc(id_pc),.flush_pipeline(is_jump),.R_rs1_i(R_rs1),.R_rs2_i(R_rs2),.rs1(rs1),.rs2(rs2),.rd(rd),.RegWr_d(RegWr_d),.isRAW(isRAW),.witf_full(witf_full),.ALUct(exu_ALUct),.Imm(exu_Imm),
-      .ALUAsr(exu_ALUAsr),.ALUBsr(exu_ALUBsr),.inst_o(ex_inst),.pc_o(ex_pc),.R_rs1_o(ex_Rrs1),.R_rs2_o(ex_Rrs2),.RegWr(exu_RegWr),.Branch(exu_Branch),.MemOP(exu_MemOP),.MemWr(exu_MemWr),.RegSrc(exu_RegSrc),
-      .isTuncate(exu_isTuncate),.isSext(exu_isSext),.IntrEn(exu_IntrEn),
-      .idu_valid(idu_valid),.idu_ready(idu_ready),.exu_ready(exu_ready),.ifu_valid(ifu_valid));
+    IDU IDU(.clk(clk),.rst(rst),.id_inst(id_inst),.id_pc(id_pc),.flush_pipeline(is_jump),.R_rs1_i(R_rs1),.R_rs2_i(R_rs2),.rs1(rs1),.rs2(rs2),.rd(rd),
+      .disp_en(RegWr_d),.isRAW(isRAW),.witf_full(witf_full),.ALUct(exu_ALUct),.Imm(exu_Imm),.ALUAsr(exu_ALUAsr),.ALUBsr(exu_ALUBsr),.inst_o(ex_inst),
+      .pc_o(ex_pc),.R_rs1_o(ex_Rrs1),.R_rs2_o(ex_Rrs2),.RegWr(exu_RegWr),.Branch(exu_Branch),.MemOP(exu_MemOP),.MemWr(exu_MemWr),.RegSrc(exu_RegSrc),
+  .isTuncate(exu_isTuncate),.isSext(exu_isSext),.IntrEn(exu_IntrEn),.idu_valid(idu_valid),.idu_ready(idu_ready),.exu_ready(exu_ready),.ifu_valid(ifu_valid));
     
     wire [`RegWidth-1:0]mem_Rrs1,mem_Rrs2;
     wire [2:0] mem_MemOP;
@@ -138,6 +138,7 @@ module top(
     wire [`RegWidth-1:0] wb_ALUres;
     wire [`RegWidth-1:0] memout;
     wire [`RegWidth-1:0] wb_Rrs1;
+    wire witf_wb_en;
 
     LSU LSU(.clk(clk),.rst(rst),.addr(ALUres),.wdata(mem_Rrs2),.MemOP(mem_MemOP),.we(mem_MemWr),.dataout(memout),.clint_mtip(clint_mtip),
             .IntrEn_i(mem_IntrEn),.RegWdata_src_i(lsu_RegSrc),.RegWr_i(lsu_Regwr),.lsu_inst(lsu_inst),.lsu_pc(lsu_pc),.R_rs1_i(mem_Rrs1),
@@ -146,10 +147,10 @@ module top(
             .lsu_valid(lsu_valid),.lsu_ready(lsu_ready),.wb_ready(wb_ready),.exu_valid(exu_valid));
 
     WB WB(.clk(clk),.rst(rst),.IntrEn(wb_IntrEn),.clint_mtip(clint_mtip),.Wdata_src(wb_RegSrc),.RegWr(wb_RegWr),.wb_pc(wb_pc),.wb_inst(wb_inst),
-      .ALUres(wb_ALUres),.MemOut(memout),.R_rs1_i(wb_Rrs1),.isIntrPC(ifu_isIntrPC),.IntrPC(ifu_IntrPC),.rs1(rs1),.rs2(rs2),.R_rs1(R_rs1),.R_rs2(R_rs2),
+      .ALUres(wb_ALUres),.MemOut(memout),.R_rs1_i(wb_Rrs1),.wb_en(witf_wb_en),.isIntrPC(ifu_isIntrPC),.IntrPC(ifu_IntrPC),.rs1(rs1),.rs2(rs2),.R_rs1(R_rs1),.R_rs2(R_rs2),
       .lsu_valid(lsu_valid),.ifu_ready(ifu_ready),.wb_ready(wb_ready),.wb_valid(wb_valid));
 
-    witf witf(.clk(clk),.rst(rst),.rs1(rs1),.rs2(rs2),.rd(rd),.isRAW(isRAW),.Regwr(RegWr_d),.isWB(wb_RegWr),.witf_full(witf_full),.witf_empty(witf_empty));
+    witf witf(.clk(clk),.rst(rst),.rs1(rs1),.rs2(rs2),.rd(rd),.isRAW(isRAW),.disp_en(RegWr_d),.wb_en(witf_wb_en),.witf_full(witf_full),.witf_empty(witf_empty));
 
     always @(*) begin
         if (Inst==32'h00100073)

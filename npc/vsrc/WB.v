@@ -13,7 +13,8 @@ module WB(
     input[`RegWidth-1:0] ALUres,
     input[`RegWidth-1:0] MemOut,
     input[`RegWidth-1:0] R_rs1_i,
-
+    //to witf
+    output wb_en,
     //dout
     output isIntrPC,
     output [`RegWidth-1:0] IntrPC,
@@ -32,6 +33,8 @@ module WB(
 
 //(reg有数据但是将被读取|没有数据)&(当前数据处理完毕)
 assign wb_ready=((wb_valid&ifu_ready)|(!wb_valid));
+
+assign wb_en=lsu_valid&wb_ready&RegWr&(wb_inst[11:7]!=5'd0);
 
 wire wb_valid_next=wb_valid&(!ifu_ready)|//数据没被读取
                     (( (wb_valid&ifu_ready)|(!wb_valid) )&( wb_ready&lsu_valid));
