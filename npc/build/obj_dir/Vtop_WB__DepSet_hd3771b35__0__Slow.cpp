@@ -51,4 +51,5 @@ VL_ATTR_COLD void Vtop_WB___ctor_var_reset(Vtop_WB* vlSelf) {
     for (int __Vi0 = 0; __Vi0 < 32; ++__Vi0) {
         vlSelf->__PVT__RegisterFile__DOT__rf[__Vi0] = 0;
     }
+    vlSelf->__PVT__RegisterFile__DOT__isw = 0;
 }

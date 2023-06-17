@@ -87,9 +87,7 @@ VL_INLINE_OPT void Vtop_WB___nba_sequent__TOP__top__WB__0(Vtop_WB* vlSelf) {
                    >> 0x20U));
     vlSelf->__PVT__RegWsrcMux__DOT__pair_list[1U][2U] = 1U;
     vlSelf->__PVT__RegWsrcMux__DOT__data_list[1U] = vlSymsp->TOP__top.__PVT__memout;
-    if (((IData)(vlSymsp->TOP__top.__PVT__wb_RegWr) 
-         & (0U != (0x1fU & (vlSymsp->TOP__top.__PVT__wb_inst 
-                            >> 7U))))) {
+    if (vlSelf->__PVT__RegisterFile__DOT__isw) {
         __Vdlyvval__RegisterFile__DOT__rf__v0 = vlSelf->__PVT__RegWdata;
         __Vdlyvset__RegisterFile__DOT__rf__v0 = 1U;
         __Vdlyvdim0__RegisterFile__DOT__rf__v0 = (0x1fU 
@@ -126,7 +124,13 @@ VL_INLINE_OPT void Vtop_WB___nba_sequent__TOP__top__WB__1(Vtop_WB* vlSelf) {
     Vtop__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     VL_DEBUG_IF(VL_DBG_MSGF("+        Vtop_WB___nba_sequent__TOP__top__WB__1\n"); );
     // Body
+    vlSelf->__PVT__RegisterFile__DOT__isw = ((IData)(vlSymsp->TOP__top.__PVT__wb_RegWr) 
+                                             & (0U 
+                                                != 
+                                                (0x1fU 
+                                                 & (vlSymsp->TOP__top.__PVT__wb_inst 
+                                                    >> 7U))));
     vlSelf->__PVT__wb_en = (((IData)(vlSymsp->TOP__top.__PVT__lsu_valid) 
                              & (IData)(vlSelf->__PVT__wb_ready)) 
-                            & (IData)(vlSymsp->TOP__top.__PVT__wb_RegWr));
+                            & (IData)(vlSelf->__PVT__RegisterFile__DOT__isw));
 }

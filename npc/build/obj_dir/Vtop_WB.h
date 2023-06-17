@@ -33,6 +33,7 @@ class Vtop_WB final : public VerilatedModule {
     VL_IN8(__PVT__ifu_ready,0,0);
     CData/*0:0*/ __PVT__wb_valid_next;
     CData/*0:0*/ __PVT__RegWsrcMux__DOT__hit;
+    CData/*0:0*/ __PVT__RegisterFile__DOT__isw;
     VL_IN(__PVT__wb_inst,31,0);
     VL_IN64(__PVT__wb_pc,63,0);
     VL_IN64(__PVT__ALUres,63,0);
