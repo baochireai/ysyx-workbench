@@ -83,10 +83,6 @@ VL_ATTR_COLD void Vtop_top___eval_initial__TOP__top(Vtop_top* vlSelf) {
     vlSelf->__PVT__EXU__DOT__GenNextPC__DOT__dePCsrc__DOT__pair_list[0U] = 0x1eU;
     vlSelf->__PVT__EXU__DOT__GenNextPC__DOT__dePCsrc__DOT__pair_list[1U] = 0x1bU;
     vlSelf->__PVT__EXU__DOT__GenNextPC__DOT__dePCsrc__DOT__pair_list[4U] = 9U;
-    vlSelf->__PVT__LSU__DOT__DataMem__DOT__sext__DOT__key_list[0U] = 3U;
-    vlSelf->__PVT__LSU__DOT__DataMem__DOT__sext__DOT__key_list[1U] = 2U;
-    vlSelf->__PVT__LSU__DOT__DataMem__DOT__sext__DOT__key_list[2U] = 1U;
-    vlSelf->__PVT__LSU__DOT__DataMem__DOT__sext__DOT__key_list[3U] = 0U;
     vlSelf->__PVT__IDU__DOT__ContrGenU__DOT__deExtop__DOT__key_list[0U] = 0x73U;
     vlSelf->__PVT__IDU__DOT__ContrGenU__DOT__deExtop__DOT__key_list[1U] = 0x67U;
     vlSelf->__PVT__IDU__DOT__ContrGenU__DOT__deExtop__DOT__key_list[2U] = 0x6fU;
@@ -144,6 +140,10 @@ VL_ATTR_COLD void Vtop_top___eval_initial__TOP__top(Vtop_top* vlSelf) {
     vlSelf->__PVT__IDU__DOT__ContrGenU__DOT__RegSrcMux__DOT__data_list[1U] = 1U;
     vlSelf->__PVT__IDU__DOT__ContrGenU__DOT__RegSrcMux__DOT__pair_list[0U] = 0x1ceU;
     vlSelf->__PVT__IDU__DOT__ContrGenU__DOT__RegSrcMux__DOT__pair_list[1U] = 0xdU;
+    vlSelf->__PVT__LSU__DOT__DataMem__DOT__sext__DOT__key_list[0U] = 3U;
+    vlSelf->__PVT__LSU__DOT__DataMem__DOT__sext__DOT__key_list[1U] = 2U;
+    vlSelf->__PVT__LSU__DOT__DataMem__DOT__sext__DOT__key_list[2U] = 1U;
+    vlSelf->__PVT__LSU__DOT__DataMem__DOT__sext__DOT__key_list[3U] = 0U;
     vlSelf->__PVT__LSU__DOT__DataMem__DOT__deMemOP__DOT__key_list[0U] = 0U;
     vlSelf->__PVT__LSU__DOT__DataMem__DOT__deMemOP__DOT__key_list[1U] = 1U;
     vlSelf->__PVT__LSU__DOT__DataMem__DOT__deMemOP__DOT__key_list[2U] = 2U;

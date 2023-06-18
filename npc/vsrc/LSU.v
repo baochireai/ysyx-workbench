@@ -73,7 +73,7 @@ clint clintU(.clk(clk),.clint_din(wdata),.clint_addr(addr),.we(clint_we),.re(cli
                 .clint_mtip(clint_mtip_next),.clint_dout(clint_dout));
 
 
-wire dataout_d=isclint?clint_dout:dataMem_out;
+wire [`RegWidth-1:0] dataout_d=isclint?clint_dout:dataMem_out;
 
 
 
