@@ -2664,7 +2664,8 @@ VL_ATTR_COLD void Vtop_top___stl_sequent__TOP__top__1(Vtop_top* vlSelf) {
                                          : (4ULL + vlSelf->__PVT__IFU__DOT__NextPC)));
     vlSelf->__PVT__idu_ready = ((IData)(vlSelf->IDU__DOT____VdfgTmp_hd66fa622__0) 
                                 & ((~ (IData)(vlSelf->__PVT__witf_full)) 
-                                   & (~ (IData)(vlSelf->__PVT__isRAW))));
+                                   & ((~ (IData)(vlSelf->__PVT__isRAW)) 
+                                      | (IData)(vlSelf->__PVT__is_jump))));
     vlSelf->__PVT__ifu_arvalid = (1U & ((~ (IData)(vlSelf->__PVT__ifu_valid)) 
                                         | ((IData)(vlSelf->__PVT__idu_ready) 
                                            & (IData)(vlSelf->__PVT__ifu_valid))));
