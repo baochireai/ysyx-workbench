@@ -1,5 +1,4 @@
 `include "defines.v"
-import "DPI-C" function void setebreak();
 
 module top(
     input clk,
@@ -82,7 +81,7 @@ module top(
     wire ifu_valid,ifu_ready,idu_valid,idu_ready,exu_valid,exu_ready,lsu_valid,lsu_ready,wb_valid,wb_ready;
 
 
-    IFU IFU(.clk(clk),.rst(rst),.is_jump(is_jump),.JumpPc(ifu_JumpPc),.isIntrPC(ifu_isIntrPC),.IntrPC(ifu_IntrPC),
+    IFU IFU(.clk(clk),.rst(rst),.is_jump(is_jump),.JumpPc(ifu_JumpPc),.isIntrPC(ifu_isIntrPC),.IntrPC(ifu_IntrPC),.isebreak(idu_isebreak),
           .ARVALID(ifu_arvalid),.ARADDR(ifu_raddr),.ARREADY(ram_arready), .RREADY(ifu_ready),.inst_i(ram_rdata),.RVALID(ram_rvalid),
           .inst_o(id_inst),.pc_o(id_pc),
           .ifu_valid(ifu_valid),.ifu_ready(ifu_ready),.idu_ready(idu_ready),.wb_valid(wb_valid));
@@ -107,10 +106,11 @@ module top(
     //from witf
     wire isRAW;
     wire witf_full,witf_empty;
+    wire idu_isebreak;
     //wire [`INSTWide-1:0] ex_inst;
     IDU IDU(.clk(clk),.rst(rst),.id_inst(id_inst),.id_pc(id_pc),.flush_pipeline(is_jump),.R_rs1_i(R_rs1),.R_rs2_i(R_rs2),.rs1(rs1),.rs2(rs2),.rd(rd),
       .disp_en(RegWr_d),.isRAW(isRAW),.witf_full(witf_full),.ALUct(exu_ALUct),.Imm(exu_Imm),.ALUAsr(exu_ALUAsr),.ALUBsr(exu_ALUBsr),.inst_o(ex_inst),
-      .pc_o(ex_pc),.R_rs1_o(ex_Rrs1),.R_rs2_o(ex_Rrs2),.RegWr(exu_RegWr),.Branch(exu_Branch),.MemOP(exu_MemOP),.MemWr(exu_MemWr),.RegSrc(exu_RegSrc),
+      .pc_o(ex_pc),.R_rs1_o(ex_Rrs1),.R_rs2_o(ex_Rrs2),.RegWr(exu_RegWr),.Branch(exu_Branch),.MemOP(exu_MemOP),.MemWr(exu_MemWr),.RegSrc(exu_RegSrc),.isebreak(idu_isebreak),
   .isTuncate(exu_isTuncate),.isSext(exu_isSext),.IntrEn(exu_IntrEn),.idu_valid(idu_valid),.idu_ready(idu_ready),.exu_ready(exu_ready),.ifu_valid(ifu_valid));
     
     wire [`RegWidth-1:0]mem_Rrs1,mem_Rrs2;
@@ -151,11 +151,6 @@ module top(
       .lsu_valid(lsu_valid),.ifu_ready(ifu_ready),.wb_ready(wb_ready),.wb_valid(wb_valid));
 
     witf witf(.clk(clk),.rst(rst),.rs1(rs1),.rs2(rs2),.rd(rd),.isRAW(isRAW),.disp_en(RegWr_d),.wb_en(witf_wb_en),.witf_full(witf_full),.witf_empty(witf_empty));
-
-    always @(*) begin
-        if (Inst==32'h00100073)
-            setebreak();
-    end
 
     assign Inst=wb_inst;
     assign pc=wb_pc;

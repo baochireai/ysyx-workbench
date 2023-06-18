@@ -62,6 +62,7 @@ class Vtop_top final : public VerilatedModule {
         CData/*1:0*/ __PVT__exu_RegSrc;
         CData/*0:0*/ __PVT__isRAW;
         CData/*0:0*/ __PVT__witf_full;
+        CData/*0:0*/ __PVT__idu_isebreak;
         CData/*2:0*/ __PVT__mem_MemOP;
         CData/*0:0*/ __PVT__mem_MemWr;
         CData/*0:0*/ __PVT__mem_IntrEn;
@@ -70,21 +71,21 @@ class Vtop_top final : public VerilatedModule {
         CData/*0:0*/ __PVT__wb_IntrEn;
         CData/*1:0*/ __PVT__wb_RegSrc;
         CData/*0:0*/ __PVT__wb_RegWr;
+        CData/*0:0*/ __PVT__IFU__DOT__popline_wen;
         CData/*0:0*/ __PVT__IFU__DOT__nextpc_valid_r;
         CData/*7:0*/ __PVT__ram_axi_lite_u__DOT__wstrb;
         CData/*0:0*/ __PVT__ram_axi_lite_u__DOT__wdata_done;
         CData/*0:0*/ __PVT__ram_axi_lite_u__DOT__raddr_done;
         CData/*0:0*/ __PVT__IDU__DOT__idu_valid_next;
-        CData/*0:0*/ IDU__DOT____Vcellinp__idu_valid_reg____pinNumber2;
         CData/*0:0*/ __PVT__IDU__DOT__popline_wen;
         CData/*0:0*/ __PVT__IDU__DOT__MemWr_d;
         CData/*2:0*/ __PVT__IDU__DOT__MemOP_d;
         CData/*1:0*/ __PVT__IDU__DOT__RegSrc_d;
         CData/*0:0*/ __PVT__IDU__DOT__isTuncate_d;
         CData/*0:0*/ __PVT__IDU__DOT__isSext_d;
-        CData/*0:0*/ __PVT__IDU__DOT__IntrEn_d;
     };
     struct {
+        CData/*0:0*/ __PVT__IDU__DOT__IntrEn_d;
         CData/*0:0*/ __PVT__IDU__DOT__RegWr_d;
         CData/*0:0*/ IDU__DOT____VdfgTmp_hd66fa622__0;
         CData/*0:0*/ IDU__DOT____VdfgTmp_h23869681__0;
@@ -148,9 +149,9 @@ class Vtop_top final : public VerilatedModule {
         CData/*0:0*/ witf__DOT____Vcellinp__witf_entries__BRA__1__KET____DOT__rdidx_reg____pinNumber5;
         CData/*4:0*/ witf__DOT____Vcellout__witf_entries__BRA__1__KET____DOT__rdidx_reg____pinNumber4;
         CData/*0:0*/ witf__DOT____Vcellout__witf_entries__BRA__2__KET____DOT__vld_reg____pinNumber4;
-        CData/*0:0*/ witf__DOT____Vcellinp__witf_entries__BRA__2__KET____DOT__rdidx_reg____pinNumber5;
     };
     struct {
+        CData/*0:0*/ witf__DOT____Vcellinp__witf_entries__BRA__2__KET____DOT__rdidx_reg____pinNumber5;
         CData/*4:0*/ witf__DOT____Vcellout__witf_entries__BRA__2__KET____DOT__rdidx_reg____pinNumber4;
         CData/*0:0*/ witf__DOT____Vcellout__witf_entries__BRA__3__KET____DOT__vld_reg____pinNumber4;
         CData/*0:0*/ witf__DOT____Vcellinp__witf_entries__BRA__3__KET____DOT__rdidx_reg____pinNumber5;
@@ -214,9 +215,9 @@ class Vtop_top final : public VerilatedModule {
         QData/*63:0*/ __PVT__memout;
         QData/*63:0*/ __PVT__wb_Rrs1;
         QData/*63:0*/ __PVT__IFU__DOT__dpc;
-        QData/*63:0*/ __PVT__IFU__DOT__NextPC;
     };
     struct {
+        QData/*63:0*/ __PVT__IFU__DOT__NextPC;
         QData/*63:0*/ __PVT__IDU__DOT__Imm_d;
         QData/*63:0*/ __PVT__IDU__DOT__ContrGenU__DOT__ImmGenU__DOT__isRegWr__DOT__lut_out;
         QData/*63:0*/ __PVT__EXU__DOT__ex_alu__DOT__ALUA;
@@ -243,7 +244,7 @@ class Vtop_top final : public VerilatedModule {
         QData/*63:0*/ __PVT__LSU__DOT__DataMem__DOT__sext__DOT__lut_out;
         QData/*63:0*/ __PVT__LSU__DOT__clintU__DOT__mtime;
         QData/*63:0*/ __PVT__LSU__DOT__clintU__DOT__mtimecmp;
-        QData/*63:0*/ __Vtask_pmem_read__2__rdata;
+        QData/*63:0*/ __Vtask_pmem_read__1__rdata;
         QData/*63:0*/ __Vtask_pmem_read__4__rdata;
         QData/*63:0*/ __Vtask_pmem_read__5__rdata;
         VlUnpacked<QData/*63:0*/, 2> __PVT__ram_axi_lite_u__DOT__mem;
@@ -280,9 +281,9 @@ class Vtop_top final : public VerilatedModule {
         VlUnpacked<CData/*3:0*/, 7> __PVT__EXU__DOT__GenNextPC__DOT__jump_check__DOT__pair_list;
         VlUnpacked<CData/*2:0*/, 7> __PVT__EXU__DOT__GenNextPC__DOT__jump_check__DOT__key_list;
         VlUnpacked<CData/*0:0*/, 7> __PVT__EXU__DOT__GenNextPC__DOT__jump_check__DOT__data_list;
-        VlUnpacked<CData/*4:0*/, 7> __PVT__EXU__DOT__GenNextPC__DOT__dePCsrc__DOT__pair_list;
     };
     struct {
+        VlUnpacked<CData/*4:0*/, 7> __PVT__EXU__DOT__GenNextPC__DOT__dePCsrc__DOT__pair_list;
         VlUnpacked<CData/*2:0*/, 7> __PVT__EXU__DOT__GenNextPC__DOT__dePCsrc__DOT__key_list;
         VlUnpacked<CData/*1:0*/, 7> __PVT__EXU__DOT__GenNextPC__DOT__dePCsrc__DOT__data_list;
         VlUnpacked<SData/*9:0*/, 4> __PVT__LSU__DOT__DataMem__DOT__deMemOP__DOT__pair_list;

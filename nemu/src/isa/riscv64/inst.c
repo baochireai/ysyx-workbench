@@ -99,9 +99,6 @@ static int decode_exec(Decode *s) {
   INSTPAT_START();
 
 
-
-  INSTPAT("0000000 00001 00000 000 00000 11100 11", ebreak , N, NEMUTRAP(s->pc, R(10))); // R(10) is $a0
-
   //整数运算指令-寄存器+立即数
   //相同点 指令类型都是I 操作码一样  （w optcode[3]:1 u funct3[0]:1）
   //funct运算类型 加、置位、位运算等
@@ -221,6 +218,7 @@ static int decode_exec(Decode *s) {
   INSTPAT("??????? ????? ????? 000 ????? 11001 11",jalr,I,R(dest)=s->pc+4;s->dnpc=(src1+src2)&(~(word_t)0x1));
   
   /**********异常处理机制*********/
+  INSTPAT("0000000 00001 00000 000 00000 11100 11", ebreak , N, NEMUTRAP(s->pc, R(10))); // R(10) is $a0
   
   INSTPAT("0000000 00000 00000 000 00000 11100 11", ecall , N,s->dnpc=isa_raise_intr(11,s->pc));
   INSTPAT("0011000 00010 00000 000 00000 11100 11", mret , N,s->dnpc=cpu.mepc;cpu.mstatus=(cpu.mstatus&(~0x80))|(BITS(cpu.mstatus,7,7)<<3););       

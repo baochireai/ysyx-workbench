@@ -54,7 +54,7 @@ Reg #(`INSTWide,'d0) wb_inst_reg(clk,rst,lsu_inst,inst_o,popline_wen);
 Reg #(`RegWidth,'d0) wb_alures_reg(clk,rst,addr,ALUres_o,popline_wen);
 Reg #(1,'d0) wb_regwr_reg(clk,rst,RegWr_i,RegWr_o,popline_wen);
 Reg #(2,'d0) wb_regdataSrc_reg(clk,rst,RegWdata_src_i,RegWdata_src_o,popline_wen);
-
+Reg #(`RegWidth,'d0) wb_dataout_reg(clk,rst,dataout_d,dataout,popline_wen);
 
 wire isclint=(addr>=64'h2000000&addr<=64'h200BFFF)?1'b1:1'b0;
 
@@ -73,7 +73,7 @@ clint clintU(.clk(clk),.clint_din(wdata),.clint_addr(addr),.we(clint_we),.re(cli
                 .clint_mtip(clint_mtip_next),.clint_dout(clint_dout));
 
 
-assign dataout=isclint?clint_dout:dataMem_out;
+wire dataout_d=isclint?clint_dout:dataMem_out;
 
 
 

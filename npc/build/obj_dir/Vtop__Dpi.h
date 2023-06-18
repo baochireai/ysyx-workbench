@@ -24,7 +24,7 @@ extern "C" {
     extern void set_gpr_ptr(const svOpenArrayHandle a);
     // DPI import at /home/mrxue/ysyx/npc/vsrc/ContrGen.v:1:30
     extern void set_invalid_inst();
-    // DPI import at /home/mrxue/ysyx/npc/vsrc/top.v:2:30
+    // DPI import at /home/mrxue/ysyx/npc/vsrc/IDU.v:2:30
     extern void setebreak();
     // DPI import at /home/mrxue/ysyx/npc/vsrc/Intr.v:1:30
     extern void timerIntr_raise(const svLogicVecVal* mcauseRegp);

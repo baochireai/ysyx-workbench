@@ -8,7 +8,7 @@ module IFU(
     input is_jump,
     input [`RegWidth-1:0] JumpPc,
     input [`RegWidth-1:0] IntrPC,
-
+    input isebreak,
     //frome ctrl 
     //input pipeline_hold,
 
@@ -35,7 +35,7 @@ module IFU(
 
 assign ifu_ready=1'b1;
 
-wire popline_wen=((ifu_valid&idu_ready)|(!ifu_valid));
+wire popline_wen=(((ifu_valid&idu_ready)|(!ifu_valid)))&(!isebreak);
 
 wire flush_pipeline=is_jump;
 //pre-fetch
@@ -59,7 +59,7 @@ Reg #(`RegWidth, 64'h000000007ffffffc) if_pre_pc_reg(.clk(clk),.rst(rst),.din(dp
 //store inst
 wire [`INSTWide-1:0] inst=(NextPC[2:0]==3'd0)?inst_i[31:0]:inst_i[63:32];
 
-Reg #(1,'d0) ifu_valid_reg(clk,rst|flush_pipeline,nextpc_valid_r,ifu_valid,1'b1);
+Reg #(1,'d0) ifu_valid_reg(clk,rst|flush_pipeline|isebreak,nextpc_valid_r,ifu_valid,1'b1);
 
 Reg #(`RegWidth, 64'h000000007ffffff8) id_pc_reg(.clk(clk),.rst(rst),.din(NextPC),.dout(pc_o),.wen(popline_wen));
 

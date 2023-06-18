@@ -1,4 +1,6 @@
 import "DPI-C" function void set_invalid_inst();
+`include "defines.v"
+
 module ContrGen(
 //     input[6:0] opcode,
 //     input [2:0] func3,
@@ -19,7 +21,8 @@ module ContrGen(
     output [1:0] RegSrc,
     output isTuncate,
     output isSext,
-    output IntrEn
+    output IntrEn,
+    output isebreak
 );
 
 
@@ -84,8 +87,10 @@ module ContrGen(
 
 
     MuxKeyInternal #(1,7,1,1) isIntr(.out(IntrEn),.key(opcode),.default_out(1'b0),.lut({
-    7'b1110011,1'b1//ecall mret csrrw csrrsb1
+    7'b1110011,1'b1//ecall mret csrrw csrrsb1  ebreak
     }));
+
+     assign isebreak=IntrEn&(!(|func3))&(id_inst[`inst_rs2]==5'd1);
 
     MuxKeyInternal #(4,3,1,1) isRegWr(.out(RegWr),.key(Extop),.default_out(1'b0),.lut({
     3'd1,1'b1,

@@ -54,6 +54,14 @@ VL_INLINE_OPT void Vtop___024unit____Vdpiimwrap_pmem_write_TOP____024unit(IData/
     pmem_write(waddr__Vcvt, wdata__Vcvt, wmask__Vcvt);
 }
 
+extern "C" void setebreak();
+
+VL_INLINE_OPT void Vtop___024unit____Vdpiimwrap_setebreak_TOP____024unit() {
+    VL_DEBUG_IF(VL_DBG_MSGF("+        Vtop___024unit____Vdpiimwrap_setebreak_TOP____024unit\n"); );
+    // Body
+    setebreak();
+}
+
 extern "C" void timerIntr_raise(const svLogicVecVal* mcauseRegp);
 
 VL_INLINE_OPT void Vtop___024unit____Vdpiimwrap_timerIntr_raise_TOP____024unit(QData/*63:0*/ mcauseRegp) {
@@ -62,12 +70,4 @@ VL_INLINE_OPT void Vtop___024unit____Vdpiimwrap_timerIntr_raise_TOP____024unit(Q
     svLogicVecVal mcauseRegp__Vcvt[2];
     for (size_t mcauseRegp__Vidx = 0; mcauseRegp__Vidx < 1; ++mcauseRegp__Vidx) VL_SET_SVLV_Q(64, mcauseRegp__Vcvt + 2 * mcauseRegp__Vidx, mcauseRegp);
     timerIntr_raise(mcauseRegp__Vcvt);
-}
-
-extern "C" void setebreak();
-
-VL_INLINE_OPT void Vtop___024unit____Vdpiimwrap_setebreak_TOP____024unit() {
-    VL_DEBUG_IF(VL_DBG_MSGF("+        Vtop___024unit____Vdpiimwrap_setebreak_TOP____024unit\n"); );
-    // Body
-    setebreak();
 }

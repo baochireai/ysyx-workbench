@@ -1,4 +1,5 @@
 `include "defines.v"
+import "DPI-C" function void setebreak();
 module IDU(
      input clk,
      input rst,
@@ -38,8 +39,8 @@ module IDU(
     //to witf
     output[`RegAddrBus] rd,
     output disp_en,
-
-
+     //to ifu
+     output isebreak,
     //handshake from ifu
     input ifu_valid,
     output idu_ready,
@@ -79,6 +80,8 @@ wire isSext_d;
 wire IntrEn_d;
 wire RegWr_d;
 
+wire isebreak_d;
+
 Reg #(`INSTWide,'d0) ex_Inst_reg(clk,rst,id_inst,inst_o,popline_wen);
 Reg #(`RegWidth,'d0) ex_pc_reg(clk,rst,id_pc,pc_o,popline_wen);
 
@@ -99,13 +102,18 @@ Reg #(1,'d0) ex_MemWr_reg(clk,rst,MemWr_d,MemWr,popline_wen);
 Reg #(3,'d0) ex_MemOP_reg(clk,rst,MemOP_d,MemOP,popline_wen);
 
 Reg #(1,'b0) ex_IntrEn_reg(clk,rst,IntrEn_d,IntrEn,popline_wen);
+Reg #(1,'b0) ex_isebreak_reg(clk,rst,isebreak_d,isebreak,popline_wen);
 
 Reg #(`RegWidth,'d0) ex_Rrs1_reg(clk,rst,R_rs1_i,R_rs1_o,popline_wen);
 Reg #(`RegWidth,'d0) ex_Rrs2_reg(clk,rst,R_rs2_i,R_rs2_o,popline_wen);
 
 ContrGen ContrGenU(.id_inst(id_inst),.ALUct(ALUct_d),.Imm(Imm_d),.RegWr(RegWr_d),.ALUAsr(ALUAsr_d),.ALUBsr(ALUBsr_d),
-     .Branch(Branch_d),.MemOP(MemOP_d),.MemWr(MemWr_d),.RegSrc(RegSrc_d),.isTuncate(isTuncate_d),.isSext(isSext_d),.IntrEn(IntrEn_d));
+     .Branch(Branch_d),.MemOP(MemOP_d),.MemWr(MemWr_d),.RegSrc(RegSrc_d),.isTuncate(isTuncate_d),.isSext(isSext_d),.IntrEn(IntrEn_d),.isebreak(isebreak_d));
 
+    always @(*) begin
+        if (isebreak&idu_valid)
+            setebreak();
+    end
 assign rs1=id_inst[`inst_rs1];
 assign rs2=id_inst[`inst_rs2];
 assign rd=id_inst[`inst_rd];

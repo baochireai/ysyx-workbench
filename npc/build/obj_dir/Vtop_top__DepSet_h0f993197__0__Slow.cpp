@@ -28,7 +28,7 @@ VL_ATTR_COLD void Vtop_top___stl_sequent__TOP__top__0(Vtop_top* vlSelf) {
     VlWide<3>/*95:0*/ __Vtemp_h216c2d11__0;
     VlWide<3>/*95:0*/ __Vtemp_hf9de676f__0;
     // Body
-    if ((0x100073U == vlSelf->__PVT__wb_inst)) {
+    if (((IData)(vlSelf->__PVT__idu_isebreak) & (IData)(vlSelf->__PVT__idu_valid))) {
         Vtop___024unit____Vdpiimwrap_setebreak_TOP____024unit();
     }
     vlSelf->__PVT__witf__DOT__depth_gt1__DOT__wptr_flg_nxt 
@@ -45,8 +45,8 @@ VL_ATTR_COLD void Vtop_top___stl_sequent__TOP__top__0(Vtop_top* vlSelf) {
     vlSelf->__PVT__EXU__DOT__ex_alu__DOT__deALUBsr__DOT__pair_list[2U][1U] 
         = (IData)((vlSelf->__PVT__exu_Imm >> 0x20U));
     vlSelf->__PVT__EXU__DOT__ex_alu__DOT__deALUBsr__DOT__pair_list[2U][2U] = 0U;
-    Vtop___024unit____Vdpiimwrap_pmem_read_TOP____024unit(vlSelf->__PVT__ram_axi_lite_u__DOT__raddr, vlSelf->__Vtask_pmem_read__2__rdata);
-    vlSelf->__PVT__ram_rdata = vlSelf->__Vtask_pmem_read__2__rdata;
+    Vtop___024unit____Vdpiimwrap_pmem_read_TOP____024unit(vlSelf->__PVT__ram_axi_lite_u__DOT__raddr, vlSelf->__Vtask_pmem_read__1__rdata);
+    vlSelf->__PVT__ram_rdata = vlSelf->__Vtask_pmem_read__1__rdata;
     vlSelf->__PVT__IDU__DOT__ContrGenU__DOT__ImmGenU__DOT__isRegWr__DOT__pair_list[0U][0U] 
         = (IData)((((- (QData)((IData)((vlSelf->__PVT__id_inst 
                                         >> 0x1fU)))) 
@@ -1241,6 +1241,9 @@ VL_ATTR_COLD void Vtop_top___stl_sequent__TOP__top__0(Vtop_top* vlSelf) {
                                  == (IData)(vlSelf->__PVT__witf__DOT__wptr_r)) 
                                 & ((IData)(vlSelf->__PVT__witf__DOT__depth_gt1__DOT__rptr_flg_r) 
                                    != (IData)(vlSelf->__PVT__witf__DOT__depth_gt1__DOT__wptr_flg_r)));
+    vlSelf->EXU__DOT__ex_alu__DOT____Vcellinp__diver__key 
+        = ((2U & ((IData)(vlSelf->__PVT__exu_ALUct) 
+                  >> 2U)) | (IData)(vlSelf->__PVT__exu_isTuncate));
     vlSelf->__PVT__isRAW = ((((IData)(vlSelf->witf__DOT____Vcellout__witf_entries__BRA__7__KET____DOT__vld_reg____pinNumber4) 
                               & ((IData)(vlSelf->witf__DOT____Vcellout__witf_entries__BRA__7__KET____DOT__rdidx_reg____pinNumber4) 
                                  == (0x1fU & (vlSelf->__PVT__id_inst 
@@ -1323,9 +1326,6 @@ VL_ATTR_COLD void Vtop_top___stl_sequent__TOP__top__0(Vtop_top* vlSelf) {
                                                        (0x1fU 
                                                         & (vlSelf->__PVT__id_inst 
                                                            >> 0x14U))))))))))));
-    vlSelf->EXU__DOT__ex_alu__DOT____Vcellinp__diver__key 
-        = ((2U & ((IData)(vlSelf->__PVT__exu_ALUct) 
-                  >> 2U)) | (IData)(vlSelf->__PVT__exu_isTuncate));
     vlSelf->__PVT__LSU__DOT__DataMem__DOT__deMemOP__DOT__lut_out 
         = ((- (IData)(((3U & (IData)(vlSelf->__PVT__mem_MemOP)) 
                        == vlSelf->__PVT__LSU__DOT__DataMem__DOT__deMemOP__DOT__key_list
@@ -2653,8 +2653,6 @@ VL_ATTR_COLD void Vtop_top___stl_sequent__TOP__top__1(Vtop_top* vlSelf) {
     vlSelf->IDU__DOT____VdfgTmp_hd66fa622__0 = (1U 
                                                 & ((~ (IData)(vlSelf->__PVT__idu_valid)) 
                                                    | (IData)(vlSelf->__VdfgTmp_h6b23342a__0)));
-    vlSelf->IDU__DOT____Vcellinp__idu_valid_reg____pinNumber2 
-        = ((IData)(vlSelf->__PVT__is_jump) | (IData)(vlSymsp->TOP.rst));
     vlSelf->__PVT__IFU__DOT__dpc = ((IData)(vlSymsp->TOP__top__WB.__PVT__isIntrPC)
                                      ? vlSymsp->TOP__top__WB.__PVT__IntrPC
                                      : ((IData)(vlSelf->__PVT__is_jump)
@@ -2679,6 +2677,8 @@ VL_ATTR_COLD void Vtop_top___stl_sequent__TOP__top__1(Vtop_top* vlSelf) {
                                             & ((IData)(vlSelf->__PVT__ifu_valid) 
                                                & ((IData)(vlSelf->__PVT__idu_ready) 
                                                   & (IData)(vlSelf->IDU__DOT____VdfgTmp_h23869681__0))));
+    vlSelf->__PVT__IFU__DOT__popline_wen = ((~ (IData)(vlSelf->__PVT__idu_isebreak)) 
+                                            & (IData)(vlSelf->__PVT__ifu_arvalid));
     vlSelf->witf__DOT____Vcellinp__depth_gt1__DOT__wptr_reg____pinNumber5 
         = ((~ (IData)(vlSelf->__PVT__isRAW)) & ((IData)(vlSelf->__PVT__IDU__DOT__RegWr_d) 
                                                 & ((~ (IData)(vlSelf->__PVT__is_jump)) 
