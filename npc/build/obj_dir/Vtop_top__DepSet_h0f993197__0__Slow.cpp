@@ -11,7 +11,6 @@
 
 void Vtop___024unit____Vdpiimwrap_setebreak_TOP____024unit();
 void Vtop___024unit____Vdpiimwrap_pmem_read_TOP____024unit(IData/*31:0*/ raddr, QData/*63:0*/ &rdata);
-void Vtop___024unit____Vdpiimwrap_set_invalid_inst_TOP____024unit();
 void Vtop___024unit____Vdpiimwrap_pmem_write_TOP____024unit(IData/*31:0*/ waddr, QData/*63:0*/ wdata, CData/*7:0*/ wmask);
 
 VL_ATTR_COLD void Vtop_top___stl_sequent__TOP__top__0(Vtop_top* vlSelf) {
@@ -31,6 +30,2877 @@ VL_ATTR_COLD void Vtop_top___stl_sequent__TOP__top__0(Vtop_top* vlSelf) {
     if (((IData)(vlSelf->__PVT__idu_isebreak) & (IData)(vlSelf->__PVT__idu_valid))) {
         Vtop___024unit____Vdpiimwrap_setebreak_TOP____024unit();
     }
+    vlSelf->__PVT__IDU__DOT__isTuncate_d = ((~ ((((
+                                                   ((((0x13U 
+                                                       == 
+                                                       (0x3ffU 
+                                                        & ((0x1fc00U 
+                                                            & (vlSelf->__PVT__id_inst 
+                                                               >> 0xfU)) 
+                                                           | ((0x380U 
+                                                               & (vlSelf->__PVT__id_inst 
+                                                                  >> 5U)) 
+                                                              | (0x7fU 
+                                                                 & vlSelf->__PVT__id_inst))))) 
+                                                      | (0x17U 
+                                                         == 
+                                                         (0x7fU 
+                                                          & ((0x1fc00U 
+                                                              & (vlSelf->__PVT__id_inst 
+                                                                 >> 0xfU)) 
+                                                             | ((0x380U 
+                                                                 & (vlSelf->__PVT__id_inst 
+                                                                    >> 5U)) 
+                                                                | (0x7fU 
+                                                                   & vlSelf->__PVT__id_inst)))))) 
+                                                     | (0x37U 
+                                                        == 
+                                                        (0x7fU 
+                                                         & ((0x1fc00U 
+                                                             & (vlSelf->__PVT__id_inst 
+                                                                >> 0xfU)) 
+                                                            | ((0x380U 
+                                                                & (vlSelf->__PVT__id_inst 
+                                                                   >> 5U)) 
+                                                               | (0x7fU 
+                                                                  & vlSelf->__PVT__id_inst)))))) 
+                                                    | (0x6fU 
+                                                       == 
+                                                       (0x7fU 
+                                                        & ((0x1fc00U 
+                                                            & (vlSelf->__PVT__id_inst 
+                                                               >> 0xfU)) 
+                                                           | ((0x380U 
+                                                               & (vlSelf->__PVT__id_inst 
+                                                                  >> 5U)) 
+                                                              | (0x7fU 
+                                                                 & vlSelf->__PVT__id_inst)))))) 
+                                                   | (0x67U 
+                                                      == 
+                                                      (0x3ffU 
+                                                       & ((0x1fc00U 
+                                                           & (vlSelf->__PVT__id_inst 
+                                                              >> 0xfU)) 
+                                                          | ((0x380U 
+                                                              & (vlSelf->__PVT__id_inst 
+                                                                 >> 5U)) 
+                                                             | (0x7fU 
+                                                                & vlSelf->__PVT__id_inst)))))) 
+                                                  | (0x1a3U 
+                                                     == 
+                                                     (0x3ffU 
+                                                      & ((0x1fc00U 
+                                                          & (vlSelf->__PVT__id_inst 
+                                                             >> 0xfU)) 
+                                                         | ((0x380U 
+                                                             & (vlSelf->__PVT__id_inst 
+                                                                >> 5U)) 
+                                                            | (0x7fU 
+                                                               & vlSelf->__PVT__id_inst)))))) 
+                                                 | (0x183U 
+                                                    == 
+                                                    (0x3ffU 
+                                                     & ((0x1fc00U 
+                                                         & (vlSelf->__PVT__id_inst 
+                                                            >> 0xfU)) 
+                                                        | ((0x380U 
+                                                            & (vlSelf->__PVT__id_inst 
+                                                               >> 5U)) 
+                                                           | (0x7fU 
+                                                              & vlSelf->__PVT__id_inst)))))) 
+                                                | (0x33U 
+                                                   == 
+                                                   ((0x1fc00U 
+                                                     & (vlSelf->__PVT__id_inst 
+                                                        >> 0xfU)) 
+                                                    | ((0x380U 
+                                                        & (vlSelf->__PVT__id_inst 
+                                                           >> 5U)) 
+                                                       | (0x7fU 
+                                                          & vlSelf->__PVT__id_inst)))))) 
+                                            & (((((((((0x8033U 
+                                                       == 
+                                                       ((0x1fc00U 
+                                                         & (vlSelf->__PVT__id_inst 
+                                                            >> 0xfU)) 
+                                                        | ((0x380U 
+                                                            & (vlSelf->__PVT__id_inst 
+                                                               >> 5U)) 
+                                                           | (0x7fU 
+                                                              & vlSelf->__PVT__id_inst)))) 
+                                                      | (0x193U 
+                                                         == 
+                                                         (0x3ffU 
+                                                          & ((0x1fc00U 
+                                                              & (vlSelf->__PVT__id_inst 
+                                                                 >> 0xfU)) 
+                                                             | ((0x380U 
+                                                                 & (vlSelf->__PVT__id_inst 
+                                                                    >> 5U)) 
+                                                                | (0x7fU 
+                                                                   & vlSelf->__PVT__id_inst)))))) 
+                                                     | (0x63U 
+                                                        == 
+                                                        (0x3ffU 
+                                                         & ((0x1fc00U 
+                                                             & (vlSelf->__PVT__id_inst 
+                                                                >> 0xfU)) 
+                                                            | ((0x380U 
+                                                                & (vlSelf->__PVT__id_inst 
+                                                                   >> 5U)) 
+                                                               | (0x7fU 
+                                                                  & vlSelf->__PVT__id_inst)))))) 
+                                                    | (0xe3U 
+                                                       == 
+                                                       (0x3ffU 
+                                                        & ((0x1fc00U 
+                                                            & (vlSelf->__PVT__id_inst 
+                                                               >> 0xfU)) 
+                                                           | ((0x380U 
+                                                               & (vlSelf->__PVT__id_inst 
+                                                                  >> 5U)) 
+                                                              | (0x7fU 
+                                                                 & vlSelf->__PVT__id_inst)))))) 
+                                                   | (0x103U 
+                                                      == 
+                                                      (0x3ffU 
+                                                       & ((0x1fc00U 
+                                                           & (vlSelf->__PVT__id_inst 
+                                                              >> 0xfU)) 
+                                                          | ((0x380U 
+                                                              & (vlSelf->__PVT__id_inst 
+                                                                 >> 5U)) 
+                                                             | (0x7fU 
+                                                                & vlSelf->__PVT__id_inst)))))) 
+                                                  | (0x303U 
+                                                     == 
+                                                     (0x3ffU 
+                                                      & ((0x1fc00U 
+                                                          & (vlSelf->__PVT__id_inst 
+                                                             >> 0xfU)) 
+                                                         | ((0x380U 
+                                                             & (vlSelf->__PVT__id_inst 
+                                                                >> 5U)) 
+                                                            | (0x7fU 
+                                                               & vlSelf->__PVT__id_inst)))))) 
+                                                 | (0x3bU 
+                                                    == 
+                                                    ((0x1fc00U 
+                                                      & (vlSelf->__PVT__id_inst 
+                                                         >> 0xfU)) 
+                                                     | ((0x380U 
+                                                         & (vlSelf->__PVT__id_inst 
+                                                            >> 5U)) 
+                                                        | (0x7fU 
+                                                           & vlSelf->__PVT__id_inst))))) 
+                                                | (0xa3U 
+                                                   == 
+                                                   (0x3ffU 
+                                                    & ((0x1fc00U 
+                                                        & (vlSelf->__PVT__id_inst 
+                                                           >> 0xfU)) 
+                                                       | ((0x380U 
+                                                           & (vlSelf->__PVT__id_inst 
+                                                              >> 5U)) 
+                                                          | (0x7fU 
+                                                             & vlSelf->__PVT__id_inst))))))
+                                                ? (
+                                                   (0x8033U 
+                                                    != 
+                                                    ((0x1fc00U 
+                                                      & (vlSelf->__PVT__id_inst 
+                                                         >> 0xfU)) 
+                                                     | ((0x380U 
+                                                         & (vlSelf->__PVT__id_inst 
+                                                            >> 5U)) 
+                                                        | (0x7fU 
+                                                           & vlSelf->__PVT__id_inst)))) 
+                                                   & ((0x193U 
+                                                       != 
+                                                       (0x3ffU 
+                                                        & ((0x1fc00U 
+                                                            & (vlSelf->__PVT__id_inst 
+                                                               >> 0xfU)) 
+                                                           | ((0x380U 
+                                                               & (vlSelf->__PVT__id_inst 
+                                                                  >> 5U)) 
+                                                              | (0x7fU 
+                                                                 & vlSelf->__PVT__id_inst))))) 
+                                                      & ((0x63U 
+                                                          != 
+                                                          (0x3ffU 
+                                                           & ((0x1fc00U 
+                                                               & (vlSelf->__PVT__id_inst 
+                                                                  >> 0xfU)) 
+                                                              | ((0x380U 
+                                                                  & (vlSelf->__PVT__id_inst 
+                                                                     >> 5U)) 
+                                                                 | (0x7fU 
+                                                                    & vlSelf->__PVT__id_inst))))) 
+                                                         & ((0xe3U 
+                                                             != 
+                                                             (0x3ffU 
+                                                              & ((0x1fc00U 
+                                                                  & (vlSelf->__PVT__id_inst 
+                                                                     >> 0xfU)) 
+                                                                 | ((0x380U 
+                                                                     & (vlSelf->__PVT__id_inst 
+                                                                        >> 5U)) 
+                                                                    | (0x7fU 
+                                                                       & vlSelf->__PVT__id_inst))))) 
+                                                            & ((0x103U 
+                                                                != 
+                                                                (0x3ffU 
+                                                                 & ((0x1fc00U 
+                                                                     & (vlSelf->__PVT__id_inst 
+                                                                        >> 0xfU)) 
+                                                                    | ((0x380U 
+                                                                        & (vlSelf->__PVT__id_inst 
+                                                                           >> 5U)) 
+                                                                       | (0x7fU 
+                                                                          & vlSelf->__PVT__id_inst))))) 
+                                                               & ((0x303U 
+                                                                   != 
+                                                                   (0x3ffU 
+                                                                    & ((0x1fc00U 
+                                                                        & (vlSelf->__PVT__id_inst 
+                                                                           >> 0xfU)) 
+                                                                       | ((0x380U 
+                                                                           & (vlSelf->__PVT__id_inst 
+                                                                              >> 5U)) 
+                                                                          | (0x7fU 
+                                                                             & vlSelf->__PVT__id_inst))))) 
+                                                                  & (0x3bU 
+                                                                     == 
+                                                                     ((0x1fc00U 
+                                                                       & (vlSelf->__PVT__id_inst 
+                                                                          >> 0xfU)) 
+                                                                      | ((0x380U 
+                                                                          & (vlSelf->__PVT__id_inst 
+                                                                             >> 5U)) 
+                                                                         | (0x7fU 
+                                                                            & vlSelf->__PVT__id_inst))))))))))
+                                                : (
+                                                   ((((((((0x8293U 
+                                                           == 
+                                                           (0x1fbffU 
+                                                            & ((0x1fc00U 
+                                                                & (vlSelf->__PVT__id_inst 
+                                                                   >> 0xfU)) 
+                                                               | ((0x380U 
+                                                                   & (vlSelf->__PVT__id_inst 
+                                                                      >> 5U)) 
+                                                                  | (0x7fU 
+                                                                     & vlSelf->__PVT__id_inst))))) 
+                                                          | (0x203U 
+                                                             == 
+                                                             (0x3ffU 
+                                                              & ((0x1fc00U 
+                                                                  & (vlSelf->__PVT__id_inst 
+                                                                     >> 0xfU)) 
+                                                                 | ((0x380U 
+                                                                     & (vlSelf->__PVT__id_inst 
+                                                                        >> 5U)) 
+                                                                    | (0x7fU 
+                                                                       & vlSelf->__PVT__id_inst)))))) 
+                                                         | (0x393U 
+                                                            == 
+                                                            (0x3ffU 
+                                                             & ((0x1fc00U 
+                                                                 & (vlSelf->__PVT__id_inst 
+                                                                    >> 0xfU)) 
+                                                                | ((0x380U 
+                                                                    & (vlSelf->__PVT__id_inst 
+                                                                       >> 5U)) 
+                                                                   | (0x7fU 
+                                                                      & vlSelf->__PVT__id_inst)))))) 
+                                                        | (0xbbU 
+                                                           == 
+                                                           ((0x1fc00U 
+                                                             & (vlSelf->__PVT__id_inst 
+                                                                >> 0xfU)) 
+                                                            | ((0x380U 
+                                                                & (vlSelf->__PVT__id_inst 
+                                                                   >> 5U)) 
+                                                               | (0x7fU 
+                                                                  & vlSelf->__PVT__id_inst))))) 
+                                                       | (0x3b3U 
+                                                          == 
+                                                          ((0x1fc00U 
+                                                            & (vlSelf->__PVT__id_inst 
+                                                               >> 0xfU)) 
+                                                           | ((0x380U 
+                                                               & (vlSelf->__PVT__id_inst 
+                                                                  >> 5U)) 
+                                                              | (0x7fU 
+                                                                 & vlSelf->__PVT__id_inst))))) 
+                                                      | (0x1b3U 
+                                                         == 
+                                                         ((0x1fc00U 
+                                                           & (vlSelf->__PVT__id_inst 
+                                                              >> 0xfU)) 
+                                                          | ((0x380U 
+                                                              & (vlSelf->__PVT__id_inst 
+                                                                 >> 5U)) 
+                                                             | (0x7fU 
+                                                                & vlSelf->__PVT__id_inst))))) 
+                                                     | (0x213U 
+                                                        == 
+                                                        (0x3ffU 
+                                                         & ((0x1fc00U 
+                                                             & (vlSelf->__PVT__id_inst 
+                                                                >> 0xfU)) 
+                                                            | ((0x380U 
+                                                                & (vlSelf->__PVT__id_inst 
+                                                                   >> 5U)) 
+                                                               | (0x7fU 
+                                                                  & vlSelf->__PVT__id_inst)))))) 
+                                                    | (0x82bbU 
+                                                       == 
+                                                       ((0x1fc00U 
+                                                         & (vlSelf->__PVT__id_inst 
+                                                            >> 0xfU)) 
+                                                        | ((0x380U 
+                                                            & (vlSelf->__PVT__id_inst 
+                                                               >> 5U)) 
+                                                           | (0x7fU 
+                                                              & vlSelf->__PVT__id_inst)))))
+                                                    ? 
+                                                   ((0x8293U 
+                                                     != 
+                                                     (0x1fbffU 
+                                                      & ((0x1fc00U 
+                                                          & (vlSelf->__PVT__id_inst 
+                                                             >> 0xfU)) 
+                                                         | ((0x380U 
+                                                             & (vlSelf->__PVT__id_inst 
+                                                                >> 5U)) 
+                                                            | (0x7fU 
+                                                               & vlSelf->__PVT__id_inst))))) 
+                                                    & ((0x203U 
+                                                        != 
+                                                        (0x3ffU 
+                                                         & ((0x1fc00U 
+                                                             & (vlSelf->__PVT__id_inst 
+                                                                >> 0xfU)) 
+                                                            | ((0x380U 
+                                                                & (vlSelf->__PVT__id_inst 
+                                                                   >> 5U)) 
+                                                               | (0x7fU 
+                                                                  & vlSelf->__PVT__id_inst))))) 
+                                                       & ((0x393U 
+                                                           != 
+                                                           (0x3ffU 
+                                                            & ((0x1fc00U 
+                                                                & (vlSelf->__PVT__id_inst 
+                                                                   >> 0xfU)) 
+                                                               | ((0x380U 
+                                                                   & (vlSelf->__PVT__id_inst 
+                                                                      >> 5U)) 
+                                                                  | (0x7fU 
+                                                                     & vlSelf->__PVT__id_inst))))) 
+                                                          & ((0xbbU 
+                                                              == 
+                                                              ((0x1fc00U 
+                                                                & (vlSelf->__PVT__id_inst 
+                                                                   >> 0xfU)) 
+                                                               | ((0x380U 
+                                                                   & (vlSelf->__PVT__id_inst 
+                                                                      >> 5U)) 
+                                                                  | (0x7fU 
+                                                                     & vlSelf->__PVT__id_inst)))) 
+                                                             | ((0x3b3U 
+                                                                 != 
+                                                                 ((0x1fc00U 
+                                                                   & (vlSelf->__PVT__id_inst 
+                                                                      >> 0xfU)) 
+                                                                  | ((0x380U 
+                                                                      & (vlSelf->__PVT__id_inst 
+                                                                         >> 5U)) 
+                                                                     | (0x7fU 
+                                                                        & vlSelf->__PVT__id_inst)))) 
+                                                                & ((0x1b3U 
+                                                                    != 
+                                                                    ((0x1fc00U 
+                                                                      & (vlSelf->__PVT__id_inst 
+                                                                         >> 0xfU)) 
+                                                                     | ((0x380U 
+                                                                         & (vlSelf->__PVT__id_inst 
+                                                                            >> 5U)) 
+                                                                        | (0x7fU 
+                                                                           & vlSelf->__PVT__id_inst)))) 
+                                                                   & (0x213U 
+                                                                      != 
+                                                                      (0x3ffU 
+                                                                       & ((0x1fc00U 
+                                                                           & (vlSelf->__PVT__id_inst 
+                                                                              >> 0xfU)) 
+                                                                          | ((0x380U 
+                                                                              & (vlSelf->__PVT__id_inst 
+                                                                                >> 5U)) 
+                                                                             | (0x7fU 
+                                                                                & vlSelf->__PVT__id_inst)))))))))))
+                                                    : 
+                                                   (((((((((0x333U 
+                                                            == 
+                                                            ((0x1fc00U 
+                                                              & (vlSelf->__PVT__id_inst 
+                                                                 >> 0xfU)) 
+                                                             | ((0x380U 
+                                                                 & (vlSelf->__PVT__id_inst 
+                                                                    >> 5U)) 
+                                                                | (0x7fU 
+                                                                   & vlSelf->__PVT__id_inst)))) 
+                                                           | (0x23U 
+                                                              == 
+                                                              (0x3ffU 
+                                                               & ((0x1fc00U 
+                                                                   & (vlSelf->__PVT__id_inst 
+                                                                      >> 0xfU)) 
+                                                                  | ((0x380U 
+                                                                      & (vlSelf->__PVT__id_inst 
+                                                                         >> 5U)) 
+                                                                     | (0x7fU 
+                                                                        & vlSelf->__PVT__id_inst)))))) 
+                                                          | (0x1bU 
+                                                             == 
+                                                             (0x3ffU 
+                                                              & ((0x1fc00U 
+                                                                  & (vlSelf->__PVT__id_inst 
+                                                                     >> 0xfU)) 
+                                                                 | ((0x380U 
+                                                                     & (vlSelf->__PVT__id_inst 
+                                                                        >> 5U)) 
+                                                                    | (0x7fU 
+                                                                       & vlSelf->__PVT__id_inst)))))) 
+                                                         | (0x2e3U 
+                                                            == 
+                                                            (0x3ffU 
+                                                             & ((0x1fc00U 
+                                                                 & (vlSelf->__PVT__id_inst 
+                                                                    >> 0xfU)) 
+                                                                | ((0x380U 
+                                                                    & (vlSelf->__PVT__id_inst 
+                                                                       >> 5U)) 
+                                                                   | (0x7fU 
+                                                                      & vlSelf->__PVT__id_inst)))))) 
+                                                        | (0x263U 
+                                                           == 
+                                                           (0x3ffU 
+                                                            & ((0x1fc00U 
+                                                                & (vlSelf->__PVT__id_inst 
+                                                                   >> 0xfU)) 
+                                                               | ((0x380U 
+                                                                   & (vlSelf->__PVT__id_inst 
+                                                                      >> 5U)) 
+                                                                  | (0x7fU 
+                                                                     & vlSelf->__PVT__id_inst)))))) 
+                                                       | (0x123U 
+                                                          == 
+                                                          (0x3ffU 
+                                                           & ((0x1fc00U 
+                                                               & (vlSelf->__PVT__id_inst 
+                                                                  >> 0xfU)) 
+                                                              | ((0x380U 
+                                                                  & (vlSelf->__PVT__id_inst 
+                                                                     >> 5U)) 
+                                                                 | (0x7fU 
+                                                                    & vlSelf->__PVT__id_inst)))))) 
+                                                      | (0x43bU 
+                                                         == 
+                                                         ((0x1fc00U 
+                                                           & (vlSelf->__PVT__id_inst 
+                                                              >> 0xfU)) 
+                                                          | ((0x380U 
+                                                              & (vlSelf->__PVT__id_inst 
+                                                                 >> 5U)) 
+                                                             | (0x7fU 
+                                                                & vlSelf->__PVT__id_inst))))) 
+                                                     | (0x63bU 
+                                                        == 
+                                                        ((0x1fc00U 
+                                                          & (vlSelf->__PVT__id_inst 
+                                                             >> 0xfU)) 
+                                                         | ((0x380U 
+                                                             & (vlSelf->__PVT__id_inst 
+                                                                >> 5U)) 
+                                                            | (0x7fU 
+                                                               & vlSelf->__PVT__id_inst)))))
+                                                     ? 
+                                                    ((0x333U 
+                                                      != 
+                                                      ((0x1fc00U 
+                                                        & (vlSelf->__PVT__id_inst 
+                                                           >> 0xfU)) 
+                                                       | ((0x380U 
+                                                           & (vlSelf->__PVT__id_inst 
+                                                              >> 5U)) 
+                                                          | (0x7fU 
+                                                             & vlSelf->__PVT__id_inst)))) 
+                                                     & ((0x23U 
+                                                         != 
+                                                         (0x3ffU 
+                                                          & ((0x1fc00U 
+                                                              & (vlSelf->__PVT__id_inst 
+                                                                 >> 0xfU)) 
+                                                             | ((0x380U 
+                                                                 & (vlSelf->__PVT__id_inst 
+                                                                    >> 5U)) 
+                                                                | (0x7fU 
+                                                                   & vlSelf->__PVT__id_inst))))) 
+                                                        & ((0x1bU 
+                                                            == 
+                                                            (0x3ffU 
+                                                             & ((0x1fc00U 
+                                                                 & (vlSelf->__PVT__id_inst 
+                                                                    >> 0xfU)) 
+                                                                | ((0x380U 
+                                                                    & (vlSelf->__PVT__id_inst 
+                                                                       >> 5U)) 
+                                                                   | (0x7fU 
+                                                                      & vlSelf->__PVT__id_inst))))) 
+                                                           | ((0x2e3U 
+                                                               != 
+                                                               (0x3ffU 
+                                                                & ((0x1fc00U 
+                                                                    & (vlSelf->__PVT__id_inst 
+                                                                       >> 0xfU)) 
+                                                                   | ((0x380U 
+                                                                       & (vlSelf->__PVT__id_inst 
+                                                                          >> 5U)) 
+                                                                      | (0x7fU 
+                                                                         & vlSelf->__PVT__id_inst))))) 
+                                                              & ((0x263U 
+                                                                  != 
+                                                                  (0x3ffU 
+                                                                   & ((0x1fc00U 
+                                                                       & (vlSelf->__PVT__id_inst 
+                                                                          >> 0xfU)) 
+                                                                      | ((0x380U 
+                                                                          & (vlSelf->__PVT__id_inst 
+                                                                             >> 5U)) 
+                                                                         | (0x7fU 
+                                                                            & vlSelf->__PVT__id_inst))))) 
+                                                                 & (0x123U 
+                                                                    != 
+                                                                    (0x3ffU 
+                                                                     & ((0x1fc00U 
+                                                                         & (vlSelf->__PVT__id_inst 
+                                                                            >> 0xfU)) 
+                                                                        | ((0x380U 
+                                                                            & (vlSelf->__PVT__id_inst 
+                                                                               >> 5U)) 
+                                                                           | (0x7fU 
+                                                                              & vlSelf->__PVT__id_inst))))))))))
+                                                     : 
+                                                    (((((((((0x803bU 
+                                                             == 
+                                                             ((0x1fc00U 
+                                                               & (vlSelf->__PVT__id_inst 
+                                                                  >> 0xfU)) 
+                                                              | ((0x380U 
+                                                                  & (vlSelf->__PVT__id_inst 
+                                                                     >> 5U)) 
+                                                                 | (0x7fU 
+                                                                    & vlSelf->__PVT__id_inst)))) 
+                                                            | (0x73bU 
+                                                               == 
+                                                               ((0x1fc00U 
+                                                                 & (vlSelf->__PVT__id_inst 
+                                                                    >> 0xfU)) 
+                                                                | ((0x380U 
+                                                                    & (vlSelf->__PVT__id_inst 
+                                                                       >> 5U)) 
+                                                                   | (0x7fU 
+                                                                      & vlSelf->__PVT__id_inst))))) 
+                                                           | (0x363U 
+                                                              == 
+                                                              (0x3ffU 
+                                                               & ((0x1fc00U 
+                                                                   & (vlSelf->__PVT__id_inst 
+                                                                      >> 0xfU)) 
+                                                                  | ((0x380U 
+                                                                      & (vlSelf->__PVT__id_inst 
+                                                                         >> 5U)) 
+                                                                     | (0x7fU 
+                                                                        & vlSelf->__PVT__id_inst)))))) 
+                                                          | (0x133U 
+                                                             == 
+                                                             ((0x1fc00U 
+                                                               & (vlSelf->__PVT__id_inst 
+                                                                  >> 0xfU)) 
+                                                              | ((0x380U 
+                                                                  & (vlSelf->__PVT__id_inst 
+                                                                     >> 5U)) 
+                                                                 | (0x7fU 
+                                                                    & vlSelf->__PVT__id_inst))))) 
+                                                         | (0x83U 
+                                                            == 
+                                                            (0x3ffU 
+                                                             & ((0x1fc00U 
+                                                                 & (vlSelf->__PVT__id_inst 
+                                                                    >> 0xfU)) 
+                                                                | ((0x380U 
+                                                                    & (vlSelf->__PVT__id_inst 
+                                                                       >> 5U)) 
+                                                                   | (0x7fU 
+                                                                      & vlSelf->__PVT__id_inst)))))) 
+                                                        | (0x283U 
+                                                           == 
+                                                           (0x3ffU 
+                                                            & ((0x1fc00U 
+                                                                & (vlSelf->__PVT__id_inst 
+                                                                   >> 0xfU)) 
+                                                               | ((0x380U 
+                                                                   & (vlSelf->__PVT__id_inst 
+                                                                      >> 5U)) 
+                                                                  | (0x7fU 
+                                                                     & vlSelf->__PVT__id_inst)))))) 
+                                                       | (0x93U 
+                                                          == 
+                                                          (0x1fbffU 
+                                                           & ((0x1fc00U 
+                                                               & (vlSelf->__PVT__id_inst 
+                                                                  >> 0xfU)) 
+                                                              | ((0x380U 
+                                                                  & (vlSelf->__PVT__id_inst 
+                                                                     >> 5U)) 
+                                                                 | (0x7fU 
+                                                                    & vlSelf->__PVT__id_inst)))))) 
+                                                      | (0x293U 
+                                                         == 
+                                                         (0x1fbffU 
+                                                          & ((0x1fc00U 
+                                                              & (vlSelf->__PVT__id_inst 
+                                                                 >> 0xfU)) 
+                                                             | ((0x380U 
+                                                                 & (vlSelf->__PVT__id_inst 
+                                                                    >> 5U)) 
+                                                                | (0x7fU 
+                                                                   & vlSelf->__PVT__id_inst))))))
+                                                      ? 
+                                                     ((0x803bU 
+                                                       == 
+                                                       ((0x1fc00U 
+                                                         & (vlSelf->__PVT__id_inst 
+                                                            >> 0xfU)) 
+                                                        | ((0x380U 
+                                                            & (vlSelf->__PVT__id_inst 
+                                                               >> 5U)) 
+                                                           | (0x7fU 
+                                                              & vlSelf->__PVT__id_inst)))) 
+                                                      | (0x73bU 
+                                                         == 
+                                                         ((0x1fc00U 
+                                                           & (vlSelf->__PVT__id_inst 
+                                                              >> 0xfU)) 
+                                                          | ((0x380U 
+                                                              & (vlSelf->__PVT__id_inst 
+                                                                 >> 5U)) 
+                                                             | (0x7fU 
+                                                                & vlSelf->__PVT__id_inst)))))
+                                                      : 
+                                                     (((((((((0x9bU 
+                                                              == 
+                                                              (0x1fbffU 
+                                                               & ((0x1fc00U 
+                                                                   & (vlSelf->__PVT__id_inst 
+                                                                      >> 0xfU)) 
+                                                                  | ((0x380U 
+                                                                      & (vlSelf->__PVT__id_inst 
+                                                                         >> 5U)) 
+                                                                     | (0x7fU 
+                                                                        & vlSelf->__PVT__id_inst))))) 
+                                                             | (0x829bU 
+                                                                == 
+                                                                ((0x1fc00U 
+                                                                  & (vlSelf->__PVT__id_inst 
+                                                                     >> 0xfU)) 
+                                                                 | ((0x380U 
+                                                                     & (vlSelf->__PVT__id_inst 
+                                                                        >> 5U)) 
+                                                                    | (0x7fU 
+                                                                       & vlSelf->__PVT__id_inst))))) 
+                                                            | (0x433U 
+                                                               == 
+                                                               ((0x1fc00U 
+                                                                 & (vlSelf->__PVT__id_inst 
+                                                                    >> 0xfU)) 
+                                                                | ((0x380U 
+                                                                    & (vlSelf->__PVT__id_inst 
+                                                                       >> 5U)) 
+                                                                   | (0x7fU 
+                                                                      & vlSelf->__PVT__id_inst))))) 
+                                                           | (0x29bU 
+                                                              == 
+                                                              (0x1fbffU 
+                                                               & ((0x1fc00U 
+                                                                   & (vlSelf->__PVT__id_inst 
+                                                                      >> 0xfU)) 
+                                                                  | ((0x380U 
+                                                                      & (vlSelf->__PVT__id_inst 
+                                                                         >> 5U)) 
+                                                                     | (0x7fU 
+                                                                        & vlSelf->__PVT__id_inst)))))) 
+                                                          | (0x2bbU 
+                                                             == 
+                                                             ((0x1fc00U 
+                                                               & (vlSelf->__PVT__id_inst 
+                                                                  >> 0xfU)) 
+                                                              | ((0x380U 
+                                                                  & (vlSelf->__PVT__id_inst 
+                                                                     >> 5U)) 
+                                                                 | (0x7fU 
+                                                                    & vlSelf->__PVT__id_inst))))) 
+                                                         | (0x3e3U 
+                                                            == 
+                                                            (0x3ffU 
+                                                             & ((0x1fc00U 
+                                                                 & (vlSelf->__PVT__id_inst 
+                                                                    >> 0xfU)) 
+                                                                | ((0x380U 
+                                                                    & (vlSelf->__PVT__id_inst 
+                                                                       >> 5U)) 
+                                                                   | (0x7fU 
+                                                                      & vlSelf->__PVT__id_inst)))))) 
+                                                        | (0x3e3U 
+                                                           == 
+                                                           (0x3ffU 
+                                                            & ((0x1fc00U 
+                                                                & (vlSelf->__PVT__id_inst 
+                                                                   >> 0xfU)) 
+                                                               | ((0x380U 
+                                                                   & (vlSelf->__PVT__id_inst 
+                                                                      >> 5U)) 
+                                                                  | (0x7fU 
+                                                                     & vlSelf->__PVT__id_inst)))))) 
+                                                       | (0x6b3U 
+                                                          == 
+                                                          ((0x1fc00U 
+                                                            & (vlSelf->__PVT__id_inst 
+                                                               >> 0xfU)) 
+                                                           | ((0x380U 
+                                                               & (vlSelf->__PVT__id_inst 
+                                                                  >> 5U)) 
+                                                              | (0x7fU 
+                                                                 & vlSelf->__PVT__id_inst)))))
+                                                       ? 
+                                                      ((0x9bU 
+                                                        == 
+                                                        (0x1fbffU 
+                                                         & ((0x1fc00U 
+                                                             & (vlSelf->__PVT__id_inst 
+                                                                >> 0xfU)) 
+                                                            | ((0x380U 
+                                                                & (vlSelf->__PVT__id_inst 
+                                                                   >> 5U)) 
+                                                               | (0x7fU 
+                                                                  & vlSelf->__PVT__id_inst))))) 
+                                                       | ((0x829bU 
+                                                           == 
+                                                           ((0x1fc00U 
+                                                             & (vlSelf->__PVT__id_inst 
+                                                                >> 0xfU)) 
+                                                            | ((0x380U 
+                                                                & (vlSelf->__PVT__id_inst 
+                                                                   >> 5U)) 
+                                                               | (0x7fU 
+                                                                  & vlSelf->__PVT__id_inst)))) 
+                                                          | ((0x433U 
+                                                              != 
+                                                              ((0x1fc00U 
+                                                                & (vlSelf->__PVT__id_inst 
+                                                                   >> 0xfU)) 
+                                                               | ((0x380U 
+                                                                   & (vlSelf->__PVT__id_inst 
+                                                                      >> 5U)) 
+                                                                  | (0x7fU 
+                                                                     & vlSelf->__PVT__id_inst)))) 
+                                                             & ((0x29bU 
+                                                                 == 
+                                                                 (0x1fbffU 
+                                                                  & ((0x1fc00U 
+                                                                      & (vlSelf->__PVT__id_inst 
+                                                                         >> 0xfU)) 
+                                                                     | ((0x380U 
+                                                                         & (vlSelf->__PVT__id_inst 
+                                                                            >> 5U)) 
+                                                                        | (0x7fU 
+                                                                           & vlSelf->__PVT__id_inst))))) 
+                                                                | (0x2bbU 
+                                                                   == 
+                                                                   ((0x1fc00U 
+                                                                     & (vlSelf->__PVT__id_inst 
+                                                                        >> 0xfU)) 
+                                                                    | ((0x380U 
+                                                                        & (vlSelf->__PVT__id_inst 
+                                                                           >> 5U)) 
+                                                                       | (0x7fU 
+                                                                          & vlSelf->__PVT__id_inst))))))))
+                                                       : 
+                                                      ((0x7b3U 
+                                                        != 
+                                                        ((0x1fc00U 
+                                                          & (vlSelf->__PVT__id_inst 
+                                                             >> 0xfU)) 
+                                                         | ((0x380U 
+                                                             & (vlSelf->__PVT__id_inst 
+                                                                >> 5U)) 
+                                                            | (0x7fU 
+                                                               & vlSelf->__PVT__id_inst)))) 
+                                                       & (0x6bbU 
+                                                          == 
+                                                          ((0x1fc00U 
+                                                            & (vlSelf->__PVT__id_inst 
+                                                               >> 0xfU)) 
+                                                           | ((0x380U 
+                                                               & (vlSelf->__PVT__id_inst 
+                                                                  >> 5U)) 
+                                                              | (0x7fU 
+                                                                 & vlSelf->__PVT__id_inst)))))))))));
+    if (((((((((0x13U == (0x3ffU & ((0x1fc00U & (vlSelf->__PVT__id_inst 
+                                                 >> 0xfU)) 
+                                    | ((0x380U & (vlSelf->__PVT__id_inst 
+                                                  >> 5U)) 
+                                       | (0x7fU & vlSelf->__PVT__id_inst))))) 
+               | (0x17U == (0x7fU & ((0x1fc00U & (vlSelf->__PVT__id_inst 
+                                                  >> 0xfU)) 
+                                     | ((0x380U & (vlSelf->__PVT__id_inst 
+                                                   >> 5U)) 
+                                        | (0x7fU & vlSelf->__PVT__id_inst)))))) 
+              | (0x37U == (0x7fU & ((0x1fc00U & (vlSelf->__PVT__id_inst 
+                                                 >> 0xfU)) 
+                                    | ((0x380U & (vlSelf->__PVT__id_inst 
+                                                  >> 5U)) 
+                                       | (0x7fU & vlSelf->__PVT__id_inst)))))) 
+             | (0x6fU == (0x7fU & ((0x1fc00U & (vlSelf->__PVT__id_inst 
+                                                >> 0xfU)) 
+                                   | ((0x380U & (vlSelf->__PVT__id_inst 
+                                                 >> 5U)) 
+                                      | (0x7fU & vlSelf->__PVT__id_inst)))))) 
+            | (0x67U == (0x3ffU & ((0x1fc00U & (vlSelf->__PVT__id_inst 
+                                                >> 0xfU)) 
+                                   | ((0x380U & (vlSelf->__PVT__id_inst 
+                                                 >> 5U)) 
+                                      | (0x7fU & vlSelf->__PVT__id_inst)))))) 
+           | (0x1a3U == (0x3ffU & ((0x1fc00U & (vlSelf->__PVT__id_inst 
+                                                >> 0xfU)) 
+                                   | ((0x380U & (vlSelf->__PVT__id_inst 
+                                                 >> 5U)) 
+                                      | (0x7fU & vlSelf->__PVT__id_inst)))))) 
+          | (0x183U == (0x3ffU & ((0x1fc00U & (vlSelf->__PVT__id_inst 
+                                               >> 0xfU)) 
+                                  | ((0x380U & (vlSelf->__PVT__id_inst 
+                                                >> 5U)) 
+                                     | (0x7fU & vlSelf->__PVT__id_inst)))))) 
+         | (0x33U == ((0x1fc00U & (vlSelf->__PVT__id_inst 
+                                   >> 0xfU)) | ((0x380U 
+                                                 & (vlSelf->__PVT__id_inst 
+                                                    >> 5U)) 
+                                                | (0x7fU 
+                                                   & vlSelf->__PVT__id_inst)))))) {
+        vlSelf->__PVT__IDU__DOT__MemWr_d = ((0x13U 
+                                             != (0x3ffU 
+                                                 & ((0x1fc00U 
+                                                     & (vlSelf->__PVT__id_inst 
+                                                        >> 0xfU)) 
+                                                    | ((0x380U 
+                                                        & (vlSelf->__PVT__id_inst 
+                                                           >> 5U)) 
+                                                       | (0x7fU 
+                                                          & vlSelf->__PVT__id_inst))))) 
+                                            & ((0x17U 
+                                                != 
+                                                (0x7fU 
+                                                 & ((0x1fc00U 
+                                                     & (vlSelf->__PVT__id_inst 
+                                                        >> 0xfU)) 
+                                                    | ((0x380U 
+                                                        & (vlSelf->__PVT__id_inst 
+                                                           >> 5U)) 
+                                                       | (0x7fU 
+                                                          & vlSelf->__PVT__id_inst))))) 
+                                               & ((0x37U 
+                                                   != 
+                                                   (0x7fU 
+                                                    & ((0x1fc00U 
+                                                        & (vlSelf->__PVT__id_inst 
+                                                           >> 0xfU)) 
+                                                       | ((0x380U 
+                                                           & (vlSelf->__PVT__id_inst 
+                                                              >> 5U)) 
+                                                          | (0x7fU 
+                                                             & vlSelf->__PVT__id_inst))))) 
+                                                  & ((0x6fU 
+                                                      != 
+                                                      (0x7fU 
+                                                       & ((0x1fc00U 
+                                                           & (vlSelf->__PVT__id_inst 
+                                                              >> 0xfU)) 
+                                                          | ((0x380U 
+                                                              & (vlSelf->__PVT__id_inst 
+                                                                 >> 5U)) 
+                                                             | (0x7fU 
+                                                                & vlSelf->__PVT__id_inst))))) 
+                                                     & ((0x67U 
+                                                         != 
+                                                         (0x3ffU 
+                                                          & ((0x1fc00U 
+                                                              & (vlSelf->__PVT__id_inst 
+                                                                 >> 0xfU)) 
+                                                             | ((0x380U 
+                                                                 & (vlSelf->__PVT__id_inst 
+                                                                    >> 5U)) 
+                                                                | (0x7fU 
+                                                                   & vlSelf->__PVT__id_inst))))) 
+                                                        & (0x1a3U 
+                                                           == 
+                                                           (0x3ffU 
+                                                            & ((0x1fc00U 
+                                                                & (vlSelf->__PVT__id_inst 
+                                                                   >> 0xfU)) 
+                                                               | ((0x380U 
+                                                                   & (vlSelf->__PVT__id_inst 
+                                                                      >> 5U)) 
+                                                                  | (0x7fU 
+                                                                     & vlSelf->__PVT__id_inst))))))))));
+        vlSelf->__PVT__IDU__DOT__MemOP_d = ((0x13U 
+                                             == (0x3ffU 
+                                                 & ((0x1fc00U 
+                                                     & (vlSelf->__PVT__id_inst 
+                                                        >> 0xfU)) 
+                                                    | ((0x380U 
+                                                        & (vlSelf->__PVT__id_inst 
+                                                           >> 5U)) 
+                                                       | (0x7fU 
+                                                          & vlSelf->__PVT__id_inst)))))
+                                             ? 0U : 
+                                            ((0x17U 
+                                              == (0x7fU 
+                                                  & ((0x1fc00U 
+                                                      & (vlSelf->__PVT__id_inst 
+                                                         >> 0xfU)) 
+                                                     | ((0x380U 
+                                                         & (vlSelf->__PVT__id_inst 
+                                                            >> 5U)) 
+                                                        | (0x7fU 
+                                                           & vlSelf->__PVT__id_inst)))))
+                                              ? 0U : 
+                                             ((0x37U 
+                                               == (0x7fU 
+                                                   & ((0x1fc00U 
+                                                       & (vlSelf->__PVT__id_inst 
+                                                          >> 0xfU)) 
+                                                      | ((0x380U 
+                                                          & (vlSelf->__PVT__id_inst 
+                                                             >> 5U)) 
+                                                         | (0x7fU 
+                                                            & vlSelf->__PVT__id_inst)))))
+                                               ? 0U
+                                               : ((0x6fU 
+                                                   == 
+                                                   (0x7fU 
+                                                    & ((0x1fc00U 
+                                                        & (vlSelf->__PVT__id_inst 
+                                                           >> 0xfU)) 
+                                                       | ((0x380U 
+                                                           & (vlSelf->__PVT__id_inst 
+                                                              >> 5U)) 
+                                                          | (0x7fU 
+                                                             & vlSelf->__PVT__id_inst)))))
+                                                   ? 0U
+                                                   : 
+                                                  ((0x67U 
+                                                    == 
+                                                    (0x3ffU 
+                                                     & ((0x1fc00U 
+                                                         & (vlSelf->__PVT__id_inst 
+                                                            >> 0xfU)) 
+                                                        | ((0x380U 
+                                                            & (vlSelf->__PVT__id_inst 
+                                                               >> 5U)) 
+                                                           | (0x7fU 
+                                                              & vlSelf->__PVT__id_inst)))))
+                                                    ? 0U
+                                                    : 
+                                                   ((0x1a3U 
+                                                     == 
+                                                     (0x3ffU 
+                                                      & ((0x1fc00U 
+                                                          & (vlSelf->__PVT__id_inst 
+                                                             >> 0xfU)) 
+                                                         | ((0x380U 
+                                                             & (vlSelf->__PVT__id_inst 
+                                                                >> 5U)) 
+                                                            | (0x7fU 
+                                                               & vlSelf->__PVT__id_inst)))))
+                                                     ? 4U
+                                                     : 
+                                                    ((0x183U 
+                                                      == 
+                                                      (0x3ffU 
+                                                       & ((0x1fc00U 
+                                                           & (vlSelf->__PVT__id_inst 
+                                                              >> 0xfU)) 
+                                                          | ((0x380U 
+                                                              & (vlSelf->__PVT__id_inst 
+                                                                 >> 5U)) 
+                                                             | (0x7fU 
+                                                                & vlSelf->__PVT__id_inst)))))
+                                                      ? 4U
+                                                      : 0U)))))));
+    } else if (((((((((0x8033U == ((0x1fc00U & (vlSelf->__PVT__id_inst 
+                                                >> 0xfU)) 
+                                   | ((0x380U & (vlSelf->__PVT__id_inst 
+                                                 >> 5U)) 
+                                      | (0x7fU & vlSelf->__PVT__id_inst)))) 
+                      | (0x193U == (0x3ffU & ((0x1fc00U 
+                                               & (vlSelf->__PVT__id_inst 
+                                                  >> 0xfU)) 
+                                              | ((0x380U 
+                                                  & (vlSelf->__PVT__id_inst 
+                                                     >> 5U)) 
+                                                 | (0x7fU 
+                                                    & vlSelf->__PVT__id_inst)))))) 
+                     | (0x63U == (0x3ffU & ((0x1fc00U 
+                                             & (vlSelf->__PVT__id_inst 
+                                                >> 0xfU)) 
+                                            | ((0x380U 
+                                                & (vlSelf->__PVT__id_inst 
+                                                   >> 5U)) 
+                                               | (0x7fU 
+                                                  & vlSelf->__PVT__id_inst)))))) 
+                    | (0xe3U == (0x3ffU & ((0x1fc00U 
+                                            & (vlSelf->__PVT__id_inst 
+                                               >> 0xfU)) 
+                                           | ((0x380U 
+                                               & (vlSelf->__PVT__id_inst 
+                                                  >> 5U)) 
+                                              | (0x7fU 
+                                                 & vlSelf->__PVT__id_inst)))))) 
+                   | (0x103U == (0x3ffU & ((0x1fc00U 
+                                            & (vlSelf->__PVT__id_inst 
+                                               >> 0xfU)) 
+                                           | ((0x380U 
+                                               & (vlSelf->__PVT__id_inst 
+                                                  >> 5U)) 
+                                              | (0x7fU 
+                                                 & vlSelf->__PVT__id_inst)))))) 
+                  | (0x303U == (0x3ffU & ((0x1fc00U 
+                                           & (vlSelf->__PVT__id_inst 
+                                              >> 0xfU)) 
+                                          | ((0x380U 
+                                              & (vlSelf->__PVT__id_inst 
+                                                 >> 5U)) 
+                                             | (0x7fU 
+                                                & vlSelf->__PVT__id_inst)))))) 
+                 | (0x3bU == ((0x1fc00U & (vlSelf->__PVT__id_inst 
+                                           >> 0xfU)) 
+                              | ((0x380U & (vlSelf->__PVT__id_inst 
+                                            >> 5U)) 
+                                 | (0x7fU & vlSelf->__PVT__id_inst))))) 
+                | (0xa3U == (0x3ffU & ((0x1fc00U & 
+                                        (vlSelf->__PVT__id_inst 
+                                         >> 0xfU)) 
+                                       | ((0x380U & 
+                                           (vlSelf->__PVT__id_inst 
+                                            >> 5U)) 
+                                          | (0x7fU 
+                                             & vlSelf->__PVT__id_inst))))))) {
+        vlSelf->__PVT__IDU__DOT__MemWr_d = ((0x8033U 
+                                             != ((0x1fc00U 
+                                                  & (vlSelf->__PVT__id_inst 
+                                                     >> 0xfU)) 
+                                                 | ((0x380U 
+                                                     & (vlSelf->__PVT__id_inst 
+                                                        >> 5U)) 
+                                                    | (0x7fU 
+                                                       & vlSelf->__PVT__id_inst)))) 
+                                            & ((0x193U 
+                                                != 
+                                                (0x3ffU 
+                                                 & ((0x1fc00U 
+                                                     & (vlSelf->__PVT__id_inst 
+                                                        >> 0xfU)) 
+                                                    | ((0x380U 
+                                                        & (vlSelf->__PVT__id_inst 
+                                                           >> 5U)) 
+                                                       | (0x7fU 
+                                                          & vlSelf->__PVT__id_inst))))) 
+                                               & ((0x63U 
+                                                   != 
+                                                   (0x3ffU 
+                                                    & ((0x1fc00U 
+                                                        & (vlSelf->__PVT__id_inst 
+                                                           >> 0xfU)) 
+                                                       | ((0x380U 
+                                                           & (vlSelf->__PVT__id_inst 
+                                                              >> 5U)) 
+                                                          | (0x7fU 
+                                                             & vlSelf->__PVT__id_inst))))) 
+                                                  & ((0xe3U 
+                                                      != 
+                                                      (0x3ffU 
+                                                       & ((0x1fc00U 
+                                                           & (vlSelf->__PVT__id_inst 
+                                                              >> 0xfU)) 
+                                                          | ((0x380U 
+                                                              & (vlSelf->__PVT__id_inst 
+                                                                 >> 5U)) 
+                                                             | (0x7fU 
+                                                                & vlSelf->__PVT__id_inst))))) 
+                                                     & ((0x103U 
+                                                         != 
+                                                         (0x3ffU 
+                                                          & ((0x1fc00U 
+                                                              & (vlSelf->__PVT__id_inst 
+                                                                 >> 0xfU)) 
+                                                             | ((0x380U 
+                                                                 & (vlSelf->__PVT__id_inst 
+                                                                    >> 5U)) 
+                                                                | (0x7fU 
+                                                                   & vlSelf->__PVT__id_inst))))) 
+                                                        & ((0x303U 
+                                                            != 
+                                                            (0x3ffU 
+                                                             & ((0x1fc00U 
+                                                                 & (vlSelf->__PVT__id_inst 
+                                                                    >> 0xfU)) 
+                                                                | ((0x380U 
+                                                                    & (vlSelf->__PVT__id_inst 
+                                                                       >> 5U)) 
+                                                                   | (0x7fU 
+                                                                      & vlSelf->__PVT__id_inst))))) 
+                                                           & (0x3bU 
+                                                              != 
+                                                              ((0x1fc00U 
+                                                                & (vlSelf->__PVT__id_inst 
+                                                                   >> 0xfU)) 
+                                                               | ((0x380U 
+                                                                   & (vlSelf->__PVT__id_inst 
+                                                                      >> 5U)) 
+                                                                  | (0x7fU 
+                                                                     & vlSelf->__PVT__id_inst))))))))));
+        vlSelf->__PVT__IDU__DOT__MemOP_d = ((0x8033U 
+                                             == ((0x1fc00U 
+                                                  & (vlSelf->__PVT__id_inst 
+                                                     >> 0xfU)) 
+                                                 | ((0x380U 
+                                                     & (vlSelf->__PVT__id_inst 
+                                                        >> 5U)) 
+                                                    | (0x7fU 
+                                                       & vlSelf->__PVT__id_inst))))
+                                             ? 0U : 
+                                            ((0x193U 
+                                              == (0x3ffU 
+                                                  & ((0x1fc00U 
+                                                      & (vlSelf->__PVT__id_inst 
+                                                         >> 0xfU)) 
+                                                     | ((0x380U 
+                                                         & (vlSelf->__PVT__id_inst 
+                                                            >> 5U)) 
+                                                        | (0x7fU 
+                                                           & vlSelf->__PVT__id_inst)))))
+                                              ? 0U : 
+                                             ((0x63U 
+                                               == (0x3ffU 
+                                                   & ((0x1fc00U 
+                                                       & (vlSelf->__PVT__id_inst 
+                                                          >> 0xfU)) 
+                                                      | ((0x380U 
+                                                          & (vlSelf->__PVT__id_inst 
+                                                             >> 5U)) 
+                                                         | (0x7fU 
+                                                            & vlSelf->__PVT__id_inst)))))
+                                               ? 0U
+                                               : ((0xe3U 
+                                                   == 
+                                                   (0x3ffU 
+                                                    & ((0x1fc00U 
+                                                        & (vlSelf->__PVT__id_inst 
+                                                           >> 0xfU)) 
+                                                       | ((0x380U 
+                                                           & (vlSelf->__PVT__id_inst 
+                                                              >> 5U)) 
+                                                          | (0x7fU 
+                                                             & vlSelf->__PVT__id_inst)))))
+                                                   ? 0U
+                                                   : 
+                                                  ((0x103U 
+                                                    == 
+                                                    (0x3ffU 
+                                                     & ((0x1fc00U 
+                                                         & (vlSelf->__PVT__id_inst 
+                                                            >> 0xfU)) 
+                                                        | ((0x380U 
+                                                            & (vlSelf->__PVT__id_inst 
+                                                               >> 5U)) 
+                                                           | (0x7fU 
+                                                              & vlSelf->__PVT__id_inst)))))
+                                                    ? 5U
+                                                    : 
+                                                   ((0x303U 
+                                                     == 
+                                                     (0x3ffU 
+                                                      & ((0x1fc00U 
+                                                          & (vlSelf->__PVT__id_inst 
+                                                             >> 0xfU)) 
+                                                         | ((0x380U 
+                                                             & (vlSelf->__PVT__id_inst 
+                                                                >> 5U)) 
+                                                            | (0x7fU 
+                                                               & vlSelf->__PVT__id_inst)))))
+                                                     ? 1U
+                                                     : 
+                                                    ((0x3bU 
+                                                      == 
+                                                      ((0x1fc00U 
+                                                        & (vlSelf->__PVT__id_inst 
+                                                           >> 0xfU)) 
+                                                       | ((0x380U 
+                                                           & (vlSelf->__PVT__id_inst 
+                                                              >> 5U)) 
+                                                          | (0x7fU 
+                                                             & vlSelf->__PVT__id_inst))))
+                                                      ? 0U
+                                                      : 2U)))))));
+    } else {
+        vlSelf->__PVT__IDU__DOT__MemWr_d = ((~ ((((
+                                                   ((((0x8293U 
+                                                       == 
+                                                       (0x1fbffU 
+                                                        & ((0x1fc00U 
+                                                            & (vlSelf->__PVT__id_inst 
+                                                               >> 0xfU)) 
+                                                           | ((0x380U 
+                                                               & (vlSelf->__PVT__id_inst 
+                                                                  >> 5U)) 
+                                                              | (0x7fU 
+                                                                 & vlSelf->__PVT__id_inst))))) 
+                                                      | (0x203U 
+                                                         == 
+                                                         (0x3ffU 
+                                                          & ((0x1fc00U 
+                                                              & (vlSelf->__PVT__id_inst 
+                                                                 >> 0xfU)) 
+                                                             | ((0x380U 
+                                                                 & (vlSelf->__PVT__id_inst 
+                                                                    >> 5U)) 
+                                                                | (0x7fU 
+                                                                   & vlSelf->__PVT__id_inst)))))) 
+                                                     | (0x393U 
+                                                        == 
+                                                        (0x3ffU 
+                                                         & ((0x1fc00U 
+                                                             & (vlSelf->__PVT__id_inst 
+                                                                >> 0xfU)) 
+                                                            | ((0x380U 
+                                                                & (vlSelf->__PVT__id_inst 
+                                                                   >> 5U)) 
+                                                               | (0x7fU 
+                                                                  & vlSelf->__PVT__id_inst)))))) 
+                                                    | (0xbbU 
+                                                       == 
+                                                       ((0x1fc00U 
+                                                         & (vlSelf->__PVT__id_inst 
+                                                            >> 0xfU)) 
+                                                        | ((0x380U 
+                                                            & (vlSelf->__PVT__id_inst 
+                                                               >> 5U)) 
+                                                           | (0x7fU 
+                                                              & vlSelf->__PVT__id_inst))))) 
+                                                   | (0x3b3U 
+                                                      == 
+                                                      ((0x1fc00U 
+                                                        & (vlSelf->__PVT__id_inst 
+                                                           >> 0xfU)) 
+                                                       | ((0x380U 
+                                                           & (vlSelf->__PVT__id_inst 
+                                                              >> 5U)) 
+                                                          | (0x7fU 
+                                                             & vlSelf->__PVT__id_inst))))) 
+                                                  | (0x1b3U 
+                                                     == 
+                                                     ((0x1fc00U 
+                                                       & (vlSelf->__PVT__id_inst 
+                                                          >> 0xfU)) 
+                                                      | ((0x380U 
+                                                          & (vlSelf->__PVT__id_inst 
+                                                             >> 5U)) 
+                                                         | (0x7fU 
+                                                            & vlSelf->__PVT__id_inst))))) 
+                                                 | (0x213U 
+                                                    == 
+                                                    (0x3ffU 
+                                                     & ((0x1fc00U 
+                                                         & (vlSelf->__PVT__id_inst 
+                                                            >> 0xfU)) 
+                                                        | ((0x380U 
+                                                            & (vlSelf->__PVT__id_inst 
+                                                               >> 5U)) 
+                                                           | (0x7fU 
+                                                              & vlSelf->__PVT__id_inst)))))) 
+                                                | (0x82bbU 
+                                                   == 
+                                                   ((0x1fc00U 
+                                                     & (vlSelf->__PVT__id_inst 
+                                                        >> 0xfU)) 
+                                                    | ((0x380U 
+                                                        & (vlSelf->__PVT__id_inst 
+                                                           >> 5U)) 
+                                                       | (0x7fU 
+                                                          & vlSelf->__PVT__id_inst)))))) 
+                                            & (((((((((0x333U 
+                                                       == 
+                                                       ((0x1fc00U 
+                                                         & (vlSelf->__PVT__id_inst 
+                                                            >> 0xfU)) 
+                                                        | ((0x380U 
+                                                            & (vlSelf->__PVT__id_inst 
+                                                               >> 5U)) 
+                                                           | (0x7fU 
+                                                              & vlSelf->__PVT__id_inst)))) 
+                                                      | (0x23U 
+                                                         == 
+                                                         (0x3ffU 
+                                                          & ((0x1fc00U 
+                                                              & (vlSelf->__PVT__id_inst 
+                                                                 >> 0xfU)) 
+                                                             | ((0x380U 
+                                                                 & (vlSelf->__PVT__id_inst 
+                                                                    >> 5U)) 
+                                                                | (0x7fU 
+                                                                   & vlSelf->__PVT__id_inst)))))) 
+                                                     | (0x1bU 
+                                                        == 
+                                                        (0x3ffU 
+                                                         & ((0x1fc00U 
+                                                             & (vlSelf->__PVT__id_inst 
+                                                                >> 0xfU)) 
+                                                            | ((0x380U 
+                                                                & (vlSelf->__PVT__id_inst 
+                                                                   >> 5U)) 
+                                                               | (0x7fU 
+                                                                  & vlSelf->__PVT__id_inst)))))) 
+                                                    | (0x2e3U 
+                                                       == 
+                                                       (0x3ffU 
+                                                        & ((0x1fc00U 
+                                                            & (vlSelf->__PVT__id_inst 
+                                                               >> 0xfU)) 
+                                                           | ((0x380U 
+                                                               & (vlSelf->__PVT__id_inst 
+                                                                  >> 5U)) 
+                                                              | (0x7fU 
+                                                                 & vlSelf->__PVT__id_inst)))))) 
+                                                   | (0x263U 
+                                                      == 
+                                                      (0x3ffU 
+                                                       & ((0x1fc00U 
+                                                           & (vlSelf->__PVT__id_inst 
+                                                              >> 0xfU)) 
+                                                          | ((0x380U 
+                                                              & (vlSelf->__PVT__id_inst 
+                                                                 >> 5U)) 
+                                                             | (0x7fU 
+                                                                & vlSelf->__PVT__id_inst)))))) 
+                                                  | (0x123U 
+                                                     == 
+                                                     (0x3ffU 
+                                                      & ((0x1fc00U 
+                                                          & (vlSelf->__PVT__id_inst 
+                                                             >> 0xfU)) 
+                                                         | ((0x380U 
+                                                             & (vlSelf->__PVT__id_inst 
+                                                                >> 5U)) 
+                                                            | (0x7fU 
+                                                               & vlSelf->__PVT__id_inst)))))) 
+                                                 | (0x43bU 
+                                                    == 
+                                                    ((0x1fc00U 
+                                                      & (vlSelf->__PVT__id_inst 
+                                                         >> 0xfU)) 
+                                                     | ((0x380U 
+                                                         & (vlSelf->__PVT__id_inst 
+                                                            >> 5U)) 
+                                                        | (0x7fU 
+                                                           & vlSelf->__PVT__id_inst))))) 
+                                                | (0x63bU 
+                                                   == 
+                                                   ((0x1fc00U 
+                                                     & (vlSelf->__PVT__id_inst 
+                                                        >> 0xfU)) 
+                                                    | ((0x380U 
+                                                        & (vlSelf->__PVT__id_inst 
+                                                           >> 5U)) 
+                                                       | (0x7fU 
+                                                          & vlSelf->__PVT__id_inst))))) 
+                                               & ((0x333U 
+                                                   != 
+                                                   ((0x1fc00U 
+                                                     & (vlSelf->__PVT__id_inst 
+                                                        >> 0xfU)) 
+                                                    | ((0x380U 
+                                                        & (vlSelf->__PVT__id_inst 
+                                                           >> 5U)) 
+                                                       | (0x7fU 
+                                                          & vlSelf->__PVT__id_inst)))) 
+                                                  & ((0x23U 
+                                                      == 
+                                                      (0x3ffU 
+                                                       & ((0x1fc00U 
+                                                           & (vlSelf->__PVT__id_inst 
+                                                              >> 0xfU)) 
+                                                          | ((0x380U 
+                                                              & (vlSelf->__PVT__id_inst 
+                                                                 >> 5U)) 
+                                                             | (0x7fU 
+                                                                & vlSelf->__PVT__id_inst))))) 
+                                                     | ((0x1bU 
+                                                         != 
+                                                         (0x3ffU 
+                                                          & ((0x1fc00U 
+                                                              & (vlSelf->__PVT__id_inst 
+                                                                 >> 0xfU)) 
+                                                             | ((0x380U 
+                                                                 & (vlSelf->__PVT__id_inst 
+                                                                    >> 5U)) 
+                                                                | (0x7fU 
+                                                                   & vlSelf->__PVT__id_inst))))) 
+                                                        & ((0x2e3U 
+                                                            != 
+                                                            (0x3ffU 
+                                                             & ((0x1fc00U 
+                                                                 & (vlSelf->__PVT__id_inst 
+                                                                    >> 0xfU)) 
+                                                                | ((0x380U 
+                                                                    & (vlSelf->__PVT__id_inst 
+                                                                       >> 5U)) 
+                                                                   | (0x7fU 
+                                                                      & vlSelf->__PVT__id_inst))))) 
+                                                           & ((0x263U 
+                                                               != 
+                                                               (0x3ffU 
+                                                                & ((0x1fc00U 
+                                                                    & (vlSelf->__PVT__id_inst 
+                                                                       >> 0xfU)) 
+                                                                   | ((0x380U 
+                                                                       & (vlSelf->__PVT__id_inst 
+                                                                          >> 5U)) 
+                                                                      | (0x7fU 
+                                                                         & vlSelf->__PVT__id_inst))))) 
+                                                              & (0x123U 
+                                                                 == 
+                                                                 (0x3ffU 
+                                                                  & ((0x1fc00U 
+                                                                      & (vlSelf->__PVT__id_inst 
+                                                                         >> 0xfU)) 
+                                                                     | ((0x380U 
+                                                                         & (vlSelf->__PVT__id_inst 
+                                                                            >> 5U)) 
+                                                                        | (0x7fU 
+                                                                           & vlSelf->__PVT__id_inst))))))))))));
+        vlSelf->__PVT__IDU__DOT__MemOP_d = ((((((((
+                                                   (0x8293U 
+                                                    == 
+                                                    (0x1fbffU 
+                                                     & ((0x1fc00U 
+                                                         & (vlSelf->__PVT__id_inst 
+                                                            >> 0xfU)) 
+                                                        | ((0x380U 
+                                                            & (vlSelf->__PVT__id_inst 
+                                                               >> 5U)) 
+                                                           | (0x7fU 
+                                                              & vlSelf->__PVT__id_inst))))) 
+                                                   | (0x203U 
+                                                      == 
+                                                      (0x3ffU 
+                                                       & ((0x1fc00U 
+                                                           & (vlSelf->__PVT__id_inst 
+                                                              >> 0xfU)) 
+                                                          | ((0x380U 
+                                                              & (vlSelf->__PVT__id_inst 
+                                                                 >> 5U)) 
+                                                             | (0x7fU 
+                                                                & vlSelf->__PVT__id_inst)))))) 
+                                                  | (0x393U 
+                                                     == 
+                                                     (0x3ffU 
+                                                      & ((0x1fc00U 
+                                                          & (vlSelf->__PVT__id_inst 
+                                                             >> 0xfU)) 
+                                                         | ((0x380U 
+                                                             & (vlSelf->__PVT__id_inst 
+                                                                >> 5U)) 
+                                                            | (0x7fU 
+                                                               & vlSelf->__PVT__id_inst)))))) 
+                                                 | (0xbbU 
+                                                    == 
+                                                    ((0x1fc00U 
+                                                      & (vlSelf->__PVT__id_inst 
+                                                         >> 0xfU)) 
+                                                     | ((0x380U 
+                                                         & (vlSelf->__PVT__id_inst 
+                                                            >> 5U)) 
+                                                        | (0x7fU 
+                                                           & vlSelf->__PVT__id_inst))))) 
+                                                | (0x3b3U 
+                                                   == 
+                                                   ((0x1fc00U 
+                                                     & (vlSelf->__PVT__id_inst 
+                                                        >> 0xfU)) 
+                                                    | ((0x380U 
+                                                        & (vlSelf->__PVT__id_inst 
+                                                           >> 5U)) 
+                                                       | (0x7fU 
+                                                          & vlSelf->__PVT__id_inst))))) 
+                                               | (0x1b3U 
+                                                  == 
+                                                  ((0x1fc00U 
+                                                    & (vlSelf->__PVT__id_inst 
+                                                       >> 0xfU)) 
+                                                   | ((0x380U 
+                                                       & (vlSelf->__PVT__id_inst 
+                                                          >> 5U)) 
+                                                      | (0x7fU 
+                                                         & vlSelf->__PVT__id_inst))))) 
+                                              | (0x213U 
+                                                 == 
+                                                 (0x3ffU 
+                                                  & ((0x1fc00U 
+                                                      & (vlSelf->__PVT__id_inst 
+                                                         >> 0xfU)) 
+                                                     | ((0x380U 
+                                                         & (vlSelf->__PVT__id_inst 
+                                                            >> 5U)) 
+                                                        | (0x7fU 
+                                                           & vlSelf->__PVT__id_inst)))))) 
+                                             | (0x82bbU 
+                                                == 
+                                                ((0x1fc00U 
+                                                  & (vlSelf->__PVT__id_inst 
+                                                     >> 0xfU)) 
+                                                 | ((0x380U 
+                                                     & (vlSelf->__PVT__id_inst 
+                                                        >> 5U)) 
+                                                    | (0x7fU 
+                                                       & vlSelf->__PVT__id_inst)))))
+                                             ? ((0x8293U 
+                                                 == 
+                                                 (0x1fbffU 
+                                                  & ((0x1fc00U 
+                                                      & (vlSelf->__PVT__id_inst 
+                                                         >> 0xfU)) 
+                                                     | ((0x380U 
+                                                         & (vlSelf->__PVT__id_inst 
+                                                            >> 5U)) 
+                                                        | (0x7fU 
+                                                           & vlSelf->__PVT__id_inst)))))
+                                                 ? 0U
+                                                 : 
+                                                ((0x203U 
+                                                  == 
+                                                  (0x3ffU 
+                                                   & ((0x1fc00U 
+                                                       & (vlSelf->__PVT__id_inst 
+                                                          >> 0xfU)) 
+                                                      | ((0x380U 
+                                                          & (vlSelf->__PVT__id_inst 
+                                                             >> 5U)) 
+                                                         | (0x7fU 
+                                                            & vlSelf->__PVT__id_inst)))))
+                                                  ? 3U
+                                                  : 0U))
+                                             : ((((
+                                                   (((((0x333U 
+                                                        == 
+                                                        ((0x1fc00U 
+                                                          & (vlSelf->__PVT__id_inst 
+                                                             >> 0xfU)) 
+                                                         | ((0x380U 
+                                                             & (vlSelf->__PVT__id_inst 
+                                                                >> 5U)) 
+                                                            | (0x7fU 
+                                                               & vlSelf->__PVT__id_inst)))) 
+                                                       | (0x23U 
+                                                          == 
+                                                          (0x3ffU 
+                                                           & ((0x1fc00U 
+                                                               & (vlSelf->__PVT__id_inst 
+                                                                  >> 0xfU)) 
+                                                              | ((0x380U 
+                                                                  & (vlSelf->__PVT__id_inst 
+                                                                     >> 5U)) 
+                                                                 | (0x7fU 
+                                                                    & vlSelf->__PVT__id_inst)))))) 
+                                                      | (0x1bU 
+                                                         == 
+                                                         (0x3ffU 
+                                                          & ((0x1fc00U 
+                                                              & (vlSelf->__PVT__id_inst 
+                                                                 >> 0xfU)) 
+                                                             | ((0x380U 
+                                                                 & (vlSelf->__PVT__id_inst 
+                                                                    >> 5U)) 
+                                                                | (0x7fU 
+                                                                   & vlSelf->__PVT__id_inst)))))) 
+                                                     | (0x2e3U 
+                                                        == 
+                                                        (0x3ffU 
+                                                         & ((0x1fc00U 
+                                                             & (vlSelf->__PVT__id_inst 
+                                                                >> 0xfU)) 
+                                                            | ((0x380U 
+                                                                & (vlSelf->__PVT__id_inst 
+                                                                   >> 5U)) 
+                                                               | (0x7fU 
+                                                                  & vlSelf->__PVT__id_inst)))))) 
+                                                    | (0x263U 
+                                                       == 
+                                                       (0x3ffU 
+                                                        & ((0x1fc00U 
+                                                            & (vlSelf->__PVT__id_inst 
+                                                               >> 0xfU)) 
+                                                           | ((0x380U 
+                                                               & (vlSelf->__PVT__id_inst 
+                                                                  >> 5U)) 
+                                                              | (0x7fU 
+                                                                 & vlSelf->__PVT__id_inst)))))) 
+                                                   | (0x123U 
+                                                      == 
+                                                      (0x3ffU 
+                                                       & ((0x1fc00U 
+                                                           & (vlSelf->__PVT__id_inst 
+                                                              >> 0xfU)) 
+                                                          | ((0x380U 
+                                                              & (vlSelf->__PVT__id_inst 
+                                                                 >> 5U)) 
+                                                             | (0x7fU 
+                                                                & vlSelf->__PVT__id_inst)))))) 
+                                                  | (0x43bU 
+                                                     == 
+                                                     ((0x1fc00U 
+                                                       & (vlSelf->__PVT__id_inst 
+                                                          >> 0xfU)) 
+                                                      | ((0x380U 
+                                                          & (vlSelf->__PVT__id_inst 
+                                                             >> 5U)) 
+                                                         | (0x7fU 
+                                                            & vlSelf->__PVT__id_inst))))) 
+                                                 | (0x63bU 
+                                                    == 
+                                                    ((0x1fc00U 
+                                                      & (vlSelf->__PVT__id_inst 
+                                                         >> 0xfU)) 
+                                                     | ((0x380U 
+                                                         & (vlSelf->__PVT__id_inst 
+                                                            >> 5U)) 
+                                                        | (0x7fU 
+                                                           & vlSelf->__PVT__id_inst)))))
+                                                 ? 
+                                                ((0x333U 
+                                                  == 
+                                                  ((0x1fc00U 
+                                                    & (vlSelf->__PVT__id_inst 
+                                                       >> 0xfU)) 
+                                                   | ((0x380U 
+                                                       & (vlSelf->__PVT__id_inst 
+                                                          >> 5U)) 
+                                                      | (0x7fU 
+                                                         & vlSelf->__PVT__id_inst))))
+                                                  ? 0U
+                                                  : 
+                                                 ((0x23U 
+                                                   == 
+                                                   (0x3ffU 
+                                                    & ((0x1fc00U 
+                                                        & (vlSelf->__PVT__id_inst 
+                                                           >> 0xfU)) 
+                                                       | ((0x380U 
+                                                           & (vlSelf->__PVT__id_inst 
+                                                              >> 5U)) 
+                                                          | (0x7fU 
+                                                             & vlSelf->__PVT__id_inst)))))
+                                                   ? 3U
+                                                   : 
+                                                  ((0x1bU 
+                                                    == 
+                                                    (0x3ffU 
+                                                     & ((0x1fc00U 
+                                                         & (vlSelf->__PVT__id_inst 
+                                                            >> 0xfU)) 
+                                                        | ((0x380U 
+                                                            & (vlSelf->__PVT__id_inst 
+                                                               >> 5U)) 
+                                                           | (0x7fU 
+                                                              & vlSelf->__PVT__id_inst)))))
+                                                    ? 0U
+                                                    : 
+                                                   ((0x2e3U 
+                                                     == 
+                                                     (0x3ffU 
+                                                      & ((0x1fc00U 
+                                                          & (vlSelf->__PVT__id_inst 
+                                                             >> 0xfU)) 
+                                                         | ((0x380U 
+                                                             & (vlSelf->__PVT__id_inst 
+                                                                >> 5U)) 
+                                                            | (0x7fU 
+                                                               & vlSelf->__PVT__id_inst)))))
+                                                     ? 0U
+                                                     : 
+                                                    ((0x263U 
+                                                      == 
+                                                      (0x3ffU 
+                                                       & ((0x1fc00U 
+                                                           & (vlSelf->__PVT__id_inst 
+                                                              >> 0xfU)) 
+                                                          | ((0x380U 
+                                                              & (vlSelf->__PVT__id_inst 
+                                                                 >> 5U)) 
+                                                             | (0x7fU 
+                                                                & vlSelf->__PVT__id_inst)))))
+                                                      ? 0U
+                                                      : 
+                                                     ((0x123U 
+                                                       == 
+                                                       (0x3ffU 
+                                                        & ((0x1fc00U 
+                                                            & (vlSelf->__PVT__id_inst 
+                                                               >> 0xfU)) 
+                                                           | ((0x380U 
+                                                               & (vlSelf->__PVT__id_inst 
+                                                                  >> 5U)) 
+                                                              | (0x7fU 
+                                                                 & vlSelf->__PVT__id_inst)))))
+                                                       ? 1U
+                                                       : 0U))))))
+                                                 : 
+                                                (((((((((0x803bU 
+                                                         == 
+                                                         ((0x1fc00U 
+                                                           & (vlSelf->__PVT__id_inst 
+                                                              >> 0xfU)) 
+                                                          | ((0x380U 
+                                                              & (vlSelf->__PVT__id_inst 
+                                                                 >> 5U)) 
+                                                             | (0x7fU 
+                                                                & vlSelf->__PVT__id_inst)))) 
+                                                        | (0x73bU 
+                                                           == 
+                                                           ((0x1fc00U 
+                                                             & (vlSelf->__PVT__id_inst 
+                                                                >> 0xfU)) 
+                                                            | ((0x380U 
+                                                                & (vlSelf->__PVT__id_inst 
+                                                                   >> 5U)) 
+                                                               | (0x7fU 
+                                                                  & vlSelf->__PVT__id_inst))))) 
+                                                       | (0x363U 
+                                                          == 
+                                                          (0x3ffU 
+                                                           & ((0x1fc00U 
+                                                               & (vlSelf->__PVT__id_inst 
+                                                                  >> 0xfU)) 
+                                                              | ((0x380U 
+                                                                  & (vlSelf->__PVT__id_inst 
+                                                                     >> 5U)) 
+                                                                 | (0x7fU 
+                                                                    & vlSelf->__PVT__id_inst)))))) 
+                                                      | (0x133U 
+                                                         == 
+                                                         ((0x1fc00U 
+                                                           & (vlSelf->__PVT__id_inst 
+                                                              >> 0xfU)) 
+                                                          | ((0x380U 
+                                                              & (vlSelf->__PVT__id_inst 
+                                                                 >> 5U)) 
+                                                             | (0x7fU 
+                                                                & vlSelf->__PVT__id_inst))))) 
+                                                     | (0x83U 
+                                                        == 
+                                                        (0x3ffU 
+                                                         & ((0x1fc00U 
+                                                             & (vlSelf->__PVT__id_inst 
+                                                                >> 0xfU)) 
+                                                            | ((0x380U 
+                                                                & (vlSelf->__PVT__id_inst 
+                                                                   >> 5U)) 
+                                                               | (0x7fU 
+                                                                  & vlSelf->__PVT__id_inst)))))) 
+                                                    | (0x283U 
+                                                       == 
+                                                       (0x3ffU 
+                                                        & ((0x1fc00U 
+                                                            & (vlSelf->__PVT__id_inst 
+                                                               >> 0xfU)) 
+                                                           | ((0x380U 
+                                                               & (vlSelf->__PVT__id_inst 
+                                                                  >> 5U)) 
+                                                              | (0x7fU 
+                                                                 & vlSelf->__PVT__id_inst)))))) 
+                                                   | (0x93U 
+                                                      == 
+                                                      (0x1fbffU 
+                                                       & ((0x1fc00U 
+                                                           & (vlSelf->__PVT__id_inst 
+                                                              >> 0xfU)) 
+                                                          | ((0x380U 
+                                                              & (vlSelf->__PVT__id_inst 
+                                                                 >> 5U)) 
+                                                             | (0x7fU 
+                                                                & vlSelf->__PVT__id_inst)))))) 
+                                                  | (0x293U 
+                                                     == 
+                                                     (0x1fbffU 
+                                                      & ((0x1fc00U 
+                                                          & (vlSelf->__PVT__id_inst 
+                                                             >> 0xfU)) 
+                                                         | ((0x380U 
+                                                             & (vlSelf->__PVT__id_inst 
+                                                                >> 5U)) 
+                                                            | (0x7fU 
+                                                               & vlSelf->__PVT__id_inst))))))
+                                                  ? 
+                                                 ((0x803bU 
+                                                   == 
+                                                   ((0x1fc00U 
+                                                     & (vlSelf->__PVT__id_inst 
+                                                        >> 0xfU)) 
+                                                    | ((0x380U 
+                                                        & (vlSelf->__PVT__id_inst 
+                                                           >> 5U)) 
+                                                       | (0x7fU 
+                                                          & vlSelf->__PVT__id_inst))))
+                                                   ? 0U
+                                                   : 
+                                                  ((0x73bU 
+                                                    == 
+                                                    ((0x1fc00U 
+                                                      & (vlSelf->__PVT__id_inst 
+                                                         >> 0xfU)) 
+                                                     | ((0x380U 
+                                                         & (vlSelf->__PVT__id_inst 
+                                                            >> 5U)) 
+                                                        | (0x7fU 
+                                                           & vlSelf->__PVT__id_inst))))
+                                                    ? 0U
+                                                    : 
+                                                   ((0x363U 
+                                                     == 
+                                                     (0x3ffU 
+                                                      & ((0x1fc00U 
+                                                          & (vlSelf->__PVT__id_inst 
+                                                             >> 0xfU)) 
+                                                         | ((0x380U 
+                                                             & (vlSelf->__PVT__id_inst 
+                                                                >> 5U)) 
+                                                            | (0x7fU 
+                                                               & vlSelf->__PVT__id_inst)))))
+                                                     ? 0U
+                                                     : 
+                                                    ((0x133U 
+                                                      == 
+                                                      ((0x1fc00U 
+                                                        & (vlSelf->__PVT__id_inst 
+                                                           >> 0xfU)) 
+                                                       | ((0x380U 
+                                                           & (vlSelf->__PVT__id_inst 
+                                                              >> 5U)) 
+                                                          | (0x7fU 
+                                                             & vlSelf->__PVT__id_inst))))
+                                                      ? 0U
+                                                      : 
+                                                     ((0x83U 
+                                                       == 
+                                                       (0x3ffU 
+                                                        & ((0x1fc00U 
+                                                            & (vlSelf->__PVT__id_inst 
+                                                               >> 0xfU)) 
+                                                           | ((0x380U 
+                                                               & (vlSelf->__PVT__id_inst 
+                                                                  >> 5U)) 
+                                                              | (0x7fU 
+                                                                 & vlSelf->__PVT__id_inst)))))
+                                                       ? 6U
+                                                       : 
+                                                      ((0x283U 
+                                                        == 
+                                                        (0x3ffU 
+                                                         & ((0x1fc00U 
+                                                             & (vlSelf->__PVT__id_inst 
+                                                                >> 0xfU)) 
+                                                            | ((0x380U 
+                                                                & (vlSelf->__PVT__id_inst 
+                                                                   >> 5U)) 
+                                                               | (0x7fU 
+                                                                  & vlSelf->__PVT__id_inst)))))
+                                                        ? 2U
+                                                        : 0U))))))
+                                                  : 
+                                                 (((((((((0x9bU 
+                                                          == 
+                                                          (0x1fbffU 
+                                                           & ((0x1fc00U 
+                                                               & (vlSelf->__PVT__id_inst 
+                                                                  >> 0xfU)) 
+                                                              | ((0x380U 
+                                                                  & (vlSelf->__PVT__id_inst 
+                                                                     >> 5U)) 
+                                                                 | (0x7fU 
+                                                                    & vlSelf->__PVT__id_inst))))) 
+                                                         | (0x829bU 
+                                                            == 
+                                                            ((0x1fc00U 
+                                                              & (vlSelf->__PVT__id_inst 
+                                                                 >> 0xfU)) 
+                                                             | ((0x380U 
+                                                                 & (vlSelf->__PVT__id_inst 
+                                                                    >> 5U)) 
+                                                                | (0x7fU 
+                                                                   & vlSelf->__PVT__id_inst))))) 
+                                                        | (0x433U 
+                                                           == 
+                                                           ((0x1fc00U 
+                                                             & (vlSelf->__PVT__id_inst 
+                                                                >> 0xfU)) 
+                                                            | ((0x380U 
+                                                                & (vlSelf->__PVT__id_inst 
+                                                                   >> 5U)) 
+                                                               | (0x7fU 
+                                                                  & vlSelf->__PVT__id_inst))))) 
+                                                       | (0x29bU 
+                                                          == 
+                                                          (0x1fbffU 
+                                                           & ((0x1fc00U 
+                                                               & (vlSelf->__PVT__id_inst 
+                                                                  >> 0xfU)) 
+                                                              | ((0x380U 
+                                                                  & (vlSelf->__PVT__id_inst 
+                                                                     >> 5U)) 
+                                                                 | (0x7fU 
+                                                                    & vlSelf->__PVT__id_inst)))))) 
+                                                      | (0x2bbU 
+                                                         == 
+                                                         ((0x1fc00U 
+                                                           & (vlSelf->__PVT__id_inst 
+                                                              >> 0xfU)) 
+                                                          | ((0x380U 
+                                                              & (vlSelf->__PVT__id_inst 
+                                                                 >> 5U)) 
+                                                             | (0x7fU 
+                                                                & vlSelf->__PVT__id_inst))))) 
+                                                     | (0x3e3U 
+                                                        == 
+                                                        (0x3ffU 
+                                                         & ((0x1fc00U 
+                                                             & (vlSelf->__PVT__id_inst 
+                                                                >> 0xfU)) 
+                                                            | ((0x380U 
+                                                                & (vlSelf->__PVT__id_inst 
+                                                                   >> 5U)) 
+                                                               | (0x7fU 
+                                                                  & vlSelf->__PVT__id_inst)))))) 
+                                                    | (0x3e3U 
+                                                       == 
+                                                       (0x3ffU 
+                                                        & ((0x1fc00U 
+                                                            & (vlSelf->__PVT__id_inst 
+                                                               >> 0xfU)) 
+                                                           | ((0x380U 
+                                                               & (vlSelf->__PVT__id_inst 
+                                                                  >> 5U)) 
+                                                              | (0x7fU 
+                                                                 & vlSelf->__PVT__id_inst)))))) 
+                                                   | (0x6b3U 
+                                                      == 
+                                                      ((0x1fc00U 
+                                                        & (vlSelf->__PVT__id_inst 
+                                                           >> 0xfU)) 
+                                                       | ((0x380U 
+                                                           & (vlSelf->__PVT__id_inst 
+                                                              >> 5U)) 
+                                                          | (0x7fU 
+                                                             & vlSelf->__PVT__id_inst)))))
+                                                   ? 0U
+                                                   : 
+                                                  ((0x7b3U 
+                                                    == 
+                                                    ((0x1fc00U 
+                                                      & (vlSelf->__PVT__id_inst 
+                                                         >> 0xfU)) 
+                                                     | ((0x380U 
+                                                         & (vlSelf->__PVT__id_inst 
+                                                            >> 5U)) 
+                                                        | (0x7fU 
+                                                           & vlSelf->__PVT__id_inst))))
+                                                    ? 0U
+                                                    : 
+                                                   ((0x6bbU 
+                                                     == 
+                                                     ((0x1fc00U 
+                                                       & (vlSelf->__PVT__id_inst 
+                                                          >> 0xfU)) 
+                                                      | ((0x380U 
+                                                          & (vlSelf->__PVT__id_inst 
+                                                             >> 5U)) 
+                                                         | (0x7fU 
+                                                            & vlSelf->__PVT__id_inst))))
+                                                     ? 0U
+                                                     : 
+                                                    ((0x233U 
+                                                      == 
+                                                      ((0x1fc00U 
+                                                        & (vlSelf->__PVT__id_inst 
+                                                           >> 0xfU)) 
+                                                       | ((0x380U 
+                                                           & (vlSelf->__PVT__id_inst 
+                                                              >> 5U)) 
+                                                          | (0x7fU 
+                                                             & vlSelf->__PVT__id_inst))))
+                                                      ? 0U
+                                                      : 
+                                                     ((3U 
+                                                       == 
+                                                       (0x3ffU 
+                                                        & ((0x1fc00U 
+                                                            & (vlSelf->__PVT__id_inst 
+                                                               >> 0xfU)) 
+                                                           | ((0x380U 
+                                                               & (vlSelf->__PVT__id_inst 
+                                                                  >> 5U)) 
+                                                              | (0x7fU 
+                                                                 & vlSelf->__PVT__id_inst)))))
+                                                       ? 7U
+                                                       : 0U))))))));
+    }
+    vlSelf->__PVT__IDU__DOT__isSext_d = ((~ (((((((
+                                                   (0x13U 
+                                                    == 
+                                                    (0x3ffU 
+                                                     & ((0x1fc00U 
+                                                         & (vlSelf->__PVT__id_inst 
+                                                            >> 0xfU)) 
+                                                        | ((0x380U 
+                                                            & (vlSelf->__PVT__id_inst 
+                                                               >> 5U)) 
+                                                           | (0x7fU 
+                                                              & vlSelf->__PVT__id_inst))))) 
+                                                   | (0x17U 
+                                                      == 
+                                                      (0x7fU 
+                                                       & ((0x1fc00U 
+                                                           & (vlSelf->__PVT__id_inst 
+                                                              >> 0xfU)) 
+                                                          | ((0x380U 
+                                                              & (vlSelf->__PVT__id_inst 
+                                                                 >> 5U)) 
+                                                             | (0x7fU 
+                                                                & vlSelf->__PVT__id_inst)))))) 
+                                                  | (0x37U 
+                                                     == 
+                                                     (0x7fU 
+                                                      & ((0x1fc00U 
+                                                          & (vlSelf->__PVT__id_inst 
+                                                             >> 0xfU)) 
+                                                         | ((0x380U 
+                                                             & (vlSelf->__PVT__id_inst 
+                                                                >> 5U)) 
+                                                            | (0x7fU 
+                                                               & vlSelf->__PVT__id_inst)))))) 
+                                                 | (0x6fU 
+                                                    == 
+                                                    (0x7fU 
+                                                     & ((0x1fc00U 
+                                                         & (vlSelf->__PVT__id_inst 
+                                                            >> 0xfU)) 
+                                                        | ((0x380U 
+                                                            & (vlSelf->__PVT__id_inst 
+                                                               >> 5U)) 
+                                                           | (0x7fU 
+                                                              & vlSelf->__PVT__id_inst)))))) 
+                                                | (0x67U 
+                                                   == 
+                                                   (0x3ffU 
+                                                    & ((0x1fc00U 
+                                                        & (vlSelf->__PVT__id_inst 
+                                                           >> 0xfU)) 
+                                                       | ((0x380U 
+                                                           & (vlSelf->__PVT__id_inst 
+                                                              >> 5U)) 
+                                                          | (0x7fU 
+                                                             & vlSelf->__PVT__id_inst)))))) 
+                                               | (0x1a3U 
+                                                  == 
+                                                  (0x3ffU 
+                                                   & ((0x1fc00U 
+                                                       & (vlSelf->__PVT__id_inst 
+                                                          >> 0xfU)) 
+                                                      | ((0x380U 
+                                                          & (vlSelf->__PVT__id_inst 
+                                                             >> 5U)) 
+                                                         | (0x7fU 
+                                                            & vlSelf->__PVT__id_inst)))))) 
+                                              | (0x183U 
+                                                 == 
+                                                 (0x3ffU 
+                                                  & ((0x1fc00U 
+                                                      & (vlSelf->__PVT__id_inst 
+                                                         >> 0xfU)) 
+                                                     | ((0x380U 
+                                                         & (vlSelf->__PVT__id_inst 
+                                                            >> 5U)) 
+                                                        | (0x7fU 
+                                                           & vlSelf->__PVT__id_inst)))))) 
+                                             | (0x33U 
+                                                == 
+                                                ((0x1fc00U 
+                                                  & (vlSelf->__PVT__id_inst 
+                                                     >> 0xfU)) 
+                                                 | ((0x380U 
+                                                     & (vlSelf->__PVT__id_inst 
+                                                        >> 5U)) 
+                                                    | (0x7fU 
+                                                       & vlSelf->__PVT__id_inst)))))) 
+                                         & (((((((((0x8033U 
+                                                    == 
+                                                    ((0x1fc00U 
+                                                      & (vlSelf->__PVT__id_inst 
+                                                         >> 0xfU)) 
+                                                     | ((0x380U 
+                                                         & (vlSelf->__PVT__id_inst 
+                                                            >> 5U)) 
+                                                        | (0x7fU 
+                                                           & vlSelf->__PVT__id_inst)))) 
+                                                   | (0x193U 
+                                                      == 
+                                                      (0x3ffU 
+                                                       & ((0x1fc00U 
+                                                           & (vlSelf->__PVT__id_inst 
+                                                              >> 0xfU)) 
+                                                          | ((0x380U 
+                                                              & (vlSelf->__PVT__id_inst 
+                                                                 >> 5U)) 
+                                                             | (0x7fU 
+                                                                & vlSelf->__PVT__id_inst)))))) 
+                                                  | (0x63U 
+                                                     == 
+                                                     (0x3ffU 
+                                                      & ((0x1fc00U 
+                                                          & (vlSelf->__PVT__id_inst 
+                                                             >> 0xfU)) 
+                                                         | ((0x380U 
+                                                             & (vlSelf->__PVT__id_inst 
+                                                                >> 5U)) 
+                                                            | (0x7fU 
+                                                               & vlSelf->__PVT__id_inst)))))) 
+                                                 | (0xe3U 
+                                                    == 
+                                                    (0x3ffU 
+                                                     & ((0x1fc00U 
+                                                         & (vlSelf->__PVT__id_inst 
+                                                            >> 0xfU)) 
+                                                        | ((0x380U 
+                                                            & (vlSelf->__PVT__id_inst 
+                                                               >> 5U)) 
+                                                           | (0x7fU 
+                                                              & vlSelf->__PVT__id_inst)))))) 
+                                                | (0x103U 
+                                                   == 
+                                                   (0x3ffU 
+                                                    & ((0x1fc00U 
+                                                        & (vlSelf->__PVT__id_inst 
+                                                           >> 0xfU)) 
+                                                       | ((0x380U 
+                                                           & (vlSelf->__PVT__id_inst 
+                                                              >> 5U)) 
+                                                          | (0x7fU 
+                                                             & vlSelf->__PVT__id_inst)))))) 
+                                               | (0x303U 
+                                                  == 
+                                                  (0x3ffU 
+                                                   & ((0x1fc00U 
+                                                       & (vlSelf->__PVT__id_inst 
+                                                          >> 0xfU)) 
+                                                      | ((0x380U 
+                                                          & (vlSelf->__PVT__id_inst 
+                                                             >> 5U)) 
+                                                         | (0x7fU 
+                                                            & vlSelf->__PVT__id_inst)))))) 
+                                              | (0x3bU 
+                                                 == 
+                                                 ((0x1fc00U 
+                                                   & (vlSelf->__PVT__id_inst 
+                                                      >> 0xfU)) 
+                                                  | ((0x380U 
+                                                      & (vlSelf->__PVT__id_inst 
+                                                         >> 5U)) 
+                                                     | (0x7fU 
+                                                        & vlSelf->__PVT__id_inst))))) 
+                                             | (0xa3U 
+                                                == 
+                                                (0x3ffU 
+                                                 & ((0x1fc00U 
+                                                     & (vlSelf->__PVT__id_inst 
+                                                        >> 0xfU)) 
+                                                    | ((0x380U 
+                                                        & (vlSelf->__PVT__id_inst 
+                                                           >> 5U)) 
+                                                       | (0x7fU 
+                                                          & vlSelf->__PVT__id_inst))))))
+                                             ? ((0x8033U 
+                                                 != 
+                                                 ((0x1fc00U 
+                                                   & (vlSelf->__PVT__id_inst 
+                                                      >> 0xfU)) 
+                                                  | ((0x380U 
+                                                      & (vlSelf->__PVT__id_inst 
+                                                         >> 5U)) 
+                                                     | (0x7fU 
+                                                        & vlSelf->__PVT__id_inst)))) 
+                                                & ((0x193U 
+                                                    != 
+                                                    (0x3ffU 
+                                                     & ((0x1fc00U 
+                                                         & (vlSelf->__PVT__id_inst 
+                                                            >> 0xfU)) 
+                                                        | ((0x380U 
+                                                            & (vlSelf->__PVT__id_inst 
+                                                               >> 5U)) 
+                                                           | (0x7fU 
+                                                              & vlSelf->__PVT__id_inst))))) 
+                                                   & ((0x63U 
+                                                       != 
+                                                       (0x3ffU 
+                                                        & ((0x1fc00U 
+                                                            & (vlSelf->__PVT__id_inst 
+                                                               >> 0xfU)) 
+                                                           | ((0x380U 
+                                                               & (vlSelf->__PVT__id_inst 
+                                                                  >> 5U)) 
+                                                              | (0x7fU 
+                                                                 & vlSelf->__PVT__id_inst))))) 
+                                                      & ((0xe3U 
+                                                          != 
+                                                          (0x3ffU 
+                                                           & ((0x1fc00U 
+                                                               & (vlSelf->__PVT__id_inst 
+                                                                  >> 0xfU)) 
+                                                              | ((0x380U 
+                                                                  & (vlSelf->__PVT__id_inst 
+                                                                     >> 5U)) 
+                                                                 | (0x7fU 
+                                                                    & vlSelf->__PVT__id_inst))))) 
+                                                         & ((0x103U 
+                                                             != 
+                                                             (0x3ffU 
+                                                              & ((0x1fc00U 
+                                                                  & (vlSelf->__PVT__id_inst 
+                                                                     >> 0xfU)) 
+                                                                 | ((0x380U 
+                                                                     & (vlSelf->__PVT__id_inst 
+                                                                        >> 5U)) 
+                                                                    | (0x7fU 
+                                                                       & vlSelf->__PVT__id_inst))))) 
+                                                            & ((0x303U 
+                                                                != 
+                                                                (0x3ffU 
+                                                                 & ((0x1fc00U 
+                                                                     & (vlSelf->__PVT__id_inst 
+                                                                        >> 0xfU)) 
+                                                                    | ((0x380U 
+                                                                        & (vlSelf->__PVT__id_inst 
+                                                                           >> 5U)) 
+                                                                       | (0x7fU 
+                                                                          & vlSelf->__PVT__id_inst))))) 
+                                                               & (0x3bU 
+                                                                  == 
+                                                                  ((0x1fc00U 
+                                                                    & (vlSelf->__PVT__id_inst 
+                                                                       >> 0xfU)) 
+                                                                   | ((0x380U 
+                                                                       & (vlSelf->__PVT__id_inst 
+                                                                          >> 5U)) 
+                                                                      | (0x7fU 
+                                                                         & vlSelf->__PVT__id_inst))))))))))
+                                             : ((((
+                                                   (((((0x8293U 
+                                                        == 
+                                                        (0x1fbffU 
+                                                         & ((0x1fc00U 
+                                                             & (vlSelf->__PVT__id_inst 
+                                                                >> 0xfU)) 
+                                                            | ((0x380U 
+                                                                & (vlSelf->__PVT__id_inst 
+                                                                   >> 5U)) 
+                                                               | (0x7fU 
+                                                                  & vlSelf->__PVT__id_inst))))) 
+                                                       | (0x203U 
+                                                          == 
+                                                          (0x3ffU 
+                                                           & ((0x1fc00U 
+                                                               & (vlSelf->__PVT__id_inst 
+                                                                  >> 0xfU)) 
+                                                              | ((0x380U 
+                                                                  & (vlSelf->__PVT__id_inst 
+                                                                     >> 5U)) 
+                                                                 | (0x7fU 
+                                                                    & vlSelf->__PVT__id_inst)))))) 
+                                                      | (0x393U 
+                                                         == 
+                                                         (0x3ffU 
+                                                          & ((0x1fc00U 
+                                                              & (vlSelf->__PVT__id_inst 
+                                                                 >> 0xfU)) 
+                                                             | ((0x380U 
+                                                                 & (vlSelf->__PVT__id_inst 
+                                                                    >> 5U)) 
+                                                                | (0x7fU 
+                                                                   & vlSelf->__PVT__id_inst)))))) 
+                                                     | (0xbbU 
+                                                        == 
+                                                        ((0x1fc00U 
+                                                          & (vlSelf->__PVT__id_inst 
+                                                             >> 0xfU)) 
+                                                         | ((0x380U 
+                                                             & (vlSelf->__PVT__id_inst 
+                                                                >> 5U)) 
+                                                            | (0x7fU 
+                                                               & vlSelf->__PVT__id_inst))))) 
+                                                    | (0x3b3U 
+                                                       == 
+                                                       ((0x1fc00U 
+                                                         & (vlSelf->__PVT__id_inst 
+                                                            >> 0xfU)) 
+                                                        | ((0x380U 
+                                                            & (vlSelf->__PVT__id_inst 
+                                                               >> 5U)) 
+                                                           | (0x7fU 
+                                                              & vlSelf->__PVT__id_inst))))) 
+                                                   | (0x1b3U 
+                                                      == 
+                                                      ((0x1fc00U 
+                                                        & (vlSelf->__PVT__id_inst 
+                                                           >> 0xfU)) 
+                                                       | ((0x380U 
+                                                           & (vlSelf->__PVT__id_inst 
+                                                              >> 5U)) 
+                                                          | (0x7fU 
+                                                             & vlSelf->__PVT__id_inst))))) 
+                                                  | (0x213U 
+                                                     == 
+                                                     (0x3ffU 
+                                                      & ((0x1fc00U 
+                                                          & (vlSelf->__PVT__id_inst 
+                                                             >> 0xfU)) 
+                                                         | ((0x380U 
+                                                             & (vlSelf->__PVT__id_inst 
+                                                                >> 5U)) 
+                                                            | (0x7fU 
+                                                               & vlSelf->__PVT__id_inst)))))) 
+                                                 | (0x82bbU 
+                                                    == 
+                                                    ((0x1fc00U 
+                                                      & (vlSelf->__PVT__id_inst 
+                                                         >> 0xfU)) 
+                                                     | ((0x380U 
+                                                         & (vlSelf->__PVT__id_inst 
+                                                            >> 5U)) 
+                                                        | (0x7fU 
+                                                           & vlSelf->__PVT__id_inst)))))
+                                                 ? 
+                                                ((0x8293U 
+                                                  != 
+                                                  (0x1fbffU 
+                                                   & ((0x1fc00U 
+                                                       & (vlSelf->__PVT__id_inst 
+                                                          >> 0xfU)) 
+                                                      | ((0x380U 
+                                                          & (vlSelf->__PVT__id_inst 
+                                                             >> 5U)) 
+                                                         | (0x7fU 
+                                                            & vlSelf->__PVT__id_inst))))) 
+                                                 & ((0x203U 
+                                                     != 
+                                                     (0x3ffU 
+                                                      & ((0x1fc00U 
+                                                          & (vlSelf->__PVT__id_inst 
+                                                             >> 0xfU)) 
+                                                         | ((0x380U 
+                                                             & (vlSelf->__PVT__id_inst 
+                                                                >> 5U)) 
+                                                            | (0x7fU 
+                                                               & vlSelf->__PVT__id_inst))))) 
+                                                    & ((0x393U 
+                                                        != 
+                                                        (0x3ffU 
+                                                         & ((0x1fc00U 
+                                                             & (vlSelf->__PVT__id_inst 
+                                                                >> 0xfU)) 
+                                                            | ((0x380U 
+                                                                & (vlSelf->__PVT__id_inst 
+                                                                   >> 5U)) 
+                                                               | (0x7fU 
+                                                                  & vlSelf->__PVT__id_inst))))) 
+                                                       & ((0xbbU 
+                                                           == 
+                                                           ((0x1fc00U 
+                                                             & (vlSelf->__PVT__id_inst 
+                                                                >> 0xfU)) 
+                                                            | ((0x380U 
+                                                                & (vlSelf->__PVT__id_inst 
+                                                                   >> 5U)) 
+                                                               | (0x7fU 
+                                                                  & vlSelf->__PVT__id_inst)))) 
+                                                          | ((0x3b3U 
+                                                              != 
+                                                              ((0x1fc00U 
+                                                                & (vlSelf->__PVT__id_inst 
+                                                                   >> 0xfU)) 
+                                                               | ((0x380U 
+                                                                   & (vlSelf->__PVT__id_inst 
+                                                                      >> 5U)) 
+                                                                  | (0x7fU 
+                                                                     & vlSelf->__PVT__id_inst)))) 
+                                                             & ((0x1b3U 
+                                                                 != 
+                                                                 ((0x1fc00U 
+                                                                   & (vlSelf->__PVT__id_inst 
+                                                                      >> 0xfU)) 
+                                                                  | ((0x380U 
+                                                                      & (vlSelf->__PVT__id_inst 
+                                                                         >> 5U)) 
+                                                                     | (0x7fU 
+                                                                        & vlSelf->__PVT__id_inst)))) 
+                                                                & (0x213U 
+                                                                   != 
+                                                                   (0x3ffU 
+                                                                    & ((0x1fc00U 
+                                                                        & (vlSelf->__PVT__id_inst 
+                                                                           >> 0xfU)) 
+                                                                       | ((0x380U 
+                                                                           & (vlSelf->__PVT__id_inst 
+                                                                              >> 5U)) 
+                                                                          | (0x7fU 
+                                                                             & vlSelf->__PVT__id_inst)))))))))))
+                                                 : 
+                                                (((((((((0x333U 
+                                                         == 
+                                                         ((0x1fc00U 
+                                                           & (vlSelf->__PVT__id_inst 
+                                                              >> 0xfU)) 
+                                                          | ((0x380U 
+                                                              & (vlSelf->__PVT__id_inst 
+                                                                 >> 5U)) 
+                                                             | (0x7fU 
+                                                                & vlSelf->__PVT__id_inst)))) 
+                                                        | (0x23U 
+                                                           == 
+                                                           (0x3ffU 
+                                                            & ((0x1fc00U 
+                                                                & (vlSelf->__PVT__id_inst 
+                                                                   >> 0xfU)) 
+                                                               | ((0x380U 
+                                                                   & (vlSelf->__PVT__id_inst 
+                                                                      >> 5U)) 
+                                                                  | (0x7fU 
+                                                                     & vlSelf->__PVT__id_inst)))))) 
+                                                       | (0x1bU 
+                                                          == 
+                                                          (0x3ffU 
+                                                           & ((0x1fc00U 
+                                                               & (vlSelf->__PVT__id_inst 
+                                                                  >> 0xfU)) 
+                                                              | ((0x380U 
+                                                                  & (vlSelf->__PVT__id_inst 
+                                                                     >> 5U)) 
+                                                                 | (0x7fU 
+                                                                    & vlSelf->__PVT__id_inst)))))) 
+                                                      | (0x2e3U 
+                                                         == 
+                                                         (0x3ffU 
+                                                          & ((0x1fc00U 
+                                                              & (vlSelf->__PVT__id_inst 
+                                                                 >> 0xfU)) 
+                                                             | ((0x380U 
+                                                                 & (vlSelf->__PVT__id_inst 
+                                                                    >> 5U)) 
+                                                                | (0x7fU 
+                                                                   & vlSelf->__PVT__id_inst)))))) 
+                                                     | (0x263U 
+                                                        == 
+                                                        (0x3ffU 
+                                                         & ((0x1fc00U 
+                                                             & (vlSelf->__PVT__id_inst 
+                                                                >> 0xfU)) 
+                                                            | ((0x380U 
+                                                                & (vlSelf->__PVT__id_inst 
+                                                                   >> 5U)) 
+                                                               | (0x7fU 
+                                                                  & vlSelf->__PVT__id_inst)))))) 
+                                                    | (0x123U 
+                                                       == 
+                                                       (0x3ffU 
+                                                        & ((0x1fc00U 
+                                                            & (vlSelf->__PVT__id_inst 
+                                                               >> 0xfU)) 
+                                                           | ((0x380U 
+                                                               & (vlSelf->__PVT__id_inst 
+                                                                  >> 5U)) 
+                                                              | (0x7fU 
+                                                                 & vlSelf->__PVT__id_inst)))))) 
+                                                   | (0x43bU 
+                                                      == 
+                                                      ((0x1fc00U 
+                                                        & (vlSelf->__PVT__id_inst 
+                                                           >> 0xfU)) 
+                                                       | ((0x380U 
+                                                           & (vlSelf->__PVT__id_inst 
+                                                              >> 5U)) 
+                                                          | (0x7fU 
+                                                             & vlSelf->__PVT__id_inst))))) 
+                                                  | (0x63bU 
+                                                     == 
+                                                     ((0x1fc00U 
+                                                       & (vlSelf->__PVT__id_inst 
+                                                          >> 0xfU)) 
+                                                      | ((0x380U 
+                                                          & (vlSelf->__PVT__id_inst 
+                                                             >> 5U)) 
+                                                         | (0x7fU 
+                                                            & vlSelf->__PVT__id_inst)))))
+                                                  ? 
+                                                 ((0x333U 
+                                                   != 
+                                                   ((0x1fc00U 
+                                                     & (vlSelf->__PVT__id_inst 
+                                                        >> 0xfU)) 
+                                                    | ((0x380U 
+                                                        & (vlSelf->__PVT__id_inst 
+                                                           >> 5U)) 
+                                                       | (0x7fU 
+                                                          & vlSelf->__PVT__id_inst)))) 
+                                                  & ((0x23U 
+                                                      != 
+                                                      (0x3ffU 
+                                                       & ((0x1fc00U 
+                                                           & (vlSelf->__PVT__id_inst 
+                                                              >> 0xfU)) 
+                                                          | ((0x380U 
+                                                              & (vlSelf->__PVT__id_inst 
+                                                                 >> 5U)) 
+                                                             | (0x7fU 
+                                                                & vlSelf->__PVT__id_inst))))) 
+                                                     & ((0x1bU 
+                                                         == 
+                                                         (0x3ffU 
+                                                          & ((0x1fc00U 
+                                                              & (vlSelf->__PVT__id_inst 
+                                                                 >> 0xfU)) 
+                                                             | ((0x380U 
+                                                                 & (vlSelf->__PVT__id_inst 
+                                                                    >> 5U)) 
+                                                                | (0x7fU 
+                                                                   & vlSelf->__PVT__id_inst))))) 
+                                                        | ((0x2e3U 
+                                                            != 
+                                                            (0x3ffU 
+                                                             & ((0x1fc00U 
+                                                                 & (vlSelf->__PVT__id_inst 
+                                                                    >> 0xfU)) 
+                                                                | ((0x380U 
+                                                                    & (vlSelf->__PVT__id_inst 
+                                                                       >> 5U)) 
+                                                                   | (0x7fU 
+                                                                      & vlSelf->__PVT__id_inst))))) 
+                                                           & ((0x263U 
+                                                               != 
+                                                               (0x3ffU 
+                                                                & ((0x1fc00U 
+                                                                    & (vlSelf->__PVT__id_inst 
+                                                                       >> 0xfU)) 
+                                                                   | ((0x380U 
+                                                                       & (vlSelf->__PVT__id_inst 
+                                                                          >> 5U)) 
+                                                                      | (0x7fU 
+                                                                         & vlSelf->__PVT__id_inst))))) 
+                                                              & (0x123U 
+                                                                 != 
+                                                                 (0x3ffU 
+                                                                  & ((0x1fc00U 
+                                                                      & (vlSelf->__PVT__id_inst 
+                                                                         >> 0xfU)) 
+                                                                     | ((0x380U 
+                                                                         & (vlSelf->__PVT__id_inst 
+                                                                            >> 5U)) 
+                                                                        | (0x7fU 
+                                                                           & vlSelf->__PVT__id_inst))))))))))
+                                                  : 
+                                                 (((((((((0x803bU 
+                                                          == 
+                                                          ((0x1fc00U 
+                                                            & (vlSelf->__PVT__id_inst 
+                                                               >> 0xfU)) 
+                                                           | ((0x380U 
+                                                               & (vlSelf->__PVT__id_inst 
+                                                                  >> 5U)) 
+                                                              | (0x7fU 
+                                                                 & vlSelf->__PVT__id_inst)))) 
+                                                         | (0x73bU 
+                                                            == 
+                                                            ((0x1fc00U 
+                                                              & (vlSelf->__PVT__id_inst 
+                                                                 >> 0xfU)) 
+                                                             | ((0x380U 
+                                                                 & (vlSelf->__PVT__id_inst 
+                                                                    >> 5U)) 
+                                                                | (0x7fU 
+                                                                   & vlSelf->__PVT__id_inst))))) 
+                                                        | (0x363U 
+                                                           == 
+                                                           (0x3ffU 
+                                                            & ((0x1fc00U 
+                                                                & (vlSelf->__PVT__id_inst 
+                                                                   >> 0xfU)) 
+                                                               | ((0x380U 
+                                                                   & (vlSelf->__PVT__id_inst 
+                                                                      >> 5U)) 
+                                                                  | (0x7fU 
+                                                                     & vlSelf->__PVT__id_inst)))))) 
+                                                       | (0x133U 
+                                                          == 
+                                                          ((0x1fc00U 
+                                                            & (vlSelf->__PVT__id_inst 
+                                                               >> 0xfU)) 
+                                                           | ((0x380U 
+                                                               & (vlSelf->__PVT__id_inst 
+                                                                  >> 5U)) 
+                                                              | (0x7fU 
+                                                                 & vlSelf->__PVT__id_inst))))) 
+                                                      | (0x83U 
+                                                         == 
+                                                         (0x3ffU 
+                                                          & ((0x1fc00U 
+                                                              & (vlSelf->__PVT__id_inst 
+                                                                 >> 0xfU)) 
+                                                             | ((0x380U 
+                                                                 & (vlSelf->__PVT__id_inst 
+                                                                    >> 5U)) 
+                                                                | (0x7fU 
+                                                                   & vlSelf->__PVT__id_inst)))))) 
+                                                     | (0x283U 
+                                                        == 
+                                                        (0x3ffU 
+                                                         & ((0x1fc00U 
+                                                             & (vlSelf->__PVT__id_inst 
+                                                                >> 0xfU)) 
+                                                            | ((0x380U 
+                                                                & (vlSelf->__PVT__id_inst 
+                                                                   >> 5U)) 
+                                                               | (0x7fU 
+                                                                  & vlSelf->__PVT__id_inst)))))) 
+                                                    | (0x93U 
+                                                       == 
+                                                       (0x1fbffU 
+                                                        & ((0x1fc00U 
+                                                            & (vlSelf->__PVT__id_inst 
+                                                               >> 0xfU)) 
+                                                           | ((0x380U 
+                                                               & (vlSelf->__PVT__id_inst 
+                                                                  >> 5U)) 
+                                                              | (0x7fU 
+                                                                 & vlSelf->__PVT__id_inst)))))) 
+                                                   | (0x293U 
+                                                      == 
+                                                      (0x1fbffU 
+                                                       & ((0x1fc00U 
+                                                           & (vlSelf->__PVT__id_inst 
+                                                              >> 0xfU)) 
+                                                          | ((0x380U 
+                                                              & (vlSelf->__PVT__id_inst 
+                                                                 >> 5U)) 
+                                                             | (0x7fU 
+                                                                & vlSelf->__PVT__id_inst))))))
+                                                   ? 
+                                                  ((0x803bU 
+                                                    == 
+                                                    ((0x1fc00U 
+                                                      & (vlSelf->__PVT__id_inst 
+                                                         >> 0xfU)) 
+                                                     | ((0x380U 
+                                                         & (vlSelf->__PVT__id_inst 
+                                                            >> 5U)) 
+                                                        | (0x7fU 
+                                                           & vlSelf->__PVT__id_inst)))) 
+                                                   | (0x73bU 
+                                                      == 
+                                                      ((0x1fc00U 
+                                                        & (vlSelf->__PVT__id_inst 
+                                                           >> 0xfU)) 
+                                                       | ((0x380U 
+                                                           & (vlSelf->__PVT__id_inst 
+                                                              >> 5U)) 
+                                                          | (0x7fU 
+                                                             & vlSelf->__PVT__id_inst)))))
+                                                   : 
+                                                  (((((((((0x9bU 
+                                                           == 
+                                                           (0x1fbffU 
+                                                            & ((0x1fc00U 
+                                                                & (vlSelf->__PVT__id_inst 
+                                                                   >> 0xfU)) 
+                                                               | ((0x380U 
+                                                                   & (vlSelf->__PVT__id_inst 
+                                                                      >> 5U)) 
+                                                                  | (0x7fU 
+                                                                     & vlSelf->__PVT__id_inst))))) 
+                                                          | (0x829bU 
+                                                             == 
+                                                             ((0x1fc00U 
+                                                               & (vlSelf->__PVT__id_inst 
+                                                                  >> 0xfU)) 
+                                                              | ((0x380U 
+                                                                  & (vlSelf->__PVT__id_inst 
+                                                                     >> 5U)) 
+                                                                 | (0x7fU 
+                                                                    & vlSelf->__PVT__id_inst))))) 
+                                                         | (0x433U 
+                                                            == 
+                                                            ((0x1fc00U 
+                                                              & (vlSelf->__PVT__id_inst 
+                                                                 >> 0xfU)) 
+                                                             | ((0x380U 
+                                                                 & (vlSelf->__PVT__id_inst 
+                                                                    >> 5U)) 
+                                                                | (0x7fU 
+                                                                   & vlSelf->__PVT__id_inst))))) 
+                                                        | (0x29bU 
+                                                           == 
+                                                           (0x1fbffU 
+                                                            & ((0x1fc00U 
+                                                                & (vlSelf->__PVT__id_inst 
+                                                                   >> 0xfU)) 
+                                                               | ((0x380U 
+                                                                   & (vlSelf->__PVT__id_inst 
+                                                                      >> 5U)) 
+                                                                  | (0x7fU 
+                                                                     & vlSelf->__PVT__id_inst)))))) 
+                                                       | (0x2bbU 
+                                                          == 
+                                                          ((0x1fc00U 
+                                                            & (vlSelf->__PVT__id_inst 
+                                                               >> 0xfU)) 
+                                                           | ((0x380U 
+                                                               & (vlSelf->__PVT__id_inst 
+                                                                  >> 5U)) 
+                                                              | (0x7fU 
+                                                                 & vlSelf->__PVT__id_inst))))) 
+                                                      | (0x3e3U 
+                                                         == 
+                                                         (0x3ffU 
+                                                          & ((0x1fc00U 
+                                                              & (vlSelf->__PVT__id_inst 
+                                                                 >> 0xfU)) 
+                                                             | ((0x380U 
+                                                                 & (vlSelf->__PVT__id_inst 
+                                                                    >> 5U)) 
+                                                                | (0x7fU 
+                                                                   & vlSelf->__PVT__id_inst)))))) 
+                                                     | (0x3e3U 
+                                                        == 
+                                                        (0x3ffU 
+                                                         & ((0x1fc00U 
+                                                             & (vlSelf->__PVT__id_inst 
+                                                                >> 0xfU)) 
+                                                            | ((0x380U 
+                                                                & (vlSelf->__PVT__id_inst 
+                                                                   >> 5U)) 
+                                                               | (0x7fU 
+                                                                  & vlSelf->__PVT__id_inst)))))) 
+                                                    | (0x6b3U 
+                                                       == 
+                                                       ((0x1fc00U 
+                                                         & (vlSelf->__PVT__id_inst 
+                                                            >> 0xfU)) 
+                                                        | ((0x380U 
+                                                            & (vlSelf->__PVT__id_inst 
+                                                               >> 5U)) 
+                                                           | (0x7fU 
+                                                              & vlSelf->__PVT__id_inst)))))
+                                                    ? 
+                                                   ((0x9bU 
+                                                     == 
+                                                     (0x1fbffU 
+                                                      & ((0x1fc00U 
+                                                          & (vlSelf->__PVT__id_inst 
+                                                             >> 0xfU)) 
+                                                         | ((0x380U 
+                                                             & (vlSelf->__PVT__id_inst 
+                                                                >> 5U)) 
+                                                            | (0x7fU 
+                                                               & vlSelf->__PVT__id_inst))))) 
+                                                    | ((0x829bU 
+                                                        == 
+                                                        ((0x1fc00U 
+                                                          & (vlSelf->__PVT__id_inst 
+                                                             >> 0xfU)) 
+                                                         | ((0x380U 
+                                                             & (vlSelf->__PVT__id_inst 
+                                                                >> 5U)) 
+                                                            | (0x7fU 
+                                                               & vlSelf->__PVT__id_inst)))) 
+                                                       | ((0x433U 
+                                                           != 
+                                                           ((0x1fc00U 
+                                                             & (vlSelf->__PVT__id_inst 
+                                                                >> 0xfU)) 
+                                                            | ((0x380U 
+                                                                & (vlSelf->__PVT__id_inst 
+                                                                   >> 5U)) 
+                                                               | (0x7fU 
+                                                                  & vlSelf->__PVT__id_inst)))) 
+                                                          & ((0x29bU 
+                                                              == 
+                                                              (0x1fbffU 
+                                                               & ((0x1fc00U 
+                                                                   & (vlSelf->__PVT__id_inst 
+                                                                      >> 0xfU)) 
+                                                                  | ((0x380U 
+                                                                      & (vlSelf->__PVT__id_inst 
+                                                                         >> 5U)) 
+                                                                     | (0x7fU 
+                                                                        & vlSelf->__PVT__id_inst))))) 
+                                                             | (0x2bbU 
+                                                                == 
+                                                                ((0x1fc00U 
+                                                                  & (vlSelf->__PVT__id_inst 
+                                                                     >> 0xfU)) 
+                                                                 | ((0x380U 
+                                                                     & (vlSelf->__PVT__id_inst 
+                                                                        >> 5U)) 
+                                                                    | (0x7fU 
+                                                                       & vlSelf->__PVT__id_inst))))))))
+                                                    : 
+                                                   ((0x7b3U 
+                                                     != 
+                                                     ((0x1fc00U 
+                                                       & (vlSelf->__PVT__id_inst 
+                                                          >> 0xfU)) 
+                                                      | ((0x380U 
+                                                          & (vlSelf->__PVT__id_inst 
+                                                             >> 5U)) 
+                                                         | (0x7fU 
+                                                            & vlSelf->__PVT__id_inst)))) 
+                                                    & (0x6bbU 
+                                                       == 
+                                                       ((0x1fc00U 
+                                                         & (vlSelf->__PVT__id_inst 
+                                                            >> 0xfU)) 
+                                                        | ((0x380U 
+                                                            & (vlSelf->__PVT__id_inst 
+                                                               >> 5U)) 
+                                                           | (0x7fU 
+                                                              & vlSelf->__PVT__id_inst)))))))))));
     vlSelf->__PVT__witf__DOT__depth_gt1__DOT__wptr_flg_nxt 
         = (1U & (~ (IData)(vlSelf->__PVT__witf__DOT__depth_gt1__DOT__wptr_flg_r)));
     vlSelf->__PVT__witf__DOT__depth_gt1__DOT__rptr_flg_nxt 
@@ -153,886 +3023,6 @@ VL_ATTR_COLD void Vtop_top___stl_sequent__TOP__top__0(Vtop_top* vlSelf) {
                                                  >> 0x14U)))) 
                    >> 0x20U));
     vlSelf->__PVT__IDU__DOT__ContrGenU__DOT__ImmGenU__DOT__isRegWr__DOT__pair_list[4U][2U] = 2U;
-    if (((((((((0x13U == (0x3ffU & ((0x1fc00U & (vlSelf->__PVT__id_inst 
-                                                 >> 0xfU)) 
-                                    | ((0x380U & (vlSelf->__PVT__id_inst 
-                                                  >> 5U)) 
-                                       | (0x7fU & vlSelf->__PVT__id_inst))))) 
-               | (0x17U == (0x7fU & ((0x1fc00U & (vlSelf->__PVT__id_inst 
-                                                  >> 0xfU)) 
-                                     | ((0x380U & (vlSelf->__PVT__id_inst 
-                                                   >> 5U)) 
-                                        | (0x7fU & vlSelf->__PVT__id_inst)))))) 
-              | (0x37U == (0x7fU & ((0x1fc00U & (vlSelf->__PVT__id_inst 
-                                                 >> 0xfU)) 
-                                    | ((0x380U & (vlSelf->__PVT__id_inst 
-                                                  >> 5U)) 
-                                       | (0x7fU & vlSelf->__PVT__id_inst)))))) 
-             | (0x6fU == (0x7fU & ((0x1fc00U & (vlSelf->__PVT__id_inst 
-                                                >> 0xfU)) 
-                                   | ((0x380U & (vlSelf->__PVT__id_inst 
-                                                 >> 5U)) 
-                                      | (0x7fU & vlSelf->__PVT__id_inst)))))) 
-            | (0x67U == (0x3ffU & ((0x1fc00U & (vlSelf->__PVT__id_inst 
-                                                >> 0xfU)) 
-                                   | ((0x380U & (vlSelf->__PVT__id_inst 
-                                                 >> 5U)) 
-                                      | (0x7fU & vlSelf->__PVT__id_inst)))))) 
-           | (0x1a3U == (0x3ffU & ((0x1fc00U & (vlSelf->__PVT__id_inst 
-                                                >> 0xfU)) 
-                                   | ((0x380U & (vlSelf->__PVT__id_inst 
-                                                 >> 5U)) 
-                                      | (0x7fU & vlSelf->__PVT__id_inst)))))) 
-          | (0x183U == (0x3ffU & ((0x1fc00U & (vlSelf->__PVT__id_inst 
-                                               >> 0xfU)) 
-                                  | ((0x380U & (vlSelf->__PVT__id_inst 
-                                                >> 5U)) 
-                                     | (0x7fU & vlSelf->__PVT__id_inst)))))) 
-         | (0x33U == ((0x1fc00U & (vlSelf->__PVT__id_inst 
-                                   >> 0xfU)) | ((0x380U 
-                                                 & (vlSelf->__PVT__id_inst 
-                                                    >> 5U)) 
-                                                | (0x7fU 
-                                                   & vlSelf->__PVT__id_inst)))))) {
-        if ((0x13U == (0x3ffU & ((0x1fc00U & (vlSelf->__PVT__id_inst 
-                                              >> 0xfU)) 
-                                 | ((0x380U & (vlSelf->__PVT__id_inst 
-                                               >> 5U)) 
-                                    | (0x7fU & vlSelf->__PVT__id_inst)))))) {
-            vlSelf->__PVT__IDU__DOT__MemWr_d = 0U;
-            vlSelf->__PVT__IDU__DOT__MemOP_d = 0U;
-            vlSelf->__PVT__IDU__DOT__isTuncate_d = 0U;
-            vlSelf->__PVT__IDU__DOT__isSext_d = 0U;
-        } else if ((0x17U == (0x7fU & ((0x1fc00U & 
-                                        (vlSelf->__PVT__id_inst 
-                                         >> 0xfU)) 
-                                       | ((0x380U & 
-                                           (vlSelf->__PVT__id_inst 
-                                            >> 5U)) 
-                                          | (0x7fU 
-                                             & vlSelf->__PVT__id_inst)))))) {
-            vlSelf->__PVT__IDU__DOT__MemWr_d = 0U;
-            vlSelf->__PVT__IDU__DOT__MemOP_d = 0U;
-            vlSelf->__PVT__IDU__DOT__isTuncate_d = 0U;
-            vlSelf->__PVT__IDU__DOT__isSext_d = 0U;
-        } else if ((0x37U == (0x7fU & ((0x1fc00U & 
-                                        (vlSelf->__PVT__id_inst 
-                                         >> 0xfU)) 
-                                       | ((0x380U & 
-                                           (vlSelf->__PVT__id_inst 
-                                            >> 5U)) 
-                                          | (0x7fU 
-                                             & vlSelf->__PVT__id_inst)))))) {
-            vlSelf->__PVT__IDU__DOT__MemWr_d = 0U;
-            vlSelf->__PVT__IDU__DOT__MemOP_d = 0U;
-            vlSelf->__PVT__IDU__DOT__isTuncate_d = 0U;
-            vlSelf->__PVT__IDU__DOT__isSext_d = 0U;
-        } else if ((0x6fU == (0x7fU & ((0x1fc00U & 
-                                        (vlSelf->__PVT__id_inst 
-                                         >> 0xfU)) 
-                                       | ((0x380U & 
-                                           (vlSelf->__PVT__id_inst 
-                                            >> 5U)) 
-                                          | (0x7fU 
-                                             & vlSelf->__PVT__id_inst)))))) {
-            vlSelf->__PVT__IDU__DOT__MemWr_d = 0U;
-            vlSelf->__PVT__IDU__DOT__MemOP_d = 0U;
-            vlSelf->__PVT__IDU__DOT__isTuncate_d = 0U;
-            vlSelf->__PVT__IDU__DOT__isSext_d = 0U;
-        } else if ((0x67U == (0x3ffU & ((0x1fc00U & 
-                                         (vlSelf->__PVT__id_inst 
-                                          >> 0xfU)) 
-                                        | ((0x380U 
-                                            & (vlSelf->__PVT__id_inst 
-                                               >> 5U)) 
-                                           | (0x7fU 
-                                              & vlSelf->__PVT__id_inst)))))) {
-            vlSelf->__PVT__IDU__DOT__MemWr_d = 0U;
-            vlSelf->__PVT__IDU__DOT__MemOP_d = 0U;
-            vlSelf->__PVT__IDU__DOT__isTuncate_d = 0U;
-            vlSelf->__PVT__IDU__DOT__isSext_d = 0U;
-        } else if ((0x1a3U == (0x3ffU & ((0x1fc00U 
-                                          & (vlSelf->__PVT__id_inst 
-                                             >> 0xfU)) 
-                                         | ((0x380U 
-                                             & (vlSelf->__PVT__id_inst 
-                                                >> 5U)) 
-                                            | (0x7fU 
-                                               & vlSelf->__PVT__id_inst)))))) {
-            vlSelf->__PVT__IDU__DOT__MemWr_d = 1U;
-            vlSelf->__PVT__IDU__DOT__MemOP_d = 4U;
-            vlSelf->__PVT__IDU__DOT__isTuncate_d = 0U;
-            vlSelf->__PVT__IDU__DOT__isSext_d = 0U;
-        } else if ((0x183U == (0x3ffU & ((0x1fc00U 
-                                          & (vlSelf->__PVT__id_inst 
-                                             >> 0xfU)) 
-                                         | ((0x380U 
-                                             & (vlSelf->__PVT__id_inst 
-                                                >> 5U)) 
-                                            | (0x7fU 
-                                               & vlSelf->__PVT__id_inst)))))) {
-            vlSelf->__PVT__IDU__DOT__MemWr_d = 0U;
-            vlSelf->__PVT__IDU__DOT__MemOP_d = 4U;
-            vlSelf->__PVT__IDU__DOT__isTuncate_d = 0U;
-            vlSelf->__PVT__IDU__DOT__isSext_d = 0U;
-        } else {
-            vlSelf->__PVT__IDU__DOT__MemWr_d = 0U;
-            vlSelf->__PVT__IDU__DOT__MemOP_d = 0U;
-            vlSelf->__PVT__IDU__DOT__isTuncate_d = 0U;
-            vlSelf->__PVT__IDU__DOT__isSext_d = 0U;
-        }
-    } else if (((((((((0x8033U == ((0x1fc00U & (vlSelf->__PVT__id_inst 
-                                                >> 0xfU)) 
-                                   | ((0x380U & (vlSelf->__PVT__id_inst 
-                                                 >> 5U)) 
-                                      | (0x7fU & vlSelf->__PVT__id_inst)))) 
-                      | (0x193U == (0x3ffU & ((0x1fc00U 
-                                               & (vlSelf->__PVT__id_inst 
-                                                  >> 0xfU)) 
-                                              | ((0x380U 
-                                                  & (vlSelf->__PVT__id_inst 
-                                                     >> 5U)) 
-                                                 | (0x7fU 
-                                                    & vlSelf->__PVT__id_inst)))))) 
-                     | (0x63U == (0x3ffU & ((0x1fc00U 
-                                             & (vlSelf->__PVT__id_inst 
-                                                >> 0xfU)) 
-                                            | ((0x380U 
-                                                & (vlSelf->__PVT__id_inst 
-                                                   >> 5U)) 
-                                               | (0x7fU 
-                                                  & vlSelf->__PVT__id_inst)))))) 
-                    | (0xe3U == (0x3ffU & ((0x1fc00U 
-                                            & (vlSelf->__PVT__id_inst 
-                                               >> 0xfU)) 
-                                           | ((0x380U 
-                                               & (vlSelf->__PVT__id_inst 
-                                                  >> 5U)) 
-                                              | (0x7fU 
-                                                 & vlSelf->__PVT__id_inst)))))) 
-                   | (0x103U == (0x3ffU & ((0x1fc00U 
-                                            & (vlSelf->__PVT__id_inst 
-                                               >> 0xfU)) 
-                                           | ((0x380U 
-                                               & (vlSelf->__PVT__id_inst 
-                                                  >> 5U)) 
-                                              | (0x7fU 
-                                                 & vlSelf->__PVT__id_inst)))))) 
-                  | (0x303U == (0x3ffU & ((0x1fc00U 
-                                           & (vlSelf->__PVT__id_inst 
-                                              >> 0xfU)) 
-                                          | ((0x380U 
-                                              & (vlSelf->__PVT__id_inst 
-                                                 >> 5U)) 
-                                             | (0x7fU 
-                                                & vlSelf->__PVT__id_inst)))))) 
-                 | (0x3bU == ((0x1fc00U & (vlSelf->__PVT__id_inst 
-                                           >> 0xfU)) 
-                              | ((0x380U & (vlSelf->__PVT__id_inst 
-                                            >> 5U)) 
-                                 | (0x7fU & vlSelf->__PVT__id_inst))))) 
-                | (0xa3U == (0x3ffU & ((0x1fc00U & 
-                                        (vlSelf->__PVT__id_inst 
-                                         >> 0xfU)) 
-                                       | ((0x380U & 
-                                           (vlSelf->__PVT__id_inst 
-                                            >> 5U)) 
-                                          | (0x7fU 
-                                             & vlSelf->__PVT__id_inst))))))) {
-        if ((0x8033U == ((0x1fc00U & (vlSelf->__PVT__id_inst 
-                                      >> 0xfU)) | (
-                                                   (0x380U 
-                                                    & (vlSelf->__PVT__id_inst 
-                                                       >> 5U)) 
-                                                   | (0x7fU 
-                                                      & vlSelf->__PVT__id_inst))))) {
-            vlSelf->__PVT__IDU__DOT__MemWr_d = 0U;
-            vlSelf->__PVT__IDU__DOT__MemOP_d = 0U;
-            vlSelf->__PVT__IDU__DOT__isTuncate_d = 0U;
-            vlSelf->__PVT__IDU__DOT__isSext_d = 0U;
-        } else if ((0x193U == (0x3ffU & ((0x1fc00U 
-                                          & (vlSelf->__PVT__id_inst 
-                                             >> 0xfU)) 
-                                         | ((0x380U 
-                                             & (vlSelf->__PVT__id_inst 
-                                                >> 5U)) 
-                                            | (0x7fU 
-                                               & vlSelf->__PVT__id_inst)))))) {
-            vlSelf->__PVT__IDU__DOT__MemWr_d = 0U;
-            vlSelf->__PVT__IDU__DOT__MemOP_d = 0U;
-            vlSelf->__PVT__IDU__DOT__isTuncate_d = 0U;
-            vlSelf->__PVT__IDU__DOT__isSext_d = 0U;
-        } else if ((0x63U == (0x3ffU & ((0x1fc00U & 
-                                         (vlSelf->__PVT__id_inst 
-                                          >> 0xfU)) 
-                                        | ((0x380U 
-                                            & (vlSelf->__PVT__id_inst 
-                                               >> 5U)) 
-                                           | (0x7fU 
-                                              & vlSelf->__PVT__id_inst)))))) {
-            vlSelf->__PVT__IDU__DOT__MemWr_d = 0U;
-            vlSelf->__PVT__IDU__DOT__MemOP_d = 0U;
-            vlSelf->__PVT__IDU__DOT__isTuncate_d = 0U;
-            vlSelf->__PVT__IDU__DOT__isSext_d = 0U;
-        } else if ((0xe3U == (0x3ffU & ((0x1fc00U & 
-                                         (vlSelf->__PVT__id_inst 
-                                          >> 0xfU)) 
-                                        | ((0x380U 
-                                            & (vlSelf->__PVT__id_inst 
-                                               >> 5U)) 
-                                           | (0x7fU 
-                                              & vlSelf->__PVT__id_inst)))))) {
-            vlSelf->__PVT__IDU__DOT__MemWr_d = 0U;
-            vlSelf->__PVT__IDU__DOT__MemOP_d = 0U;
-            vlSelf->__PVT__IDU__DOT__isTuncate_d = 0U;
-            vlSelf->__PVT__IDU__DOT__isSext_d = 0U;
-        } else if ((0x103U == (0x3ffU & ((0x1fc00U 
-                                          & (vlSelf->__PVT__id_inst 
-                                             >> 0xfU)) 
-                                         | ((0x380U 
-                                             & (vlSelf->__PVT__id_inst 
-                                                >> 5U)) 
-                                            | (0x7fU 
-                                               & vlSelf->__PVT__id_inst)))))) {
-            vlSelf->__PVT__IDU__DOT__MemWr_d = 0U;
-            vlSelf->__PVT__IDU__DOT__MemOP_d = 5U;
-            vlSelf->__PVT__IDU__DOT__isTuncate_d = 0U;
-            vlSelf->__PVT__IDU__DOT__isSext_d = 0U;
-        } else if ((0x303U == (0x3ffU & ((0x1fc00U 
-                                          & (vlSelf->__PVT__id_inst 
-                                             >> 0xfU)) 
-                                         | ((0x380U 
-                                             & (vlSelf->__PVT__id_inst 
-                                                >> 5U)) 
-                                            | (0x7fU 
-                                               & vlSelf->__PVT__id_inst)))))) {
-            vlSelf->__PVT__IDU__DOT__MemWr_d = 0U;
-            vlSelf->__PVT__IDU__DOT__MemOP_d = 1U;
-            vlSelf->__PVT__IDU__DOT__isTuncate_d = 0U;
-            vlSelf->__PVT__IDU__DOT__isSext_d = 0U;
-        } else if ((0x3bU == ((0x1fc00U & (vlSelf->__PVT__id_inst 
-                                           >> 0xfU)) 
-                              | ((0x380U & (vlSelf->__PVT__id_inst 
-                                            >> 5U)) 
-                                 | (0x7fU & vlSelf->__PVT__id_inst))))) {
-            vlSelf->__PVT__IDU__DOT__MemWr_d = 0U;
-            vlSelf->__PVT__IDU__DOT__MemOP_d = 0U;
-            vlSelf->__PVT__IDU__DOT__isTuncate_d = 1U;
-            vlSelf->__PVT__IDU__DOT__isSext_d = 1U;
-        } else {
-            vlSelf->__PVT__IDU__DOT__MemWr_d = 1U;
-            vlSelf->__PVT__IDU__DOT__MemOP_d = 2U;
-            vlSelf->__PVT__IDU__DOT__isTuncate_d = 0U;
-            vlSelf->__PVT__IDU__DOT__isSext_d = 0U;
-        }
-    } else if (((((((((0x8293U == (0x1fbffU & ((0x1fc00U 
-                                                & (vlSelf->__PVT__id_inst 
-                                                   >> 0xfU)) 
-                                               | ((0x380U 
-                                                   & (vlSelf->__PVT__id_inst 
-                                                      >> 5U)) 
-                                                  | (0x7fU 
-                                                     & vlSelf->__PVT__id_inst))))) 
-                      | (0x203U == (0x3ffU & ((0x1fc00U 
-                                               & (vlSelf->__PVT__id_inst 
-                                                  >> 0xfU)) 
-                                              | ((0x380U 
-                                                  & (vlSelf->__PVT__id_inst 
-                                                     >> 5U)) 
-                                                 | (0x7fU 
-                                                    & vlSelf->__PVT__id_inst)))))) 
-                     | (0x393U == (0x3ffU & ((0x1fc00U 
-                                              & (vlSelf->__PVT__id_inst 
-                                                 >> 0xfU)) 
-                                             | ((0x380U 
-                                                 & (vlSelf->__PVT__id_inst 
-                                                    >> 5U)) 
-                                                | (0x7fU 
-                                                   & vlSelf->__PVT__id_inst)))))) 
-                    | (0xbbU == ((0x1fc00U & (vlSelf->__PVT__id_inst 
-                                              >> 0xfU)) 
-                                 | ((0x380U & (vlSelf->__PVT__id_inst 
-                                               >> 5U)) 
-                                    | (0x7fU & vlSelf->__PVT__id_inst))))) 
-                   | (0x3b3U == ((0x1fc00U & (vlSelf->__PVT__id_inst 
-                                              >> 0xfU)) 
-                                 | ((0x380U & (vlSelf->__PVT__id_inst 
-                                               >> 5U)) 
-                                    | (0x7fU & vlSelf->__PVT__id_inst))))) 
-                  | (0x1b3U == ((0x1fc00U & (vlSelf->__PVT__id_inst 
-                                             >> 0xfU)) 
-                                | ((0x380U & (vlSelf->__PVT__id_inst 
-                                              >> 5U)) 
-                                   | (0x7fU & vlSelf->__PVT__id_inst))))) 
-                 | (0x213U == (0x3ffU & ((0x1fc00U 
-                                          & (vlSelf->__PVT__id_inst 
-                                             >> 0xfU)) 
-                                         | ((0x380U 
-                                             & (vlSelf->__PVT__id_inst 
-                                                >> 5U)) 
-                                            | (0x7fU 
-                                               & vlSelf->__PVT__id_inst)))))) 
-                | (0x82bbU == ((0x1fc00U & (vlSelf->__PVT__id_inst 
-                                            >> 0xfU)) 
-                               | ((0x380U & (vlSelf->__PVT__id_inst 
-                                             >> 5U)) 
-                                  | (0x7fU & vlSelf->__PVT__id_inst)))))) {
-        if ((0x8293U == (0x1fbffU & ((0x1fc00U & (vlSelf->__PVT__id_inst 
-                                                  >> 0xfU)) 
-                                     | ((0x380U & (vlSelf->__PVT__id_inst 
-                                                   >> 5U)) 
-                                        | (0x7fU & vlSelf->__PVT__id_inst)))))) {
-            vlSelf->__PVT__IDU__DOT__MemWr_d = 0U;
-            vlSelf->__PVT__IDU__DOT__MemOP_d = 0U;
-            vlSelf->__PVT__IDU__DOT__isTuncate_d = 0U;
-            vlSelf->__PVT__IDU__DOT__isSext_d = 0U;
-        } else if ((0x203U == (0x3ffU & ((0x1fc00U 
-                                          & (vlSelf->__PVT__id_inst 
-                                             >> 0xfU)) 
-                                         | ((0x380U 
-                                             & (vlSelf->__PVT__id_inst 
-                                                >> 5U)) 
-                                            | (0x7fU 
-                                               & vlSelf->__PVT__id_inst)))))) {
-            vlSelf->__PVT__IDU__DOT__MemWr_d = 0U;
-            vlSelf->__PVT__IDU__DOT__MemOP_d = 3U;
-            vlSelf->__PVT__IDU__DOT__isTuncate_d = 0U;
-            vlSelf->__PVT__IDU__DOT__isSext_d = 0U;
-        } else if ((0x393U == (0x3ffU & ((0x1fc00U 
-                                          & (vlSelf->__PVT__id_inst 
-                                             >> 0xfU)) 
-                                         | ((0x380U 
-                                             & (vlSelf->__PVT__id_inst 
-                                                >> 5U)) 
-                                            | (0x7fU 
-                                               & vlSelf->__PVT__id_inst)))))) {
-            vlSelf->__PVT__IDU__DOT__MemWr_d = 0U;
-            vlSelf->__PVT__IDU__DOT__MemOP_d = 0U;
-            vlSelf->__PVT__IDU__DOT__isTuncate_d = 0U;
-            vlSelf->__PVT__IDU__DOT__isSext_d = 0U;
-        } else if ((0xbbU == ((0x1fc00U & (vlSelf->__PVT__id_inst 
-                                           >> 0xfU)) 
-                              | ((0x380U & (vlSelf->__PVT__id_inst 
-                                            >> 5U)) 
-                                 | (0x7fU & vlSelf->__PVT__id_inst))))) {
-            vlSelf->__PVT__IDU__DOT__MemWr_d = 0U;
-            vlSelf->__PVT__IDU__DOT__MemOP_d = 0U;
-            vlSelf->__PVT__IDU__DOT__isTuncate_d = 1U;
-            vlSelf->__PVT__IDU__DOT__isSext_d = 1U;
-        } else if ((0x3b3U == ((0x1fc00U & (vlSelf->__PVT__id_inst 
-                                            >> 0xfU)) 
-                               | ((0x380U & (vlSelf->__PVT__id_inst 
-                                             >> 5U)) 
-                                  | (0x7fU & vlSelf->__PVT__id_inst))))) {
-            vlSelf->__PVT__IDU__DOT__MemWr_d = 0U;
-            vlSelf->__PVT__IDU__DOT__MemOP_d = 0U;
-            vlSelf->__PVT__IDU__DOT__isTuncate_d = 0U;
-            vlSelf->__PVT__IDU__DOT__isSext_d = 0U;
-        } else if ((0x1b3U == ((0x1fc00U & (vlSelf->__PVT__id_inst 
-                                            >> 0xfU)) 
-                               | ((0x380U & (vlSelf->__PVT__id_inst 
-                                             >> 5U)) 
-                                  | (0x7fU & vlSelf->__PVT__id_inst))))) {
-            vlSelf->__PVT__IDU__DOT__MemWr_d = 0U;
-            vlSelf->__PVT__IDU__DOT__MemOP_d = 0U;
-            vlSelf->__PVT__IDU__DOT__isTuncate_d = 0U;
-            vlSelf->__PVT__IDU__DOT__isSext_d = 0U;
-        } else if ((0x213U == (0x3ffU & ((0x1fc00U 
-                                          & (vlSelf->__PVT__id_inst 
-                                             >> 0xfU)) 
-                                         | ((0x380U 
-                                             & (vlSelf->__PVT__id_inst 
-                                                >> 5U)) 
-                                            | (0x7fU 
-                                               & vlSelf->__PVT__id_inst)))))) {
-            vlSelf->__PVT__IDU__DOT__MemWr_d = 0U;
-            vlSelf->__PVT__IDU__DOT__MemOP_d = 0U;
-            vlSelf->__PVT__IDU__DOT__isTuncate_d = 0U;
-            vlSelf->__PVT__IDU__DOT__isSext_d = 0U;
-        } else {
-            vlSelf->__PVT__IDU__DOT__MemWr_d = 0U;
-            vlSelf->__PVT__IDU__DOT__MemOP_d = 0U;
-            vlSelf->__PVT__IDU__DOT__isTuncate_d = 1U;
-            vlSelf->__PVT__IDU__DOT__isSext_d = 1U;
-        }
-    } else if (((((((((0x333U == ((0x1fc00U & (vlSelf->__PVT__id_inst 
-                                               >> 0xfU)) 
-                                  | ((0x380U & (vlSelf->__PVT__id_inst 
-                                                >> 5U)) 
-                                     | (0x7fU & vlSelf->__PVT__id_inst)))) 
-                      | (0x23U == (0x3ffU & ((0x1fc00U 
-                                              & (vlSelf->__PVT__id_inst 
-                                                 >> 0xfU)) 
-                                             | ((0x380U 
-                                                 & (vlSelf->__PVT__id_inst 
-                                                    >> 5U)) 
-                                                | (0x7fU 
-                                                   & vlSelf->__PVT__id_inst)))))) 
-                     | (0x1bU == (0x3ffU & ((0x1fc00U 
-                                             & (vlSelf->__PVT__id_inst 
-                                                >> 0xfU)) 
-                                            | ((0x380U 
-                                                & (vlSelf->__PVT__id_inst 
-                                                   >> 5U)) 
-                                               | (0x7fU 
-                                                  & vlSelf->__PVT__id_inst)))))) 
-                    | (0x2e3U == (0x3ffU & ((0x1fc00U 
-                                             & (vlSelf->__PVT__id_inst 
-                                                >> 0xfU)) 
-                                            | ((0x380U 
-                                                & (vlSelf->__PVT__id_inst 
-                                                   >> 5U)) 
-                                               | (0x7fU 
-                                                  & vlSelf->__PVT__id_inst)))))) 
-                   | (0x263U == (0x3ffU & ((0x1fc00U 
-                                            & (vlSelf->__PVT__id_inst 
-                                               >> 0xfU)) 
-                                           | ((0x380U 
-                                               & (vlSelf->__PVT__id_inst 
-                                                  >> 5U)) 
-                                              | (0x7fU 
-                                                 & vlSelf->__PVT__id_inst)))))) 
-                  | (0x123U == (0x3ffU & ((0x1fc00U 
-                                           & (vlSelf->__PVT__id_inst 
-                                              >> 0xfU)) 
-                                          | ((0x380U 
-                                              & (vlSelf->__PVT__id_inst 
-                                                 >> 5U)) 
-                                             | (0x7fU 
-                                                & vlSelf->__PVT__id_inst)))))) 
-                 | (0x43bU == ((0x1fc00U & (vlSelf->__PVT__id_inst 
-                                            >> 0xfU)) 
-                               | ((0x380U & (vlSelf->__PVT__id_inst 
-                                             >> 5U)) 
-                                  | (0x7fU & vlSelf->__PVT__id_inst))))) 
-                | (0x63bU == ((0x1fc00U & (vlSelf->__PVT__id_inst 
-                                           >> 0xfU)) 
-                              | ((0x380U & (vlSelf->__PVT__id_inst 
-                                            >> 5U)) 
-                                 | (0x7fU & vlSelf->__PVT__id_inst)))))) {
-        if ((0x333U == ((0x1fc00U & (vlSelf->__PVT__id_inst 
-                                     >> 0xfU)) | ((0x380U 
-                                                   & (vlSelf->__PVT__id_inst 
-                                                      >> 5U)) 
-                                                  | (0x7fU 
-                                                     & vlSelf->__PVT__id_inst))))) {
-            vlSelf->__PVT__IDU__DOT__MemWr_d = 0U;
-            vlSelf->__PVT__IDU__DOT__MemOP_d = 0U;
-            vlSelf->__PVT__IDU__DOT__isTuncate_d = 0U;
-            vlSelf->__PVT__IDU__DOT__isSext_d = 0U;
-        } else if ((0x23U == (0x3ffU & ((0x1fc00U & 
-                                         (vlSelf->__PVT__id_inst 
-                                          >> 0xfU)) 
-                                        | ((0x380U 
-                                            & (vlSelf->__PVT__id_inst 
-                                               >> 5U)) 
-                                           | (0x7fU 
-                                              & vlSelf->__PVT__id_inst)))))) {
-            vlSelf->__PVT__IDU__DOT__MemWr_d = 1U;
-            vlSelf->__PVT__IDU__DOT__MemOP_d = 3U;
-            vlSelf->__PVT__IDU__DOT__isTuncate_d = 0U;
-            vlSelf->__PVT__IDU__DOT__isSext_d = 0U;
-        } else if ((0x1bU == (0x3ffU & ((0x1fc00U & 
-                                         (vlSelf->__PVT__id_inst 
-                                          >> 0xfU)) 
-                                        | ((0x380U 
-                                            & (vlSelf->__PVT__id_inst 
-                                               >> 5U)) 
-                                           | (0x7fU 
-                                              & vlSelf->__PVT__id_inst)))))) {
-            vlSelf->__PVT__IDU__DOT__MemWr_d = 0U;
-            vlSelf->__PVT__IDU__DOT__MemOP_d = 0U;
-            vlSelf->__PVT__IDU__DOT__isTuncate_d = 1U;
-            vlSelf->__PVT__IDU__DOT__isSext_d = 1U;
-        } else if ((0x2e3U == (0x3ffU & ((0x1fc00U 
-                                          & (vlSelf->__PVT__id_inst 
-                                             >> 0xfU)) 
-                                         | ((0x380U 
-                                             & (vlSelf->__PVT__id_inst 
-                                                >> 5U)) 
-                                            | (0x7fU 
-                                               & vlSelf->__PVT__id_inst)))))) {
-            vlSelf->__PVT__IDU__DOT__MemWr_d = 0U;
-            vlSelf->__PVT__IDU__DOT__MemOP_d = 0U;
-            vlSelf->__PVT__IDU__DOT__isTuncate_d = 0U;
-            vlSelf->__PVT__IDU__DOT__isSext_d = 0U;
-        } else if ((0x263U == (0x3ffU & ((0x1fc00U 
-                                          & (vlSelf->__PVT__id_inst 
-                                             >> 0xfU)) 
-                                         | ((0x380U 
-                                             & (vlSelf->__PVT__id_inst 
-                                                >> 5U)) 
-                                            | (0x7fU 
-                                               & vlSelf->__PVT__id_inst)))))) {
-            vlSelf->__PVT__IDU__DOT__MemWr_d = 0U;
-            vlSelf->__PVT__IDU__DOT__MemOP_d = 0U;
-            vlSelf->__PVT__IDU__DOT__isTuncate_d = 0U;
-            vlSelf->__PVT__IDU__DOT__isSext_d = 0U;
-        } else if ((0x123U == (0x3ffU & ((0x1fc00U 
-                                          & (vlSelf->__PVT__id_inst 
-                                             >> 0xfU)) 
-                                         | ((0x380U 
-                                             & (vlSelf->__PVT__id_inst 
-                                                >> 5U)) 
-                                            | (0x7fU 
-                                               & vlSelf->__PVT__id_inst)))))) {
-            vlSelf->__PVT__IDU__DOT__MemWr_d = 1U;
-            vlSelf->__PVT__IDU__DOT__MemOP_d = 1U;
-            vlSelf->__PVT__IDU__DOT__isTuncate_d = 0U;
-            vlSelf->__PVT__IDU__DOT__isSext_d = 0U;
-        } else if ((0x43bU == ((0x1fc00U & (vlSelf->__PVT__id_inst 
-                                            >> 0xfU)) 
-                               | ((0x380U & (vlSelf->__PVT__id_inst 
-                                             >> 5U)) 
-                                  | (0x7fU & vlSelf->__PVT__id_inst))))) {
-            vlSelf->__PVT__IDU__DOT__MemWr_d = 0U;
-            vlSelf->__PVT__IDU__DOT__MemOP_d = 0U;
-            vlSelf->__PVT__IDU__DOT__isTuncate_d = 1U;
-            vlSelf->__PVT__IDU__DOT__isSext_d = 1U;
-        } else {
-            vlSelf->__PVT__IDU__DOT__MemWr_d = 0U;
-            vlSelf->__PVT__IDU__DOT__MemOP_d = 0U;
-            vlSelf->__PVT__IDU__DOT__isTuncate_d = 1U;
-            vlSelf->__PVT__IDU__DOT__isSext_d = 1U;
-        }
-    } else if (((((((((0x803bU == ((0x1fc00U & (vlSelf->__PVT__id_inst 
-                                                >> 0xfU)) 
-                                   | ((0x380U & (vlSelf->__PVT__id_inst 
-                                                 >> 5U)) 
-                                      | (0x7fU & vlSelf->__PVT__id_inst)))) 
-                      | (0x73bU == ((0x1fc00U & (vlSelf->__PVT__id_inst 
-                                                 >> 0xfU)) 
-                                    | ((0x380U & (vlSelf->__PVT__id_inst 
-                                                  >> 5U)) 
-                                       | (0x7fU & vlSelf->__PVT__id_inst))))) 
-                     | (0x363U == (0x3ffU & ((0x1fc00U 
-                                              & (vlSelf->__PVT__id_inst 
-                                                 >> 0xfU)) 
-                                             | ((0x380U 
-                                                 & (vlSelf->__PVT__id_inst 
-                                                    >> 5U)) 
-                                                | (0x7fU 
-                                                   & vlSelf->__PVT__id_inst)))))) 
-                    | (0x133U == ((0x1fc00U & (vlSelf->__PVT__id_inst 
-                                               >> 0xfU)) 
-                                  | ((0x380U & (vlSelf->__PVT__id_inst 
-                                                >> 5U)) 
-                                     | (0x7fU & vlSelf->__PVT__id_inst))))) 
-                   | (0x83U == (0x3ffU & ((0x1fc00U 
-                                           & (vlSelf->__PVT__id_inst 
-                                              >> 0xfU)) 
-                                          | ((0x380U 
-                                              & (vlSelf->__PVT__id_inst 
-                                                 >> 5U)) 
-                                             | (0x7fU 
-                                                & vlSelf->__PVT__id_inst)))))) 
-                  | (0x283U == (0x3ffU & ((0x1fc00U 
-                                           & (vlSelf->__PVT__id_inst 
-                                              >> 0xfU)) 
-                                          | ((0x380U 
-                                              & (vlSelf->__PVT__id_inst 
-                                                 >> 5U)) 
-                                             | (0x7fU 
-                                                & vlSelf->__PVT__id_inst)))))) 
-                 | (0x93U == (0x1fbffU & ((0x1fc00U 
-                                           & (vlSelf->__PVT__id_inst 
-                                              >> 0xfU)) 
-                                          | ((0x380U 
-                                              & (vlSelf->__PVT__id_inst 
-                                                 >> 5U)) 
-                                             | (0x7fU 
-                                                & vlSelf->__PVT__id_inst)))))) 
-                | (0x293U == (0x1fbffU & ((0x1fc00U 
-                                           & (vlSelf->__PVT__id_inst 
-                                              >> 0xfU)) 
-                                          | ((0x380U 
-                                              & (vlSelf->__PVT__id_inst 
-                                                 >> 5U)) 
-                                             | (0x7fU 
-                                                & vlSelf->__PVT__id_inst))))))) {
-        if ((0x803bU == ((0x1fc00U & (vlSelf->__PVT__id_inst 
-                                      >> 0xfU)) | (
-                                                   (0x380U 
-                                                    & (vlSelf->__PVT__id_inst 
-                                                       >> 5U)) 
-                                                   | (0x7fU 
-                                                      & vlSelf->__PVT__id_inst))))) {
-            vlSelf->__PVT__IDU__DOT__MemWr_d = 0U;
-            vlSelf->__PVT__IDU__DOT__MemOP_d = 0U;
-            vlSelf->__PVT__IDU__DOT__isTuncate_d = 1U;
-            vlSelf->__PVT__IDU__DOT__isSext_d = 1U;
-        } else if ((0x73bU == ((0x1fc00U & (vlSelf->__PVT__id_inst 
-                                            >> 0xfU)) 
-                               | ((0x380U & (vlSelf->__PVT__id_inst 
-                                             >> 5U)) 
-                                  | (0x7fU & vlSelf->__PVT__id_inst))))) {
-            vlSelf->__PVT__IDU__DOT__MemWr_d = 0U;
-            vlSelf->__PVT__IDU__DOT__MemOP_d = 0U;
-            vlSelf->__PVT__IDU__DOT__isTuncate_d = 1U;
-            vlSelf->__PVT__IDU__DOT__isSext_d = 1U;
-        } else if ((0x363U == (0x3ffU & ((0x1fc00U 
-                                          & (vlSelf->__PVT__id_inst 
-                                             >> 0xfU)) 
-                                         | ((0x380U 
-                                             & (vlSelf->__PVT__id_inst 
-                                                >> 5U)) 
-                                            | (0x7fU 
-                                               & vlSelf->__PVT__id_inst)))))) {
-            vlSelf->__PVT__IDU__DOT__MemWr_d = 0U;
-            vlSelf->__PVT__IDU__DOT__MemOP_d = 0U;
-            vlSelf->__PVT__IDU__DOT__isTuncate_d = 0U;
-            vlSelf->__PVT__IDU__DOT__isSext_d = 0U;
-        } else if ((0x133U == ((0x1fc00U & (vlSelf->__PVT__id_inst 
-                                            >> 0xfU)) 
-                               | ((0x380U & (vlSelf->__PVT__id_inst 
-                                             >> 5U)) 
-                                  | (0x7fU & vlSelf->__PVT__id_inst))))) {
-            vlSelf->__PVT__IDU__DOT__MemWr_d = 0U;
-            vlSelf->__PVT__IDU__DOT__MemOP_d = 0U;
-            vlSelf->__PVT__IDU__DOT__isTuncate_d = 0U;
-            vlSelf->__PVT__IDU__DOT__isSext_d = 0U;
-        } else if ((0x83U == (0x3ffU & ((0x1fc00U & 
-                                         (vlSelf->__PVT__id_inst 
-                                          >> 0xfU)) 
-                                        | ((0x380U 
-                                            & (vlSelf->__PVT__id_inst 
-                                               >> 5U)) 
-                                           | (0x7fU 
-                                              & vlSelf->__PVT__id_inst)))))) {
-            vlSelf->__PVT__IDU__DOT__MemWr_d = 0U;
-            vlSelf->__PVT__IDU__DOT__MemOP_d = 6U;
-            vlSelf->__PVT__IDU__DOT__isTuncate_d = 0U;
-            vlSelf->__PVT__IDU__DOT__isSext_d = 0U;
-        } else if ((0x283U == (0x3ffU & ((0x1fc00U 
-                                          & (vlSelf->__PVT__id_inst 
-                                             >> 0xfU)) 
-                                         | ((0x380U 
-                                             & (vlSelf->__PVT__id_inst 
-                                                >> 5U)) 
-                                            | (0x7fU 
-                                               & vlSelf->__PVT__id_inst)))))) {
-            vlSelf->__PVT__IDU__DOT__MemWr_d = 0U;
-            vlSelf->__PVT__IDU__DOT__MemOP_d = 2U;
-            vlSelf->__PVT__IDU__DOT__isTuncate_d = 0U;
-            vlSelf->__PVT__IDU__DOT__isSext_d = 0U;
-        } else if ((0x93U == (0x1fbffU & ((0x1fc00U 
-                                           & (vlSelf->__PVT__id_inst 
-                                              >> 0xfU)) 
-                                          | ((0x380U 
-                                              & (vlSelf->__PVT__id_inst 
-                                                 >> 5U)) 
-                                             | (0x7fU 
-                                                & vlSelf->__PVT__id_inst)))))) {
-            vlSelf->__PVT__IDU__DOT__MemWr_d = 0U;
-            vlSelf->__PVT__IDU__DOT__MemOP_d = 0U;
-            vlSelf->__PVT__IDU__DOT__isTuncate_d = 0U;
-            vlSelf->__PVT__IDU__DOT__isSext_d = 0U;
-        } else {
-            vlSelf->__PVT__IDU__DOT__MemWr_d = 0U;
-            vlSelf->__PVT__IDU__DOT__MemOP_d = 0U;
-            vlSelf->__PVT__IDU__DOT__isTuncate_d = 0U;
-            vlSelf->__PVT__IDU__DOT__isSext_d = 0U;
-        }
-    } else if (((((((((0x9bU == (0x1fbffU & ((0x1fc00U 
-                                              & (vlSelf->__PVT__id_inst 
-                                                 >> 0xfU)) 
-                                             | ((0x380U 
-                                                 & (vlSelf->__PVT__id_inst 
-                                                    >> 5U)) 
-                                                | (0x7fU 
-                                                   & vlSelf->__PVT__id_inst))))) 
-                      | (0x829bU == ((0x1fc00U & (vlSelf->__PVT__id_inst 
-                                                  >> 0xfU)) 
-                                     | ((0x380U & (vlSelf->__PVT__id_inst 
-                                                   >> 5U)) 
-                                        | (0x7fU & vlSelf->__PVT__id_inst))))) 
-                     | (0x433U == ((0x1fc00U & (vlSelf->__PVT__id_inst 
-                                                >> 0xfU)) 
-                                   | ((0x380U & (vlSelf->__PVT__id_inst 
-                                                 >> 5U)) 
-                                      | (0x7fU & vlSelf->__PVT__id_inst))))) 
-                    | (0x29bU == (0x1fbffU & ((0x1fc00U 
-                                               & (vlSelf->__PVT__id_inst 
-                                                  >> 0xfU)) 
-                                              | ((0x380U 
-                                                  & (vlSelf->__PVT__id_inst 
-                                                     >> 5U)) 
-                                                 | (0x7fU 
-                                                    & vlSelf->__PVT__id_inst)))))) 
-                   | (0x2bbU == ((0x1fc00U & (vlSelf->__PVT__id_inst 
-                                              >> 0xfU)) 
-                                 | ((0x380U & (vlSelf->__PVT__id_inst 
-                                               >> 5U)) 
-                                    | (0x7fU & vlSelf->__PVT__id_inst))))) 
-                  | (0x3e3U == (0x3ffU & ((0x1fc00U 
-                                           & (vlSelf->__PVT__id_inst 
-                                              >> 0xfU)) 
-                                          | ((0x380U 
-                                              & (vlSelf->__PVT__id_inst 
-                                                 >> 5U)) 
-                                             | (0x7fU 
-                                                & vlSelf->__PVT__id_inst)))))) 
-                 | (0x3e3U == (0x3ffU & ((0x1fc00U 
-                                          & (vlSelf->__PVT__id_inst 
-                                             >> 0xfU)) 
-                                         | ((0x380U 
-                                             & (vlSelf->__PVT__id_inst 
-                                                >> 5U)) 
-                                            | (0x7fU 
-                                               & vlSelf->__PVT__id_inst)))))) 
-                | (0x6b3U == ((0x1fc00U & (vlSelf->__PVT__id_inst 
-                                           >> 0xfU)) 
-                              | ((0x380U & (vlSelf->__PVT__id_inst 
-                                            >> 5U)) 
-                                 | (0x7fU & vlSelf->__PVT__id_inst)))))) {
-        if ((0x9bU == (0x1fbffU & ((0x1fc00U & (vlSelf->__PVT__id_inst 
-                                                >> 0xfU)) 
-                                   | ((0x380U & (vlSelf->__PVT__id_inst 
-                                                 >> 5U)) 
-                                      | (0x7fU & vlSelf->__PVT__id_inst)))))) {
-            vlSelf->__PVT__IDU__DOT__MemWr_d = 0U;
-            vlSelf->__PVT__IDU__DOT__MemOP_d = 0U;
-            vlSelf->__PVT__IDU__DOT__isTuncate_d = 1U;
-            vlSelf->__PVT__IDU__DOT__isSext_d = 1U;
-        } else if ((0x829bU == ((0x1fc00U & (vlSelf->__PVT__id_inst 
-                                             >> 0xfU)) 
-                                | ((0x380U & (vlSelf->__PVT__id_inst 
-                                              >> 5U)) 
-                                   | (0x7fU & vlSelf->__PVT__id_inst))))) {
-            vlSelf->__PVT__IDU__DOT__MemWr_d = 0U;
-            vlSelf->__PVT__IDU__DOT__MemOP_d = 0U;
-            vlSelf->__PVT__IDU__DOT__isTuncate_d = 1U;
-            vlSelf->__PVT__IDU__DOT__isSext_d = 1U;
-        } else if ((0x433U == ((0x1fc00U & (vlSelf->__PVT__id_inst 
-                                            >> 0xfU)) 
-                               | ((0x380U & (vlSelf->__PVT__id_inst 
-                                             >> 5U)) 
-                                  | (0x7fU & vlSelf->__PVT__id_inst))))) {
-            vlSelf->__PVT__IDU__DOT__MemWr_d = 0U;
-            vlSelf->__PVT__IDU__DOT__MemOP_d = 0U;
-            vlSelf->__PVT__IDU__DOT__isTuncate_d = 0U;
-            vlSelf->__PVT__IDU__DOT__isSext_d = 0U;
-        } else if ((0x29bU == (0x1fbffU & ((0x1fc00U 
-                                            & (vlSelf->__PVT__id_inst 
-                                               >> 0xfU)) 
-                                           | ((0x380U 
-                                               & (vlSelf->__PVT__id_inst 
-                                                  >> 5U)) 
-                                              | (0x7fU 
-                                                 & vlSelf->__PVT__id_inst)))))) {
-            vlSelf->__PVT__IDU__DOT__MemWr_d = 0U;
-            vlSelf->__PVT__IDU__DOT__MemOP_d = 0U;
-            vlSelf->__PVT__IDU__DOT__isTuncate_d = 1U;
-            vlSelf->__PVT__IDU__DOT__isSext_d = 1U;
-        } else if ((0x2bbU == ((0x1fc00U & (vlSelf->__PVT__id_inst 
-                                            >> 0xfU)) 
-                               | ((0x380U & (vlSelf->__PVT__id_inst 
-                                             >> 5U)) 
-                                  | (0x7fU & vlSelf->__PVT__id_inst))))) {
-            vlSelf->__PVT__IDU__DOT__MemWr_d = 0U;
-            vlSelf->__PVT__IDU__DOT__MemOP_d = 0U;
-            vlSelf->__PVT__IDU__DOT__isTuncate_d = 1U;
-            vlSelf->__PVT__IDU__DOT__isSext_d = 1U;
-        } else if ((0x3e3U == (0x3ffU & ((0x1fc00U 
-                                          & (vlSelf->__PVT__id_inst 
-                                             >> 0xfU)) 
-                                         | ((0x380U 
-                                             & (vlSelf->__PVT__id_inst 
-                                                >> 5U)) 
-                                            | (0x7fU 
-                                               & vlSelf->__PVT__id_inst)))))) {
-            vlSelf->__PVT__IDU__DOT__MemWr_d = 0U;
-            vlSelf->__PVT__IDU__DOT__MemOP_d = 0U;
-            vlSelf->__PVT__IDU__DOT__isTuncate_d = 0U;
-            vlSelf->__PVT__IDU__DOT__isSext_d = 0U;
-        } else if ((0x3e3U == (0x3ffU & ((0x1fc00U 
-                                          & (vlSelf->__PVT__id_inst 
-                                             >> 0xfU)) 
-                                         | ((0x380U 
-                                             & (vlSelf->__PVT__id_inst 
-                                                >> 5U)) 
-                                            | (0x7fU 
-                                               & vlSelf->__PVT__id_inst)))))) {
-            vlSelf->__PVT__IDU__DOT__MemWr_d = 0U;
-            vlSelf->__PVT__IDU__DOT__MemOP_d = 0U;
-            vlSelf->__PVT__IDU__DOT__isTuncate_d = 0U;
-            vlSelf->__PVT__IDU__DOT__isSext_d = 0U;
-        } else {
-            vlSelf->__PVT__IDU__DOT__MemWr_d = 0U;
-            vlSelf->__PVT__IDU__DOT__MemOP_d = 0U;
-            vlSelf->__PVT__IDU__DOT__isTuncate_d = 0U;
-            vlSelf->__PVT__IDU__DOT__isSext_d = 0U;
-        }
-    } else if ((0x7b3U == ((0x1fc00U & (vlSelf->__PVT__id_inst 
-                                        >> 0xfU)) | 
-                           ((0x380U & (vlSelf->__PVT__id_inst 
-                                       >> 5U)) | (0x7fU 
-                                                  & vlSelf->__PVT__id_inst))))) {
-        vlSelf->__PVT__IDU__DOT__MemWr_d = 0U;
-        vlSelf->__PVT__IDU__DOT__MemOP_d = 0U;
-        vlSelf->__PVT__IDU__DOT__isTuncate_d = 0U;
-        vlSelf->__PVT__IDU__DOT__isSext_d = 0U;
-    } else if ((0x6bbU == ((0x1fc00U & (vlSelf->__PVT__id_inst 
-                                        >> 0xfU)) | 
-                           ((0x380U & (vlSelf->__PVT__id_inst 
-                                       >> 5U)) | (0x7fU 
-                                                  & vlSelf->__PVT__id_inst))))) {
-        vlSelf->__PVT__IDU__DOT__MemWr_d = 0U;
-        vlSelf->__PVT__IDU__DOT__MemOP_d = 0U;
-        vlSelf->__PVT__IDU__DOT__isTuncate_d = 1U;
-        vlSelf->__PVT__IDU__DOT__isSext_d = 1U;
-    } else if ((0x233U == ((0x1fc00U & (vlSelf->__PVT__id_inst 
-                                        >> 0xfU)) | 
-                           ((0x380U & (vlSelf->__PVT__id_inst 
-                                       >> 5U)) | (0x7fU 
-                                                  & vlSelf->__PVT__id_inst))))) {
-        vlSelf->__PVT__IDU__DOT__MemWr_d = 0U;
-        vlSelf->__PVT__IDU__DOT__MemOP_d = 0U;
-        vlSelf->__PVT__IDU__DOT__isTuncate_d = 0U;
-        vlSelf->__PVT__IDU__DOT__isSext_d = 0U;
-    } else if ((3U == (0x3ffU & ((0x1fc00U & (vlSelf->__PVT__id_inst 
-                                              >> 0xfU)) 
-                                 | ((0x380U & (vlSelf->__PVT__id_inst 
-                                               >> 5U)) 
-                                    | (0x7fU & vlSelf->__PVT__id_inst)))))) {
-        vlSelf->__PVT__IDU__DOT__MemWr_d = 0U;
-        vlSelf->__PVT__IDU__DOT__MemOP_d = 7U;
-        vlSelf->__PVT__IDU__DOT__isTuncate_d = 0U;
-        vlSelf->__PVT__IDU__DOT__isSext_d = 0U;
-    } else if ((0x313U == (0x3ffU & ((0x1fc00U & (vlSelf->__PVT__id_inst 
-                                                  >> 0xfU)) 
-                                     | ((0x380U & (vlSelf->__PVT__id_inst 
-                                                   >> 5U)) 
-                                        | (0x7fU & vlSelf->__PVT__id_inst)))))) {
-        vlSelf->__PVT__IDU__DOT__MemWr_d = 0U;
-        vlSelf->__PVT__IDU__DOT__MemOP_d = 0U;
-        vlSelf->__PVT__IDU__DOT__isTuncate_d = 0U;
-        vlSelf->__PVT__IDU__DOT__isSext_d = 0U;
-    } else if ((0xb3U == ((0x1fc00U & (vlSelf->__PVT__id_inst 
-                                       >> 0xfU)) | 
-                          ((0x380U & (vlSelf->__PVT__id_inst 
-                                      >> 5U)) | (0x7fU 
-                                                 & vlSelf->__PVT__id_inst))))) {
-        vlSelf->__PVT__IDU__DOT__MemWr_d = 0U;
-        vlSelf->__PVT__IDU__DOT__MemOP_d = 0U;
-        vlSelf->__PVT__IDU__DOT__isTuncate_d = 0U;
-        vlSelf->__PVT__IDU__DOT__isSext_d = 0U;
-    } else if ((0x73U == (0x7fU & ((0x1fc00U & (vlSelf->__PVT__id_inst 
-                                                >> 0xfU)) 
-                                   | ((0x380U & (vlSelf->__PVT__id_inst 
-                                                 >> 5U)) 
-                                      | (0x7fU & vlSelf->__PVT__id_inst)))))) {
-        vlSelf->__PVT__IDU__DOT__MemWr_d = 0U;
-        vlSelf->__PVT__IDU__DOT__MemOP_d = 0U;
-        vlSelf->__PVT__IDU__DOT__isTuncate_d = 0U;
-        vlSelf->__PVT__IDU__DOT__isSext_d = 0U;
-    } else {
-        vlSelf->__PVT__IDU__DOT__MemWr_d = 0U;
-        vlSelf->__PVT__IDU__DOT__MemOP_d = 0U;
-        vlSelf->__PVT__IDU__DOT__isTuncate_d = 0U;
-        vlSelf->__PVT__IDU__DOT__isSext_d = 0U;
-        Vtop___024unit____Vdpiimwrap_set_invalid_inst_TOP____024unit();
-    }
     vlSelf->__PVT__IDU__DOT__ContrGenU__DOT__isIntr__DOT__lut_out 
         = (((0x7fU & vlSelf->__PVT__id_inst) == vlSelf->__PVT__IDU__DOT__ContrGenU__DOT__isIntr__DOT__key_list
             [0U]) & vlSelf->__PVT__IDU__DOT__ContrGenU__DOT__isIntr__DOT__data_list
@@ -1558,19 +3548,19 @@ VL_ATTR_COLD void Vtop_top___stl_sequent__TOP__top__0(Vtop_top* vlSelf) {
                       << (7U & (IData)(vlSelf->__PVT__ALUres))));
     if (((~ (IData)(vlSelf->__PVT__LSU__DOT__Datamem_we)) 
          & (0U != (IData)(vlSelf->__PVT__mem_MemOP)))) {
-        Vtop___024unit____Vdpiimwrap_pmem_read_TOP____024unit((IData)(vlSelf->__PVT__ALUres), vlSelf->__Vtask_pmem_read__4__rdata);
+        Vtop___024unit____Vdpiimwrap_pmem_read_TOP____024unit((IData)(vlSelf->__PVT__ALUres), vlSelf->__Vtask_pmem_read__3__rdata);
         vlSelf->__PVT__LSU__DOT__DataMem__DOT__data[0U] 
-            = (IData)(vlSelf->__Vtask_pmem_read__4__rdata);
+            = (IData)(vlSelf->__Vtask_pmem_read__3__rdata);
         vlSelf->__PVT__LSU__DOT__DataMem__DOT__data[1U] 
-            = (IData)((vlSelf->__Vtask_pmem_read__4__rdata 
+            = (IData)((vlSelf->__Vtask_pmem_read__3__rdata 
                        >> 0x20U));
         Vtop___024unit____Vdpiimwrap_pmem_read_TOP____024unit(
                                                               ((IData)(8U) 
-                                                               + (IData)(vlSelf->__PVT__ALUres)), vlSelf->__Vtask_pmem_read__5__rdata);
+                                                               + (IData)(vlSelf->__PVT__ALUres)), vlSelf->__Vtask_pmem_read__4__rdata);
         vlSelf->__PVT__LSU__DOT__DataMem__DOT__data[2U] 
-            = (IData)(vlSelf->__Vtask_pmem_read__5__rdata);
+            = (IData)(vlSelf->__Vtask_pmem_read__4__rdata);
         vlSelf->__PVT__LSU__DOT__DataMem__DOT__data[3U] 
-            = (IData)((vlSelf->__Vtask_pmem_read__5__rdata 
+            = (IData)((vlSelf->__Vtask_pmem_read__4__rdata 
                        >> 0x20U));
         VL_SHIFTR_WWI(128,128,6, __Vtemp_he6ffd419__0, vlSelf->__PVT__LSU__DOT__DataMem__DOT__data, 
                       (0x38U & ((IData)(vlSelf->__PVT__ALUres) 

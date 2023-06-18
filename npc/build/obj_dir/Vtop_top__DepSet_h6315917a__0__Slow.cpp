@@ -528,6 +528,6 @@ VL_ATTR_COLD void Vtop_top___ctor_var_reset(Vtop_top* vlSelf) {
     vlSelf->__VdfgTmp_h77a512b4__0 = 0;
     vlSelf->__VdfgTmp_h749ef897__0 = 0;
     vlSelf->__Vtask_pmem_read__1__rdata = 0;
+    vlSelf->__Vtask_pmem_read__3__rdata = 0;
     vlSelf->__Vtask_pmem_read__4__rdata = 0;
-    vlSelf->__Vtask_pmem_read__5__rdata = 0;
 }

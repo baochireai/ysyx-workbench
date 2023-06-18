@@ -303,7 +303,7 @@ module ContrGen(
                  MemWr=1'b0;MemOP=3'd0;isTuncate=1'b0;isSext=1'b0;            
             end            
             default: begin
-                 MemWr=1'b0;MemOP=3'd0;isTuncate=1'b0;isSext=1'b0;set_invalid_inst();
+                 MemWr=1'b0;MemOP=3'd0;isTuncate=1'b0;isSext=1'b0;//set_invalid_inst();
             end
         endcase
         end

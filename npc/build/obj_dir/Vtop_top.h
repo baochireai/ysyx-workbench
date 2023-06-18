@@ -245,8 +245,8 @@ class Vtop_top final : public VerilatedModule {
         QData/*63:0*/ __PVT__LSU__DOT__clintU__DOT__mtime;
         QData/*63:0*/ __PVT__LSU__DOT__clintU__DOT__mtimecmp;
         QData/*63:0*/ __Vtask_pmem_read__1__rdata;
+        QData/*63:0*/ __Vtask_pmem_read__3__rdata;
         QData/*63:0*/ __Vtask_pmem_read__4__rdata;
-        QData/*63:0*/ __Vtask_pmem_read__5__rdata;
         VlUnpacked<QData/*63:0*/, 2> __PVT__ram_axi_lite_u__DOT__mem;
         VlUnpacked<SData/*9:0*/, 12> __PVT__IDU__DOT__ContrGenU__DOT__deExtop__DOT__pair_list;
         VlUnpacked<CData/*6:0*/, 12> __PVT__IDU__DOT__ContrGenU__DOT__deExtop__DOT__key_list;
