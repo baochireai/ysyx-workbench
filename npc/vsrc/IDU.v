@@ -49,7 +49,7 @@ module IDU(
 );
 
 //(reg有数据但是将被读取|没有数据)&(当前数据处理完毕)
-assign idu_ready=((idu_valid&exu_ready)|(!idu_valid)) & (!witf_full&!isRAW);
+assign idu_ready=((idu_valid&exu_ready)|(!idu_valid)) & (!witf_full&(!isRAW|flush_pipeline));
 //exu ready busy
 //task finish busy(一周期内完成)
 //ifu valid !valid
