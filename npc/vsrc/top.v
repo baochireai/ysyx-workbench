@@ -53,41 +53,51 @@ module top(
     wire ifu_arvalid;
     wire [`MemAddrBus-1:0] ifu_raddr;
     wire  ifu_ready;
-    //RAM to IFU
-    wire ram_arready;
-    wire [`MemDataBus-1:0] ram_rdata;
-    wire ram_rvalid;
-    wire [1:0] ram_rresp;    
 
 
-    // Write address channel signals
-    wire [`MemAddrBus-1:0] AWADDR;
-     wire AWVALID;
-     wire AWREADY;
-
-    // Write data channel signals
-     wire [`MemDataBus-1:0] WDATA;//only 32bits or 64bits
-     wire WVALID;
-     wire WREADY;
-    wire[7:0] WSTRB;//indicate which byte is write enabled.
-
-    // Write response channel signals
-    wire BVALID;
-    wire [1:0] BRESP;//2'b00 正常访问成功 2'b01独占访问成功 2'b10 SLVERR 2'b11 DCERR互连解码错误
-    wire BREADY;
     
     wire [`RegWidth-1:0] id_pc;
     wire [`INSTWide-1:0] id_inst;
     wire ifu_valid,ifu_ready,idu_valid,idu_ready,exu_valid,exu_ready,lsu_valid,lsu_ready,wb_valid,wb_ready;
 
 
+    wire icache_req,icache_ready;
+    wire [31:0] icache_addr;
+
+    wire ifu_fetch_ready,icache_valid;
+    wire [31:0] icache_inst_o;
     IFU IFU(.clk(clk),.rst(rst),.is_jump(is_jump),.JumpPc(ifu_JumpPc),.isIntrPC(ifu_isIntrPC),.IntrPC(ifu_IntrPC),.isebreak(idu_isebreak),
-          .ARVALID(ifu_arvalid),.ARADDR(ifu_raddr),.ARREADY(ram_arready), .RREADY(ifu_ready),.inst_i(ram_rdata),.RVALID(ram_rvalid),
+          // icache fetch
+          .req(icache_req),.addr_inst(icache_addr),.Cache_ready(icache_ready),
+          //icache inst
+          .inst_fetch_ready(ifu_fetch_ready),.inst_i(icache_inst_o),.inst_valid(icache_valid),
           .inst_o(id_inst),.pc_o(id_pc),
           .ifu_valid(ifu_valid),.ifu_ready(ifu_ready),.idu_ready(idu_ready),.wb_valid(wb_valid));
     
-    ram_axi_lite ram_axi_lite_u(clk,rst,AWADDR,AWVALID,AWREADY,WDATA,WVALID,WREADY,WSTRB,BVALID,BRESP,BREADY,
-                              ifu_raddr,ifu_arvalid,ram_arready,ram_rdata,ram_rresp,ram_rvalid,ifu_ready);
+    icache icache(
+      .clk(clk),.rst(rst),
+      //pre-if <--> cache
+      .addr(icache_addr),.rd_req(icache_req),.req_ready(icache_ready),
+      //cache <--> ifu
+      .ifu_allowin(ifu_fetch_ready),.inst(icache_inst_o),.inst_valid(icache_valid),
+      //cache <--> data array
+    input [127:0] din_way0;    
+    input [127:0] din_way1;
+    
+    output [6:0] line_index;//line_index[6] for cascade chip select
+    output cen_way0;
+    output cen_way1;
+    output [127:0] wdata_cache;
+    output [127:0] wstrb_cache;
+
+//cache <--> axi_interface
+    output axi_rd_req,//every read transisaction is cache line
+    output [31:0] axi_rd_addr,
+    input axi_rvalid,
+    input axi_rlast,
+    input [1:0] axi_rresp,
+    input [63:0] axi_rata      
+    );
 
     wire exu_isTuncate,exu_isSext;
     wire [`RegWidth-1:0] ex_Rrs1,ex_Rrs2;

@@ -28,7 +28,7 @@ module DataMem(
     reg [15:0] extmask;
     
     always @(*) begin
-        data={64'd0,DataIn}<<shift;
+        data={64'd0,DataIn}<<shift;//对接cache的时候不需要进行偏移
         extmask={8'd0,wmask}<<Addr[2:0];
         if(RdEn==1'b1&&WrEn!=1'b1) begin//本还需满足&&clint_en!=1'b1 但是为了difftest支持定时器中断，
                                         //这里还是进入pmem_read以触发指令跳过

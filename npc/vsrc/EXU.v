@@ -11,13 +11,13 @@ module EXU(
     input isTuncate,
     input isSext,
     input Regwr_i,
+    input [1:0] RegSrc,//写回地址    
     //ctrl from id to Mem
     input [2:0] MemOP_i,
     input MemWr_i,
     input IntrEn,    
     //ctrl from id to Branch
     input [2:0] Branch,
-    input [1:0] RegSrc,
     //data    
     input [`RegWidth-1:0] R_rs1,
     input [`RegWidth-1:0] R_rs2,
@@ -52,6 +52,10 @@ wire exu_valid_next=exu_valid&(!lsu_ready)|//数据没被读取
                     (( (exu_valid&lsu_ready)|(!exu_valid) )&( exu_ready&idu_valid));
 
 Reg #(1,'d0) exu_valid_reg(clk,rst,exu_valid_next,exu_valid,1'b1);
+
+//dcache_rw_ctrl
+
+
 
 //（reg有数据但将被读取|reg没数据）&（有新数据且没有数据冲突）
 wire popline_wen=((exu_valid&lsu_ready)|(!exu_valid))&(idu_valid&exu_ready);

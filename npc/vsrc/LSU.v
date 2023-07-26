@@ -28,6 +28,7 @@ module LSU(
     output[`RegWidth-1:0] pc_o,
     output[`RegWidth-1:0] R_rs1_o,    
     output [`RegWidth-1:0] ALUres_o,
+    
     //handshakes
     input exu_valid,
     output lsu_ready,
