@@ -2,6 +2,11 @@ module WB(
     input clk,
     input rst,
 
+    //dcache
+    input[2:0] MemOP,
+    input [63:0] mrdata,
+    input cache_valid,
+
     //ctrl
     input IntrEn,
     input clint_mtip,
@@ -11,7 +16,7 @@ module WB(
     input[`RegWidth-1:0] wb_pc,
     input[`INSTWide-1:0] wb_inst,
     input[`RegWidth-1:0] ALUres,
-    input[`RegWidth-1:0] MemOut,
+    // input[`RegWidth-1:0] MemOut,
     input[`RegWidth-1:0] R_rs1_i,
     //to witf
     output wb_en,
@@ -25,29 +30,33 @@ module WB(
     output[`RegWidth-1:0] R_rs1,
     output[`RegWidth-1:0] R_rs2,
     //handshakes
-    input lsu_valid,
-    output wb_ready,
+    input wb_valid,
+    output wb_allowin,
     output wb_valid,
     input ifu_ready
 );
 
-//(reg有数据但是将被读取|没有数据)&(当前数据处理完毕)
-assign wb_ready=((wb_valid&ifu_ready)|(!wb_valid));
+wire [63:0] MemOut;
 
-assign wb_en=lsu_valid&wb_ready&RegWr&(wb_inst[11:7]!=5'd0);
+MuxKeyInternal #(4,2,64, 1) sext (.out(MemOut),.key(MemOP[1:0]),.default_out(64'd0),.lut({
+    2'd0,mrdata[63:0],
+    2'd1,(isSign==1'b1)?({{32{mrdata[31]}},mrdata[31:0]}):{32'd0,mrdata[31:0]},
+    2'd2,(isSign==1'b1)?({{48{mrdata[15]}},mrdata[15:0]}):{48'd0,mrdata[15:0]},
+    2'd3,(isSign==1'b1)?({{56{mrdata[7]}},mrdata[7:0]}):{56'd0,mrdata[7:0]}
+}));
 
-wire wb_valid_next=wb_valid&(!ifu_ready)|//数据没被读取
-                    (( (wb_valid&ifu_ready)|(!wb_valid) )&( wb_ready&lsu_valid));
+wire wb_ready_go = ~(|MemOP) | cache_valid ;
 
-Reg #(1,'d0) wb_valid_reg(clk,rst,wb_valid_next,wb_valid,1'b1);
+assign wb_allowin = !wb_valid | wb_ready_go ;
 
-//（reg有数据但将被读取|reg没数据）&（有新数据且没有数据冲突）
-wire popline_wen=((wb_valid&ifu_ready)|(!wb_valid))&(lsu_valid&wb_ready);
-
+assign wb_en = wb_valid && wb_ready_go && RegWr && ( wb_inst[11:7] != 5'd0 );
 
 wire [`RegWidth-1:0] IntrOut,RegWdata,IntrPC_next;
+
 wire isIntrPC_next;
-Intr IntrUnit(.clk(clk),.IntrEn(IntrEn),.clint_mtip(clint_mtip),.pc(wb_pc),.R_rs1(R_rs1_i),.zimm(wb_inst[19:15]),.csr(wb_inst[31:20]),.func3(wb_inst[14:12]),
+
+Intr IntrUnit(.clk(
+    clk),.IntrEn(IntrEn),.clint_mtip(clint_mtip),.pc(wb_pc),.R_rs1(R_rs1_i),.zimm(wb_inst[19:15]),.csr(wb_inst[31:20]),.func3(wb_inst[14:12]),
     .isIntrPC(isIntrPC_next),.IntrPC(IntrPC_next),.dout(IntrOut));
 
 
@@ -57,10 +66,13 @@ MuxKeyInternal #(3,2,64,1) RegWsrcMux(.out(RegWdata),.key(Wdata_src),.default_ou
     2'd2,IntrOut
 }));
 
+wire regfile_we = wb_valid && RegWr && ( ~(|MemOP) || cache_valid );
+
 RegisterFile RegisterFile(.rs1(rs1),.rs2(rs2),.waddr(wb_inst[11:7]),.R_rs1(R_rs1),.R_rs2(R_rs2),
-            .clk(clk),.wdata(RegWdata),.wen(RegWr));
+            .clk(clk),.wdata(RegWdata),.wen(regfile_we));
 
 Reg #(1,'d0) wb_isIntrPC_reg(clk,rst,isIntrPC_next,isIntrPC,1'b1);
 Reg #(`RegWidth,'d0) wb_IntrPC_reg(clk,rst,IntrPC_next,IntrPC,1'b1);
+
 
 endmodule

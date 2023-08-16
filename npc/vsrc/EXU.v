@@ -22,6 +22,14 @@ module EXU(
     input [`RegWidth-1:0] R_rs1,
     input [`RegWidth-1:0] R_rs2,
     input [`RegWidth-1:0] Imm,
+    //decache
+    output req,
+    output op,
+    output [1:0] size,
+    output [63:0] addr,
+    output [63:0] wdata,
+    output [7:0] wstrb,
+    input cache_ready,
     //to WB
     output [`RegWidth-1:0] wb_ALUres,
     output Regwr_o,
@@ -40,28 +48,54 @@ module EXU(
     output[`INSTWide-1:0] inst_o,
     output [`RegWidth-1:0] pc_o,
     //handshakes
-    input idu_valid,
-    output exu_ready,
-    input lsu_ready,
-    output exu_valid
+    input exu_valid,
+    output exu_allowin,
+    input wb_allowin,
+    output wb_valid
 );
-//(reg有数据但是将被读取|没有数据)&(当前数据处理完毕)
-assign exu_ready=((exu_valid&lsu_ready)|(!exu_valid));
 
-wire exu_valid_next=exu_valid&(!lsu_ready)|//数据没被读取
-                    (( (exu_valid&lsu_ready)|(!exu_valid) )&( exu_ready&idu_valid));
-
-Reg #(1,'d0) exu_valid_reg(clk,rst,exu_valid_next,exu_valid,1'b1);
 
 //dcache_rw_ctrl
+// wire req_r;
 
+// wire req_set=idu_valid&&(|MemOP);
 
+// wire req_clr=req && cache_ready;
 
-//（reg有数据但将被读取|reg没数据）&（有新数据且没有数据冲突）
-wire popline_wen=((exu_valid&lsu_ready)|(!exu_valid))&(idu_valid&exu_ready);
+// wire req_we = req_set || req_clr;
+
+// assign req = req_set || req_r;
+
+// wire req_next = req && ( ~cache_ready );
+
+// Reg #(1,'d0) exu_req_buffer(clk,rst,req_next,req_r,req_we);//标志req尚未处理
+assign req=idu_valid&&(|MemOP);
+assign op=MemWr_i;
+assign size=~MemOP[1:0];//0->8 1->4  2->2 3->1   -->  3->8 2->4 1->2 0->1
+assign addr=ALUres;
+assign wdata=R_rs2;
+
+MuxKeyInternal #(4,2,8, 1) MemWstrb_decode (.out(wstrb),.key(MemOP[1:0]),.default_out(8'd0),.lut({
+    2'd3,8'b0000_0001,
+    2'd2,8'b0000_0011,
+    2'd1,8'b0000_1111,
+    2'd0,8'b1111_1111
+}));
+
+wire exu_ready_go=(~req)||req&&cache_ready;//没有访存请求或者有且cache接收请求
+
+//(当前没有数据)||(有数据且处理完将送往下一级)
+assign exu_allowin= ! exu_valid || exu_ready_go && wb_allowin;
+
+wire exu2wb_valid = exu_valid&&exu_ready_go;
+
+Reg #(1,'d0) exu_valid_reg(clk,rst,exu2wb_valid,wb_valid,wb_allowin);
+
+wire popline_wen=exu2wb_valid&&wb_allowin;
 
 wire [`RegWidth-1:0] ALUres;
 wire Less,Zero;
+
 // pipeline regs
 Reg #(`RegWidth,'d0) wb_ALUres_reg(clk,rst,ALUres,wb_ALUres,popline_wen);
 Reg #(`RegWidth,'d0) wb_R_rs2_reg(clk,rst,R_rs2,R_rs2_o,popline_wen);

@@ -2,12 +2,15 @@ module LSU(
     input clk,
     input rst,
 
-    //data from exu
-    input[`RegWidth-1:0] addr,//ALUres
-    input[`RegWidth-1:0] wdata,//R_rs2
+    // //data from exu
+    // input[`RegWidth-1:0] addr,//ALUres
+    // input[`RegWidth-1:0] wdata,//R_rs2
     //ctrl from exu
     input [2:0] MemOP,
-    input we,
+    //input we,
+
+    input rvalid,
+    input [63:0] rdata,
 
     //data out
     output [`RegWidth-1:0] dataout,

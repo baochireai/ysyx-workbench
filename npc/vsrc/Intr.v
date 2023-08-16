@@ -40,18 +40,18 @@ module Intr(
 
     wire irq_raise=isecall|timer_irq;
 
-    wire mip_MTIP=mip[7];
-    assign mip_MTIP=clint_mtip;//只有有外部中断、软件中断和定时器中断 mip就置位（即使全局中断和局部中断屏蔽mie）
+    //wire mip_MTIP=mip[7];
+    wire mip_MTIP=clint_mtip;//只有有外部中断、软件中断和定时器中断 mip就置位（即使全局中断和局部中断屏蔽mie）
 
     //ecall mret
-    wire isecall=(!((|csr)|(|func3)))&IntrEn;
+    wire isecall=(!( (|csr) | (|func3) ))&IntrEn;
 
     reg [63:0] eNo;
 
     MuxKeyInternal #(2,2,64,1) CSRwEn(.out(eNo),.key({timer_irq,isecall}),.default_out(64'd0),.lut({
     2'b01,64'd11,//ecall
     2'b10,64'h8000_0000_0000_0007//timer
-    }));    
+    }));    //目前只支持一种中断timer/一种异常ecall
 
     wire ismret=(!(|func3))&(csr==12'b0011000_00010);
 

@@ -23,24 +23,32 @@ module decache(
     input axi_rlast,
     input axi_rvalid,
 
-    //decache <--> sram(data array)
+    //decache <--> axi interface (write)
     output axi_wr_req,
     output [63:0] axi_wr_addr,
     output [127:0] axi_wdata,
     output [2:0] axi_wr_type,
-    output [7:0] axi_wstrb,
-    input axi_wr_ready
+    output [7:0] axi_wstrb,//only uncache
+    input axi_wr_ready,
     //decaceh <--> data array(ram)
-    input [127:0] din_way0;    
-    input [127:0] din_way1;
     
-    output [6:0] line_index;//line_index[6] for cascade chip select
+    input [127:0] din_way0,    
+    input [127:0] din_way1,
+    
+    output [6:0] line_index,//line_index[6] for cascade chip select
 
-    output cen_way0;//read / write clock enable
-    output cen_way1;
-    output data_wen;
-    output [127:0] wdata_cache;
+    output cen_way0,//read / write clock enable
+    output cen_way1,
+
+    output data_rw,//w:1 r:0
+
+    output [127:0] cacheline_wdata,
+    output [127:0] cacheline_wstrb,
+
 );
+
+    assign line_index=index_i;
+    
 
     //{tag,valid,dirty}
     reg [20:0] tags_way0[127:0];
@@ -54,8 +62,9 @@ module decache(
     //最近使用记录 用于选待替换cache line
     reg [127:0] recently_used_way;
 
-    wire [20:0] tag_i=addr[31:7]
+    wire [20:0] tag_i=addr[31:11];
     wire [6:0] index_i=addr[10:4];
+    wire [3:0] offset_i=addr[3:0];
 
     //tag compare
     wire hit_way0=(tags_way0[index_i]==tag_i)&&line_valid_way0[index_i];
@@ -65,7 +74,7 @@ module decache(
     wire cache_hit=hit_way0||hit_way1;
 
     //uncache check
-    wire uncache=(addr<'MEM_ADDR_START)&&(~(addr>=FLASH_ADDR_START&&addr<=FLASH_ADDR_END));
+    wire uncache=( addr[31] != 1'b1 );
 
     //require buffer
     wire [31:0] addr_r;
@@ -74,27 +83,32 @@ module decache(
     wire [63:0] wdata_r;
     wire [7:0] wstrb_r;
 
-    Reg #(32, 32'd0) req_addr_buffer(.clk(clk),.rst(rst),.din(addr[31:0]),.dout(addr_r),.wen(rd_req&&req_ready));
-    Reg #(1, 1'd0) req_hit0_buffer(.clk(clk),.rst(rst),.din(hit_way0),.dout(hit_way0_r),.wen(rd_req&&req_ready));
-    Reg #(1, 1'd0) req_hit1_buffer(.clk(clk),.rst(rst),.din(hit_way1),.dout(hit_way1_r),.wen(rd_req&&req_ready));    
-    Reg #(1, 1'd0) req_op_buffer(.clk(clk),.rst(rst),.din(op),.dout(op_r),.wen(rd_req&&req_ready));
-    Reg #(1,1'd0) uncache_reg(.clk(clk),.rst(rst),.din(uncache),.dout(uncache_r),.wen(rd_req&&req_ready));
-    Reg #(64,64'd0) wdata_reg(.clk(clk),.rst(rst),.din(wdata),.dout(wdata_r),.wen(rd_req&&req_ready));
-    Reg #(8,8'd0) wstrb_reg(.clk(clk),.rst(rst),.din(wstrb),.dout(wstrb_r),.wen(rd_req&&req_ready));
+    wire req_buffer_we=req&&req_ready;
+
+    Reg #(32, 32'd0) req_addr_buffer(.clk(clk),.rst(rst),.din(addr[31:0]),.dout(addr_r),.wen(req_buffer_we));
+    Reg #(1, 1'd0) req_hit0_buffer(.clk(clk),.rst(rst),.din(hit_way0),.dout(hit_way0_r),.wen(req_buffer_we));
+    Reg #(1, 1'd0) req_hit1_buffer(.clk(clk),.rst(rst),.din(hit_way1),.dout(hit_way1_r),.wen(req_buffer_we));    
+    Reg #(1, 1'd0) req_op_buffer(.clk(clk),.rst(rst),.din(op),.dout(op_r),.wen(req_buffer_we));
+    Reg #(1,1'd0) uncache_reg(.clk(clk),.rst(rst),.din(uncache),.dout(uncache_r),.wen(req_buffer_we));
+    Reg #(64,64'd0) wdata_reg(.clk(clk),.rst(rst),.din(wdata),.dout(wdata_r),.wen(req_buffer_we));
+    Reg #(8,8'd0) wstrb_reg(.clk(clk),.rst(rst),.din(wstrb),.dout(wstrb_r),.wen(req_buffer_we));
 
     //write buffer
-    wire wr_buffer_wen=cur_state==S_LOOKUP&&op_r;
-    wire [63:0] din_way0_r,din_way1_r;
-    Reg #(64,64'd0) din0_reg(.clk(clk),.rst(rst),.din(din_way0),.dout(din_way0_r),.wen(wr_buffer_wen));
-    Reg #(64,64'd0) din1_reg(.clk(clk),.rst(rst),.din(din_way1),.dout(din_way1_r),.wen(wr_buffer_wen));
+    wire wr_buffer_wen=cur_state==S_LOOKUP;
+    
+    wire [127:0] din_way0_r,din_way1_r;
+    
+    Reg #(127,127'd0) din0_reg(.clk(clk),.rst(rst),.din(din_way0),.dout(din_way0_r),.wen(wr_buffer_wen));
+    Reg #(127,127'd0) din1_reg(.clk(clk),.rst(rst),.din(din_way1),.dout(din_way1_r),.wen(wr_buffer_wen));
 
     wire index_r=addr_r[10:4];
-    wire tag_r=addr_r[31:20];
+    wire tag_r=addr_r[31:11];
     wire offset_r=addr_r[3:0];
 
     wire raw=(index_i[5:0]==index_r[5:0])&&op_r&&(hit_way1&&hit_way1_r||hit_way0&&hit_way0_r); //the same bank and way
 
-    wire refill_waynum=~(line_valid_way0[index_r]&&line_valid_way1[index_r])?line_valid_way1[index_r]:(~recently_used_way[index_r]);;
+    wire refill_waynum=~(line_valid_way0[index_r]&&line_valid_way1[index_r])?line_valid_way1[index_r]:(~recently_used_way[index_r]);
+
     wire refill_dirty=(~refill_waynum)&&dirty_way0[index_r] || refill_waynum&&dirty_way1[index_r];
 
     parameter S_IDEL,S_LOOKUP,S_MISS,S_REPLACE,S_REFILL;
@@ -147,42 +161,7 @@ module decache(
         endcase
     end
 
-    reg [127:0] mrdata;
-    //axi read transaction
-    assign axi_rd_addr=uncache?addr_r:addr_r&32'hffff_fff0;
-    
-    assign axi_rd_type=uncache{1'b0,size}:3'd4;
-
-    always @(posedge clk) begin
-        if(rst) begin
-            axi_rd_req<=1'b0;
-        end
-        else if(cur_state!=S_MISS&&next_state==S_MISS) begin
-            axi_rd_req<=1'b1;
-        end
-        else if(axi_rd_req&&axi_rd_ready) begin
-            axi_rd_req<=1'b0;
-        end
-        else
-            axi_rd_req<=axi_rd_req;
-    end
-
-    reg [127:0] mrdata;
-
-    reg [1:0] burst_count;
-
-    always @(posedge clk) begin
-        if(rst||axi_rd_req&&axi_rd_ready) begin
-            burst_count<=2'd0;
-            mrdata<=128'd0;
-        end
-        else if((cur_state==S_REFILL)&&(axi_rvalid)) begin
-            burst_count<=burst_count+1;
-            mrdata[(burst_count+1)*64-1:burst_count*64]<=axi_rata;
-        end
-    end
-
-    //axi write transaction
+   //axi write transaction
 /*
     output axi_wr_req,
     output [63:0] axi_wr_addr,
@@ -193,7 +172,7 @@ module decache(
 
     always @(posedge clk) begin
         if(rst) begin
-            axi_wr_req<=1'b0;
+            axi_wr_req <= 1'b0;
         end
         else if(cur_state!=S_MISS&&next_state==S_MISS) begin
             axi_wr_req<=uncache_r?op_r:refill_dirty;
@@ -207,26 +186,61 @@ module decache(
 
     assign axi_wr_addr = axi_rd_addr;
 
-    assign axi_wr_type = uncache ? size : 3'd4;
+    assign axi_wr_type = uncache ? {1'b0,size} : 3'd4;
 
-    assign axi_wstrb = uncache ? (wstrb_r<<offset_r[2:0]) : 8'hff;
+    assign axi_wstrb = uncache ? (8'd0,wstrb_r<<offset_r[2:0]) : 16'hffff;
 
-    assign axi_wdata=uncache ? {64'd0,wdata_r<<(offset_r[2:0]*8)} : (refill_waynum?din_way0_r:din_way1_r);//data array ram输出只保持一个周期
+    assign axi_wdata=uncache ? {64'd0,wdata_r<<{offset_r[2:0],3'd0}} : (refill_waynum?din_way0_r:din_way1_r);//data array ram输出只保持一个周期
+
+    //axi read transaction
+    assign axi_rd_addr=uncache? addr_r:addr_r&32'hffff_fff0;
+    
+    assign axi_rd_type=uncache ? {1'b0,size} : 3'd4;
+
+    always @(posedge clk) begin
+        if(rst) begin
+            axi_rd_req<=1'b0;
+        end
+        else if(cur_state!=S_REPLACE&&next_state==S_REPLACE) begin
+            axi_rd_req<=1'b1;
+        end
+        else if(axi_rd_req&&axi_rd_ready) begin
+            axi_rd_req<=1'b0;
+        end
+        else
+            axi_rd_req<=axi_rd_req;
+    end
+
+    reg [127:0] mrdata_align;
+
+    reg [1:0] burst_count;
+
+    always @(posedge clk) begin
+        if(rst||axi_rd_req&&axi_rd_ready) begin
+            burst_count<=2'd0;
+            mrdata_align<=128'd0;
+        end
+        else if((cur_state==S_REFILL)&&(axi_rvalid)) begin//uncache  && cache miss
+            burst_count<=burst_count+1;
+            //when uncache,mrdata[63:0] is valid.while Cache miss,mrdata[127:0] is valid. 
+            mrdata_align[(burst_count+1)*64-1:burst_count*64] <= axi_rata;
+        end
+    end
+
+
 
     assign req_ready=(cur_state==S_IDEL)||(cur_state==S_LOOKUP&&(~raw));
 
-    wire [127:0] hit_data={64{cur_state==S_LOOKUP}}&{128{hit_way0_r}}&din_way0|{128{hit_way1_r}&din_way1};
+    wire [127:0] hit_data={128{cur_state==S_LOOKUP}}&{128{hit_way0_r}}&din_way0|{128{hit_way1_r}&din_way1};
     
-    wire [127:0] rdata=cur_state==S_LOOKUP?din_way0:mrdata;
+    wire [127:0] rdata=cur_state==S_LOOKUP ? din_way0:mrdata;
 
     assign cache_data_o=&hit_data|{64{cur_state==S_REFILL&&axi_rvalid&&axi_rlast}}&mrdata;
 
     assign cache_data_o=uncache?{64{cur_state==S_REFILL&&axi_rvalid&&axi_rlast}}&mrdata[63:0]:
 
+    assign cache_data_o={64{cur_state==S_LOOKUP}}&&
                         
     assign rvalid = ((cur_state==S_LOOKUP)||(cur_state==S_REFILL&&axi_rvalid&&axi_rlast)) &&(~op_r);
-
-
-
 
 endmodule
