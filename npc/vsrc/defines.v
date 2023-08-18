@@ -31,3 +31,8 @@
 // `define SPI_ADDR_START 64'h
 
 `define MEM_ADDR_START 64'h8000_0000
+
+`define TAG_V_D_WIDTH 23
+`define TAG_BITS 22:2
+`define VALID_BIT 1
+`define DIRTY_BIT 0
