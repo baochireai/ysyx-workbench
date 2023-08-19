@@ -64,19 +64,45 @@ module decache(
     input axi_wr_ready,
     //decaceh <--> data array(ram)
     
-    input [127:0] din_way0,    
-    input [127:0] din_way1,
+    // input [127:0] din_way0,    
+    // input [127:0] din_way1,
     
-    output [6:0] line_index,//line_index[6] for cascade chip select
+    // output [6:0] line_index,//line_index[6] for cascade chip select
 
-    output cen_way0,//read / write clock enable
-    output cen_way1,
+    // output cen_way0,//read / write clock enable
+    // output cen_way1,
 
-    output data_rw,//w:1 r:0
+    // output data_rw,//w:1 r:0
 
-    output [127:0] cacheline_wdata,
-    output [127:0] cacheline_wstrb,
+    // output [127:0] cacheline_wdata,
+    // output [127:0] cacheline_wstrb,
+  	output [5:0] io_sram0_addr,//ram0 ram1 ->way0 | ram2 ram3 ->way1
+  	output io_sram0_cen,
+  	output io_sram0_wen,
+  	output [127:0] io_sram0_wmask,
+  	output [127:0] io_sram0_wdata,
+  	input [127:0] io_sram0_rdata,
 
+  	output [5:0] io_sram1_addr,
+  	output io_sram1_cen,
+  	output io_sram1_wen,
+  	output [127:0] io_sram1_wmask,
+  	output [127:0] io_sram1_wdata,
+  	input [127:0] io_sram1_rdata,
+
+  	output [5:0] io_sram2_addr,
+  	output io_sram2_cen,
+  	output io_sram2_wen,
+  	output [127:0] io_sram2_wmask,
+  	output [127:0] io_sram2_wdata,
+  	input [127:0] io_sram2_rdata,
+
+  	output [5:0] io_sram3_addr,
+  	output io_sram3_cen,
+  	output io_sram3_wen,
+  	output [127:0] io_sram3_wmask,
+  	output [127:0] io_sram3_wdata,
+  	input [127:0] io_sram3_rdata    
 );
     
     wire tagvd_wen [1:0];
@@ -104,17 +130,18 @@ module decache(
     wire dirty_way1=tagvd_rdata[1][`DIRTY_BIT];
 
     //最近使用记录 用于选待替换cache line
-    reg [127:0] recently_used_way;
-    reg [127:0] recently_used_wen;
+    reg [127:0] recently_used_wens;
+    wire recently_used_wen;
     wire curent_way;
     genvar i;
     generate for(i = 0 ; i < 128; i = i + 1) begin : recently_used_regs_gen
+        assign recently_used_wen[i] = (i==index_i) && recently_used_wen;
         Reg #(1, 0) recently_used_reg(
             .clk(clk),
             .rst(rst),
             .din(curent_way),
             .dout(recently_used_way[i]),
-            .wen(recently_used_wen[i])
+            .wen(recently_used_wens[i])
         );          
     end
     endgenerate
@@ -134,8 +161,7 @@ module decache(
     wire uncache=( addr[31] != 1'b1 );
 
     wire refill_waynum=~(line_valid_way0&&line_valid_way1)?line_valid_way0:(~recently_used_way[index_i]);
-
-    wire refill_dirty=(~refill_waynum)&&dirty_way0 || refill_waynum&&dirty_way1;
+    wire refill_dirty=(~refill_waynum)&&dirty_way0&&line_valid_way0 || refill_waynum&&dirty_way1&&line_valid_way1;
 
     //require buffer
     wire [31:0] addr_r;
@@ -153,28 +179,28 @@ module decache(
     Reg #(1,1'd0) uncache_reg(.clk(clk),.rst(rst),.din(uncache),.dout(uncache_r),.wen(req_buffer_we));
     Reg #(64,64'd0) wdata_reg(.clk(clk),.rst(rst),.din(wdata),.dout(wdata_r),.wen(req_buffer_we));
     Reg #(8,8'd0) wstrb_reg(.clk(clk),.rst(rst),.din(wstrb),.dout(wstrb_r),.wen(req_buffer_we));
-    Reg #(1,0) refill_waynum_reg(.clk(clk),.rst(rst),.din(refill_waynum),.dout(refill_waynum),.wen(req_buffer_we));
+    Reg #(1,0) refill_waynum_reg(.clk(clk),.rst(rst),.din(refill_waynum),.dout(refill_waynum_r),.wen(req_buffer_we));
     Reg #(1,0) refill_dirty_r_reg(.clk(clk),.rst(rst),.din(refill_dirty),.dout(refill_dirty_r),.wen(req_buffer_we));
     
     //write back buffer
-    wire wr_buffer_wen_n = (cur_state==S_IDEL || cur_state==S_LOOKUP) && (next_state==S_MISS);
+    // wire wr_buffer_wen_n = (cur_state==S_IDEL || cur_state==S_LOOKUP) && (next_state==S_MISS);
     
-    wire wr_buffer_wen;
+    // wire wr_buffer_wen;
 
-    wire [127:0] din_way0_r,din_way1_r;
+    // wire [127:0] din_way0_r,din_way1_r;
     
-    Reg #(1,0) wr_buffer_wen_reg(.clk(clk),.rst(rst),.din(wr_buffer_wen_n),.dout(wr_buffer_wen),.wen(1'b1));
+    // Reg #(1,0) wr_buffer_wen_reg(.clk(clk),.rst(rst),.din(wr_buffer_wen_n),.dout(wr_buffer_wen),.wen(1'b1));
 
-    Reg #(127,127'd0) din0_reg(.clk(clk),.rst(rst),.din(din_way0),.dout(din_way0_r),.wen(wr_buffer_wen));
-    Reg #(127,127'd0) din1_reg(.clk(clk),.rst(rst),.din(din_way1),.dout(din_way1_r),.wen(wr_buffer_wen));
+    // Reg #(127,127'd0) din0_reg(.clk(clk),.rst(rst),.din(din_way0),.dout(din_way0_r),.wen(wr_buffer_wen));
+    // Reg #(127,127'd0) din1_reg(.clk(clk),.rst(rst),.din(din_way1),.dout(din_way1_r),.wen(wr_buffer_wen));
 
     wire index_r=addr_r[10:4];
     wire tag_r=addr_r[31:11];
     wire offset_r=addr_r[3:0];
 
-    wire raw=(index_i[6]==index_r[6])&&op_r&&(hit_way1&&hit_way1_r||hit_way0&&hit_way0_r); //the same bank and way
-
-    parameter S_IDEL,S_LOOKUP,S_MISS,S_REPLACE,S_REFILL;
+    wire raw=(index_i[6]==index_r[6])&&op_r&&(cur_state==S_LOOKUP); //the same bank and way
+    //&&(hit_way1&&hit_way1_r||hit_way0&&hit_way0_r || miss_hit && refill_dirty && (refill_waynum&&hit_way1_r || (~refill_waynum&&hit_way0_r)));
+    parameter S_IDEL=3'd0,S_LOOKUP=3'd1,S_MISS=3'd2,S_REPLACE=3'd3,S_REFILL=3'd4;
     /*
     S_LOOKUP:write/read cache hit
     S_MISS:wait axi_wready and check cacheline(to be refilled) dirty,if dirty then give write req
@@ -242,7 +268,7 @@ module decache(
 
     assign axi_wstrb = {8{uncache_r}} && (wstrb_r<<offset_r[2:0]);
 
-    assign axi_wdata = uncache_r ? {64'd0,wdata_r<<{offset_r[2:0],3'd0}} : (refill_waynum ? din_way0_r:din_way1_r);//data array ram输出只保持一个周期
+    assign axi_wdata = uncache_r ? {64'd0,wdata_r<<{offset_r[2:0],3'd0}} : (refill_waynum_r ? din_way0:din_way1);//data array ram输出只保持一个周期
 
     //axi read transaction
 
@@ -307,54 +333,104 @@ module decache(
     assign tagvd_wen[0] = hit_w_tagvd_wen && hit_way0_r || ( (miss_r_tagvd_wen || miss_w_tagvd_wen) && (~refill_waynum_r) );
     assign tagvd_wen[1] = hit_w_tagvd_wen && hit_way1_r || ( (miss_r_tagvd_wen || miss_w_tagvd_wen) && refill_waynum_r );
 
-    //data array rw
+    //recently used regs rw
+    assign recently_used_wen = req && req_ready;
+    assign curent_way = cache_hit ? hit_way1 : refill_waynum;
 
-    assign line_index = index_i;
+    //data array write
+    //1)hit write  
+    wire [127:0] hit_w_darray_wdata = {64'd0 ,wdata_r} << {offset_r,3'd0};
 
+    wire [63:0] bit_wstrb;
 
-endmodule
+    MuxKeyInternal #(4,8,64, 1) MemWstrb_decode (.out(bit_wstrb),.key(wstrb_r),.default_out(64'd0),.lut({
+        8'b0000_0001,64'h0000_000f,
+        8'b0000_0011,64'h0000_00ff,
+        8'b0000_1111,64'h0000_ffff,
+        8'b1111_1111,64'hffff_ffff
+    }));
 
-module cache_darray_req_if(
-    output [127:0] din_way0,    
-    output [127:0] din_way1,
+    wire [127:0] hit_w_darray_wstrb = {64'd0,bit_wstrb} << {offset_r,3'd0};
+    wire hit_w_darray_wen  = (cur_state==S_LOOKUP) && op_r;//hit write
+    wire hit_w_darray_wwaynum = hit_way1_r;
+     //2)cache read miss write
+    wire [127:0] miss_r_darray_wdata = mrdata_align ;
+    wire [127:0] miss_r_darray_wstrb = 128'hffff_ffff_ffff_ffff;
+    
+    wire miss_r_darray_wen = (cur_state==S_REFILL) && (~uncache_r) && axi_rvalid && axi_rlast && (~op_r);//cache read miss write
+    wire miss_r_darray_wwaynum = refill_waynum_r ;
+    //3) cache write miss write
+    wire [127:0] miss_w_darray_wdata = mrdata_align & (~hit_w_darray_wstrb) | hit_w_darray_wdata & hit_w_darray_wstrb;
+    wire [127:0] miss_w_darray_wstrb = 128'hffff_ffff_ffff_ffff;
+    wire miss_w_darray_wen = (cur_state==S_REFILL) && (~uncache_r) && axi_rvalid && axi_rlast && op_r;//cache write miss write
+    wire miss_w_darray_wwaynum = refill_waynum_r ;
 
-    input rreq,
-    input [6:0] raddr,
+    wire [127:0] darray_wdata = {128{hit_w_darray_wen}} & hit_w_darray_wdata |
+                                {128{miss_r_darray_wen}} & miss_r_darray_wdata |
+                                {128{miss_w_darray_wen}} & miss_w_darray_wdata ;
+    wire [127:0] darray_wstrb = {128{hit_w_darray_wen}} & hit_w_darray_wstrb |
+                                {128{miss_r_darray_wen}} & miss_r_darray_wstrb |
+                                {128{miss_w_darray_wen}} & miss_w_darray_wstrb ;
 
-    input wreq,
-    input [6:0] waddr,
-    input [127:0] wdata,
-    input [127:0] wstrb,
+    wire darray_wwaynum =   hit_w_darray_wen & hit_w_darray_wwaynum |
+                            miss_r_darray_wen & miss_r_darray_wwaynum |
+                            miss_w_darray_wen & miss_w_darray_wwaynum ;
 
-  	output [5:0] io_sram0_addr,//ram0 ram1 ->way0 | ram2 ram3 ->way1
-  	output io_sram0_cen,
-  	output io_sram0_wen,
-  	output [127:0] io_sram0_wmask,
-  	output [127:0] io_sram0_wdata,
-  	input [127:0] io_sram0_rdata,
+    wire darray_wen = hit_w_darray_wen || miss_r_darray_wen || miss_w_darray_wen ;
+    wire [5:0] darray_waddr = index_r[5:0];   
 
-  	output [5:0] io_sram1_addr,
-  	output io_sram1_cen,
-  	output io_sram1_wen,
-  	output [127:0] io_sram1_wmask,
-  	output [127:0] io_sram1_wdata,
-  	input [127:0] io_sram1_rdata,
+    wire [3:0] io_sram_wcs;
 
-  	output [5:0] io_sram2_addr,
-  	output io_sram2_cen,
-  	output io_sram2_wen,
-  	output [127:0] io_sram2_wmask,
-  	output [127:0] io_sram2_wdata,
-  	input [127:0] io_sram2_rdata,
+    MuxKeyInternal #(4,2,4, 1) darray_sram_wenMux (.out(io_sram_wcs),.key({darray_wwaynum,index_r[6]}),.default_out(4'd0),.lut({
+        2'b00,4'b0001,
+        2'b01,4'b0010,
+        2'b10,4'b0100,
+        2'b11,4'b1000
+    }));
 
-  	output [5:0] io_sram3_addr,
-  	output io_sram3_cen,
-  	output io_sram3_wen,
-  	output [127:0] io_sram3_wmask,
-  	output [127:0] io_sram3_wdata,
-  	input [127:0] io_sram3_rdata    
-);
+    wire [3:0] io_sram_wcen = io_sram_wcs & {4{darray_wen}};
+    //data array read
+    wire darray_ren = req && req_ready || axi_wr_req;
 
-    assign io_sram0_addr =  
+    wire [5:0] darray_raddr = index_i[5:0];
+
+    wire [3:0] io_sram_rcs;//,io_sram_rcs_r;
+    
+    assign io_sram_rcs[0] = axi_wr_req ? ~index_i[6] : ~index_r[6];
+    assign io_sram_rcs[1] = axi_wr_req ? index_i[6] : index_r[6];
+    assign io_sram_rcs[2] = axi_wr_req ? ~index_i[6] : ~index_r[6];
+    assign io_sram_rcs[3] = axi_wr_req ? index_i[6] : index_i[6];
+
+    wire [3:0] io_sram_rce = io_sram_rcs & {4{darray_ren}} ;
+
+    //Reg #(4, 4'd0) sram_rce_buffer(.clk(clk),.rst(rst),.din(io_sram_rcs),.dout(io_sram_rcs_r),.wen(1'b1));
+    // data array interface 
+
+    assign io_sram0_addr = io_sram_wcen[0] ?  darray_waddr : darray_raddr;
+    assign io_sram0_cen = io_sram_wcen[0] | io_sram_rce[0];
+    assign io_sram0_wen = io_sram_wcen[0];
+    assign io_sram0_wmask = darray_wstrb ;
+    assign io_sram0_wdata = darray_wdata ;
+
+    assign io_sram1_addr = io_sram_wcen[1] ?  darray_waddr : darray_raddr;
+    assign io_sram1_cen = io_sram_wcen[1] | io_sram_rce[1];
+    assign io_sram1_wen = io_sram_wcen[1];
+    assign io_sram1_wmask = darray_wstrb ;
+    assign io_sram1_wdata = darray_wdata ;
+
+    assign io_sram2_addr = io_sram_wcen[2] ?  darray_waddr : darray_raddr;
+    assign io_sram2_cen = io_sram_wcen[2] | io_sram_rce[2];
+    assign io_sram2_wen = io_sram_wcen[2];
+    assign io_sram2_wmask = darray_wstrb ;
+    assign io_sram2_wdata = darray_wdata ;
+
+    assign io_sram3_addr = io_sram_wcen[3] ?  darray_waddr : darray_raddr;
+    assign io_sram3_cen = io_sram_wcen[3] | io_sram_rce[3];
+    assign io_sram3_wen = io_sram_wcen[3];
+    assign io_sram3_wmask = darray_wstrb ;
+    assign io_sram3_wdata = darray_wdata ;
+
+    wire [127:0] din_way0 = (~index_r[6]) ? io_sram0_rdata : io_sram1_rdata;
+    wire [127:0] din_way1 = (~index_r[6]) ? io_sram2_rdata : io_sram3_rdata;
 
 endmodule
