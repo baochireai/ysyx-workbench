@@ -62,20 +62,8 @@ module decache(
     output [2:0] axi_wr_type,
     output [7:0] axi_wstrb,//only uncache
     input axi_wr_ready,
+    
     //decaceh <--> data array(ram)
-    
-    // input [127:0] din_way0,    
-    // input [127:0] din_way1,
-    
-    // output [6:0] line_index,//line_index[6] for cascade chip select
-
-    // output cen_way0,//read / write clock enable
-    // output cen_way1,
-
-    // output data_rw,//w:1 r:0
-
-    // output [127:0] cacheline_wdata,
-    // output [127:0] cacheline_wstrb,
   	output [5:0] io_sram0_addr,//ram0 ram1 ->way0 | ram2 ram3 ->way1
   	output io_sram0_cen,
   	output io_sram0_wen,
@@ -115,9 +103,9 @@ module decache(
             .clk(clk),
             .rst(rst),
             .i_wen(tagvd_wen[i]),
-            .i_raddr(index_i), // 7 bit, 128 depth.
             .i_waddr(index_r),
-            .i_din (tagvd_wdata),
+            .i_din (tagvd_wdata),            
+            .i_raddr(index_i), // 7 bit, 128 depth.
             .o_dout(tagvd_rdata[i])
         );
     end
@@ -166,7 +154,7 @@ module decache(
     //require buffer
     wire [31:0] addr_r;
     wire hit_way0_r,hit_way1_r,op_r;
-    wire uncache_r;
+    wire uncache_r;//没必要放req buffer中 addr_r[31]判断
     wire [63:0] wdata_r;
     wire [7:0] wstrb_r;
     wire refill_waynum_r,refill_dirty_r;
@@ -179,26 +167,16 @@ module decache(
     Reg #(1,1'd0) uncache_reg(.clk(clk),.rst(rst),.din(uncache),.dout(uncache_r),.wen(req_buffer_we));
     Reg #(64,64'd0) wdata_reg(.clk(clk),.rst(rst),.din(wdata),.dout(wdata_r),.wen(req_buffer_we));
     Reg #(8,8'd0) wstrb_reg(.clk(clk),.rst(rst),.din(wstrb),.dout(wstrb_r),.wen(req_buffer_we));
+    
+    //miss buffer
     Reg #(1,0) refill_waynum_reg(.clk(clk),.rst(rst),.din(refill_waynum),.dout(refill_waynum_r),.wen(req_buffer_we));
     Reg #(1,0) refill_dirty_r_reg(.clk(clk),.rst(rst),.din(refill_dirty),.dout(refill_dirty_r),.wen(req_buffer_we));
-    
-    //write back buffer
-    // wire wr_buffer_wen_n = (cur_state==S_IDEL || cur_state==S_LOOKUP) && (next_state==S_MISS);
-    
-    // wire wr_buffer_wen;
-
-    // wire [127:0] din_way0_r,din_way1_r;
-    
-    // Reg #(1,0) wr_buffer_wen_reg(.clk(clk),.rst(rst),.din(wr_buffer_wen_n),.dout(wr_buffer_wen),.wen(1'b1));
-
-    // Reg #(127,127'd0) din0_reg(.clk(clk),.rst(rst),.din(din_way0),.dout(din_way0_r),.wen(wr_buffer_wen));
-    // Reg #(127,127'd0) din1_reg(.clk(clk),.rst(rst),.din(din_way1),.dout(din_way1_r),.wen(wr_buffer_wen));
 
     wire index_r=addr_r[10:4];
     wire tag_r=addr_r[31:11];
     wire offset_r=addr_r[3:0];
 
-    wire raw=(index_i[6]==index_r[6])&&op_r&&(cur_state==S_LOOKUP); //the same bank and way
+    wire raw=(index_i[6]==index_r[6])&&op_r&&(cur_state==S_LOOKUP); //the same bank(ignore waynum)
     //&&(hit_way1&&hit_way1_r||hit_way0&&hit_way0_r || miss_hit && refill_dirty && (refill_waynum&&hit_way1_r || (~refill_waynum&&hit_way0_r)));
     parameter S_IDEL=3'd0,S_LOOKUP=3'd1,S_MISS=3'd2,S_REPLACE=3'd3,S_REFILL=3'd4;
     /*
@@ -303,7 +281,7 @@ module decache(
     wire cache_miss_rvalid= (~uncache_r) && cur_state==S_REFILL  && axi_rvalid && axi_rlast && (~op_r);
 
     wire [63:0] uncache_rdata = mrdata_align >> {offset_r[2:0],3'd0};
-    wire uncache_rvalid = uncache && cur_state==S_REFILL  && axi_rvalid && axi_rlast;
+    wire uncache_rvalid = uncache_r && cur_state==S_REFILL  && axi_rvalid && axi_rlast;
 
     assign cache_data_o= {64{hit_rvalid}} & hit_rdata | {64{cache_miss_rvalid}} & cache_miss_rdata | {64{uncache_rvalid}} & uncache_rdata;
 
