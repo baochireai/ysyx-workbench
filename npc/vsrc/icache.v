@@ -8,64 +8,155 @@ Cache 规格
 - 块总数：256（128*2way）
 */
 
+module TagV_Regs #(
+    WIDTH=22,
+    DEPTH=128
+)(
+    input      clk,
+    input      rst,
+    input                         i_wen  ,
+    input       [6:0]           i_raddr , // 7 bit, 128 depth.
+    input       [6:0]             i_waddr,
+    input       [WIDTH-1:0]  i_din  ,
+    output      [WIDTH-1:0]  o_dout
+);
+
+    wire [WIDTH-1:0] tagv [DEPTH-1:0];
+    wire [DEPTH-1:0] wen;
+    genvar i;
+    generate for(i = 0 ; i < 128; i = i + 1) begin : tagv_Reg_gen
+        assign wen[i] = (i==i_waddr) && i_wen;
+        Reg #(`TAG_V_D_WIDTH, 0) tag_regs(
+            .clk(clk),
+            .rst(rst),
+            .din(i_din),
+            .dout(tagv[i]),
+            .wen(wen[i])
+        );        
+    end
+    endgenerate
+    
+    assign o_dout = tagv[i_raddr];
+
+endmodule 
+
 module icache(
     input clk,
     input rst,
-//pre-if <--> cache
-    input ['MemAddrBus-1:0] addr,
-    input rd_req,
+    //pre-if <--> cache
+    input [`MemAddrBus-1:0] addr,
+    input cache_req,
     output reg req_ready,
-//cache <--> ifu
-    input ifu_allowin,
-    output [`INSTWide-1:0] inst_o,
-    output inst_valid,
-//cache <--> data array
-    input [127:0] din_way0;    
-    input [127:0] din_way1;
-    
-    output [6:0] line_index;//line_index[6] for cascade chip select
+    //cache <--> ifu
+    output [63:0] cache_rdata,
+    output cache_valid,
 
-    output cen_way0;//read / write clock enable
-    output cen_way1;
-    output data_wen;
-    output [127:0] wdata_cache;
-    //output [127:0] wstrb_cache;
-
-//cache <--> axi_interface
-    output axi_rd_req,//every read transisaction is cache line
-    output [31:0] axi_rd_addr,
+    //icache <--> axi interface (read)
+    output axi_rd_req,
+    output [63:0] axi_rd_addr,
+    output [2:0] axi_rd_type,//3'd0:1Byte 3'd1:2B 3'd2:4B 3'd3:8B 3'd4:cache line
     input axi_rd_ready,
-    input axi_rvalid,
+    input [63:0] axi_rdata,
     input axi_rlast,
-    input [1:0] axi_rresp,
-    input [63:0] axi_rata
+    input axi_rvalid,
+    
+    //decaceh <--> data array(ram)
+  	output [5:0] io_sram0_addr,//ram0 ram1 ->way0 | ram2 ram3 ->way1
+  	output io_sram0_cen,
+  	output io_sram0_wen,
+  	output [127:0] io_sram0_wmask,
+  	output [127:0] io_sram0_wdata,
+  	input [127:0] io_sram0_rdata,
+
+  	output [5:0] io_sram1_addr,
+  	output io_sram1_cen,
+  	output io_sram1_wen,
+  	output [127:0] io_sram1_wmask,
+  	output [127:0] io_sram1_wdata,
+  	input [127:0] io_sram1_rdata,
+
+  	output [5:0] io_sram2_addr,
+  	output io_sram2_cen,
+  	output io_sram2_wen,
+  	output [127:0] io_sram2_wmask,
+  	output [127:0] io_sram2_wdata,
+  	input [127:0] io_sram2_rdata,
+
+  	output [5:0] io_sram3_addr,
+  	output io_sram3_cen,
+  	output io_sram3_wen,
+  	output [127:0] io_sram3_wmask,
+  	output [127:0] io_sram3_wdata,
+  	input [127:0] io_sram3_rdata    
 );
 
     //{tag,valid}
-    reg [20:0] tags_way0[127:0];
-    reg [20:0] tags_way1[127:0];
+    wire tagv_wen [1:0];
+    wire tagv_wdata [`TAG_V_D_WIDTH-2:0];
+    reg [`TAG_V_D_WIDTH-2:0] tagv_rdata [1:0];
 
-    reg [127:0] line_valid_way0;
-    reg [127:0] line_valid_way1;
+    genvar i;
+    generate for(i = 0 ; i < 2; i = i + 1) begin : tag_regs_gen
+        tagv_Regs tagv_regs(
+            .clk(clk),
+            .rst(rst),
+            .i_wen(tagv_wen[i]),
+            .i_waddr(index_r),
+            .i_din (tagv_wdata),            
+            .i_raddr(index_i), // 7 bit, 128 depth.
+            .o_dout(tagv_rdata[i])
+        );
+    end
+    endgenerate
+
+    wire line_valid_way0 = tagv_rdata[0][0];
+    wire line_valid_way1 = tagv_rdata[1][0];
+
+    wire [20:0] tags_way0 = tagv_rdata[0][21:1];
+    wire [20:0] tags_way1 = tagv_rdata[1][21:1];
+
     //最近使用记录 用于选待替换cache line
-    reg [127:0] recently_used_way;
+    reg [127:0] recently_used_wens;
+    wire recently_used_wen;
+    wire curent_way;
+    genvar i;
+    generate for(i = 0 ; i < 128; i = i + 1) begin : recently_used_regs_gen
+        assign recently_used_wens[i] = (i==index_i) && recently_used_wen;
+        Reg #(1, 0) recently_used_reg(
+            .clk(clk),
+            .rst(rst),
+            .din(curent_way),
+            .dout(recently_used_way[i]),
+            .wen(recently_used_wens[i])
+        );          
+    end
+    endgenerate
 
     wire [20:0] tag_i=addr[31:7];
     wire [6:0] index_i=addr[10:4];
 
     //tag compare
-    wire hit_way0=(tags_way0[index_i]==tag_i)&&line_valid_way0[index_i];
-    wire hit_way1=(tags_way1[index_i]==tag_i)&&line_valid_way1[index_i];
+    wire hit_way0=(tags_way0==tag_i)&&line_valid_way0;
+    wire hit_way1=(tags_way1==tag_i)&&line_valid_way1;
 
     wire miss_hit=~(hit_way0||hit_way1);
     wire cache_hit=hit_way0||hit_way1;
+
+    //refill way choose
+
+    wire refill_waynum = ~(line_valid_way0&&line_valid_way1)?line_valid_way0:(~recently_used_way[index_i]);
+
     //req buffer(data array has one cycle latency && is used when cache miss)
     reg [31:0] addr_r;
     reg hit_way0_r,hit_way1_r;
+    reg refill_waynum_r;
 
-    Reg #(`MemAddrBus, 32'd0) req_addr_buffer(.clk(clk),.rst(rst),.din(addr),.dout(addr_r),.wen(rd_req&&req_ready));
-    Reg #(1, 1'd0) req_hit0_buffer(.clk(clk),.rst(rst),.din(hit_way0),.dout(hit_way0_r),.wen(rd_req&&req_ready));
-    Reg #(1, 1'd0) req_hit1_buffer(.clk(clk),.rst(rst),.din(hit_way1),.dout(hit_way1_r),.wen(rd_req&&req_ready));
+    wire req_buffer_we = cache_req && req_ready;
+
+    Reg #(`MemAddrBus, 32'd0) req_addr_buffer(.clk(clk),.rst(rst),.din(addr),.dout(addr_r),.wen(req_buffer_we));
+    Reg #(1, 1'd0) req_hit0_buffer(.clk(clk),.rst(rst),.din(hit_way0),.dout(hit_way0_r),.wen(req_buffer_we));
+    Reg #(1, 1'd0) req_hit1_buffer(.clk(clk),.rst(rst),.din(hit_way1),.dout(hit_way1_r),.wen(req_buffer_we));
+    Reg #(1,0) refill_waynum_reg(.clk(clk),.rst(rst),.din(refill_waynum),.dout(refill_waynum_r),.wen(req_buffer_we));
 
     wire index_r=addr_r[10:4];
     wire tag_r=addr_r[31:20];
@@ -73,7 +164,7 @@ module icache(
 
     //FSM: IDEL READ MISS
 
-    parameter S_IDEL=2'b00,S_READ=2'b01,S_MISS=2'b10;
+    parameter S_IDEL=2'b00,S_READ=2'b01,S_MISS=2'b10,S_REFILL=2'b11;
 
     reg [1:0] cur_state,next_state;
 
@@ -87,42 +178,35 @@ module icache(
     always @(*) begin
         case (cur_state)
             S_IDEL:
-                if(cache_hit&&rd_req)
+                if(cache_hit&&cache_req)
                     next_state<=S_READ;
-                else if(rd_req&&cache_miss)
+                else if(cache_req&&cache_miss)
                     next_state<=S_MISS;
                 else next_state<=S_IDEL;
             S_READ:
-                if(cache_hit&&rd_req)
+                if(cache_hit&&cache_req)
                     next_state<=S_READ;
-                else if(cache_miss&&rd_req)
+                else if(cache_miss&&cache_req)
                     next_state<=S_MISS;
                 else next_state<=S_IDEL;
             S_MISS:
-                if(axi_rvalid&&axi_rlast) begin
-                    next_state<=S_IDEL;
+                if(axi_rd_ready) begin
+                    next_state<=S_REFILL;
                 end 
                 else next_state<=S_MISS;
+            S_REFILL:
+                if(axi_rvalid&&axi_rlast) begin
+                    next_state <= S_IDEL;
+                end
+                else next_state <= S_REFILL;
             default:
                 next_state<=S_IDEL;
         endcase
     end
-
-    assign axi_rd_addr=addr_r&32'hffff_fff0;
-    
-    always @(clk) begin
-        if(rst) begin
-            axi_rd_req<=1'b0;
-        end
-        else if(cur_state!=S_MISS&&next_state==S_MISS) begin
-            axi_rd_req<=1'b1;
-        end
-        else if(axi_rd_req&&axi_rd_ready) begin
-            axi_rd_req<=1'b0;
-        end
-        else
-            axi_rd_req<=axi_rd_req;
-    end
+    //axi read transaction
+    assign axi_rd_addr = addr_r & 32'hffff_fff0;
+    assign axi_rd_type = 3'd4; //16bytes、
+    assign axi_rd_req = (cur_state == S_MISS);
 
     reg [127:0] mrdata;
 
@@ -133,61 +217,68 @@ module icache(
             burst_count<=2'd0;
             mrdata<=128'd0;
         end
-        else if((cur_state==S_MISS)&&(axi_rvalid)) begin
+        else if((cur_state==S_REFILL)&&(axi_rvalid)) begin
             burst_count<=burst_count+1;
             mrdata[(burst_count+1)*64-1:burst_count*64]=axi_rata;
         end
     end
 
-    always @(clk) begin
-        if(rst) begin
-            for(int i=0;i<128;i=i+1) begin
-                tags_way0[i]<=21'd0;
-                tags_way1[i]<=21'd0;
-                line_valid_way0[i]<=1'b0;
-                line_valid_way1[i]<=1'b0;
-            end
-        end
-        else if(cur_state==S_MISS&&axi_rvalid&&axi_rlast) begin
-            tags_way0[index_r]<=tag_r;
-            line_valid_way0[index_r]<=1'b1;
-        end
-    end
+    //rdata && cache_valid    
+    wire hit_rvalid = cur_state == S_LOOKUP;
+    wire [127:0] hit_data = {128{hit_way0_r}} & din_way0 | {128{hit_way1_r}} & din_way1 ;
+    wire [63:0] hit_rdata = {64{offset_r[3]}} & hit_data[127:64] | {64{~offset_r}} & hit_data[63:0];
 
-    always @(clk) begin
-        if(rst) begin
-            for(int i=0;i<128;i=i+1) recently_used_way[i]<=1'b0;
-        end
-        else if(cur_state==S_READ) begin
-            recently_used_way[index_r]<=hit_way1_r;
-        end
-        else if(cur_state==S_MISS&&axi_rvalid&&axi_rlast) begin
-            recently_used_way[index_r]<=refill_waynum;
-        end
-    end
+    wire miss_rvalid = (cur_state==S_REFILL) && (axi_rvalid && axi_rlast);
+    wire [63:0] miss_rdata = {64{offset_r[3]}} & mrdata[127:64] | ({64{~offset_r}} & mrdata[63:0]); // 8字节对齐返回数据
 
-    assign req_ready=~(cur_state==S_MISS);
+    assign cache_rdata = {64{hit_rvalid}} & hit_rdata | {64{miss_rvalid}} & miss_rdata ;
+    assign cache_rvalid = hit_rvalid | miss_rvalid;
+
+    //cache ready
+    assign req_ready = (cur_state==S_IDEL) | (cur_state==S_LOOKUP);    
+
+    //tagv rw
+    wire miss_tagv_wen = (cur_state==S_REFILL) && (axi_rvalid && axi_rlast);
+    assign tagv_wdata = {tag_r,1'b1};
+    assign tagv_wen[0] = miss_tagv_wen && (~refill_waynum_r);
+    assign tagv_wen[1] = miss_tagv_wen && refill_waynum_r;
     
-    wire [127:0] cache_rdata={128{hit_way0_r}}&din_way0|{128{hit_way1_r}}&din_way1;
+    //recently_used_way write
+    assign recently_used_wen = cache_rdata && req_ready;
+    assign curent_way = cache_hit & hit_way1 | cache_miss & refill_waynum;
 
-    wire [127:0] rdata={128{(cur_state==S_READ)}}&cache_rdata|{128{cur_state==S_MISS}}&mrdata;
+    //data array read
+    wire darray_ren = cache_req && req_ready;
 
-    assign inst_o={32{offset_r[3:2]==2'b00}}&rdata[31:0]|{32{offset_r[3:2]==2'b01}}&rdata[63:32]|
-                        {32{offset_r[3:2]==2'b10}}&rdata[95:64]|{32{offset_r[3:2]==2'b01}}&rdata[127:96];
-    
-    assign inst_valid=(stage==S_READ)||(stage==S_MISS&&axi_rvalid&&axi_rlast);
+    wire io_sram_rcs = {index_i[6],~index_i[6],index_i[6],~index_i[6]} ;
 
-    wire refill_waynum;//0:way0 1:way1
-    assign refill_waynum=~(line_valid_way0[index_r]&&line_valid_way1[index_r])?line_valid_way1[index_r]:(~recently_used_way[index_r]);
+    wire io_sram_rce = {4{darray_ren}} & io_sram_rcs;
 
-    assign cen_way0=(state==S_MISS)?(axi_rvalid&&axi_rlast&&(~refill_waynum)):rd_req;
-    assign cen_way1=(state==S_MISS)?(axi_rvalid&&axi_rlast&&refill_waynum):rd_req;
+  	assign io_sram0_addr = index_r[5:0],
+  	assign io_sram0_cen = io_sram_rce[0] ;
+  	assign io_sram0_wen = 1'b0;
+  	assign io_sram0_wmask = 128'd0;
+  	assign io_sram0_wdata =128'd0;
 
-    assign line_index=(state==S_MISS)?index_r:index_i;
+  	assign io_sram1_addr = index_r[5:0],
+  	assign io_sram1_cen = io_sram_rce[1] ;
+  	assign io_sram1_wen = 1'b0;
+  	assign io_sram1_wmask = 128'd0;
+  	assign io_sram1_wdata =128'd0;
 
-    assign data_wen=(state==S_MISS)&&(axi_rvalid&&axi_rlast);
+  	assign io_sram2_addr = index_r[5:0],
+  	assign io_sram2_cen = io_sram_rce[2] ;
+  	assign io_sram2_wen = 1'b0;
+  	assign io_sram2_wmask = 128'd0;
+  	assign io_sram2_wdata =128'd0;
 
-    assign wdata_cache=mrdata;
+  	assign io_sram3_addr = index_r[5:0],
+  	assign io_sram3_cen = io_sram_rce[3] ;
+  	assign io_sram3_wen = 1'b0;
+  	assign io_sram3_wmask = 128'd0;
+  	assign io_sram3_wdata =128'd0;
 
-
+    wire [127:0] din_way0 = index_r[6] ? io_sram1_rdata : io_sram0_rdata;
+    wire [127:0] din_way1 = index_r[6] ? io_sram3_rdata : io_sram2_rdata;
+   
 endmodule

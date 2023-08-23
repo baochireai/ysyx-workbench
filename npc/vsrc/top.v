@@ -44,9 +44,7 @@ module top(
     wire [`RegAddrBus] rd;
 
     wire RegWr_d;//to wirf
-
-    wire is_jump;    
-    wire [63:0] ifu_JumpPc;
+    
     wire ifu_isIntrPC;
     wire [63:0] ifu_IntrPC;
     //handshakes
@@ -66,37 +64,32 @@ module top(
 
     wire ifu_fetch_ready,icache_valid;
     wire [31:0] icache_inst_o;
-    IFU IFU(.clk(clk),.rst(rst),.is_jump(is_jump),.JumpPc(ifu_JumpPc),.isIntrPC(ifu_isIntrPC),.IntrPC(ifu_IntrPC),.isebreak(idu_isebreak),
-          // icache fetch
-          .req(icache_req),.addr_inst(icache_addr),.Cache_ready(icache_ready),
-          //icache inst
-          .inst_fetch_ready(ifu_fetch_ready),.inst_i(icache_inst_o),.inst_valid(icache_valid),
-          .inst_o(id_inst),.pc_o(id_pc),
-          .ifu_valid(ifu_valid),.ifu_ready(ifu_ready),.idu_ready(idu_ready),.wb_valid(wb_valid));
-    
-    icache icache(
-      .clk(clk),.rst(rst),
-      //pre-if <--> cache
-      .addr(icache_addr),.rd_req(icache_req),.req_ready(icache_ready),
-      //cache <--> ifu
-      .ifu_allowin(ifu_fetch_ready),.inst(icache_inst_o),.inst_valid(icache_valid),
-      //cache <--> data array
-    input [127:0] din_way0;    
-    input [127:0] din_way1;
-    
-    output [6:0] line_index;//line_index[6] for cascade chip select
-    output cen_way0;
-    output cen_way1;
-    output [127:0] wdata_cache;
-    output [127:0] wstrb_cache;
 
-//cache <--> axi_interface
-    output axi_rd_req,//every read transisaction is cache line
-    output [31:0] axi_rd_addr,
-    input axi_rvalid,
-    input axi_rlast,
-    input [1:0] axi_rresp,
-    input [63:0] axi_rata      
+
+    IFU IFU(.clk(clk),.rst(rst), 
+          //1. jump inst from exu  
+          .is_jump(exu_IsJump),.JumpPc(exu_JumpPc),
+          //2. intr jump from wb
+          .isIntrPC(ifu_isIntrPC),.IntrPC(ifu_IntrPC),
+          //3. ebreak from id
+          .isebreak(idu_isebreak),
+          //4. cache inteface - icache fetch
+          .cache_req(icache_req),.addr_inst(icache_addr),.cache_ready(icache_ready),
+          //5. cache inteface - icache data
+          .inst_fetch_ready(ifu_fetch_ready),.inst_i(icache_inst_o),.inst_valid(icache_valid),
+          //6. output for next stage
+          .inst_o(id_inst),.pc_o(id_pc),
+          //7. pipe shake hands
+          .ifu_valid(ifu_valid),.ifu_ready(ifu_ready),.idu_ready(idu_ready),.wb_valid(wb_valid));
+  
+    IDRegs IDRegs(.clk(clk),.rst(rst),
+        .i_pc,.i_inst,
+        .id_inst,.id_pc ,
+        .if_ready_go,
+        .if_valid,        
+        .id_ready,//id_ready_go&&exu_allow_in
+        .id_allow_in,
+        .id_valid,
     );
 
     wire exu_isTuncate,exu_isSext;
@@ -118,7 +111,7 @@ module top(
     wire witf_full,witf_empty;
     wire idu_isebreak;
     //wire [`INSTWide-1:0] ex_inst;
-    IDU IDU(.clk(clk),.rst(rst),.id_inst(id_inst),.id_pc(id_pc),.flush_pipeline(is_jump),.R_rs1_i(R_rs1),.R_rs2_i(R_rs2),.rs1(rs1),.rs2(rs2),.rd(rd),
+    IDU IDU(.clk(clk),.rst(rst),.id_inst(id_inst),.id_pc(id_pc),.flush_pipeline(exu_IsJump),.R_rs1_i(R_rs1),.R_rs2_i(R_rs2),.rs1(rs1),.rs2(rs2),.rd(rd),
       .disp_en(RegWr_d),.isRAW(isRAW),.witf_full(witf_full),.ALUct(exu_ALUct),.Imm(exu_Imm),.ALUAsr(exu_ALUAsr),.ALUBsr(exu_ALUBsr),.inst_o(ex_inst),
       .pc_o(ex_pc),.R_rs1_o(ex_Rrs1),.R_rs2_o(ex_Rrs2),.RegWr(exu_RegWr),.Branch(exu_Branch),.MemOP(exu_MemOP),.MemWr(exu_MemWr),.RegSrc(exu_RegSrc),.isebreak(idu_isebreak),
   .isTuncate(exu_isTuncate),.isSext(exu_isSext),.IntrEn(exu_IntrEn),.idu_valid(idu_valid),.idu_ready(idu_ready),.exu_ready(exu_ready),.ifu_valid(ifu_valid));
@@ -131,13 +124,15 @@ module top(
     wire lsu_Regwr;
     wire [`RegWidth-1:0] lsu_pc;
     wire [`INSTWide-1:0] lsu_inst;
-
+    
+    wire exu_IsJump; 
+    wire [63:0] exu_JumpPc;
 
     EXU EXU(.clk(clk),.rst(rst),.exu_inst(ex_inst),.exu_pc(ex_pc),.ALUAsr(exu_ALUAsr),.ALUBsr(exu_ALUBsr),.ALUct(exu_ALUct),
           .isTuncate(exu_isTuncate),.isSext(exu_isSext),.Regwr_i(exu_RegWr),.MemOP_i(exu_MemOP),.MemWr_i(exu_MemWr),.IntrEn(exu_IntrEn), .Branch(exu_Branch),.RegSrc(exu_RegSrc),
           .R_rs1(ex_Rrs1),.R_rs2(ex_Rrs2),.Imm(exu_Imm),
           .wb_ALUres(ALUres),.Regwr_o(lsu_Regwr),.R_rs1_o(mem_Rrs1),.R_rs2_o(mem_Rrs2),.MemOP_o(mem_MemOP),.MemWr_o(mem_MemWr),.IntrEn_o(mem_IntrEn),
-          .NextPC(ifu_JumpPc),.is_jump(is_jump),.RegSrc_o(lsu_RegSrc),.inst_o(lsu_inst),.pc_o(lsu_pc),
+          .NextPC(exu_JumpPc),.is_jump(exu_IsJump),.RegSrc_o(lsu_RegSrc),.inst_o(lsu_inst),.pc_o(lsu_pc),
           .idu_valid(idu_valid),.lsu_ready(lsu_ready),.exu_ready(exu_ready),.exu_valid(exu_valid));    
 
     wire wb_IntrEn;

@@ -35,7 +35,7 @@ module decache(
     // cpu(exu) <--> decache
     input req,
     input op,//0:read 1:write
-    input [63:0] addr,
+    input [`MemAddrBus:0] addr,
     input [1:0] size, //1,2,4,8
     input [7:0] wstrb,
     input [63:0] wdata,
@@ -136,7 +136,7 @@ module decache(
 
     wire [20:0] tag_i=addr[31:11];
     wire [6:0] index_i=addr[10:4];
-    wire [3:0] offset_i=addr[3:0];
+
     
     //tag compare
     wire hit_way0=(tagvd_rdata[0][`TAG_BITS]==tag_i)&&line_valid_way0;
@@ -160,7 +160,7 @@ module decache(
     wire refill_waynum_r,refill_dirty_r;
     wire req_buffer_we=req&&req_ready;
 
-    Reg #(32, 32'd0) req_addr_buffer(.clk(clk),.rst(rst),.din(addr[31:0]),.dout(addr_r),.wen(req_buffer_we));
+    Reg #(32, 32'd0) req_addr_buffer(.clk(clk),.rst(rst),.din(addr),.dout(addr_r),.wen(req_buffer_we));
     Reg #(1, 1'd0) req_hit0_buffer(.clk(clk),.rst(rst),.din(hit_way0),.dout(hit_way0_r),.wen(req_buffer_we));
     Reg #(1, 1'd0) req_hit1_buffer(.clk(clk),.rst(rst),.din(hit_way1),.dout(hit_way1_r),.wen(req_buffer_we));    
     Reg #(1, 1'd0) req_op_buffer(.clk(clk),.rst(rst),.din(op),.dout(op_r),.wen(req_buffer_we));
@@ -246,13 +246,13 @@ module decache(
 
     assign axi_wstrb = {8{uncache_r}} && (wstrb_r<<offset_r[2:0]);
 
-    assign axi_wdata = uncache_r ? {64'd0,wdata_r<<{offset_r[2:0],3'd0}} : (refill_waynum_r ? din_way0:din_way1);//data array ram输出只保持一个周期
+    assign axi_wdata = uncache_r ? {64'd0,wdata_r<<{offset_r[2:0],3'd0}} : (refill_waynum_r ? din_way0:din_way1);
 
     //axi read transaction
 
-    assign axi_rd_addr=uncache_r? addr_r:addr_r&32'hffff_fff0;
+    assign axi_rd_addr = uncache_r? addr_r:addr_r&32'hffff_fff0;
     
-    assign axi_rd_type=uncache_r ? {1'b0,size} : 3'd4;
+    assign axi_rd_type = uncache_r ? {1'b0,size} : 3'd4;
 
     assign axi_rd_req = (cur_state==S_REPLACE) && ( uncache_r && (~op_r) || (~uncache_r) );
 
@@ -273,7 +273,7 @@ module decache(
     end
 
     // rdata 
-    wire hit_data = {128{hit_way0_r}} & din_way0 | {128{hit_way1_r}} & din_way1 ;
+    wire [127:0] hit_data = {128{hit_way0_r}} & din_way0 | {128{hit_way1_r}} & din_way1 ;
     wire [63:0] hit_rdata = hit_data >> {offset_r,3'd0};
     wire hit_rvalid = cur_state==S_LOOKUP && (~op_r);
 
@@ -291,7 +291,7 @@ module decache(
     wire cache_wvalid = op_r;
 
     wire cache_valid = cache_rvalid || cache_wvalid;
-
+    //cache ready
     assign req_ready=(cur_state==S_IDEL)||(cur_state==S_LOOKUP&&(~raw));
 
     // tagvd rw
@@ -370,7 +370,7 @@ module decache(
     //data array read
     wire darray_ren = req && req_ready || axi_wr_req;
 
-    wire [5:0] darray_raddr = index_i[5:0];
+    wire [5:0] darray_raddr = axi_wr_req ? index_r[5:0] : index_i[5:0];
 
     wire [3:0] io_sram_rcs;//,io_sram_rcs_r;
     
