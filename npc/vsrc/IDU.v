@@ -1,46 +1,60 @@
 `include "defines.v"
 import "DPI-C" function void setebreak();
 module IDU(
-     input clk,
-     input rst,
-     //from ctrl
-     input flush_pipeline,
-     //from ifu
-     input [`INSTWide-1:0] id_inst,
-     input [`RegWidth-1:0] id_pc,
-     //from regs
-     input [`RegWidth-1:0] R_rs1_i,
-     input [`RegWidth-1:0] R_rs2_i,
-    //from witf     
-     input isRAW,
-     input witf_full,
-    //to EX
+    input clk,
+    input rst,
+    
+    // 1. inputs from pre stage(ifu)
+    input [`INSTWide-1:0] id_inst,
+    input [`RegWidth-1:0] id_pc,
+
+    // 2. jump from exu
+    input flush_pipeline,
+    
+    // 3. register files read
+    // 3.1 reg data in 
+    input [`RegWidth-1:0] R_rs1_i,
+    input [`RegWidth-1:0] R_rs2_i,
+    // 3.2 reg index out
+    output[`RegAddrBus] rs1,
+    output[`RegAddrBus] rs2,
+
+    // 4. witf for raw     
+    // 4.1 raw check && fifo full
+    input isRAW,
+    input witf_full,
+    // 4.2 disp inst info
+    output[`RegAddrBus] rd,//rs1&&rs2 reuse signals of register file
+    output disp_en,
+
+    // 5. outputs for next stage
+    // 5.1 ctrl sginals
+    // 5.1.1 ALU opcode
     output reg [4:0] ALUct,//加法器加(b0000)、加法器减、移位（左移、逻辑右移、逻辑左移）、异或、逻辑或、逻辑与、直接输出(b0001)
-    output reg [`RegWidth-1:0] Imm,
     output reg ALUAsr,//ALUAsr->0:PC ALUAsr->1:R_sr1
     output reg [1:0] ALUBsr,//ALUBsr->0:Imm ALUBsr->1:R_sr2 ALUBsr->2:4
+    output isTuncate,
+    output isSext,    
+    // 5.1.2 branch opcode
+    output reg [2:0] Branch,
+    // 5.1.3 mem opcode
+    output MemWr,
+    output [2:0] MemOP,
+    // 5.1.4 registers write ctrl
+    output RegWr,
+    output [1:0] RegSrc,
+    // 5.1.5 indicate interrupt inst
+    output IntrEn,    
+    // 5.2 operate data
+    output reg [`RegWidth-1:0] Imm,    
     output [`INSTWide-1:0] inst_o,
     output [`RegWidth-1:0] pc_o,
     output [`RegWidth-1:0] R_rs1_o,
     output [`RegWidth-1:0] R_rs2_o,
 
-    output reg [2:0] Branch,
-    output MemWr,
-    output [2:0] MemOP,
-    output [1:0] RegSrc,
-    output isTuncate,
-    output isSext,
-    output IntrEn,
-    //to WB
-    output RegWr,//结果写回寄存器
-    //to regs
-    output[`RegAddrBus] rs1,
-    output[`RegAddrBus] rs2,
-    //to witf
-    output[`RegAddrBus] rd,
-    output disp_en,
-     //to ifu
-     output isebreak,
+    // 6. outputs for pre stage
+    output isebreak,
+    
     //handshake from ifu
     input ifu_valid,
     output idu_ready,

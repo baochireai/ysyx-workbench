@@ -29,11 +29,11 @@ module IFU(
     //5. output for post stage(idu)
     output reg [`INSTWide-1:0] inst_o,
     output reg [63:0] pc_o,
-    output if_valid,
 
-    //5. pipe shake hands
+    //6. pipe shake hands
     input id_allow_in,
-    output if_ready_go
+    output if_ready_go,
+    output if_valid
 );
 
     wire [`RegWidth-1:0] prefetch_pc;

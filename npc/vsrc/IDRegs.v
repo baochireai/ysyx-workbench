@@ -7,9 +7,6 @@ module IDRegs(
     input [63:0] i_pc,
     input [31:0] i_inst,
 
-    // input id_ready_go,
-    // input exu_allow_in,
-
     input id_ready,//id_ready_go&&exu_allow_in
 
     output id_valid,

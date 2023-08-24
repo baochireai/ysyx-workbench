@@ -48,23 +48,29 @@ module top(
     wire ifu_isIntrPC;
     wire [63:0] ifu_IntrPC;
     //handshakes
-    wire ifu_arvalid;
     wire [`MemAddrBus-1:0] ifu_raddr;
     wire  ifu_ready;
 
-
     
-    wire [`RegWidth-1:0] id_pc;
-    wire [`INSTWide-1:0] id_inst;
-    wire ifu_valid,ifu_ready,idu_valid,idu_ready,exu_valid,exu_ready,lsu_valid,lsu_ready,wb_valid,wb_ready;
+    wire idu_valid,idu_ready,exu_valid,exu_ready,lsu_valid,lsu_ready,wb_valid,wb_ready;
 
 
-    wire icache_req,icache_ready;
-    wire [31:0] icache_addr;
+    wire icache_ready;
 
     wire ifu_fetch_ready,icache_valid;
     wire [31:0] icache_inst_o;
 
+
+  /*------------IF----------------*/
+
+    //cache req
+    wire ifu_cache_req;
+    wire [31:0] ifu_cache_addr;
+    // ifu outputs
+    wire [`RegWidth-1:0] ifu_pc_o;
+    wire [`INSTWide-1:0] ifu_inst_o;
+    //shake hands to next stage
+    wire if_ready_go,if_valid;
 
     IFU IFU(.clk(clk),.rst(rst), 
           //1. jump inst from exu  
@@ -74,24 +80,33 @@ module top(
           //3. ebreak from id
           .isebreak(idu_isebreak),
           //4. cache inteface - icache fetch
-          .cache_req(icache_req),.addr_inst(icache_addr),.cache_ready(icache_ready),
+          .cache_req(ifu_cache_req),.addr_inst(ifu_cache_addr),.cache_ready(icache_ready),
           //5. cache inteface - icache data
-          .inst_fetch_ready(ifu_fetch_ready),.inst_i(icache_inst_o),.inst_valid(icache_valid),
+          .inst_i(icache_inst_o),.inst_valid(icache_valid),
           //6. output for next stage
-          .inst_o(id_inst),.pc_o(id_pc),
+          .inst_o(ifu_inst_o),.pc_o(ifu_pc_o),
           //7. pipe shake hands
-          .ifu_valid(ifu_valid),.ifu_ready(ifu_ready),.idu_ready(idu_ready),.wb_valid(wb_valid));
+          .id_allow_in(id_allow_in),if_ready_go(if_ready_go),.if_valid(if_valid));
   
+  /*------------IF-ID pipe Regs------------*/
+
+    wire [31:0] id_inst;
+    wire [63:0] id_pc;
+    wire id_allow_in,if_to_id_valid;
+
     IDRegs IDRegs(.clk(clk),.rst(rst),
-        .i_pc,.i_inst,
-        .id_inst,.id_pc ,
-        .if_ready_go,
-        .if_valid,        
-        .id_ready,//id_ready_go&&exu_allow_in
-        .id_allow_in,
-        .id_valid,
+        // 1. input from pre stage
+        .i_pc(ifu_pc_o),.i_inst(ifu_inst_o),
+        // 2. output to next satge
+        .id_inst(id_inst),.id_pc(id_pc) ,
+        // 3. pipe shake hands
+        // 3.1 sh of pre stage
+        .if_ready_go(if_ready_go),.if_valid(if_valid),.id_allow_in(id_allow_in),
+        // 3.2 sh of next stage
+        .id_ready(idu_ready),.id_valid(if_to_id_valid),
     );
 
+  /*--------------------ID-----------------*/
     wire exu_isTuncate,exu_isSext;
     wire [`RegWidth-1:0] ex_Rrs1,ex_Rrs2;
     wire exu_IntrEn;
@@ -114,7 +129,7 @@ module top(
     IDU IDU(.clk(clk),.rst(rst),.id_inst(id_inst),.id_pc(id_pc),.flush_pipeline(exu_IsJump),.R_rs1_i(R_rs1),.R_rs2_i(R_rs2),.rs1(rs1),.rs2(rs2),.rd(rd),
       .disp_en(RegWr_d),.isRAW(isRAW),.witf_full(witf_full),.ALUct(exu_ALUct),.Imm(exu_Imm),.ALUAsr(exu_ALUAsr),.ALUBsr(exu_ALUBsr),.inst_o(ex_inst),
       .pc_o(ex_pc),.R_rs1_o(ex_Rrs1),.R_rs2_o(ex_Rrs2),.RegWr(exu_RegWr),.Branch(exu_Branch),.MemOP(exu_MemOP),.MemWr(exu_MemWr),.RegSrc(exu_RegSrc),.isebreak(idu_isebreak),
-  .isTuncate(exu_isTuncate),.isSext(exu_isSext),.IntrEn(exu_IntrEn),.idu_valid(idu_valid),.idu_ready(idu_ready),.exu_ready(exu_ready),.ifu_valid(ifu_valid));
+  .isTuncate(exu_isTuncate),.isSext(exu_isSext),.IntrEn(exu_IntrEn),.idu_valid(idu_valid),.idu_ready(idu_ready),.exu_ready(exu_ready),.ifu_valid(if_to_id_valid));
     
     wire [`RegWidth-1:0]mem_Rrs1,mem_Rrs2;
     wire [2:0] mem_MemOP;
