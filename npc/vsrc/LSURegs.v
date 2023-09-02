@@ -22,27 +22,27 @@ module LSURegs(
     
     // 2. outputs for next stage 
     // 2.1 mem ctrl
-    input                   o_MemWr,
-    input [2:0]             o_MemOP,
+    output                  o_MemWr,
+    output [2:0]            o_MemOP,
     // 2.2 inst&pc
-    input[`INSTWide-1:0]    o_inst,
-    input[`RegWidth-1:0]    o_pc,   
+    output[`INSTWide-1:0]   o_inst,
+    output[`RegWidth-1:0]   o_pc,   
     // 2.3 pipeline forward
     // 2.3.1 regsfile wdata
-    input [`RegWidth-1:0]   o_ALUres
+    output [`RegWidth-1:0]  o_ALUres,
     // 2.3.2 regfile wb ctrl
-    input [1:0]             o_RegSrc
-    input                   o_RegWr,
+    output [1:0]            o_RegSrc,
+    output                  o_RegWr,
     // 2.3.3 intr/csr
-    input                   o_IntrEn,
+    output                  o_IntrEn,
     // 2.3.4 csr wdata
-    input[`RegWidth-1:0]    o_R_rs1,
+    output[`RegWidth-1:0]   o_R_rs1,
     
     // 3. handshakes
-    input exu_to_lsu_valid,
-    output lsu_ready,
-    output lsu_valid,
-    output lsu_allow_in,        
+    input                   exu_to_lsu_valid,
+    input                   lsu_ready,
+    output                  lsu_valid,
+    output                  lsu_allow_in     
 );
 
     // 1. handshake

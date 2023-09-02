@@ -244,7 +244,7 @@ module top(
     // 1.3 mem op    
     .MemOP_i(exu_MemOP),.MemWr_i(exu_MemWr),
     // 1.4 regs wb    
-    .Regwr_i (exu_RegWr),.RegSrc_i(exu_RegSrc),
+    .Regwr_i(exu_RegWr),.RegSrc_i(exu_RegSrc),
     // 1.5 intr inst
     .IntrEn_i(exu_IntrEn),    
     // 1.6 operate data    
@@ -277,25 +277,121 @@ module top(
     .exu_valid(exu_valid),.exu_ready(exu_ready),.wb_allow_in(wb_allow_in),.exu_to_lsu_valid(exu_to_lsu_valid) 
   ); 
 
-    wire wb_IntrEn;
-    wire [1:0] wb_RegSrc;
-    wire wb_RegWr;
-    wire [`RegWidth-1:0] wb_pc;
-    wire [`INSTWide-1:0] wb_inst;
-    wire [`RegWidth-1:0] wb_ALUres;
-    wire [`RegWidth-1:0] memout;
-    wire [`RegWidth-1:0] wb_Rrs1;
-    wire witf_wb_en;
+  /*--------------------EXU to LSU Regs-----------------*/
 
-    LSU LSU(.clk(clk),.rst(rst),.addr(ALUres),.wdata(mem_Rrs2),.MemOP(mem_MemOP),.we(mem_MemWr),.dataout(memout),.clint_mtip(clint_mtip),
-            .IntrEn_i(mem_IntrEn),.RegWdata_src_i(lsu_RegSrc),.RegWr_i(lsu_Regwr),.lsu_inst(lsu_inst),.lsu_pc(lsu_pc),.R_rs1_i(mem_Rrs1),
-            .IntrEn_o(wb_IntrEn),.RegWdata_src_o(wb_RegSrc),.RegWr_o(wb_RegWr),.inst_o(wb_inst),.pc_o(wb_pc),.R_rs1_o(wb_Rrs1),
-            .ALUres_o(wb_ALUres),
-            .lsu_valid(lsu_valid),.lsu_ready(lsu_ready),.wb_ready(wb_ready),.exu_valid(exu_valid));
+  // 1. outputs for next stage 
+  // 1.1 mem ctrl
+  wire                   lsu_MemWr;
+  wire [2:0]             lsu_MemOP;
+  // 1.2 inst&pc
+  wire [`INSTWide-1:0]   lsu_inst;
+  wire [`RegWidth-1:0]   lsu_pc;   
+  // 1.3 pipeline forward
+  // 1.3.1 regsfile wdata
+  wire [`RegWidth-1:0]   lsu_ALUres;
+  // 1.3.2 regfile wb ctrl
+  wire [1:0]             lsu_RegSrc;
+  wire                   lsu_RegWr;
+  // 1.3.3 intr/csr
+  wire                   lsu_IntrEn;
+  // 1.3.4 csr wdata
+  wire [`RegWidth-1:0]   lsu_R_rs1;
 
-    WB WB(.clk(clk),.rst(rst),.IntrEn(wb_IntrEn),.clint_mtip(clint_mtip),.Wdata_src(wb_RegSrc),.RegWr(wb_RegWr),.wb_pc(wb_pc),.wb_inst(wb_inst),
-      .ALUres(wb_ALUres),.MemOut(memout),.R_rs1_i(wb_Rrs1),.wb_en(witf_wb_en),.isIntrPC(ifu_isIntrPC),.IntrPC(ifu_IntrPC),.rs1(id_rs1),.rs2(id_rs2),.R_rs1(R_rs1),.R_rs2(R_rs2),
-      .lsu_valid(lsu_valid),.ifu_ready(ifu_ready),.wb_ready(wb_ready),.wb_valid(wb_valid));
+  // 2. shake hands    
+  wire lsu_valid;
+  wire lsu_allow_in;
+
+  LSURegs EXU_to_LSU_Regs(.clk(clk),.rst(rst),
+    // 1. inputs from exu
+    // 1.1 mem ctrl
+    .i_MemWr(o_exu_MemWr),.i_MemOP(o_exu_MemOP),
+    // 1.2 inst&pc
+    .i_inst(o_exu_inst),.i_pc(o_exu_pc),    
+    // 1.3 pipeline forward
+    // 1.3.1 regsfile wdata
+    .i_ALUres(o_exu_ALUres),
+    // 1.3.2 regfile wb ctrl
+    .i_RegSrc(o_exu_RegSrc),.i_RegWr(o_exu_Regwr), 
+    // 1.3.3 intr/csr
+    .i_IntrEn(o_exu_IntrEn),
+    // 1.3.4 csr wdata
+    .i_R_rs1(o_exu_R_rs1),  
+    
+    // 2. outputs for next stage 
+    // 2.1 mem ctrl
+    .o_MemWr(lsu_MemWr),.o_MemOP(lsu_MemOP),
+    // 2.2 inst&pc
+    .o_inst(lsu_inst),.o_pc(lsu_pc),   
+    // 2.3 pipeline forward
+    // 2.3.1 regsfile wdata
+    .o_ALUres(lsu_ALUres),
+    // 2.3.2 regfile wb ctrl
+    .o_RegSrc(lsu_RegSrc),.o_RegWr (lsu_RegWr),
+    // 2.3.3 intr/csr
+    .o_IntrEn(lsu_IntrEn),
+    // 2.3.4 csr wdata
+    .o_R_rs1(lsu_R_rs1),
+    
+    // 3. handshakes
+    .exu_to_lsu_valid(exu_to_lsu_valid),.lsu_ready(lsu_ready),.lsu_valid(lsu_valid),.lsu_allow_in(lsu_allow_in),        
+);
+
+  /*--------------------LSU-----------------*/
+
+
+  LSU LSU(.clk(clk),.rst(rst),
+
+    // 1. cache
+    input cache_rvalid,
+    input [63:0] cache_rdata,
+
+    // 2. inputs from pre stage    
+    // 2.1 mem ctrl
+    input                   i_MemWr,
+    input [2:0]             i_MemOP,//
+    // 2.2 inst&pc
+    input[`INSTWide-1:0]    lsu_inst,
+    input[`RegWidth-1:0]    lsu_pc,    
+    // 2.3 pipeline forward
+    // 2.3.1 regsfile wdata
+    input [`RegWidth-1:0]   i_ALUres,
+    // 2.3.2 regfile wb ctrl
+    input [1:0]             i_RegSrc,//alu/mem/csr
+    input                   i_RegWr, 
+    // 2.3.3 intr/csr
+    input                   i_IntrEn,
+    // 2.3.4 csr wdata
+    input[`RegWidth-1:0]    i_R_rs1,   
+    
+    // 3. outputs for next stage
+    
+    // 3.1 mem out 
+    output [`RegWidth-1:0]  memout,
+    
+    // 3.2 clint(timer)
+    output                  clint_mtip,    
+    
+    // 3.3 pipeline forward
+    
+    // 3.3.1 regsfile wdata
+    output [`RegWidth-1:0]   o_ALUres,
+    // 3.3.2 regfile wb ctrl
+    output [1:0]             o_RegSrc,
+    output                   o_RegWr, 
+    // 3.3.3 intr/csr
+    output                   o_IntrEn,
+    // 3.3.4 csr wdata
+    output[`RegWidth-1:0]    o_R_rs1,   
+    // 3.3.5 inst&pc
+    output[`INSTWide-1:0] inst_o,
+    output[`RegWidth-1:0] pc_o,
+    
+    // 4. handshakes
+    input lsu_valid,
+    output lsu_ready,
+    output lsu_to_wb_valid,
+    input wb_allowin
+  );
 
     witf witf(.clk(clk),.rst(rst),.rs1(id_rs1),.rs2(id_rs2),.rd(id_rd),.isRAW(isRAW),.disp_en(id_RegWr),.wb_en(witf_wb_en),.witf_full(witf_full),.witf_empty(witf_empty));
 
