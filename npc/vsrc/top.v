@@ -8,68 +8,16 @@ module top(
     output [63:0] pc,
     output valid
 );
-    
-    wire [63:0] R_rs1;
-    wire [63:0] R_rs2;
-
-    wire [2:0] Extop;
-
-
-    wire [63:0] ALUres;
-
-    wire [63:0] waddr;
-    
-    wire Less,Zero;
-
-    wire [63:0] MemOut;
-
-    wire [63:0] RegWdata;
-
-
-
-    wire IntrEn;
-
-    wire [63:0] IntrOut;
-
-    wire clint_mtip;
-
-    wire clint_we,clint_re;
-
-    wire [63:0] clint_dout;
-
-
-    //IDU to regs
-    wire [4:0] rs1;
-    wire [4:0] rs2;
-    wire [`RegAddrBus] rd;
-
-    wire RegWr_d;//to wirf
-    
-    wire ifu_isIntrPC;
-    wire [63:0] ifu_IntrPC;
-    //handshakes
-    wire [`MemAddrBus-1:0] ifu_raddr;
-    wire  ifu_ready;
-
-    
-    wire idu_valid,idu_ready,exu_valid,exu_ready,lsu_valid,lsu_ready,wb_valid,wb_ready;
-
-
-    wire icache_ready;
-
-    wire ifu_fetch_ready,icache_valid;
-    wire [31:0] icache_inst_o;
-
 
   /*------------IF----------------*/
 
-    //cache req
+    // 1. cache req
     wire ifu_cache_req;
     wire [31:0] ifu_cache_addr;
-    // ifu outputs
+    // 2. ifu outputs
     wire [`RegWidth-1:0] ifu_pc_o;
     wire [`INSTWide-1:0] ifu_inst_o;
-    //shake hands to next stage
+    // 3. shake hands to next stage
     wire if_ready_go,if_valid;
 
     IFU IFU(.clk(clk),.rst(rst), 
@@ -86,12 +34,14 @@ module top(
           //6. output for next stage
           .inst_o(ifu_inst_o),.pc_o(ifu_pc_o),
           //7. pipe shake hands
-          .id_allow_in(id_allow_in),if_ready_go(if_ready_go),.if_valid(if_valid));
+          .id_allow_in(id_allow_in),if_ready_go(if_ready_go),.if_valid(if_valid)
+    );
   
   /*------------IF-ID pipe Regs------------*/
-
+    // 1. pipe regs
     wire [31:0] id_inst;
     wire [63:0] id_pc;
+    // 2. shake hands
     wire id_allow_in,if_to_id_valid;
 
     IDRegs IDRegs(.clk(clk),.rst(rst),
@@ -107,48 +57,225 @@ module top(
     );
 
   /*--------------------ID-----------------*/
-    wire exu_isTuncate,exu_isSext;
-    wire [`RegWidth-1:0] ex_Rrs1,ex_Rrs2;
-    wire exu_IntrEn;
-    wire [4:0] exu_ALUct;
-    wire [63:0] exu_Imm;
-    wire exu_ALUAsr;
-    wire [1:0] exu_ALUBsr;
-    wire [`RegWidth-1:0] ex_pc;
-    wire [`INSTWide-1:0] ex_inst;
-    wire exu_RegWr;
-    wire [2:0] exu_Branch;
-    wire [2:0] exu_MemOP;
-    wire exu_MemWr;
-    wire [1:0] exu_RegSrc;
     //from witf
     wire isRAW;
     wire witf_full,witf_empty;
-    wire idu_isebreak;
-    //wire [`INSTWide-1:0] ex_inst;
-    IDU IDU(.clk(clk),.rst(rst),.id_inst(id_inst),.id_pc(id_pc),.flush_pipeline(exu_IsJump),.R_rs1_i(R_rs1),.R_rs2_i(R_rs2),.rs1(rs1),.rs2(rs2),.rd(rd),
-      .disp_en(RegWr_d),.isRAW(isRAW),.witf_full(witf_full),.ALUct(exu_ALUct),.Imm(exu_Imm),.ALUAsr(exu_ALUAsr),.ALUBsr(exu_ALUBsr),.inst_o(ex_inst),
-      .pc_o(ex_pc),.R_rs1_o(ex_Rrs1),.R_rs2_o(ex_Rrs2),.RegWr(exu_RegWr),.Branch(exu_Branch),.MemOP(exu_MemOP),.MemWr(exu_MemWr),.RegSrc(exu_RegSrc),.isebreak(idu_isebreak),
-  .isTuncate(exu_isTuncate),.isSext(exu_isSext),.IntrEn(exu_IntrEn),.idu_valid(idu_valid),.idu_ready(idu_ready),.exu_ready(exu_ready),.ifu_valid(if_to_id_valid));
-    
-    wire [`RegWidth-1:0]mem_Rrs1,mem_Rrs2;
-    wire [2:0] mem_MemOP;
-    wire mem_MemWr;
-    wire mem_IntrEn;
-    wire [1:0] lsu_RegSrc;
-    wire lsu_Regwr;
-    wire [`RegWidth-1:0] lsu_pc;
-    wire [`INSTWide-1:0] lsu_inst;
-    
-    wire exu_IsJump; 
-    wire [63:0] exu_JumpPc;
 
-    EXU EXU(.clk(clk),.rst(rst),.exu_inst(ex_inst),.exu_pc(ex_pc),.ALUAsr(exu_ALUAsr),.ALUBsr(exu_ALUBsr),.ALUct(exu_ALUct),
-          .isTuncate(exu_isTuncate),.isSext(exu_isSext),.Regwr_i(exu_RegWr),.MemOP_i(exu_MemOP),.MemWr_i(exu_MemWr),.IntrEn(exu_IntrEn), .Branch(exu_Branch),.RegSrc(exu_RegSrc),
-          .R_rs1(ex_Rrs1),.R_rs2(ex_Rrs2),.Imm(exu_Imm),
-          .wb_ALUres(ALUres),.Regwr_o(lsu_Regwr),.R_rs1_o(mem_Rrs1),.R_rs2_o(mem_Rrs2),.MemOP_o(mem_MemOP),.MemWr_o(mem_MemWr),.IntrEn_o(mem_IntrEn),
-          .NextPC(exu_JumpPc),.is_jump(exu_IsJump),.RegSrc_o(lsu_RegSrc),.inst_o(lsu_inst),.pc_o(lsu_pc),
-          .idu_valid(idu_valid),.lsu_ready(lsu_ready),.exu_ready(exu_ready),.exu_valid(exu_valid));    
+    // 1. regs read && witf
+    wire [4:0] id_rs1;
+    wire [4:0] id_rs2;
+
+    // 2. inst write back info for witf 
+    wire id_RegWr;//to wirf
+    wire [`RegAddrBus] id_rd;
+
+    // 3. outputs for next stage  
+    // 3.1 ctrl signals
+    // 3.1.1 ALU
+    wire [4:0] o_id_ALUct;
+    wire o_id_ALUAsr;
+    wire [1:0] o_id_ALUBsr;
+    wire o_id_isTuncate,o_id_isSext;
+    // 3.1.2 branch
+    wire [2:0] o_id_Branch;
+    // 3.1.3 mem
+    wire [2:0] o_id_MemOP;
+    wire o_id_MemWr;
+    // 3.1.4 reg 
+    wire o_id_RegWr;
+    wire [1:0] o_id_RegSrc;
+    // 3.1.5 intr inst
+    wire o_id_IntrEn;
+    // 3.2 operate data for next stage
+    wire [`RegWidth-1:0] o_id_Rrs1,o_id_Rrs2;
+    wire [63:0] o_id_Imm;
+    wire [`RegWidth-1:0] o_id_pc;
+    wire [`INSTWide-1:0] o_id_inst;
+
+    // 4. outputs for pre stage (ebreak inst)
+    wire idu_isebreak;    
+
+    // 6. shake hands
+    wire idu_ready;
+    wire id_to_exu_valid;
+
+    IDU IDU(.clk(clk),.rst(rst),
+      // 1. inputs from pre stage
+      .id_inst(id_inst),.id_pc(id_pc),
+      // 2. jump from exu
+      .flush_pipeline(exu_IsJump),
+      // 3. register files read      
+      .R_rs1_i(R_rs1),.R_rs2_i(R_rs2),.rs1(id_rs1),.rs2(id_rs2),
+      // 4. witf for raw     
+      .rd(id_rd),.disp_en(id_RegWr),.isRAW(isRAW),.witf_full(witf_full),
+      // 5. outputs for next stage
+      // 5.1 ctrl signals
+      // 5.1.1 ALU     
+      .ALUct(o_id_ALUct),.ALUAsr(o_id_ALUAsr),.ALUBsr(o_id_ALUBsr),.isTuncate(o_id_isTuncate),.isSext(o_id_isSext),
+      // 5.1.2  branch
+      .Branch(o_id_Branch),
+      // 5.1.3 mem 
+      .MemOP(o_id_MemOP),.MemWr(o_id_MemWr),
+      // 5.1.4 regs
+      .RegWr(o_id_RegWr),.RegSrc(o_id_RegSrc),
+      // 5.1.5 intr inst 
+      .IntrEn(o_id_IntrEn),    
+      // 5.2 operate data 
+      .Imm(o_id_Imm),.inst_o(o_id_inst),.pc_o(o_id_pc),.R_rs1_o(o_id_Rrs1),.R_rs2_o(o_id_Rrs2),
+      // 6. outputs for pre stage(ebreak inst)
+      .isebreak(idu_isebreak),
+      // 7. shake hands
+      .idu_valid(idu_valid),.idu_ready(idu_ready),.exu_allow_in(),.id_to_exu_valid(id_to_exu_valid)
+    );
+    
+  /*--------------------ID to EXU Regs-----------------*/
+
+    // 1. ALU ctrl 
+    wire                   exu_ALUAsr,
+    wire [1:0]             exu_ALUBsr,
+    wire [4:0]             exu_ALUct,
+    wire                   exu_isTuncate,
+    wire                   exu_isSext,
+    // 2. branch ctrl 
+    wire [2:0]             exu_Branch,
+
+    // 3. mem op    
+    wire [2:0]             exu_MemOP_i,
+    wire                   exu_MemWr_i,
+
+    // 4. regs wb    
+    wire                   exu_Regwr_i,
+    wire [1:0]             exu_RegSrc,//写回地址 
+
+    // 5. intr insto_
+    wire                   exu_IntrEn,    
+    // 6. operate data    
+    wire [`RegWidth-1:0]   exu_R_rs1,
+    wire [`RegWidth-1:0]   exu_R_rs2,//mem wdata
+    wire [`RegWidth-1:0]   exu_Imm,
+    wire [`INSTWide-1:0]   exu_inst,
+    wire [`RegWidth-1:0]   exu_pc,  
+
+    // 7. shake hands
+    wire                   exu_valid;
+    wire                   exu_allow_in;
+
+    EXURegs ID_to_EXU_Regs(.clk(clk),.rst(rst),
+      // 1. inputs from id 
+      // 1.1 ALU ctrl  
+      .i_ALUAsr(o_id_ALUAsr),.i_ALUBsr(o_id_ALUBsr),.i_ALUct(o_id_ALUct),.i_isTuncate(o_id_isTuncate),.i_isSext(o_id_isSext),
+      // 1.2 branch ctrl 
+      .i_Branch(o_id_Branch),
+      // 1.3 mem op    
+      .i_MemOP_i(o_id_MemOP),.i_MemWr_i(o_id_MemWr),
+      // 1.4 regs wb    
+      .i_Regwr_i(o_id_RegWr),.i_RegSrc (o_id_RegSrc),
+      // 1.5 intr inst
+      .i_IntrEn(o_id_IntrEn),    
+      // 1.6 operate data    
+      .i_R_rs1(o_id_Rrs1),.i_R_rs2(o_id_Rrs2),.i_Imm(o_id_Imm),.i_exu_inst(o_id_inst),.i_exu_pc(o_id_pc),  
+
+      // 2. outputs for exu 
+      // 2.1 ALU ctrl 
+      .o_ALUAsr(exu_ALUAsr),.o_ALUBsr(exu_ALUBsr),.o_ALUct(exu_ALUct),.o_isTuncate(exu_isTuncate),.o_isSext(exu_isSext),
+      // 2.2 branch ctrl 
+      .o_Branch(exu_Branch),
+      // 2.3 mem op    
+      .o_MemOP_i(exu_MemOP),.o_MemWr_i(exu_MemWr),
+      // 2.4 regs wb    
+      .o_Regwr_i(exu_RegWr),.o_RegSrc(exu_RegSrc),
+      // 2.5 intr insto_
+      .o_IntrEn(exu_IntrEn),    
+
+      // 2.6 operate data    
+      .o_R_rs1(exu_R_rs1),.o_R_rs2(exu_R_rs2),.o_Imm(exu_Imm),.o_exu_inst(exu_inst),.o_exu_pc(exu_pc),  
+
+      // 3. shake hands signal 
+      // 3.1 id
+      .id_to_exu_valid(id_to_exu_valid),.exu_allow_in(exu_allow_in),
+      // 3.2 exu 
+      .exu_ready(exu_ready),.exu_valid(exu_valid) 
+    );
+
+
+  /*--------------------EXU-----------------*/
+
+  // 1. decache req
+  wire        o_exu_cache_req;
+  wire        o_exu_cache_op;
+  wire [1:0]  o_exu_cache_size;
+  wire [63:0] o_exu_cache_addr;
+  wire [63:0] o_exu_cache_wdata;
+  wire [7:0]  o_exu_cache_wstrb;
+
+  // 3. outputs for next stage 
+  // 3.1 mem op(cache rdata process)
+  wire [2:0]           o_exu_MemOP;
+  wire                 o_exu_MemWr;
+  // 3.2 alu res for reg wb(mem addr->cache req)
+  wire [`RegWidth-1:0] o_exu_ALUres;
+  // 3.3 reg wb
+  wire                 o_exu_Regwr;
+  wire [1:0]           o_exu_RegSrc;
+  // 3.4 inst&pc
+  wire[`INSTWide-1:0]  o_exu_inst;
+  wire [`RegWidth-1:0] o_exu_pc;
+  // 3.5 intr/csr
+  wire                 o_exu_IntrEn;
+  // 3.6 csr wdata
+  wire [`RegWidth-1:0] o_exu_R_rs1; 
+
+  // 4. outputs for pre stage
+  // 4.1 for ifu 
+  wire [`RegWidth-1:0] o_exu_NextPC;
+  // 4.2 flush pipe
+  wire                 o_exu_is_jump;
+  
+  // shake hands
+  wire exu_ready ;
+  wire exu_to_wb_valid ;   
+
+  EXU EXU(.clk(clk),.rst(rst),
+    // 1. inputs from pre stage 
+    // 1.1 ctrl from id to ALU
+    .ALUAsr(exu_ALUAsr),.ALUBsr(exu_ALUBsr),.ALUct(exu_ALUct),.isTuncate(exu_isTuncate),.isSext(exu_isSext),
+    // 1.2 branch ctrl 
+    .Branch(exu_Branch),
+    // 1.3 mem op    
+    .MemOP_i(exu_MemOP),.MemWr_i(exu_MemWr),
+    // 1.4 regs wb    
+    .Regwr_i (exu_RegWr),.RegSrc_i(exu_RegSrc),
+    // 1.5 intr inst
+    .IntrEn_i(exu_IntrEn),    
+    // 1.6 operate data    
+    .R_rs1(exu_R_rs1),.R_rs2(exu_R_rs2),.Imm(exu_Imm),.exu_inst(exu_inst),.exu_pc(exu_pc),  
+
+    // 2. decache req
+    .req(o_exu_cache_req),.op(o_exu_cache_op),.size(o_exu_cache_size),.addr(o_exu_cache_addr),.wdata(o_exu_cache_wdata),.wstrb(o_exu_cache_wstrb),.cache_ready(cache_ready),
+
+    // 3. outputs for next stage 
+    // 3.1 mem op(cache rdata process)
+    .MemOP(o_exu_MemOP),.MemWr(o_exu_MemWr),
+    // 3.2 alu res for reg wb(mem addr->cache req)
+    .ALUres(o_exu_ALUres),
+    // 3.3 reg wb
+    .Regwr (o_exu_Regwr),.RegSrc(o_exu_RegSrc),
+    // 3.4 inst&pc
+    .inst(o_exu_inst),.pc(o_exu_pc),
+    // 3.5 intr/csr
+    .IntrEn(o_exu_IntrEn),
+    // 3.6 csr wdata
+    .R_rs1(o_exu_R_rs1), 
+
+    // 4. outputs for pre stage
+    // 4.1 for ifu 
+    .NextPC(o_exu_NextPC),
+    // 4.2 flush pipe
+    .is_jump(o_exu_is_jump),
+
+    // 5. handshakes
+    .exu_valid(exu_valid),.exu_ready(exu_ready),.wb_allow_in(wb_allow_in),.exu_to_lsu_valid(exu_to_lsu_valid) 
+  ); 
 
     wire wb_IntrEn;
     wire [1:0] wb_RegSrc;
@@ -167,14 +294,17 @@ module top(
             .lsu_valid(lsu_valid),.lsu_ready(lsu_ready),.wb_ready(wb_ready),.exu_valid(exu_valid));
 
     WB WB(.clk(clk),.rst(rst),.IntrEn(wb_IntrEn),.clint_mtip(clint_mtip),.Wdata_src(wb_RegSrc),.RegWr(wb_RegWr),.wb_pc(wb_pc),.wb_inst(wb_inst),
-      .ALUres(wb_ALUres),.MemOut(memout),.R_rs1_i(wb_Rrs1),.wb_en(witf_wb_en),.isIntrPC(ifu_isIntrPC),.IntrPC(ifu_IntrPC),.rs1(rs1),.rs2(rs2),.R_rs1(R_rs1),.R_rs2(R_rs2),
+      .ALUres(wb_ALUres),.MemOut(memout),.R_rs1_i(wb_Rrs1),.wb_en(witf_wb_en),.isIntrPC(ifu_isIntrPC),.IntrPC(ifu_IntrPC),.rs1(id_rs1),.rs2(id_rs2),.R_rs1(R_rs1),.R_rs2(R_rs2),
       .lsu_valid(lsu_valid),.ifu_ready(ifu_ready),.wb_ready(wb_ready),.wb_valid(wb_valid));
 
-    witf witf(.clk(clk),.rst(rst),.rs1(rs1),.rs2(rs2),.rd(rd),.isRAW(isRAW),.disp_en(RegWr_d),.wb_en(witf_wb_en),.witf_full(witf_full),.witf_empty(witf_empty));
+    witf witf(.clk(clk),.rst(rst),.rs1(id_rs1),.rs2(id_rs2),.rd(id_rd),.isRAW(isRAW),.disp_en(id_RegWr),.wb_en(witf_wb_en),.witf_full(witf_full),.witf_empty(witf_empty));
 
     assign Inst=wb_inst;
     assign pc=wb_pc;
     assign valid=lsu_valid;
+
+RegisterFile RegisterFile(.rs1(rs1),.rs2(rs2),.waddr(wb_inst[11:7]),.R_rs1(R_rs1),.R_rs2(R_rs2),
+            .clk(clk),.wdata(RegWdata),.wen(regfile_we));
 
 endmodule
 

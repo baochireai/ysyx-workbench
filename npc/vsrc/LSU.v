@@ -2,84 +2,101 @@ module LSU(
     input clk,
     input rst,
 
-    // //data from exu
-    // input[`RegWidth-1:0] addr,//ALUres
-    // input[`RegWidth-1:0] wdata,//R_rs2
-    //ctrl from exu
-    input [2:0] MemOP,
-    //input we,
+    // 1. cache
+    input cache_rvalid,
+    input [63:0] cache_rdata,
 
-    input rvalid,
-    input [63:0] rdata,
-
-    //data out
-    output [`RegWidth-1:0] dataout,
-    output clint_mtip,
-
-    //pipeline
-    input IntrEn_i,
-    input [1:0] RegWdata_src_i,
-    input RegWr_i, 
-    input[`INSTWide-1:0] lsu_inst,
-    input[`RegWidth-1:0] lsu_pc,
-    input[`RegWidth-1:0] R_rs1_i,
-
-    output IntrEn_o,
-    output [1:0] RegWdata_src_o,
-    output RegWr_o, 
+    // 2. inputs from pre stage    
+    // 2.1 mem ctrl
+    input                   i_MemWr,
+    input [2:0]             i_MemOP,//
+    // 2.2 inst&pc
+    input[`INSTWide-1:0]    lsu_inst,
+    input[`RegWidth-1:0]    lsu_pc,    
+    // 2.3 pipeline forward
+    // 2.3.1 regsfile wdata
+    input [`RegWidth-1:0]   i_ALUres,
+    // 2.3.2 regfile wb ctrl
+    input [1:0]             i_RegSrc,//alu/mem/csr
+    input                   i_RegWr, 
+    // 2.3.3 intr/csr
+    input                   i_IntrEn,
+    // 2.3.4 csr wdata
+    input[`RegWidth-1:0]    i_R_rs1,   
+    
+    // 3. outputs for next stage
+    
+    // 3.1 mem out 
+    output [`RegWidth-1:0]  memout,
+    
+    // 3.2 clint(timer)
+    output                  clint_mtip,    
+    
+    // 3.3 pipeline forward
+    
+    // 3.3.1 regsfile wdata
+    output [`RegWidth-1:0]   o_ALUres,
+    // 3.3.2 regfile wb ctrl
+    output [1:0]             o_RegSrc,
+    output                   o_RegWr, 
+    // 3.3.3 intr/csr
+    output                   o_IntrEn,
+    // 3.3.4 csr wdata
+    output[`RegWidth-1:0]    o_R_rs1,   
+    // 3.3.5 inst&pc
     output[`INSTWide-1:0] inst_o,
     output[`RegWidth-1:0] pc_o,
-    output[`RegWidth-1:0] R_rs1_o,    
-    output [`RegWidth-1:0] ALUres_o,
     
-    //handshakes
-    input exu_valid,
+    // 4. handshakes
+    input lsu_valid,
     output lsu_ready,
-    output lsu_valid,
-    input wb_ready
+    output lsu_to_wb_valid,
+    input wb_allowin
 );
 
-//(reg有数据但是将被读取|没有数据)&(当前数据处理完毕)
-assign lsu_ready=((lsu_valid&wb_ready)|(!lsu_valid));
+    // 1. shake hands
+    wire lsu_ready_go = (~mem_req) | isclint | cache_rvalid; 
+    assign lsu_ready = (~lsu_valid) || lsu_ready_go && wb_allowin;
+    assign lsu_to_wb_valid = lsu_valid && lsu_ready_go;
+    
+    // 2. rd&wr en 
+    wire mem_req = (~(&MemOP)); 
+    wire RdEn = mem_req && (~we);
+    wire WrEn = mem_req && we;
+    
+    // 3. client(rw,mtip)
+    wire[`RegWidth-1:0] clint_dout;
+    wire isclint=(addr>=64'h2000000&addr<=64'h200BFFF)?1'b1:1'b0;
+    wire clint_we = isclint & WrEn;
+    wire clint_re = isclint & RdEn;
+    clint clintU(   .clk(clk),.rst(rst),
+                    .clint_din(wdata),.clint_addr(addr),.we(clint_we),.re(clint_re),
+                    .clint_mtip(clint_mtip),.clint_dout(clint_dout));
+    
+    // 4. cache
+    wire [63:0] MemOut;
+    wire isSign = MemOP[2];
+    MuxKeyInternal #(4,2,64, 1) sext (.out(MemOut),.key(MemOP[1:0]),.default_out(64'd0),.lut({
+        2'd3,cache_rdata[63:0],
+        2'd2,(isSign==1'b1)?({{32{cache_rdata[31]}},cache_rdata[31:0]}):{32'd0,cache_rdata[31:0]},
+        2'd1,(isSign==1'b1)?({{48{cache_rdata[15]}},cache_rdata[15:0]}):{48'd0,cache_rdata[15:0]},
+        2'd0,(isSign==1'b1)?({{56{cache_rdata[7]}},cache_rdata[7:0]}):{56'd0,cache_rdata[7:0]}
+    }));
+    
+    // 5. out mux
+    assign [`RegWidth-1:0] memout = isclint?clint_dout:dataMem_out;
 
-wire lsu_valid_next=lsu_valid&(!wb_ready)|//数据没被读取
-                    (( (lsu_valid&wb_ready)|(!lsu_valid) )&( lsu_ready&exu_valid));
+    // 6. pipeline forward
+    assign o_ALUres = i_ALUres;
+    
+    assign o_RegSrc = i_RegSrc ;
+    assign o_RegWr = i_RegWr ;
 
-Reg #(1,'d0) lsu_valid_reg(clk,rst,lsu_valid_next,lsu_valid,1'b1);
+    assign o_IntrEn = i_IntrEn ;
 
-//（reg有数据但将被读取|reg没数据）&（有新数据且没有数据冲突）
-wire popline_wen=((lsu_valid&wb_ready)|(!lsu_valid))&(exu_valid&lsu_ready);
+    assign o_R_rs1 = i_R_rs1 ;
 
-Reg #(1,'d0) wb_IntrEn_reg(clk,rst,IntrEn_i,IntrEn_o,popline_wen);
-Reg #(`RegWidth,'d0) wb_pc_reg(clk,rst,lsu_pc,pc_o,popline_wen);
-Reg #(`RegWidth,'d0) wb_Rrs1_reg(clk,rst,R_rs1_i,R_rs1_o,popline_wen);
-Reg #(1,'d0) wb_mtip_reg(clk,rst,clint_mtip_next,clint_mtip,popline_wen);
-Reg #(`INSTWide,'d0) wb_inst_reg(clk,rst,lsu_inst,inst_o,popline_wen);
-Reg #(`RegWidth,'d0) wb_alures_reg(clk,rst,addr,ALUres_o,popline_wen);
-Reg #(1,'d0) wb_regwr_reg(clk,rst,RegWr_i,RegWr_o,popline_wen);
-Reg #(2,'d0) wb_regdataSrc_reg(clk,rst,RegWdata_src_i,RegWdata_src_o,popline_wen);
-Reg #(`RegWidth,'d0) wb_dataout_reg(clk,rst,dataout_d,dataout,popline_wen);
-
-wire isclint=(addr>=64'h2000000&addr<=64'h200BFFF)?1'b1:1'b0;
-
-wire RdEn=(|MemOP)&&(~we);
-wire Datamem_we=(!isclint)&we;
-wire clint_we=isclint&we;
-wire clint_re=isclint&RdEn;
-
-wire[`RegWidth-1:0] dataMem_out;
-wire[`RegWidth-1:0] clint_dout;
-wire clint_mtip_next;
-
-DataMem DataMem(.clk(clk),.Addr(addr),.MemOP(MemOP),.DataIn(wdata),.WrEn(Datamem_we),.DataOut(dataMem_out));
-
-clint clintU(.clk(clk),.clint_din(wdata),.clint_addr(addr),.we(clint_we),.re(clint_re),
-                .clint_mtip(clint_mtip_next),.clint_dout(clint_dout));
-
-
-wire [`RegWidth-1:0] dataout_d=isclint?clint_dout:dataMem_out;
-
-
-
+    assign inst_o = lsu_inst ;
+    assign pc_o = lsu_pc ;
 
 endmodule

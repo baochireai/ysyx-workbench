@@ -6,7 +6,7 @@
 module DataMem(
     input clk,
     input [63:0] Addr,
-    input [2:0] MemOP,//MemOP[1:0]:2'd3 1字节读写 2'd2 2字节读写 2'd1 4字节读写 2'd0 8字节读写 MemOP[2]是否带符号扩增 MemOP[2:0] 3'd0无操作
+    input [2:0] MemOP,//MemOP[1:0]:2'd0 1字节读写 2'd1 2字节读写 2'd2 4字节读写 2'd3 8字节读写 MemOP[2]是否带符号扩增 MemOP[2:0] 3'd7无操作
     input [63:0] DataIn,
     input WrEn,
     output [63:0] DataOut

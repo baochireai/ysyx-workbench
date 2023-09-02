@@ -1,5 +1,6 @@
 module clint(
     input clk,
+    input rst,
     input [63:0] clint_din,
     input [63:0] clint_addr,
     input we,
@@ -8,28 +9,23 @@ module clint(
     output clint_mtip,
     output [63:0] clint_dout
 );
-    /**msip先不加入**/
-    reg [63:0] mtime,mtimecmp;
 
-    wire ismtimecmp=(clint_addr==64'h200_4000)?1'b1:1'b0;
-    wire ismtime=(clint_addr==64'h200_BFF8)?1'b1:1'b0;
+    reg [63:0] mtime,mtimecmp;/**msip先不加入**/
+    // 1. addr map
+    wire ismtimecmp= (clint_addr==64'h200_4000) ;
+    wire ismtime= (clint_addr==64'h200_BFF8) ;
     
-    Reg #(64,64'hffff_ffff_ffff_ffff) mtimecmp_Reg(.clk(clk),.rst(1'b0),.din(clint_din),.dout(mtimecmp),.wen(we&ismtimecmp));
+    // 2. mtime&mtime write
+    Reg #(64,64'hffff_ffff_ffff_ffff) mtimecmp_Reg(.clk(clk),.rst(rst),.din(clint_din),.dout(mtimecmp),.wen(we&ismtimecmp));
 
-    //计时器
-    initial begin
-        mtime=64'd0;
-    end
+    wire mtime_we = we & ismtime;
+    wire [63:0] mtime_next = mtime_we ? clint_din : (mtime+1);
+    Reg #(64,64'd0) mtime_Reg(.clk(clk),.rst(rst),.din(mtime_next),.dout(mtime),.wen(1'b1));
 
-    always @(posedge clk) begin
-        if (we&ismtime) mtime <= clint_din;
-        else
-            mtime<=mtime+64'd1;
-    end
-
+    // 3. client reaad
     assign clint_dout=({64{re}})&(ismtime?mtime:(ismtimecmp?mtimecmp:64'd0));
 
+    // 4. mtip
     assign clint_mtip=mtime>mtimecmp;
-
 
 endmodule
