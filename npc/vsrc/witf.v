@@ -6,18 +6,19 @@ module witf(
     input clk,
     input rst,
 
+    // 1. disp inst info form id
+    input disp_en,
     input [`RegAddrBus] rs1,
     input [`RegAddrBus] rs2,
     input [`RegAddrBus] rd,
-
-    output isRAW,
-
-    input disp_en,//遣派使能
     
-    input wb_en,//
-
+    // 2. raw check for id
+    output isRAW,
     output witf_full,
-    output witf_empty
+    output witf_empty,
+    
+    // 3. finish wb to pop inst
+    input wb_en,
 );
 
 wire [`WITF_AddrBus]wptr_r;

@@ -1,41 +1,64 @@
 module WBRegs(
-    input
+    input clk,
+    input rst,
+
+    // 1. input from pre stage 
+    // 1.1 intr/csr
+    input                       IntrEn,
+    input                       clint_mtip,
+    input   [`RegWidth-1:0]     R_rs1_i,
+    // 1.2 regsfile wb
+    input   [1:0]               RegSrc,
+    input                       RegWr,
+    input   [`RegWidth-1:0]     ALUres,
+    input   [`RegWidth-1:0]     MemOut,
+    // 1.3 inst&&pc
+    input   [`RegWidth-1:0]     i_pc,
+    input   [`INSTWide-1:0]     i_inst,
+
+    // 2. outputs for wb
+    // 2.1 intr/csr
+    output                       o_IntrEn,
+    output                       o_clint_mtip,
+    output   [`RegWidth-1:0]     o_R_rs1,
+    // 2.2 regsfile wb
+    output   [1:0]               o_RegSrc,
+    output                       o_RegWr,
+    output   [`RegWidth-1:0]     o_ALUres,
+    output   [`RegWidth-1:0]     o_MemOut,
+    // 2.3 inst&&pc
+    output   [`RegWidth-1:0]     o_wb_pc,
+    output   [`INSTWide-1:0]     o_wb_inst,    
+
+    // 3. handshake
+    input                   lsu_to_wb_valid,
+    input                   wb_ready,
+    output                  wb_valid,
+    output                  wb_allow_in         
 );
 
+    // 1. handshake
+    assign wb_allow_in = (~wb_valid) || wb_ready ;
+    Reg #(1,'d0) wb_valid_reg(clk,rst,lsu_to_wb_valid,wb_valid,wb_allow_in);
+    
+    // 2. pipeline regs
+    wire popline_wen = lsu_to_wb_valid && wb_allow_in;
 
-//(reg有数据但是将被读取|没有数据)&(当前数据处理完毕)
-assign lsu_ready=((lsu_valid&wb_ready)|(!lsu_valid));
+    Reg #(
+        .WIDTH(1+1+`RegWidth+2+1+`RegWidth+`RegWidth+`RegWidth+`INSTWide), 
+        .RESET_VAL(0)
+    ) exu_to_lus_pipeline_regs (
+        .clk(clk),
+        .rst(rst),
+        .din({  IntrEn,clint_mtip,R_rs1_i,
+                RegSrc,RegWr,ALUres,MemOut,
+                i_pc,i_inst}),
+        .dout({ o_IntrEn,o_clint_mtip,o_R_rs1,
+                o_RegSrc,o_RegWr,o_ALUres,o_MemOut,
+                o_wb_pc,o_wb_inst }),
+        .wen(popline_wen)
+    );    
 
-wire lsu_valid_next=lsu_valid&(!wb_ready)|//数据没被读取
-                    (( (lsu_valid&wb_ready)|(!lsu_valid) )&( lsu_ready&exu_valid));
 
-Reg #(1,'d0) lsu_valid_reg(clk,rst,lsu_valid_next,lsu_valid,1'b1);
-
-//（reg有数据但将被读取|reg没数据）&（有新数据且没有数据冲突）
-wire popline_wen=((lsu_valid&wb_ready)|(!lsu_valid))&(exu_valid&lsu_ready);
-
-Reg #(1,'d0) wb_IntrEn_reg(clk,rst,IntrEn_i,IntrEn_o,popline_wen);
-Reg #(`RegWidth,'d0) wb_pc_reg(clk,rst,lsu_pc,pc_o,popline_wen);
-Reg #(`RegWidth,'d0) wb_Rrs1_reg(clk,rst,R_rs1_i,R_rs1_o,popline_wen);
-Reg #(1,'d0) wb_mtip_reg(clk,rst,clint_mtip_next,clint_mtip,popline_wen);
-Reg #(`INSTWide,'d0) wb_inst_reg(clk,rst,lsu_inst,inst_o,popline_wen);
-Reg #(`RegWidth,'d0) wb_alures_reg(clk,rst,addr,ALUres_o,popline_wen);
-Reg #(1,'d0) wb_regwr_reg(clk,rst,RegWr_i,RegWr_o,popline_wen);
-Reg #(2,'d0) wb_regdataSrc_reg(clk,rst,RegWdata_src_i,RegWdata_src_o,popline_wen);
-Reg #(`RegWidth,'d0) wb_dataout_reg(clk,rst,dataout_d,dataout,popline_wen);
-
-    Reg #(`RegWidth,'d0) wb_ALUres_reg(clk,rst,ALUres,wb_ALUres,popline_wen);
-    Reg #(`RegWidth,'d0) wb_R_rs2_reg(clk,rst,R_rs2,R_rs2_o,popline_wen);
-    Reg #(`RegWidth,'d0) wb_R_rs1_reg(clk,rst,R_rs1,R_rs1_o,popline_wen);
-
-    Reg #(3,'d0) wb_MemOP_reg(clk,rst,MemOP_i,MemOP_o,popline_wen);
-    Reg #(1,'d0) wb_MemWr_reg(clk,rst,MemWr_i,MemWr_o,popline_wen);
-    Reg #(1,'d0) wb_IntrEn_reg(clk,rst,IntrEn,IntrEn_o,popline_wen);
-
-    Reg #(`INSTWide,'d0) mem_Inst_reg(clk,rst,exu_inst,inst_o,popline_wen);
-    Reg #(`RegWidth,'d0) mem_pc_reg(clk,rst,exu_pc,pc_o,popline_wen);
-
-    Reg #(2,'d0) wb_RegSrc_reg(clk,rst,RegSrc,RegSrc_o,popline_wen);
-    Reg #(1,'d0) wb_Regwr_reg(clk,rst,Regwr_i,Regwr_o,popline_wen);
 
 endmodule

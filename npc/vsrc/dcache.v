@@ -30,67 +30,66 @@ module TagVD_Regs #(
 
 endmodule //TagVD_Regs
 
-module decache(
+module dcache(
     input clk,rst,
-    // cpu(exu) <--> decache
-    input req,
-    input op,//0:read 1:write
-    input [`MemAddrBus:0] addr,
-    input [1:0] size, //1,2,4,8
-    input [7:0] wstrb,
-    input [63:0] wdata,
-    output req_ready,
+    // cpu(exu) <--> dcache
+    input                   req      ,
+    input                   op       ,//0:read 1:write
+    input [`MemAddrBus:0]   addr     ,
+    input [1:0]             size     , //1,2,4,8
+    input [7:0]             wstrb    ,
+    input [63:0]            wdata    ,
+    output                  req_ready,
     
-    //decache <--> cpu(lsu)
-    output [63:0] cache_data_o,
-    output cache_valid,
-    //input lsu_allowin,//lsu can add one skid buffer(with valid signal), when lus is stalled cache_data_o can be store in buffer,and then the next cycle exu is stalled
+    //dcache <--> cpu(lsu)
+    output [63:0]   cache_data_o,
+    output          cache_valid ,
     
-    //decache <--> axi interface (read)
-    output axi_rd_req,
-    output [63:0] axi_rd_addr,
-    output [2:0] axi_rd_type,//3'd0:1Byte 3'd1:2B 3'd2:4B 3'd3:8B 3'd4:cache line
-    input axi_rd_ready,
-    input [63:0] axi_rdata,
-    input axi_rlast,
-    input axi_rvalid,
+    //dcache <--> axi interface (read)
+    output          axi_rd_req  ,
+    output [63:0]   axi_rd_addr ,
+    output [2:0]    axi_rd_type ,//3'd0:1Byte 3'd1:2B 3'd2:4B 3'd3:8B 3'd4:cache line
+    input           axi_rd_ready,
+    input [63:0]    axi_rdata   ,
+    input           axi_rlast   ,
+    input           axi_rvalid  ,
 
-    //decache <--> axi interface (write)
-    output axi_wr_req,
-    output [63:0] axi_wr_addr,
-    output [127:0] axi_wdata,
-    output [2:0] axi_wr_type,
-    output [7:0] axi_wstrb,//only uncache
-    input axi_wr_ready,
+    //dcache <--> axi interface (write)
+    output          axi_wr_req  ,
+    output [63:0]   axi_wr_addr ,
+    output [127:0]  axi_wdata   ,
+    output [2:0]    axi_wr_type ,
+    output [7:0]    axi_wstrb   ,//only uncache
+    input           axi_wr_ready,
     
-    //decaceh <--> data array(ram)
-  	output [5:0] io_sram0_addr,//ram0 ram1 ->way0 | ram2 ram3 ->way1
-  	output io_sram0_cen,
-  	output io_sram0_wen,
-  	output [127:0] io_sram0_wmask,
-  	output [127:0] io_sram0_wdata,
-  	input [127:0] io_sram0_rdata,
+    //decaceh <--> data array(ram) data array(ram) ram0 ram1 ->way0 | ram2 ram3 ->way1
+  	output [5:0]    io_sram0_addr ,
+  	output          io_sram0_cen  ,
+  	output          io_sram0_wen  ,
+  	output [127:0]  io_sram0_wmask,
+  	output [127:0]  io_sram0_wdata,
+  	input  [127:0]  io_sram0_rdata,
 
-  	output [5:0] io_sram1_addr,
-  	output io_sram1_cen,
-  	output io_sram1_wen,
-  	output [127:0] io_sram1_wmask,
-  	output [127:0] io_sram1_wdata,
-  	input [127:0] io_sram1_rdata,
+  	output [5:0]    io_sram1_addr ,
+  	output          io_sram1_cen  ,
+  	output          io_sram1_wen  ,
+  	output [127:0]  io_sram1_wmask,
+  	output [127:0]  io_sram1_wdata,
+  	input  [127:0]  io_sram1_rdata,
 
-  	output [5:0] io_sram2_addr,
-  	output io_sram2_cen,
-  	output io_sram2_wen,
-  	output [127:0] io_sram2_wmask,
-  	output [127:0] io_sram2_wdata,
-  	input [127:0] io_sram2_rdata,
+  	output [5:0]    io_sram2_addr ,
+  	output          io_sram2_cen  ,
+  	output          io_sram2_wen  ,
+  	output [127:0]  io_sram2_wmask,
+  	output [127:0]  io_sram2_wdata,
+  	input  [127:0]  io_sram2_rdata,
 
-  	output [5:0] io_sram3_addr,
-  	output io_sram3_cen,
-  	output io_sram3_wen,
-  	output [127:0] io_sram3_wmask,
-  	output [127:0] io_sram3_wdata,
-  	input [127:0] io_sram3_rdata    
+  	output [5:0]    io_sram3_addr ,
+  	output          io_sram3_cen  ,
+  	output          io_sram3_wen  ,
+  	output [127:0]  io_sram3_wmask,
+  	output [127:0]  io_sram3_wdata,
+  	input  [127:0]  io_sram3_rdata
 );
     
     wire tagvd_wen [1:0];
@@ -230,13 +229,6 @@ module decache(
     end
 
    //axi write transaction
-/*
-    output axi_wr_req,
-    output [63:0] axi_wr_addr,
-    output [127:0] axi_wdata,
-    output [2:0] axi_wr_type,
-    output [7:0] axi_wstrb,
-*/
 
     assign axi_wr_req = (cur_state==S_MISS) && (uncache_r && op_r || (~uncache_r) && refill_dirty_r);
 
@@ -244,7 +236,7 @@ module decache(
 
     assign axi_wr_type = uncache_r? {1'b0,size} : 3'd4;
 
-    assign axi_wstrb = {8{uncache_r}} && (wstrb_r<<offset_r[2:0]);
+    assign axi_wstrb = {8{uncache_r}} && (wstrb_r<<offset_r[2:0]) || {8{~uncache_r}};
 
     assign axi_wdata = uncache_r ? {64'd0,wdata_r<<{offset_r[2:0],3'd0}} : (refill_waynum_r ? din_way0:din_way1);
 

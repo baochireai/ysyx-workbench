@@ -43,51 +43,51 @@ endmodule
 module icache(
     input clk,
     input rst,
-    //pre-if <--> cache
+    // 1. pre-if <--> cache
     input [`MemAddrBus-1:0] addr,
-    input cache_req,
-    output reg req_ready,
-    //cache <--> ifu
-    output [63:0] cache_rdata,
-    output cache_valid,
+    input                   cache_req,
+    output reg              req_ready,
+    // 2. cache <--> ifu
+    output [63:0]           cache_rdata,
+    output                  cache_valid,
 
-    //icache <--> axi interface (read)
-    output axi_rd_req,
-    output [63:0] axi_rd_addr,
-    output [2:0] axi_rd_type,//3'd0:1Byte 3'd1:2B 3'd2:4B 3'd3:8B 3'd4:cache line
-    input axi_rd_ready,
-    input [63:0] axi_rdata,
-    input axi_rlast,
-    input axi_rvalid,
+    // 3. icache <--> axi interface (read)
+    output          axi_rd_req,
+    output [63:0]   axi_rd_addr,
+    output [2:0]    axi_rd_type,//3'd0:1Byte 3'd1:2B 3'd2:4B 3'd3:8B 3'd4:cache line
+    input           axi_rd_ready,
+    input [63:0]    axi_rdata,
+    input           axi_rlast,
+    input           axi_rvalid,
     
-    //decaceh <--> data array(ram)
-  	output [5:0] io_sram0_addr,//ram0 ram1 ->way0 | ram2 ram3 ->way1
-  	output io_sram0_cen,
-  	output io_sram0_wen,
-  	output [127:0] io_sram0_wmask,
-  	output [127:0] io_sram0_wdata,
-  	input [127:0] io_sram0_rdata,
+    //icache <--> data array(ram) ram0 ram1 ->way0 | ram2 ram3 ->way1
+  	output [5:0]    io_sram0_addr ,
+  	output          io_sram0_cen  ,
+  	output          io_sram0_wen  ,
+  	output [127:0]  io_sram0_wmask,
+  	output [127:0]  io_sram0_wdata,
+  	input  [127:0]  io_sram0_rdata,
 
-  	output [5:0] io_sram1_addr,
-  	output io_sram1_cen,
-  	output io_sram1_wen,
-  	output [127:0] io_sram1_wmask,
-  	output [127:0] io_sram1_wdata,
-  	input [127:0] io_sram1_rdata,
+  	output [5:0]    io_sram1_addr ,
+  	output          io_sram1_cen  ,
+  	output          io_sram1_wen  ,
+  	output [127:0]  io_sram1_wmask,
+  	output [127:0]  io_sram1_wdata,
+  	input  [127:0]  io_sram1_rdata,
 
-  	output [5:0] io_sram2_addr,
-  	output io_sram2_cen,
-  	output io_sram2_wen,
-  	output [127:0] io_sram2_wmask,
-  	output [127:0] io_sram2_wdata,
-  	input [127:0] io_sram2_rdata,
+  	output [5:0]    io_sram2_addr ,
+  	output          io_sram2_cen  ,
+  	output          io_sram2_wen  ,
+  	output [127:0]  io_sram2_wmask,
+  	output [127:0]  io_sram2_wdata,
+  	input  [127:0]  io_sram2_rdata,
 
-  	output [5:0] io_sram3_addr,
-  	output io_sram3_cen,
-  	output io_sram3_wen,
-  	output [127:0] io_sram3_wmask,
-  	output [127:0] io_sram3_wdata,
-  	input [127:0] io_sram3_rdata    
+  	output [5:0]    io_sram3_addr ,
+  	output          io_sram3_cen  ,
+  	output          io_sram3_wen  ,
+  	output [127:0]  io_sram3_wmask,
+  	output [127:0]  io_sram3_wdata,
+  	input  [127:0]  io_sram3_rdata
 );
 
     //{tag,valid}

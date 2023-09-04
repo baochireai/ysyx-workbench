@@ -32,7 +32,7 @@ module EXU(
     input [`INSTWide-1:0]   exu_inst,
     input [`RegWidth-1:0]   exu_pc,  
 
-    // 2. decache req
+    // 2. dcache req
     output                  req,
     output                  op,
     output [1:0]            size,

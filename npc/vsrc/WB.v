@@ -8,7 +8,7 @@ module WB(
     input                       clint_mtip,
     input   [`RegWidth-1:0]     R_rs1_i,
     // 1.2 regsfile wb
-    input   [1:0]               Wdata_src,
+    input   [1:0]               RegSrc,
     input                       RegWr,
     input   [`RegWidth-1:0]     ALUres,
     input   [`RegWidth-1:0]     MemOut,
@@ -42,7 +42,7 @@ module WB(
     
     // 3. regfiles wb
     // 3.1 wdata
-    MuxKeyInternal #(3,2,64,1) RegWsrcMux(.out(o_RegWdata),.key(Wdata_src),.default_out(64'd0),.lut({
+    MuxKeyInternal #(3,2,64,1) RegWsrcMux(.out(o_RegWdata),.key(RegSrc),.default_out(64'd0),.lut({
         2'd0,ALUres,
         2'd1,MemOut,//clint memory map
         2'd2,IntrOut
