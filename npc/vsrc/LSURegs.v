@@ -6,6 +6,7 @@ module LSURegs(
     // 1.1 mem ctrl
     input                   i_MemWr,
     input [2:0]             i_MemOP,//
+    input [`RegWidth-1:0]   i_R_rs2,  //client wdata
     // 1.2 inst&pc
     input[`INSTWide-1:0]    i_inst,
     input[`RegWidth-1:0]    i_pc,    
@@ -24,6 +25,7 @@ module LSURegs(
     // 2.1 mem ctrl
     output                  o_MemWr,
     output [2:0]            o_MemOP,
+    output [`RegWidth-1:0]   o_R_rs2,  //client wdata
     // 2.2 inst&pc
     output[`INSTWide-1:0]   o_inst,
     output[`RegWidth-1:0]   o_pc,   
@@ -53,18 +55,18 @@ module LSURegs(
     wire popline_wen = exu_to_lsu_valid && lsu_allow_in;
 
     Reg #(
-        .WIDTH(1+2+`INSTWide+`RegWidth+`RegWidth+2+1+1+`RegWidth), 
+        .WIDTH(1+3+`RegWidth+`INSTWide+`RegWidth+`RegWidth+2+1+1+`RegWidth), 
         .RESET_VAL(0)
     ) exu_to_lus_pipeline_regs (
         .clk(clk),
         .rst(rst),
-        .din({  i_MemWr,i_MemOP,
+        .din({  i_MemWr,i_MemOP,i_R_rs2,
                 i_inst,i_pc,
                 i_ALUres,
                 i_RegSrc,i_RegWr,
                 i_IntrEn,
                 i_R_rs1}),
-        .dout({ o_MemWr,o_MemOP,
+        .dout({ o_MemWr,o_MemOP,o_R_rs2,
                 o_inst,o_pc,
                 o_ALUres,
                 o_RegSrc,o_RegWr,

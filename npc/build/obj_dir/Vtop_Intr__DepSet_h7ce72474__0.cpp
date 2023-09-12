@@ -16,7 +16,7 @@ VL_INLINE_OPT void Vtop_Intr___ico_sequent__TOP__top__WB__IntrUnit__0(Vtop_Intr*
     Vtop__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     VL_DEBUG_IF(VL_DBG_MSGF("+          Vtop_Intr___ico_sequent__TOP__top__WB__IntrUnit__0\n"); );
     // Body
-    vlSelf->__PVT__dout = ((0x305U == (vlSymsp->TOP__top.__PVT__wb_inst 
+    vlSelf->__PVT__dout = ((0x305U == (vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[0U] 
                                        >> 0x14U)) ? vlSelf->__PVT__mtvec
                             : ((IData)(vlSelf->__PVT__ismepc)
                                 ? vlSelf->__PVT__mepc
@@ -25,87 +25,125 @@ VL_INLINE_OPT void Vtop_Intr___ico_sequent__TOP__top__WB__IntrUnit__0(Vtop_Intr*
                                     : ((IData)(vlSelf->__PVT__ismstatus)
                                         ? vlSelf->__PVT__mstatus
                                         : ((0x304U 
-                                            == (vlSymsp->TOP__top.__PVT__wb_inst 
+                                            == (vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[0U] 
                                                 >> 0x14U))
                                             ? vlSelf->__PVT__mie
                                             : 0ULL)))));
     vlSelf->__PVT__scrDataSrc__DOT__pair_list[0U][0U] 
-        = (IData)(((~ (QData)((IData)((0x1fU & (vlSymsp->TOP__top.__PVT__wb_inst 
+        = (IData)(((~ (QData)((IData)((0x1fU & (vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[0U] 
                                                 >> 0xfU))))) 
                    & vlSelf->__PVT__dout));
     vlSelf->__PVT__scrDataSrc__DOT__pair_list[0U][1U] 
-        = (IData)((((~ (QData)((IData)((0x1fU & (vlSymsp->TOP__top.__PVT__wb_inst 
+        = (IData)((((~ (QData)((IData)((0x1fU & (vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[0U] 
                                                  >> 0xfU))))) 
                     & vlSelf->__PVT__dout) >> 0x20U));
     vlSelf->__PVT__scrDataSrc__DOT__pair_list[0U][2U] = 7U;
     vlSelf->__PVT__scrDataSrc__DOT__pair_list[1U][0U] 
         = (IData)((vlSelf->__PVT__dout | (QData)((IData)(
                                                          (0x1fU 
-                                                          & (vlSymsp->TOP__top.__PVT__wb_inst 
+                                                          & (vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[0U] 
                                                              >> 0xfU))))));
     vlSelf->__PVT__scrDataSrc__DOT__pair_list[1U][1U] 
         = (IData)(((vlSelf->__PVT__dout | (QData)((IData)(
                                                           (0x1fU 
-                                                           & (vlSymsp->TOP__top.__PVT__wb_inst 
+                                                           & (vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[0U] 
                                                               >> 0xfU))))) 
                    >> 0x20U));
     vlSelf->__PVT__scrDataSrc__DOT__pair_list[1U][2U] = 6U;
     vlSelf->__PVT__scrDataSrc__DOT__pair_list[2U][0U] 
         = (IData)(((0xffffffffffffffe0ULL & vlSelf->__PVT__dout) 
-                   | (QData)((IData)((0x1fU & (vlSymsp->TOP__top.__PVT__wb_inst 
+                   | (QData)((IData)((0x1fU & (vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[0U] 
                                                >> 0xfU))))));
     vlSelf->__PVT__scrDataSrc__DOT__pair_list[2U][1U] 
         = (IData)((((0xffffffffffffffe0ULL & vlSelf->__PVT__dout) 
-                    | (QData)((IData)((0x1fU & (vlSymsp->TOP__top.__PVT__wb_inst 
+                    | (QData)((IData)((0x1fU & (vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[0U] 
                                                 >> 0xfU))))) 
                    >> 0x20U));
     vlSelf->__PVT__scrDataSrc__DOT__pair_list[2U][2U] = 5U;
     vlSelf->__PVT__scrDataSrc__DOT__pair_list[3U][0U] 
-        = (IData)(((~ vlSymsp->TOP__top.__PVT__wb_Rrs1) 
+        = (IData)(((~ (((QData)((IData)(vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[9U])) 
+                        << 0x3dU) | (((QData)((IData)(
+                                                      vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[8U])) 
+                                      << 0x1dU) | ((QData)((IData)(
+                                                                   vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[7U])) 
+                                                   >> 3U)))) 
                    & vlSelf->__PVT__dout));
     vlSelf->__PVT__scrDataSrc__DOT__pair_list[3U][1U] 
-        = (IData)((((~ vlSymsp->TOP__top.__PVT__wb_Rrs1) 
-                    & vlSelf->__PVT__dout) >> 0x20U));
+        = (IData)((((~ (((QData)((IData)(vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[9U])) 
+                         << 0x3dU) | (((QData)((IData)(
+                                                       vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[8U])) 
+                                       << 0x1dU) | 
+                                      ((QData)((IData)(
+                                                       vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[7U])) 
+                                       >> 3U)))) & vlSelf->__PVT__dout) 
+                   >> 0x20U));
     vlSelf->__PVT__scrDataSrc__DOT__pair_list[3U][2U] = 3U;
     vlSelf->__PVT__scrDataSrc__DOT__pair_list[4U][0U] 
-        = (IData)((vlSelf->__PVT__dout | vlSymsp->TOP__top.__PVT__wb_Rrs1));
+        = (IData)((vlSelf->__PVT__dout | (((QData)((IData)(
+                                                           vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[9U])) 
+                                           << 0x3dU) 
+                                          | (((QData)((IData)(
+                                                              vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[8U])) 
+                                              << 0x1dU) 
+                                             | ((QData)((IData)(
+                                                                vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[7U])) 
+                                                >> 3U)))));
     vlSelf->__PVT__scrDataSrc__DOT__pair_list[4U][1U] 
-        = (IData)(((vlSelf->__PVT__dout | vlSymsp->TOP__top.__PVT__wb_Rrs1) 
+        = (IData)(((vlSelf->__PVT__dout | (((QData)((IData)(
+                                                            vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[9U])) 
+                                            << 0x3dU) 
+                                           | (((QData)((IData)(
+                                                               vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[8U])) 
+                                               << 0x1dU) 
+                                              | ((QData)((IData)(
+                                                                 vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[7U])) 
+                                                 >> 3U)))) 
                    >> 0x20U));
     vlSelf->__PVT__scrDataSrc__DOT__pair_list[4U][2U] = 2U;
     vlSelf->__PVT__scrDataSrc__DOT__data_list[0U] = 
-        ((~ (QData)((IData)((0x1fU & (vlSymsp->TOP__top.__PVT__wb_inst 
+        ((~ (QData)((IData)((0x1fU & (vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[0U] 
                                       >> 0xfU))))) 
          & vlSelf->__PVT__dout);
     vlSelf->__PVT__scrDataSrc__DOT__data_list[1U] = 
         (vlSelf->__PVT__dout | (QData)((IData)((0x1fU 
-                                                & (vlSymsp->TOP__top.__PVT__wb_inst 
+                                                & (vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[0U] 
                                                    >> 0xfU)))));
     vlSelf->__PVT__scrDataSrc__DOT__data_list[2U] = 
         ((0xffffffffffffffe0ULL & vlSelf->__PVT__dout) 
-         | (QData)((IData)((0x1fU & (vlSymsp->TOP__top.__PVT__wb_inst 
+         | (QData)((IData)((0x1fU & (vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[0U] 
                                      >> 0xfU)))));
     vlSelf->__PVT__scrDataSrc__DOT__data_list[3U] = 
-        ((~ vlSymsp->TOP__top.__PVT__wb_Rrs1) & vlSelf->__PVT__dout);
+        ((~ (((QData)((IData)(vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[9U])) 
+              << 0x3dU) | (((QData)((IData)(vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[8U])) 
+                            << 0x1dU) | ((QData)((IData)(
+                                                         vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[7U])) 
+                                         >> 3U)))) 
+         & vlSelf->__PVT__dout);
     vlSelf->__PVT__scrDataSrc__DOT__data_list[4U] = 
-        (vlSelf->__PVT__dout | vlSymsp->TOP__top.__PVT__wb_Rrs1);
+        (vlSelf->__PVT__dout | (((QData)((IData)(vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[9U])) 
+                                 << 0x3dU) | (((QData)((IData)(
+                                                               vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[8U])) 
+                                               << 0x1dU) 
+                                              | ((QData)((IData)(
+                                                                 vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[7U])) 
+                                                 >> 3U))));
     vlSelf->__PVT__scrDataSrc__DOT__lut_out = ((- (QData)((IData)(
                                                                   ((7U 
-                                                                    & (vlSymsp->TOP__top.__PVT__wb_inst 
+                                                                    & (vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[0U] 
                                                                        >> 0xcU)) 
                                                                    == 
                                                                    vlSelf->__PVT__scrDataSrc__DOT__key_list
                                                                    [0U])))) 
                                                & vlSelf->__PVT__scrDataSrc__DOT__data_list
                                                [0U]);
-    vlSelf->__PVT__scrDataSrc__DOT__hit = ((7U & (vlSymsp->TOP__top.__PVT__wb_inst 
+    vlSelf->__PVT__scrDataSrc__DOT__hit = ((7U & (vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[0U] 
                                                   >> 0xcU)) 
                                            == vlSelf->__PVT__scrDataSrc__DOT__key_list
                                            [0U]);
     vlSelf->__PVT__scrDataSrc__DOT__lut_out = (vlSelf->__PVT__scrDataSrc__DOT__lut_out 
                                                | ((- (QData)((IData)(
                                                                      ((7U 
-                                                                       & (vlSymsp->TOP__top.__PVT__wb_inst 
+                                                                       & (vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[0U] 
                                                                           >> 0xcU)) 
                                                                       == 
                                                                       vlSelf->__PVT__scrDataSrc__DOT__key_list
@@ -114,14 +152,14 @@ VL_INLINE_OPT void Vtop_Intr___ico_sequent__TOP__top__WB__IntrUnit__0(Vtop_Intr*
                                                   [1U]));
     vlSelf->__PVT__scrDataSrc__DOT__hit = ((IData)(vlSelf->__PVT__scrDataSrc__DOT__hit) 
                                            | ((7U & 
-                                               (vlSymsp->TOP__top.__PVT__wb_inst 
+                                               (vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[0U] 
                                                 >> 0xcU)) 
                                               == vlSelf->__PVT__scrDataSrc__DOT__key_list
                                               [1U]));
     vlSelf->__PVT__scrDataSrc__DOT__lut_out = (vlSelf->__PVT__scrDataSrc__DOT__lut_out 
                                                | ((- (QData)((IData)(
                                                                      ((7U 
-                                                                       & (vlSymsp->TOP__top.__PVT__wb_inst 
+                                                                       & (vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[0U] 
                                                                           >> 0xcU)) 
                                                                       == 
                                                                       vlSelf->__PVT__scrDataSrc__DOT__key_list
@@ -130,14 +168,14 @@ VL_INLINE_OPT void Vtop_Intr___ico_sequent__TOP__top__WB__IntrUnit__0(Vtop_Intr*
                                                   [2U]));
     vlSelf->__PVT__scrDataSrc__DOT__hit = ((IData)(vlSelf->__PVT__scrDataSrc__DOT__hit) 
                                            | ((7U & 
-                                               (vlSymsp->TOP__top.__PVT__wb_inst 
+                                               (vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[0U] 
                                                 >> 0xcU)) 
                                               == vlSelf->__PVT__scrDataSrc__DOT__key_list
                                               [2U]));
     vlSelf->__PVT__scrDataSrc__DOT__lut_out = (vlSelf->__PVT__scrDataSrc__DOT__lut_out 
                                                | ((- (QData)((IData)(
                                                                      ((7U 
-                                                                       & (vlSymsp->TOP__top.__PVT__wb_inst 
+                                                                       & (vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[0U] 
                                                                           >> 0xcU)) 
                                                                       == 
                                                                       vlSelf->__PVT__scrDataSrc__DOT__key_list
@@ -146,14 +184,14 @@ VL_INLINE_OPT void Vtop_Intr___ico_sequent__TOP__top__WB__IntrUnit__0(Vtop_Intr*
                                                   [3U]));
     vlSelf->__PVT__scrDataSrc__DOT__hit = ((IData)(vlSelf->__PVT__scrDataSrc__DOT__hit) 
                                            | ((7U & 
-                                               (vlSymsp->TOP__top.__PVT__wb_inst 
+                                               (vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[0U] 
                                                 >> 0xcU)) 
                                               == vlSelf->__PVT__scrDataSrc__DOT__key_list
                                               [3U]));
     vlSelf->__PVT__scrDataSrc__DOT__lut_out = (vlSelf->__PVT__scrDataSrc__DOT__lut_out 
                                                | ((- (QData)((IData)(
                                                                      ((7U 
-                                                                       & (vlSymsp->TOP__top.__PVT__wb_inst 
+                                                                       & (vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[0U] 
                                                                           >> 0xcU)) 
                                                                       == 
                                                                       vlSelf->__PVT__scrDataSrc__DOT__key_list
@@ -162,14 +200,14 @@ VL_INLINE_OPT void Vtop_Intr___ico_sequent__TOP__top__WB__IntrUnit__0(Vtop_Intr*
                                                   [4U]));
     vlSelf->__PVT__scrDataSrc__DOT__hit = ((IData)(vlSelf->__PVT__scrDataSrc__DOT__hit) 
                                            | ((7U & 
-                                               (vlSymsp->TOP__top.__PVT__wb_inst 
+                                               (vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[0U] 
                                                 >> 0xcU)) 
                                               == vlSelf->__PVT__scrDataSrc__DOT__key_list
                                               [4U]));
     vlSelf->__PVT__scrDataSrc__DOT__lut_out = (vlSelf->__PVT__scrDataSrc__DOT__lut_out 
                                                | ((- (QData)((IData)(
                                                                      ((7U 
-                                                                       & (vlSymsp->TOP__top.__PVT__wb_inst 
+                                                                       & (vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[0U] 
                                                                           >> 0xcU)) 
                                                                       == 
                                                                       vlSelf->__PVT__scrDataSrc__DOT__key_list
@@ -178,7 +216,7 @@ VL_INLINE_OPT void Vtop_Intr___ico_sequent__TOP__top__WB__IntrUnit__0(Vtop_Intr*
                                                   [5U]));
     vlSelf->__PVT__scrDataSrc__DOT__hit = ((IData)(vlSelf->__PVT__scrDataSrc__DOT__hit) 
                                            | ((7U & 
-                                               (vlSymsp->TOP__top.__PVT__wb_inst 
+                                               (vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[0U] 
                                                 >> 0xcU)) 
                                               == vlSelf->__PVT__scrDataSrc__DOT__key_list
                                               [5U]));
@@ -232,41 +270,40 @@ VL_INLINE_OPT void Vtop_Intr___nba_sequent__TOP__top__WB__IntrUnit__0(Vtop_Intr*
     Vtop__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     VL_DEBUG_IF(VL_DBG_MSGF("+          Vtop_Intr___nba_sequent__TOP__top__WB__IntrUnit__0\n"); );
     // Body
-    vlSelf->__PVT__scrDataSrc__DOT__pair_list[5U][0U] 
-        = (IData)(vlSymsp->TOP__top.__PVT__wb_Rrs1);
-    vlSelf->__PVT__scrDataSrc__DOT__pair_list[5U][1U] 
-        = (IData)((vlSymsp->TOP__top.__PVT__wb_Rrs1 
-                   >> 0x20U));
-    vlSelf->__PVT__scrDataSrc__DOT__pair_list[5U][2U] = 1U;
-    vlSelf->__PVT__scrDataSrc__DOT__data_list[5U] = vlSymsp->TOP__top.__PVT__wb_Rrs1;
-    if ((((IData)(vlSelf->__PVT__ismcase) & (IData)(vlSymsp->TOP__top.__PVT__wb_IntrEn)) 
-         | (IData)(vlSelf->__PVT__irq_raise))) {
-        vlSelf->mcase = ((IData)(vlSelf->__PVT__irq_raise)
-                          ? vlSelf->__PVT__eNo : vlSelf->__PVT__csrWData);
+    if (vlSymsp->TOP.rst) {
+        vlSelf->mcase = 0ULL;
+        vlSelf->__PVT__mstatus = 0xa00001800ULL;
+        vlSelf->__PVT__mtvec = 0ULL;
+        vlSelf->__PVT__mepc = 0ULL;
+        vlSelf->__PVT__mie = 0ULL;
+    } else {
+        if ((((IData)(vlSelf->__PVT__ismcase) & (IData)(vlSymsp->TOP__top__WB.__Vcellinp__IntrUnit__IntrEn)) 
+             | (IData)(vlSelf->__PVT__irq_raise))) {
+            vlSelf->mcase = ((IData)(vlSelf->__PVT__irq_raise)
+                              ? vlSelf->__PVT__eNo : vlSelf->__PVT__csrWData);
+        }
+        if ((((IData)(vlSelf->__PVT__ismstatus) & (IData)(vlSymsp->TOP__top__WB.__Vcellinp__IntrUnit__IntrEn)) 
+             | (IData)(vlSelf->__PVT__irq_raise))) {
+            vlSelf->__PVT__mstatus = vlSelf->__PVT__mstatusIn;
+        }
+        if (((0x305U == (vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[0U] 
+                         >> 0x14U)) & (IData)(vlSymsp->TOP__top__WB.__Vcellinp__IntrUnit__IntrEn))) {
+            vlSelf->__PVT__mtvec = vlSelf->__PVT__csrWData;
+        }
+        if ((((IData)(vlSelf->__PVT__ismepc) & (IData)(vlSymsp->TOP__top__WB.__Vcellinp__IntrUnit__IntrEn)) 
+             | (IData)(vlSelf->__PVT__irq_raise))) {
+            vlSelf->__PVT__mepc = ((IData)(vlSelf->__PVT__irq_raise)
+                                    ? (((QData)((IData)(
+                                                        vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[2U])) 
+                                        << 0x20U) | (QData)((IData)(
+                                                                    vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[1U])))
+                                    : vlSelf->__PVT__csrWData);
+        }
+        if (((0x304U == (vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[0U] 
+                         >> 0x14U)) & (IData)(vlSymsp->TOP__top__WB.__Vcellinp__IntrUnit__IntrEn))) {
+            vlSelf->__PVT__mie = vlSelf->__PVT__csrWData;
+        }
     }
-    if ((((IData)(vlSelf->__PVT__ismstatus) & (IData)(vlSymsp->TOP__top.__PVT__wb_IntrEn)) 
-         | (IData)(vlSelf->__PVT__irq_raise))) {
-        vlSelf->__PVT__mstatus = vlSelf->__PVT__mstatusIn;
-    }
-    if (((0x304U == (vlSymsp->TOP__top.__PVT__wb_inst 
-                     >> 0x14U)) & (IData)(vlSymsp->TOP__top.__PVT__wb_IntrEn))) {
-        vlSelf->__PVT__mie = vlSelf->__PVT__csrWData;
-    }
-    if (((0x305U == (vlSymsp->TOP__top.__PVT__wb_inst 
-                     >> 0x14U)) & (IData)(vlSymsp->TOP__top.__PVT__wb_IntrEn))) {
-        vlSelf->__PVT__mtvec = vlSelf->__PVT__csrWData;
-    }
-    if ((((IData)(vlSelf->__PVT__ismepc) & (IData)(vlSymsp->TOP__top.__PVT__wb_IntrEn)) 
-         | (IData)(vlSelf->__PVT__irq_raise))) {
-        vlSelf->__PVT__mepc = ((IData)(vlSelf->__PVT__irq_raise)
-                                ? vlSymsp->TOP__top.__PVT__wb_pc
-                                : vlSelf->__PVT__csrWData);
-    }
-    vlSelf->__PVT__timer_irq = ((IData)(vlSymsp->TOP__top.__PVT__clint_mtip) 
-                                & ((IData)((vlSelf->__PVT__mstatus 
-                                            >> 3U)) 
-                                   & (IData)((vlSelf->__PVT__mie 
-                                              >> 7U))));
 }
 
 VL_INLINE_OPT void Vtop_Intr___nba_sequent__TOP__top__WB__IntrUnit__1(Vtop_Intr* vlSelf) {
@@ -274,15 +311,45 @@ VL_INLINE_OPT void Vtop_Intr___nba_sequent__TOP__top__WB__IntrUnit__1(Vtop_Intr*
     Vtop__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     VL_DEBUG_IF(VL_DBG_MSGF("+          Vtop_Intr___nba_sequent__TOP__top__WB__IntrUnit__1\n"); );
     // Body
+    vlSelf->__PVT__scrDataSrc__DOT__pair_list[5U][0U] 
+        = (IData)((((QData)((IData)(vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[9U])) 
+                    << 0x3dU) | (((QData)((IData)(vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[8U])) 
+                                  << 0x1dU) | ((QData)((IData)(
+                                                               vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[7U])) 
+                                               >> 3U))));
+    vlSelf->__PVT__scrDataSrc__DOT__pair_list[5U][1U] 
+        = (IData)(((((QData)((IData)(vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[9U])) 
+                     << 0x3dU) | (((QData)((IData)(
+                                                   vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[8U])) 
+                                   << 0x1dU) | ((QData)((IData)(
+                                                                vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[7U])) 
+                                                >> 3U))) 
+                   >> 0x20U));
+    vlSelf->__PVT__scrDataSrc__DOT__pair_list[5U][2U] = 1U;
+    vlSelf->__PVT__scrDataSrc__DOT__data_list[5U] = 
+        (((QData)((IData)(vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[9U])) 
+          << 0x3dU) | (((QData)((IData)(vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[8U])) 
+                        << 0x1dU) | ((QData)((IData)(
+                                                     vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[7U])) 
+                                     >> 3U)));
     vlSelf->__PVT__ismret = ((~ (IData)((0U != (7U 
-                                                & (vlSymsp->TOP__top.__PVT__wb_inst 
+                                                & (vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[0U] 
                                                    >> 0xcU))))) 
-                             & (0x302U == (vlSymsp->TOP__top.__PVT__wb_inst 
+                             & (0x302U == (vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[0U] 
                                            >> 0x14U)));
-    vlSelf->__PVT__isecall = ((~ (IData)((0U != (0xfff07000U 
-                                                 & vlSymsp->TOP__top.__PVT__wb_inst)))) 
-                              & (IData)(vlSymsp->TOP__top.__PVT__wb_IntrEn));
-    vlSelf->__PVT__ismstatus = ((0x300U == (vlSymsp->TOP__top.__PVT__wb_inst 
+    vlSelf->__PVT__timer_irq = (1U & ((vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[9U] 
+                                       >> 3U) & ((IData)(
+                                                         (vlSelf->__PVT__mstatus 
+                                                          >> 3U)) 
+                                                 & (IData)(
+                                                           (vlSelf->__PVT__mie 
+                                                            >> 7U)))));
+    vlSelf->__PVT__isecall = ((~ ((0U != (vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[0U] 
+                                          >> 0x14U)) 
+                                  & (0U != (7U & (vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[0U] 
+                                                  >> 0xcU))))) 
+                              & (IData)(vlSymsp->TOP__top__WB.__Vcellinp__IntrUnit__IntrEn));
+    vlSelf->__PVT__ismstatus = ((0x300U == (vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[0U] 
                                             >> 0x14U)) 
                                 | (IData)(vlSelf->__PVT__ismret));
     vlSelf->__Vcellinp__CSRwEn__key = (((IData)(vlSelf->__PVT__timer_irq) 
@@ -314,13 +381,16 @@ VL_INLINE_OPT void Vtop_Intr___nba_sequent__TOP__top__WB__IntrUnit__1(Vtop_Intr*
     vlSelf->__PVT__eNo = ((IData)(vlSelf->__PVT__CSRwEn__DOT__hit)
                            ? vlSelf->__PVT__CSRwEn__DOT__lut_out
                            : 0ULL);
-    vlSelf->__PVT__ismepc = ((0x341U == (vlSymsp->TOP__top.__PVT__wb_inst 
+    vlSelf->__PVT__ismepc = ((0x341U == (vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[0U] 
                                          >> 0x14U)) 
                              | (IData)(vlSelf->__PVT__irq_raise));
-    vlSelf->__PVT__ismcase = ((0x342U == (vlSymsp->TOP__top.__PVT__wb_inst 
+    vlSelf->__PVT__ismcase = ((0x342U == (vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[0U] 
                                           >> 0x14U)) 
                               | (IData)(vlSelf->__PVT__irq_raise));
-    vlSelf->__PVT__dout = ((0x305U == (vlSymsp->TOP__top.__PVT__wb_inst 
+    vlSelf->__PVT__isIntrPC = (((IData)(vlSymsp->TOP__top__WB.__Vcellinp__IntrUnit__IntrEn) 
+                                & (IData)(vlSelf->__PVT__ismret)) 
+                               | (IData)(vlSelf->__PVT__irq_raise));
+    vlSelf->__PVT__dout = ((0x305U == (vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[0U] 
                                        >> 0x14U)) ? vlSelf->__PVT__mtvec
                             : ((IData)(vlSelf->__PVT__ismepc)
                                 ? vlSelf->__PVT__mepc
@@ -329,87 +399,125 @@ VL_INLINE_OPT void Vtop_Intr___nba_sequent__TOP__top__WB__IntrUnit__1(Vtop_Intr*
                                     : ((IData)(vlSelf->__PVT__ismstatus)
                                         ? vlSelf->__PVT__mstatus
                                         : ((0x304U 
-                                            == (vlSymsp->TOP__top.__PVT__wb_inst 
+                                            == (vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[0U] 
                                                 >> 0x14U))
                                             ? vlSelf->__PVT__mie
                                             : 0ULL)))));
     vlSelf->__PVT__scrDataSrc__DOT__pair_list[0U][0U] 
-        = (IData)(((~ (QData)((IData)((0x1fU & (vlSymsp->TOP__top.__PVT__wb_inst 
+        = (IData)(((~ (QData)((IData)((0x1fU & (vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[0U] 
                                                 >> 0xfU))))) 
                    & vlSelf->__PVT__dout));
     vlSelf->__PVT__scrDataSrc__DOT__pair_list[0U][1U] 
-        = (IData)((((~ (QData)((IData)((0x1fU & (vlSymsp->TOP__top.__PVT__wb_inst 
+        = (IData)((((~ (QData)((IData)((0x1fU & (vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[0U] 
                                                  >> 0xfU))))) 
                     & vlSelf->__PVT__dout) >> 0x20U));
     vlSelf->__PVT__scrDataSrc__DOT__pair_list[0U][2U] = 7U;
     vlSelf->__PVT__scrDataSrc__DOT__pair_list[1U][0U] 
         = (IData)((vlSelf->__PVT__dout | (QData)((IData)(
                                                          (0x1fU 
-                                                          & (vlSymsp->TOP__top.__PVT__wb_inst 
+                                                          & (vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[0U] 
                                                              >> 0xfU))))));
     vlSelf->__PVT__scrDataSrc__DOT__pair_list[1U][1U] 
         = (IData)(((vlSelf->__PVT__dout | (QData)((IData)(
                                                           (0x1fU 
-                                                           & (vlSymsp->TOP__top.__PVT__wb_inst 
+                                                           & (vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[0U] 
                                                               >> 0xfU))))) 
                    >> 0x20U));
     vlSelf->__PVT__scrDataSrc__DOT__pair_list[1U][2U] = 6U;
     vlSelf->__PVT__scrDataSrc__DOT__pair_list[2U][0U] 
         = (IData)(((0xffffffffffffffe0ULL & vlSelf->__PVT__dout) 
-                   | (QData)((IData)((0x1fU & (vlSymsp->TOP__top.__PVT__wb_inst 
+                   | (QData)((IData)((0x1fU & (vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[0U] 
                                                >> 0xfU))))));
     vlSelf->__PVT__scrDataSrc__DOT__pair_list[2U][1U] 
         = (IData)((((0xffffffffffffffe0ULL & vlSelf->__PVT__dout) 
-                    | (QData)((IData)((0x1fU & (vlSymsp->TOP__top.__PVT__wb_inst 
+                    | (QData)((IData)((0x1fU & (vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[0U] 
                                                 >> 0xfU))))) 
                    >> 0x20U));
     vlSelf->__PVT__scrDataSrc__DOT__pair_list[2U][2U] = 5U;
     vlSelf->__PVT__scrDataSrc__DOT__pair_list[3U][0U] 
-        = (IData)(((~ vlSymsp->TOP__top.__PVT__wb_Rrs1) 
+        = (IData)(((~ (((QData)((IData)(vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[9U])) 
+                        << 0x3dU) | (((QData)((IData)(
+                                                      vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[8U])) 
+                                      << 0x1dU) | ((QData)((IData)(
+                                                                   vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[7U])) 
+                                                   >> 3U)))) 
                    & vlSelf->__PVT__dout));
     vlSelf->__PVT__scrDataSrc__DOT__pair_list[3U][1U] 
-        = (IData)((((~ vlSymsp->TOP__top.__PVT__wb_Rrs1) 
-                    & vlSelf->__PVT__dout) >> 0x20U));
+        = (IData)((((~ (((QData)((IData)(vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[9U])) 
+                         << 0x3dU) | (((QData)((IData)(
+                                                       vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[8U])) 
+                                       << 0x1dU) | 
+                                      ((QData)((IData)(
+                                                       vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[7U])) 
+                                       >> 3U)))) & vlSelf->__PVT__dout) 
+                   >> 0x20U));
     vlSelf->__PVT__scrDataSrc__DOT__pair_list[3U][2U] = 3U;
     vlSelf->__PVT__scrDataSrc__DOT__pair_list[4U][0U] 
-        = (IData)((vlSelf->__PVT__dout | vlSymsp->TOP__top.__PVT__wb_Rrs1));
+        = (IData)((vlSelf->__PVT__dout | (((QData)((IData)(
+                                                           vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[9U])) 
+                                           << 0x3dU) 
+                                          | (((QData)((IData)(
+                                                              vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[8U])) 
+                                              << 0x1dU) 
+                                             | ((QData)((IData)(
+                                                                vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[7U])) 
+                                                >> 3U)))));
     vlSelf->__PVT__scrDataSrc__DOT__pair_list[4U][1U] 
-        = (IData)(((vlSelf->__PVT__dout | vlSymsp->TOP__top.__PVT__wb_Rrs1) 
+        = (IData)(((vlSelf->__PVT__dout | (((QData)((IData)(
+                                                            vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[9U])) 
+                                            << 0x3dU) 
+                                           | (((QData)((IData)(
+                                                               vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[8U])) 
+                                               << 0x1dU) 
+                                              | ((QData)((IData)(
+                                                                 vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[7U])) 
+                                                 >> 3U)))) 
                    >> 0x20U));
     vlSelf->__PVT__scrDataSrc__DOT__pair_list[4U][2U] = 2U;
     vlSelf->__PVT__scrDataSrc__DOT__data_list[0U] = 
-        ((~ (QData)((IData)((0x1fU & (vlSymsp->TOP__top.__PVT__wb_inst 
+        ((~ (QData)((IData)((0x1fU & (vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[0U] 
                                       >> 0xfU))))) 
          & vlSelf->__PVT__dout);
     vlSelf->__PVT__scrDataSrc__DOT__data_list[1U] = 
         (vlSelf->__PVT__dout | (QData)((IData)((0x1fU 
-                                                & (vlSymsp->TOP__top.__PVT__wb_inst 
+                                                & (vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[0U] 
                                                    >> 0xfU)))));
     vlSelf->__PVT__scrDataSrc__DOT__data_list[2U] = 
         ((0xffffffffffffffe0ULL & vlSelf->__PVT__dout) 
-         | (QData)((IData)((0x1fU & (vlSymsp->TOP__top.__PVT__wb_inst 
+         | (QData)((IData)((0x1fU & (vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[0U] 
                                      >> 0xfU)))));
     vlSelf->__PVT__scrDataSrc__DOT__data_list[3U] = 
-        ((~ vlSymsp->TOP__top.__PVT__wb_Rrs1) & vlSelf->__PVT__dout);
+        ((~ (((QData)((IData)(vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[9U])) 
+              << 0x3dU) | (((QData)((IData)(vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[8U])) 
+                            << 0x1dU) | ((QData)((IData)(
+                                                         vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[7U])) 
+                                         >> 3U)))) 
+         & vlSelf->__PVT__dout);
     vlSelf->__PVT__scrDataSrc__DOT__data_list[4U] = 
-        (vlSelf->__PVT__dout | vlSymsp->TOP__top.__PVT__wb_Rrs1);
+        (vlSelf->__PVT__dout | (((QData)((IData)(vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[9U])) 
+                                 << 0x3dU) | (((QData)((IData)(
+                                                               vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[8U])) 
+                                               << 0x1dU) 
+                                              | ((QData)((IData)(
+                                                                 vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[7U])) 
+                                                 >> 3U))));
     vlSelf->__PVT__scrDataSrc__DOT__lut_out = ((- (QData)((IData)(
                                                                   ((7U 
-                                                                    & (vlSymsp->TOP__top.__PVT__wb_inst 
+                                                                    & (vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[0U] 
                                                                        >> 0xcU)) 
                                                                    == 
                                                                    vlSelf->__PVT__scrDataSrc__DOT__key_list
                                                                    [0U])))) 
                                                & vlSelf->__PVT__scrDataSrc__DOT__data_list
                                                [0U]);
-    vlSelf->__PVT__scrDataSrc__DOT__hit = ((7U & (vlSymsp->TOP__top.__PVT__wb_inst 
+    vlSelf->__PVT__scrDataSrc__DOT__hit = ((7U & (vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[0U] 
                                                   >> 0xcU)) 
                                            == vlSelf->__PVT__scrDataSrc__DOT__key_list
                                            [0U]);
     vlSelf->__PVT__scrDataSrc__DOT__lut_out = (vlSelf->__PVT__scrDataSrc__DOT__lut_out 
                                                | ((- (QData)((IData)(
                                                                      ((7U 
-                                                                       & (vlSymsp->TOP__top.__PVT__wb_inst 
+                                                                       & (vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[0U] 
                                                                           >> 0xcU)) 
                                                                       == 
                                                                       vlSelf->__PVT__scrDataSrc__DOT__key_list
@@ -418,14 +526,14 @@ VL_INLINE_OPT void Vtop_Intr___nba_sequent__TOP__top__WB__IntrUnit__1(Vtop_Intr*
                                                   [1U]));
     vlSelf->__PVT__scrDataSrc__DOT__hit = ((IData)(vlSelf->__PVT__scrDataSrc__DOT__hit) 
                                            | ((7U & 
-                                               (vlSymsp->TOP__top.__PVT__wb_inst 
+                                               (vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[0U] 
                                                 >> 0xcU)) 
                                               == vlSelf->__PVT__scrDataSrc__DOT__key_list
                                               [1U]));
     vlSelf->__PVT__scrDataSrc__DOT__lut_out = (vlSelf->__PVT__scrDataSrc__DOT__lut_out 
                                                | ((- (QData)((IData)(
                                                                      ((7U 
-                                                                       & (vlSymsp->TOP__top.__PVT__wb_inst 
+                                                                       & (vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[0U] 
                                                                           >> 0xcU)) 
                                                                       == 
                                                                       vlSelf->__PVT__scrDataSrc__DOT__key_list
@@ -434,14 +542,14 @@ VL_INLINE_OPT void Vtop_Intr___nba_sequent__TOP__top__WB__IntrUnit__1(Vtop_Intr*
                                                   [2U]));
     vlSelf->__PVT__scrDataSrc__DOT__hit = ((IData)(vlSelf->__PVT__scrDataSrc__DOT__hit) 
                                            | ((7U & 
-                                               (vlSymsp->TOP__top.__PVT__wb_inst 
+                                               (vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[0U] 
                                                 >> 0xcU)) 
                                               == vlSelf->__PVT__scrDataSrc__DOT__key_list
                                               [2U]));
     vlSelf->__PVT__scrDataSrc__DOT__lut_out = (vlSelf->__PVT__scrDataSrc__DOT__lut_out 
                                                | ((- (QData)((IData)(
                                                                      ((7U 
-                                                                       & (vlSymsp->TOP__top.__PVT__wb_inst 
+                                                                       & (vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[0U] 
                                                                           >> 0xcU)) 
                                                                       == 
                                                                       vlSelf->__PVT__scrDataSrc__DOT__key_list
@@ -450,14 +558,14 @@ VL_INLINE_OPT void Vtop_Intr___nba_sequent__TOP__top__WB__IntrUnit__1(Vtop_Intr*
                                                   [3U]));
     vlSelf->__PVT__scrDataSrc__DOT__hit = ((IData)(vlSelf->__PVT__scrDataSrc__DOT__hit) 
                                            | ((7U & 
-                                               (vlSymsp->TOP__top.__PVT__wb_inst 
+                                               (vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[0U] 
                                                 >> 0xcU)) 
                                               == vlSelf->__PVT__scrDataSrc__DOT__key_list
                                               [3U]));
     vlSelf->__PVT__scrDataSrc__DOT__lut_out = (vlSelf->__PVT__scrDataSrc__DOT__lut_out 
                                                | ((- (QData)((IData)(
                                                                      ((7U 
-                                                                       & (vlSymsp->TOP__top.__PVT__wb_inst 
+                                                                       & (vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[0U] 
                                                                           >> 0xcU)) 
                                                                       == 
                                                                       vlSelf->__PVT__scrDataSrc__DOT__key_list
@@ -466,14 +574,14 @@ VL_INLINE_OPT void Vtop_Intr___nba_sequent__TOP__top__WB__IntrUnit__1(Vtop_Intr*
                                                   [4U]));
     vlSelf->__PVT__scrDataSrc__DOT__hit = ((IData)(vlSelf->__PVT__scrDataSrc__DOT__hit) 
                                            | ((7U & 
-                                               (vlSymsp->TOP__top.__PVT__wb_inst 
+                                               (vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[0U] 
                                                 >> 0xcU)) 
                                               == vlSelf->__PVT__scrDataSrc__DOT__key_list
                                               [4U]));
     vlSelf->__PVT__scrDataSrc__DOT__lut_out = (vlSelf->__PVT__scrDataSrc__DOT__lut_out 
                                                | ((- (QData)((IData)(
                                                                      ((7U 
-                                                                       & (vlSymsp->TOP__top.__PVT__wb_inst 
+                                                                       & (vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[0U] 
                                                                           >> 0xcU)) 
                                                                       == 
                                                                       vlSelf->__PVT__scrDataSrc__DOT__key_list
@@ -482,7 +590,7 @@ VL_INLINE_OPT void Vtop_Intr___nba_sequent__TOP__top__WB__IntrUnit__1(Vtop_Intr*
                                                   [5U]));
     vlSelf->__PVT__scrDataSrc__DOT__hit = ((IData)(vlSelf->__PVT__scrDataSrc__DOT__hit) 
                                            | ((7U & 
-                                               (vlSymsp->TOP__top.__PVT__wb_inst 
+                                               (vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[0U] 
                                                 >> 0xcU)) 
                                               == vlSelf->__PVT__scrDataSrc__DOT__key_list
                                               [5U]));

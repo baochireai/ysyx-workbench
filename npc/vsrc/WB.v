@@ -25,12 +25,12 @@ module WB(
 
     // 4. reg wb
     output                      o_RegWr_en,
-    output  [`RegAddrBus-1:0]   o_RegWaddr,
+    output  [`RegAddrBus]       o_RegWaddr,
     output  [`RegWidth-1:0]     o_RegWdata,
 
     // 5. handshakes
     input wb_valid,
-    output wb_ready,
+    output wb_ready
 );
 
     // 1. handshake 
@@ -38,7 +38,7 @@ module WB(
     assign wb_ready = (~wb_valid) || wb_ready_go ;
 
     // 2. witf pop
-    assign witf_pop_en = wb_valid && wb_ready_go && Regwr && (wb_inst[11:7] != 5'd0);
+    assign witf_pop_en = wb_valid && wb_ready_go && RegWr && (wb_inst[11:7] != 5'd0);
     
     // 3. regfiles wb
     // 3.1 wdata
@@ -48,16 +48,17 @@ module WB(
         2'd2,IntrOut
     }));
     // 3.2 wen
-    wire o_RegWr_en = wb_valid && RegWr ;
+    assign o_RegWr_en = wb_valid && RegWr ;
     // 3.3 waddr
     assign o_RegWaddr = wb_inst[`inst_rd] ;
 
     // 4. intr/csr
-    wire isIntrPC;
-    wire [`RegWidth-1:0] IntrOut , IntrPC ;
+    wire [`RegWidth-1:0] IntrOut ;
+
     Intr IntrUnit(  .clk(clk),.rst(rst),
-                    .IntrEn(IntrEn&&wb_valid),.clint_mtip(clint_mtip),.csr(wb_inst[31:20]),func3(wb_inst[14:12]),
+                    .IntrEn(IntrEn&&wb_valid),.clint_mtip(clint_mtip),.csr(wb_inst[31:20]),.func3(wb_inst[14:12]),
                     .pc(wb_pc),.R_rs1(R_rs1_i),.zimm(wb_inst[19:15]),
-                    .isIntrPC(isIntrPC),.IntrPC(IntrPC),.dout(IntrOut));
+                    .isIntrPC(isIntrPC),.IntrPC(IntrPC),.dout(IntrOut)
+    );
 
 endmodule

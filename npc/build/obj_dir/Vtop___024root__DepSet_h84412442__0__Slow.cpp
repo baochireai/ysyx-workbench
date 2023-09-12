@@ -49,15 +49,16 @@ VL_ATTR_COLD void Vtop___024root___stl_sequent__TOP__0(Vtop___024root* vlSelf) {
     Vtop__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vtop___024root___stl_sequent__TOP__0\n"); );
     // Body
-    vlSelf->valid = vlSymsp->TOP__top.__PVT__lsu_valid;
-    vlSelf->pc = vlSymsp->TOP__top.__PVT__wb_pc;
-    vlSelf->Inst = vlSymsp->TOP__top.__PVT__wb_inst;
+    vlSelf->valid = vlSymsp->TOP__top.__PVT__wb_valid;
+    vlSelf->pc = (((QData)((IData)(vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[2U])) 
+                   << 0x20U) | (QData)((IData)(vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[1U])));
+    vlSelf->Inst = vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[0U];
 }
 
 VL_ATTR_COLD void Vtop_top___stl_sequent__TOP__top__0(Vtop_top* vlSelf);
-VL_ATTR_COLD void Vtop_WB___stl_sequent__TOP__top__WB__0(Vtop_WB* vlSelf);
-VL_ATTR_COLD void Vtop_Intr___stl_sequent__TOP__top__WB__IntrUnit__0(Vtop_Intr* vlSelf);
-VL_ATTR_COLD void Vtop_top___stl_sequent__TOP__top__1(Vtop_top* vlSelf);
+void Vtop_WB___nba_sequent__TOP__top__WB__0(Vtop_WB* vlSelf);
+void Vtop_Intr___nba_sequent__TOP__top__WB__IntrUnit__1(Vtop_Intr* vlSelf);
+void Vtop_top___nba_sequent__TOP__top__3(Vtop_top* vlSelf);
 void Vtop_WB___ico_sequent__TOP__top__WB__0(Vtop_WB* vlSelf);
 
 VL_ATTR_COLD void Vtop___024root___eval_stl(Vtop___024root* vlSelf) {
@@ -66,14 +67,14 @@ VL_ATTR_COLD void Vtop___024root___eval_stl(Vtop___024root* vlSelf) {
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vtop___024root___eval_stl\n"); );
     // Body
     if ((1ULL & vlSelf->__VstlTriggered.word(0U))) {
-        Vtop_top___stl_sequent__TOP__top__0((&vlSymsp->TOP__top));
+        Vtop___024root___stl_sequent__TOP__0(vlSelf);
         vlSelf->__Vm_traceActivity[2U] = 1U;
         vlSelf->__Vm_traceActivity[1U] = 1U;
         vlSelf->__Vm_traceActivity[0U] = 1U;
-        Vtop___024root___stl_sequent__TOP__0(vlSelf);
-        Vtop_WB___stl_sequent__TOP__top__WB__0((&vlSymsp->TOP__top__WB));
-        Vtop_Intr___stl_sequent__TOP__top__WB__IntrUnit__0((&vlSymsp->TOP__top__WB__IntrUnit));
-        Vtop_top___stl_sequent__TOP__top__1((&vlSymsp->TOP__top));
+        Vtop_top___stl_sequent__TOP__top__0((&vlSymsp->TOP__top));
+        Vtop_WB___nba_sequent__TOP__top__WB__0((&vlSymsp->TOP__top__WB));
+        Vtop_Intr___nba_sequent__TOP__top__WB__IntrUnit__1((&vlSymsp->TOP__top__WB__IntrUnit));
+        Vtop_top___nba_sequent__TOP__top__3((&vlSymsp->TOP__top));
         Vtop_WB___ico_sequent__TOP__top__WB__0((&vlSymsp->TOP__top__WB));
     }
 }

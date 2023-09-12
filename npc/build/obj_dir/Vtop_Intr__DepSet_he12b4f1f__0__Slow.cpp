@@ -37,13 +37,14 @@ VL_ATTR_COLD void Vtop_Intr___ctor_var_reset(Vtop_Intr* vlSelf) {
     VL_DEBUG_IF(VL_DBG_MSGF("+          Vtop_Intr___ctor_var_reset\n"); );
     // Body
     vlSelf->__PVT__clk = 0;
+    vlSelf->__PVT__rst = 0;
     vlSelf->__PVT__IntrEn = 0;
     vlSelf->__PVT__clint_mtip = 0;
+    vlSelf->__PVT__csr = 0;
+    vlSelf->__PVT__func3 = 0;
     vlSelf->__PVT__pc = 0;
     vlSelf->__PVT__R_rs1 = 0;
     vlSelf->__PVT__zimm = 0;
-    vlSelf->__PVT__csr = 0;
-    vlSelf->__PVT__func3 = 0;
     vlSelf->__PVT__isIntrPC = 0;
     vlSelf->__PVT__IntrPC = 0;
     vlSelf->__PVT__dout = 0;
@@ -52,13 +53,12 @@ VL_ATTR_COLD void Vtop_Intr___ctor_var_reset(Vtop_Intr* vlSelf) {
     vlSelf->__PVT__mstatus = 0;
     vlSelf->__PVT__mie = 0;
     vlSelf->mcase = 0;
-    vlSelf->__PVT__isCSRw = 0;
     vlSelf->__PVT__timer_irq = 0;
-    vlSelf->__PVT__irq_raise = 0;
     vlSelf->__PVT__isecall = 0;
+    vlSelf->__PVT__ismret = 0;
+    vlSelf->__PVT__irq_raise = 0;
     vlSelf->__PVT__eNo = 0;
     vlSelf->__Vcellinp__CSRwEn__key = 0;
-    vlSelf->__PVT__ismret = 0;
     vlSelf->__PVT__ismepc = 0;
     vlSelf->__PVT__ismcase = 0;
     vlSelf->__PVT__ismstatus = 0;

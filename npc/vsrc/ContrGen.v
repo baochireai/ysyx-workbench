@@ -21,9 +21,9 @@ module ContrGen(
      // 6. intr
      output IntrEn,
      // 7. ebreak inst
-     output isebreak
+     output isebreak,
      // 8. imm gen
-     output reg [`RegWidth-1:0] Imm,
+     output reg [`RegWidth-1:0] Imm
 );
 
      wire [6:0] opcode=id_inst[6:0];
@@ -59,11 +59,11 @@ module ContrGen(
                       {3{~(isconditionalJump|isJal|isJalr)}} & 3'b010 ; 
 
      // 3. mem
-     wire isMemW = (Extop==3'd3)//(opcode==7'b0100011) ; 
+     wire isMemW = (Extop==3'd3) ; //(opcode==7'b0100011) ; 
      wire isMemR = (opcode==7'b0000011) ;
-     wire mem_req = isMemW | isMemR
+     wire mem_req = isMemW | isMemR ;
      assign MemWr = isMemW;
-     assign MemOP = mem_req ? func3 : 3'b111;//MemOP[2]:sign Memop[1:0]:size 3'b111 no operate
+     assign MemOP = mem_req ? {~func3[2],func3[1:0]} : 3'b011;//MemOP[2]:sign Memop[1:0]:size 3'b111 no operate
      
      // 4. reg file wb
      MuxKeyInternal #(4,3,1,1) isRegWr(.out(RegWr),.key(Extop),.default_out(1'b0),.lut({
@@ -107,7 +107,7 @@ module ContrGen(
      assign ALUAsr=((Extop==3'd2)&(!isJalr))|(Extop==3'd1)|(Extop==3'd3)|(Extop==3'd4);//ALUAsr:1 Rs1 0 PC
      assign ALUBsr=(isJal|isJalr)?2'b10:(((Extop==3'd2)|(opcode[6:2]==5'b01101)|(opcode[6:2]==5'b00101)|(Extop==3'd3)|(!(|opcode[6:2])))?2'b00:
                     ((Extop==3'd1|Extop==3'd4)?2'b01:2'b11));//ALUBsr->0:Imm ALUBsr->1:R_sr2 ALUBsr->2:4
-     assign isTuncate = opcode[3];
+     assign isTuncate = opcode[3] && (~isJal);
      assign isSext = isTuncate;
 
 endmodule

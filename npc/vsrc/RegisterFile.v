@@ -26,7 +26,7 @@ module RegisterFile #(ADDR_WIDTH = 5, DATA_WIDTH = 64) (
   always @(posedge clk) begin
     if(rst) begin
       for(integer i=0 ; i<32 ; i=i+1) begin
-        rf[i] <= `DATA_WIDTH'd0;
+        rf[i] <= 0;
       end
     end
     if (isw) rf[waddr] <= wdata;//waddr unused

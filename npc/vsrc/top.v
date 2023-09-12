@@ -3,7 +3,7 @@
 module top(
     input clk,
     input rst,//高电平有效
-    // input [31:0] Inst,
+    // difftest
     output [31:0] Inst,
     output [63:0] pc,
     output valid
@@ -22,19 +22,17 @@ module top(
 
     IFU IFU(.clk(clk),.rst(rst), 
           //1. jump inst from exu  
-          .is_jump(exu_IsJump),.JumpPc(exu_JumpPc),
+          .is_jump(o_exu_is_jump),.JumpPc(o_exu_NextPC),
           //2. intr jump from wb
-          .isIntrPC(ifu_isIntrPC),.IntrPC(ifu_IntrPC),
-          //3. ebreak from id
-          .isebreak(idu_isebreak),
-          //4. cache inteface - icache fetch
+          .isIntrPC(o_wb_isIntrPC),.IntrPC(o_wb_IntrPC),
+          //3. cache inteface - icache fetch
           .cache_req(ifu_cache_req),.addr_inst(ifu_cache_addr),.cache_ready(icache_req_ready),
-          //5. cache inteface - icache data
-          .inst_i(icache_rdata),.inst_valid(icache_valid),
-          //6. output for next stage
+          //4. cache inteface - icache data
+          .inst_i(icache_rdata),.cache_valid(icache_valid),
+          //5. output for next stage
           .inst_o(ifu_inst_o),.pc_o(ifu_pc_o),
-          //7. pipe shake hands
-          .id_allow_in(id_allow_in),if_ready_go(if_ready_go),.if_valid(if_valid)
+          //6. pipe shake hands
+          .id_allow_in(id_allow_in),.if_ready_go(if_ready_go),.if_valid(if_valid)
     );
   
   /*------------icache----------------*/
@@ -46,33 +44,15 @@ module top(
   wire                  icache_valid;
   // axi rd req
   wire          icache_axi_rd_req;
-  wire [63:0]   icache_axi_rd_addr;
+  wire [31:0]   icache_axi_rd_addr;
   wire [2:0]    icache_axi_rd_type;  
 
   //icache <--> data array(ram) ram0 ram1 ->way0 | ram2 ram3 ->way1
-  wire [5:0]    icache_sram0_addr ;
-  wire          icache_sram0_cen  ;
-  wire          icache_sram0_wen  ;
-  wire [127:0]  icache_sram0_wmask;
-  wire [127:0]  icache_sram0_wdata;
-
-  wire [5:0]    icache_sram1_addr ;
-  wire          icache_sram1_cen  ;
-  wire          icache_sram1_wen  ;
-  wire [127:0]  icache_sram1_wmask;
-  wire [127:0]  icache_sram1_wdata;
-
-  wire [5:0]    icache_sram2_addr ;
-  wire          icache_sram2_cen  ;
-  wire          icache_sram2_wen  ;
-  wire [127:0]  icache_sram2_wmask;
-  wire [127:0]  icache_sram2_wdata;
-
-  wire [5:0]    icache_sram3_addr ;
-  wire          icache_sram3_cen  ;
-  wire          icache_sram3_wen  ;
-  wire [127:0]  icache_sram3_wmask;
-  wire [127:0]  icache_sram3_wdata;
+  wire [5:0]    icache_sram_addr  [3:0];
+  wire [3:0]    icache_sram_cen        ;
+  wire [3:0]    icache_sram_wen        ;
+  wire [127:0]  icache_sram_wmask [3:0];
+  wire [127:0]  icache_sram_wdata [3:0];
 
   icache icache(.clk(clk),.rst(rst), 
     // 1. pre-if <--> cache
@@ -93,33 +73,33 @@ module top(
     .axi_rvalid  (axi_icache_rvalid),
       
     // 4. icache <--> data array(ram) ram0 ram1 ->way0 | ram2 ram3 ->way1
-  	.io_sram0_addr (icache_sram0_addr),
-  	.io_sram0_cen  (icache_sram0_cen),
-  	.io_sram0_wen  (icache_sram0_wen),
-  	.io_sram0_wmask(icache_sram0_wmask),
-  	.io_sram0_wdata(icache_sram0_wdata),
-  	.io_sram0_rdata(),
+  	.io_sram0_addr (icache_sram_addr [0]),
+  	.io_sram0_cen  (icache_sram_cen  [0]),
+  	.io_sram0_wen  (icache_sram_wen  [0]),
+  	.io_sram0_wmask(icache_sram_wmask[0]),
+  	.io_sram0_wdata(icache_sram_wdata[0]),
+  	.io_sram0_rdata(sram_icache_rdata[0]),
 
-  	.io_sram1_addr (icache_sram0_addr),
-  	.io_sram1_cen  (icache_sram0_cen),
-  	.io_sram1_wen  (icache_sram0_wen),
-  	.io_sram1_wmask(icache_sram0_wmask),
-  	.io_sram1_wdata(icache_sram0_wdata),
-  	.io_sram1_rdata(),
+  	.io_sram1_addr (icache_sram_addr [1]),
+  	.io_sram1_cen  (icache_sram_cen  [1]),
+  	.io_sram1_wen  (icache_sram_wen  [1]),
+  	.io_sram1_wmask(icache_sram_wmask[1]),
+  	.io_sram1_wdata(icache_sram_wdata[1]),
+  	.io_sram1_rdata(sram_icache_rdata[1]),
 
-  	.io_sram2_addr (icache_sram0_addr),
-  	.io_sram2_cen  (icache_sram0_cen),
-  	.io_sram2_wen  (icache_sram0_wen),
-  	.io_sram2_wmask(icache_sram0_wmask),
-  	.io_sram2_wdata(icache_sram0_wdata),
-  	.io_sram2_rdata(),
+  	.io_sram2_addr (icache_sram_addr [2]),
+  	.io_sram2_cen  (icache_sram_cen  [2]),
+  	.io_sram2_wen  (icache_sram_wen  [2]),
+  	.io_sram2_wmask(icache_sram_wmask[2]),
+  	.io_sram2_wdata(icache_sram_wdata[2]),
+  	.io_sram2_rdata(sram_icache_rdata[2]),
 
-  	.io_sram3_addr (icache_sram0_addr),
-  	.io_sram3_cen  (icache_sram0_cen),
-  	.io_sram3_wen  (icache_sram0_wen),
-  	.io_sram3_wmask(icache_sram0_wmask),
-  	.io_sram3_wdata(icache_sram0_wdata),
-  	.io_sram3_rdata()    
+  	.io_sram3_addr (icache_sram_addr [3]),
+  	.io_sram3_cen  (icache_sram_cen  [3]),
+  	.io_sram3_wen  (icache_sram_wen  [3]),
+  	.io_sram3_wmask(icache_sram_wmask[3]),
+  	.io_sram3_wdata(icache_sram_wdata[3]),
+  	.io_sram3_rdata(sram_icache_rdata[3])    
   );
 
   /*------------axi-interface(icache,dcache)------------*/
@@ -144,7 +124,7 @@ module top(
   // 2. axi master
   // 2.1 ar
   wire          axi_master_arvalid;
-  wire [63:0]   axi_master_araddr ;
+  wire [31:0]   axi_master_araddr ;
   wire [3:0]    axi_master_arid   ;
   wire [7:0]    axi_master_arlen  ;
   wire [2:0]    axi_master_arsize ;
@@ -155,7 +135,7 @@ module top(
   
   // 2.3 aw
   wire          axi_master_awvalid;
-  wire [63:0]   axi_master_awaddr ;
+  wire [31:0]   axi_master_awaddr ;
   wire [3:0]    axi_master_awid   ;
   wire [7:0]    axi_master_awlen  ;
   wire [2:0]    axi_master_awsize ;
@@ -170,14 +150,14 @@ module top(
   // 2.5 b
   wire          axi_master_bready;
 
-  axi_rw_interface axi_rw_interface(.clk(clk),.rst(rst)
+  axi_rw_interface axi_rw_interface(.clk(clk),.rst(rst),
 
       // 1. master interface
       
       // 1.1 icache rd
-      .icache_rd_req  (icache_rd_req),
-      .icache_rd_addr (icache_rd_addr),
-      .icache_rd_type (icache_rd_type),//3'd0:1Byte 3'd1:2B 3'd2:4B 3'd3:8B 3'd4:cache line
+      .icache_rd_req  (icache_axi_rd_req),
+      .icache_rd_addr (icache_axi_rd_addr),
+      .icache_rd_type (icache_axi_rd_type),//3'd0:1Byte 3'd1:2B 3'd2:4B 3'd3:8B 3'd4:cache line
       .icache_rd_ready(axi_icache_rd_ready),
       .icache_rdata   (axi_icache_rdata),
       .icache_rlast   (axi_icache_rlast),
@@ -202,7 +182,7 @@ module top(
 
       // 2. axi master
       // 2.1 ar
-      .i_axi_master_arready(),
+      .i_axi_master_arready(axi_slave_arready),
       .o_axi_master_arvalid(axi_master_arvalid),
       .o_axi_master_araddr (axi_master_araddr),
       .o_axi_master_arid   (axi_master_arid),
@@ -212,14 +192,14 @@ module top(
       
       // 2.2 r
       .o_axi_master_rready(axi_master_rready),
-      .i_axi_master_rvalid(),
-      .i_axi_master_rlast (),
-      .i_axi_master_rresp (),
-      .i_axi_master_rdata (),
-      .i_axi_master_rid   (),
+      .i_axi_master_rvalid(axi_slave_rvalid),
+      .i_axi_master_rlast (axi_slave_rlast ),
+      .i_axi_master_rresp (axi_slave_rresp ),
+      .i_axi_master_rdata (axi_slave_rdata ),
+      .i_axi_master_rid   (axi_slave_rid   ),
       
       // 2.3 aw
-      .i_axi_master_awready(),
+      .i_axi_master_awready(axi_slave_awready),
       .o_axi_master_awvalid(axi_master_awvalid),
       .o_axi_master_awaddr (axi_master_awaddr),
       .o_axi_master_awid   (axi_master_awid),
@@ -228,7 +208,7 @@ module top(
       .o_axi_master_awburst(axi_master_awburst),
 
       // 2.4 w
-      .i_axi_master_wready(),
+      .i_axi_master_wready(axi_slave_wready),
       .o_axi_master_wvalid(axi_master_wvalid),
       .o_axi_master_wdata (axi_master_wdata),
       .o_axi_master_wstrb (axi_master_wstrb),
@@ -236,9 +216,9 @@ module top(
 
       // 2.5 b
       .o_axi_master_bready(axi_master_bready),
-      .i_axi_master_bvalid(),
-      .i_axi_master_bresp (),
-      .i_axi_master_bid   ()
+      .i_axi_master_bvalid(axi_slave_bvalid),
+      .i_axi_master_bresp (axi_slave_bresp ),
+      .i_axi_master_bid   (axi_slave_bid   )
   );
 
 
@@ -247,7 +227,7 @@ module top(
     wire [31:0] id_inst;
     wire [63:0] id_pc;
     // 2. shake hands
-    wire id_allow_in,if_to_id_valid;
+    wire id_allow_in,idu_valid;
 
     IDRegs IDRegs(.clk(clk),.rst(rst),
         // 1. input from pre stage
@@ -258,7 +238,11 @@ module top(
         // 3.1 sh of pre stage
         .if_ready_go(if_ready_go),.if_valid(if_valid),.id_allow_in(id_allow_in),
         // 3.2 sh of next stage
-        .id_ready(idu_ready),.id_valid(if_to_id_valid),
+        .id_ready(idu_ready),.id_valid(idu_valid),
+        // 4. jump && intr flush pipeline
+        .is_jump(o_exu_is_jump),.is_intr(o_wb_isIntrPC),
+        //5. ebreak from id
+        .isebreak(idu_isebreak)
     );
 
   /*--------------------ID-----------------*/
@@ -305,7 +289,7 @@ module top(
       // 1. inputs from pre stage
       .id_inst(id_inst),.id_pc(id_pc),
       // 2. jump from exu
-      .flush_pipeline(exu_IsJump),
+      .flush_pipeline(o_exu_is_jump),
       // 3. register files read      
       .R_rs1_i(R_rs1),.R_rs2_i(R_rs2),.rs1(id_rs1),.rs2(id_rs2),
       // 4. witf for raw     
@@ -327,36 +311,36 @@ module top(
       // 6. outputs for pre stage(ebreak inst)
       .isebreak(idu_isebreak),
       // 7. shake hands
-      .idu_valid(idu_valid),.idu_ready(idu_ready),.exu_allow_in(exu_allow_in),.id_to_exu_valid(id_to_exu_valid)
+      .id_valid(idu_valid),.id_ready(idu_ready),.exu_allow_in(exu_allow_in),.id_to_exu_valid(id_to_exu_valid)
     );
     
   /*--------------------ID to EXU Regs-----------------*/
 
     // 1. ALU ctrl 
-    wire                   exu_ALUAsr,
-    wire [1:0]             exu_ALUBsr,
-    wire [4:0]             exu_ALUct,
-    wire                   exu_isTuncate,
-    wire                   exu_isSext,
+    wire                   exu_ALUAsr   ;
+    wire [1:0]             exu_ALUBsr   ;
+    wire [4:0]             exu_ALUct    ;
+    wire                   exu_isTuncate;
+    wire                   exu_isSext   ;
     // 2. branch ctrl 
-    wire [2:0]             exu_Branch,
+    wire [2:0]             exu_Branch   ;
 
     // 3. mem op    
-    wire [2:0]             exu_MemOP_i,
-    wire                   exu_MemWr_i,
+    wire [2:0]             exu_MemOP;
+    wire                   exu_MemWr;
 
     // 4. regs wb    
-    wire                   exu_Regwr_i,
-    wire [1:0]             exu_RegSrc,//写回地址 
+    wire                   exu_RegWr;
+    wire [1:0]             exu_RegSrc ;//写回地址 
 
     // 5. intr insto_
-    wire                   exu_IntrEn,    
+    wire                   exu_IntrEn;   
     // 6. operate data    
-    wire [`RegWidth-1:0]   exu_R_rs1,
-    wire [`RegWidth-1:0]   exu_R_rs2,//mem wdata
-    wire [`RegWidth-1:0]   exu_Imm,
-    wire [`INSTWide-1:0]   exu_inst,
-    wire [`RegWidth-1:0]   exu_pc,  
+    wire [`RegWidth-1:0]   exu_R_rs1;
+    wire [`RegWidth-1:0]   exu_R_rs2;//mem wdata
+    wire [`RegWidth-1:0]   exu_Imm  ;
+    wire [`INSTWide-1:0]   exu_inst ;
+    wire [`RegWidth-1:0]   exu_pc   ;  
 
     // 7. shake hands
     wire                   exu_valid;
@@ -369,9 +353,9 @@ module top(
       // 1.2 branch ctrl 
       .i_Branch(o_id_Branch),
       // 1.3 mem op    
-      .i_MemOP_i(o_id_MemOP),.i_MemWr_i(o_id_MemWr),
+      .i_MemOP(o_id_MemOP),.i_MemWr(o_id_MemWr),
       // 1.4 regs wb    
-      .i_Regwr_i(o_id_RegWr),.i_RegSrc (o_id_RegSrc),
+      .i_RegWr(o_id_RegWr),.i_RegSrc (o_id_RegSrc),
       // 1.5 intr inst
       .i_IntrEn(o_id_IntrEn),    
       // 1.6 operate data    
@@ -383,9 +367,9 @@ module top(
       // 2.2 branch ctrl 
       .o_Branch(exu_Branch),
       // 2.3 mem op    
-      .o_MemOP_i(exu_MemOP),.o_MemWr_i(exu_MemWr),
+      .o_MemOP(exu_MemOP),.o_MemWr(exu_MemWr),
       // 2.4 regs wb    
-      .o_Regwr_i(exu_RegWr),.o_RegSrc(exu_RegSrc),
+      .o_RegWr(exu_RegWr),.o_RegSrc(exu_RegSrc),
       // 2.5 intr insto_
       .o_IntrEn(exu_IntrEn),    
 
@@ -396,7 +380,11 @@ module top(
       // 3.1 id
       .id_to_exu_valid(id_to_exu_valid),.exu_allow_in(exu_allow_in),
       // 3.2 exu 
-      .exu_ready(exu_ready),.exu_valid(exu_valid) 
+      .exu_ready(exu_ready),.exu_valid(exu_valid) ,
+      
+      // 4. jump && intr flush pipeline
+      .is_jump(o_exu_is_jump),
+      .is_intr(idu_isebreak)      
     );
 
 
@@ -414,6 +402,7 @@ module top(
   // 2.1 mem op(cache rdata process)
   wire [2:0]           o_exu_MemOP;
   wire                 o_exu_MemWr;
+  wire [`RegWidth-1:0] o_exu_R_rs2;  //client wdata
   // 2.2 alu res for reg wb(mem addr->cache req)
   wire [`RegWidth-1:0] o_exu_ALUres;
   // 2.3 reg wb
@@ -435,7 +424,7 @@ module top(
   
   // shake hands
   wire exu_ready ;
-  wire exu_to_wb_valid ;   
+  wire exu_to_lsu_valid ;   
 
   EXU EXU(.clk(clk),.rst(rst),
     // 1. inputs from pre stage 
@@ -446,18 +435,18 @@ module top(
     // 1.3 mem op    
     .MemOP_i(exu_MemOP),.MemWr_i(exu_MemWr),
     // 1.4 regs wb    
-    .Regwr_i(exu_RegWr),.RegSrc_i(exu_RegSrc),
+    .RegWr_i(exu_RegWr),.RegSrc_i(exu_RegSrc),
     // 1.5 intr inst
     .IntrEn_i(exu_IntrEn),    
     // 1.6 operate data    
     .R_rs1(exu_R_rs1),.R_rs2(exu_R_rs2),.Imm(exu_Imm),.exu_inst(exu_inst),.exu_pc(exu_pc),  
 
     // 2. dcache req
-    .req(o_exu_cache_req),.op(o_exu_cache_op),.size(o_exu_cache_size),.addr(o_exu_cache_addr),.wdata(o_exu_cache_wdata),.wstrb(o_exu_cache_wstrb),.cache_ready(cache_ready),
+    .req(o_exu_cache_req),.op(o_exu_cache_op),.size(o_exu_cache_size),.addr(o_exu_cache_addr),.wdata(o_exu_cache_wdata),.wstrb(o_exu_cache_wstrb),.cache_ready(dcache_req_ready),
 
     // 3. outputs for next stage 
     // 3.1 mem op(cache rdata process)
-    .MemOP(o_exu_MemOP),.MemWr(o_exu_MemWr),
+    .MemOP(o_exu_MemOP),.MemWr(o_exu_MemWr),.o_R_rs2(o_exu_R_rs2),
     // 3.2 alu res for reg wb(mem addr->cache req)
     .ALUres(o_exu_ALUres),
     // 3.3 reg wb
@@ -467,7 +456,7 @@ module top(
     // 3.5 intr/csr
     .IntrEn(o_exu_IntrEn),
     // 3.6 csr wdata
-    .R_rs1(o_exu_R_rs1), 
+    .o_R_rs1(o_exu_R_rs1), 
 
     // 4. outputs for pre stage
     // 4.1 for ifu 
@@ -476,7 +465,7 @@ module top(
     .is_jump(o_exu_is_jump),
 
     // 5. handshakes
-    .exu_valid(exu_valid),.exu_ready(exu_ready),.wb_allow_in(wb_allow_in),.exu_to_lsu_valid(exu_to_lsu_valid) 
+    .exu_valid(exu_valid),.exu_ready(exu_ready),.lsu_allow_in(lsu_allow_in),.exu_to_lsu_valid(exu_to_lsu_valid) 
   ); 
 
   /*--------------------EXU to LSU Regs-----------------*/
@@ -485,6 +474,7 @@ module top(
   // 1.1 mem ctrl
   wire                   lsu_MemWr;
   wire [2:0]             lsu_MemOP;
+  wire [`RegWidth-1:0]   lsu_R_rs2;
   // 1.2 inst&pc
   wire [`INSTWide-1:0]   lsu_inst;
   wire [`RegWidth-1:0]   lsu_pc;   
@@ -506,7 +496,7 @@ module top(
   LSURegs EXU_to_LSU_Regs(.clk(clk),.rst(rst),
     // 1. inputs from exu
     // 1.1 mem ctrl
-    .i_MemWr(o_exu_MemWr),.i_MemOP(o_exu_MemOP),
+    .i_MemWr(o_exu_MemWr),.i_MemOP(o_exu_MemOP),.i_R_rs2(o_exu_R_rs2),
     // 1.2 inst&pc
     .i_inst(o_exu_inst),.i_pc(o_exu_pc),    
     // 1.3 pipeline forward
@@ -521,7 +511,7 @@ module top(
     
     // 2. outputs for next stage 
     // 2.1 mem ctrl
-    .o_MemWr(lsu_MemWr),.o_MemOP(lsu_MemOP),
+    .o_MemWr(lsu_MemWr),.o_MemOP(lsu_MemOP),.o_R_rs2(lsu_R_rs2),
     // 2.2 inst&pc
     .o_inst(lsu_inst),.o_pc(lsu_pc),   
     // 2.3 pipeline forward
@@ -535,7 +525,7 @@ module top(
     .o_R_rs1(lsu_R_rs1),
     
     // 3. handshakes
-    .exu_to_lsu_valid(exu_to_lsu_valid),.lsu_ready(lsu_ready),.lsu_valid(lsu_valid),.lsu_allow_in(lsu_allow_in),        
+    .exu_to_lsu_valid(exu_to_lsu_valid),.lsu_ready(lsu_ready),.lsu_valid(lsu_valid),.lsu_allow_in(lsu_allow_in)       
 );
 
   /*--------------------dcache-----------------*/
@@ -548,47 +538,29 @@ module top(
   
   //dcache <--> axi interface (read)
   wire          dcache_axi_rd_req ;
-  wire [63:0]   dcache_axi_rd_addr;
+  wire [31:0]   dcache_axi_rd_addr;
   wire [2:0]    dcache_axi_rd_type;//3'd0:1Byte 3'd1:2B 3'd2:4B 3'd3:8B 3'd4:cache line
 
   //dcache <--> axi interface (write)
   wire          dcache_axi_wr_req ;
-  wire [63:0]   dcache_axi_wr_addr;
+  wire [31:0]   dcache_axi_wr_addr;
   wire [127:0]  dcache_axi_wdata  ;
   wire [2:0]    dcache_axi_wr_type;
   wire [7:0]    dcache_axi_wstrb  ;//only uncache
   
   //dcache <--> data array(ram) data array(ram) ram0 ram1 ->way0 | ram2 ram3 ->way1
-  wire [5:0]    dcache_sram0_addr ;
-  wire          dcache_sram0_cen  ;
-  wire          dcache_sram0_wen  ;
-  wire [127:0]  dcache_sram0_wmask;
-  wire [127:0]  dcache_sram0_wdata;
-
-  wire [5:0]    dcache_sram1_addr ;
-  wire          dcache_sram1_cen  ;
-  wire          dcache_sram1_wen  ;
-  wire [127:0]  dcache_sram1_wmask;
-  wire [127:0]  dcache_sram1_wdata;
-
-  wire [5:0]    dcache_sram2_addr ;
-  wire          dcache_sram2_cen  ;
-  wire          dcache_sram2_wen  ;
-  wire [127:0]  dcache_sram2_wmask;
-  wire [127:0]  dcache_sram2_wdata;
-
-  wire [5:0]    dcache_sram3_addr ;
-  wire          dcache_sram3_cen  ;
-  wire          dcache_sram3_wen  ;
-  wire [127:0]  dcache_sram3_wmask;
-  wire [127:0]  dcache_sram3_wdata;
+  wire [5:0]    dcache_sram_addr  [3:0];
+  wire [3:0]    dcache_sram_cen        ;
+  wire [3:0]    dcache_sram_wen        ;
+  wire [127:0]  dcache_sram_wmask [3:0];
+  wire [127:0]  dcache_sram_wdata [3:0];
 
 
-  dcache dcache(.clk(clk),rst(rst),
+  dcache dcache(.clk(clk),.rst(rst),
       // cpu(exu) <--> dcache
       .req  (o_exu_cache_req),
       .op   (o_exu_cache_op),//0:read 1:write
-      .addr (o_exu_cache_addr),
+      .addr (o_exu_cache_addr[31:0]),
       .size (o_exu_cache_size), //1,2,4,8
       .wstrb(o_exu_cache_wstrb),
       .wdata(o_exu_cache_wdata),
@@ -616,43 +588,43 @@ module top(
       .axi_wr_ready(axi_dcache_wr_ready),
       
       //dcache <--> data array(ram) data array(ram) ram0 ram1 ->way0 | ram2 ram3 ->way1
-      .io_sram0_addr (dcache_sram0_addr),
-      .io_sram0_cen  (dcache_sram0_cen),
-      .io_sram0_wen  (dcache_sram0_wen),
-      .io_sram0_wmask(dcache_sram0_wmask),
-      .io_sram0_wdata(dcache_sram0_wdata),
-      .io_sram0_rdata(),
-
-      .io_sram1_addr (dcache_sram1_addr),
-      .io_sram1_cen  (dcache_sram1_cen),
-      .io_sram1_wen  (dcache_sram1_wen),
-      .io_sram1_wmask(dcache_sram1_wmask),
-      .io_sram1_wdata(dcache_sram1_wdata),
-      .io_sram1_rdata(),
-
-      .io_sram2_addr (dcache_sram2_addr),
-      .io_sram2_cen  (dcache_sram2_cen),
-      .io_sram2_wen  (dcache_sram2_wen),
-      .io_sram2_wmask(dcache_sram2_wmask),
-      .io_sram2_wdata(dcache_sram2_wdata),
-      .io_sram2_rdata(),
-
-      .io_sram3_addr (dcache_sram3_addr),
-      .io_sram3_cen  (dcache_sram3_cen),
-      .io_sram3_wen  (dcache_sram3_wen),
-      .io_sram3_wmask(dcache_sram3_wmask),
-      .io_sram3_wdata(dcache_sram3_wdata),
-      .io_sram3_rdata()
+  	  .io_sram0_addr (dcache_sram_addr [0]),
+  	  .io_sram0_cen  (dcache_sram_cen  [0]),
+  	  .io_sram0_wen  (dcache_sram_wen  [0]),
+  	  .io_sram0_wmask(dcache_sram_wmask[0]),
+  	  .io_sram0_wdata(dcache_sram_wdata[0]),
+  	  .io_sram0_rdata(sram_dcache_rdata[0]),
+  
+  	  .io_sram1_addr (dcache_sram_addr [1]),
+  	  .io_sram1_cen  (dcache_sram_cen  [1]),
+  	  .io_sram1_wen  (dcache_sram_wen  [1]),
+  	  .io_sram1_wmask(dcache_sram_wmask[1]),
+  	  .io_sram1_wdata(dcache_sram_wdata[1]),
+  	  .io_sram1_rdata(sram_dcache_rdata[1]),
+  
+  	  .io_sram2_addr (dcache_sram_addr [2]),
+  	  .io_sram2_cen  (dcache_sram_cen  [2]),
+  	  .io_sram2_wen  (dcache_sram_wen  [2]),
+  	  .io_sram2_wmask(dcache_sram_wmask[2]),
+  	  .io_sram2_wdata(dcache_sram_wdata[2]),
+  	  .io_sram2_rdata(sram_dcache_rdata[2]),
+  
+  	  .io_sram3_addr (dcache_sram_addr [3]),
+  	  .io_sram3_cen  (dcache_sram_cen  [3]),
+  	  .io_sram3_wen  (dcache_sram_wen  [3]),
+  	  .io_sram3_wmask(dcache_sram_wmask[3]),
+  	  .io_sram3_wdata(dcache_sram_wdata[3]),
+  	  .io_sram3_rdata(sram_dcache_rdata[3])    
   );
   /*--------------------LSU-----------------*/
 
     // 1. outputs for next stage
 
     // 1.1 mem out 
-    wire [`RegWidth-1:0]   o_lsu_memout,
+    wire [`RegWidth-1:0]   o_lsu_memout;
 
     // 1.2 clint(timer)
-    wire                   o_lsu_clint_mtip,    
+    wire                   o_lsu_clint_mtip;    
 
     // 1.3 pipeline forward
 
@@ -676,11 +648,11 @@ module top(
   LSU LSU(.clk(clk),.rst(rst),
 
     // 1. cache
-    .cache_rvalid(cache_rvalid),.cache_rdata(cache_rdata),
+    .cache_rvalid(dcache_valid),.cache_rdata(dcache_data_o),
 
     // 2. inputs from pre stage    
     // 2.1 mem ctrl
-    .i_MemWr(lsu_MemWr),.i_MemOP(lsu_MemOP),//
+    .i_MemWr(lsu_MemWr),.i_MemOP(lsu_MemOP),.i_R_rs2(lsu_R_rs2),//
     // 2.2 inst&pc
     .lsu_inst(lsu_inst),.lsu_pc(lsu_pc),    
     // 2.3 pipeline forward
@@ -785,7 +757,7 @@ module top(
 
   // 3. reg wb
   wire                      o_wb_RegWr_en;
-  wire  [`RegAddrBus-1:0]   o_wb_RegWaddr;
+  wire  [`RegAddrBus]   o_wb_RegWaddr;
   wire  [`RegWidth-1:0]     o_wb_RegWdata;
 
   // 4. shake hands
@@ -808,26 +780,26 @@ module top(
     .wb_inst(wb_inst),
     
     // 2. to witf (raw)
-    output                      witf_pop_en,
+    .witf_pop_en(o_wb_witf_pop_en),
     
     // 3. to preif 
-    output                      isIntrPC,
-    output  [`RegWidth-1:0]      IntrPC,
+    .isIntrPC(o_wb_isIntrPC),
+    .IntrPC  (o_wb_IntrPC),
 
     // 4. reg wb
-    output                      o_RegWr_en,
-    output  [`RegAddrBus-1:0]   o_RegWaddr,
-    output  [`RegWidth-1:0]     o_RegWdata,
+    .o_RegWr_en(o_wb_RegWr_en),
+    .o_RegWaddr(o_wb_RegWaddr),
+    .o_RegWdata(o_wb_RegWdata),
 
     // 5. handshakes
-    input wb_valid,
-    output wb_ready,
+    .wb_valid(wb_valid),
+    .wb_ready(wb_ready)
   );
 
   /*---------RegisterFile(IDU,WB)------------*/
   
-  wire [DATA_WIDTH-1:0] R_rs1;
-  wire [DATA_WIDTH-1:0] R_rs2;
+  wire [`RegWidth-1:0] R_rs1;
+  wire [`RegWidth-1:0] R_rs2;
 
   RegisterFile RegisterFile(.clk(clk),.rst(rst),
     // rd request from id
@@ -851,13 +823,112 @@ module top(
       .wb_en(o_wb_witf_pop_en) 
   );
 
+  //--------------ram-axi--------------//
+  
+  wire          axi_slave_arready;
 
-RegisterFile RegisterFile(.rs1(rs1),.rs2(rs2),.waddr(wb_inst[11:7]),.R_rs1(R_rs1),.R_rs2(R_rs2),
-            .clk(clk),.wdata(RegWdata),.wen(regfile_we));
+  wire          axi_slave_rvalid;
+  wire          axi_slave_rlast ;
+  wire [1:0]    axi_slave_rresp ;
+  wire [63:0]   axi_slave_rdata ;
+  wire [3:0]    axi_slave_rid   ;
+
+  wire          axi_slave_awready;
+
+  wire          axi_slave_wready;
+
+  wire          axi_slave_bvalid;
+  wire [1:0]    axi_slave_bresp ;
+  wire [3:0]    axi_slave_bid   ;
+
+  ram_axi #(
+    .AWIDTH(32), // Address width
+    .DWIDTH(64), //Data width (only 32bits or 64bits)
+    .DSIZE (8 ) 
+  ) ram_axi (.clk(clk),.rst(rst),
+    .o_axi_slave_arready(axi_slave_arready),
+
+    .i_axi_slave_arvalid(axi_master_arvalid),
+    .i_axi_slave_araddr (axi_master_araddr ),
+    .i_axi_slave_arid   (axi_master_arid   ),
+    .i_axi_slave_arlen  (axi_master_arlen  ),
+    .i_axi_slave_arsize (axi_master_arsize ),
+    .i_axi_slave_arburst(axi_master_arburst),
+    
+    // r
+    .i_axi_slave_rready(axi_master_rready),
+
+    .o_axi_slave_rvalid(axi_slave_rvalid),
+    .o_axi_slave_rlast (axi_slave_rlast ),
+    .o_axi_slave_rresp (axi_slave_rresp ),
+    .o_axi_slave_rdata (axi_slave_rdata ),
+    .o_axi_slave_rid   (axi_slave_rid   ),
+    
+    // aw
+    .o_axi_slave_awready(axi_slave_awready),
+
+    .i_axi_slave_awvalid(axi_master_awvalid),
+    .i_axi_slave_awaddr (axi_master_awaddr ),
+    .i_axi_slave_awid   (axi_master_awid   ),
+    .i_axi_slave_awlen  (axi_master_awlen  ),
+    .i_axi_slave_awsize (axi_master_awsize ),
+    .i_axi_slave_awburst(axi_master_awburst),
+
+    // w
+    .o_axi_slave_wready(axi_slave_wready),
+
+    .i_axi_slave_wvalid(axi_master_wvalid),
+    .i_axi_slave_wdata (axi_master_wdata ),
+    .i_axi_slave_wstrb (axi_master_wstrb ),
+    .i_axi_slave_wlast (axi_master_wlast ),
+
+    // b
+    .i_axi_slave_bready(axi_master_bready),
+
+    .o_axi_slave_bvalid(axi_slave_bvalid),
+    .o_axi_slave_bresp (axi_slave_bresp ),
+    .o_axi_slave_bid   (axi_slave_bid)
+);
+
+  //------------cache data array(ram)------------//
+  
+  wire  [127:0]  sram_icache_rdata [3:0];
+  
+  genvar i ;
+  generate
+    for( i = 0 ; i < 4 ; i = i + 1) begin
+      S011HD1P_X32Y2D128_BW icache_data_array(
+          .Q(sram_icache_rdata[i]), 
+          .CLK(clk), 
+          .CEN(~icache_sram_cen[i]), 
+          .WEN(~icache_sram_wen[i]), 
+          .BWEN(~icache_sram_wmask[i]),
+          .A(icache_sram_addr[i]), 
+          .D(icache_sram_wdata[i])
+      );      
+    end
+  endgenerate
+
+ 
+  wire  [127:0]  sram_dcache_rdata [3:0];  
+
+  generate
+    for( i = 0 ; i < 4 ; i = i + 1) begin
+      S011HD1P_X32Y2D128_BW dcache_data_array(
+          .Q(sram_dcache_rdata[i]), 
+          .CLK(clk), 
+          .CEN(~dcache_sram_cen[i]), 
+          .WEN(~dcache_sram_wen[i]), 
+          .BWEN(~dcache_sram_wmask[i]),
+          .A(dcache_sram_addr[i]), 
+          .D(dcache_sram_wdata[i])
+      );      
+    end
+  endgenerate
   
   assign Inst=wb_inst;
   assign pc=wb_pc;
-  assign valid=lsu_valid;
+  assign valid=wb_valid;
 
 endmodule
 

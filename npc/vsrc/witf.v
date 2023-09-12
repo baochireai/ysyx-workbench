@@ -18,7 +18,7 @@ module witf(
     output witf_empty,
     
     // 3. finish wb to pop inst
-    input wb_en,
+    input wb_en
 );
 
 wire [`WITF_AddrBus]wptr_r;

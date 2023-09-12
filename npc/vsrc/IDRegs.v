@@ -16,7 +16,15 @@ module IDRegs(
     output id_allow_in,
     // 3.2 idu 
     input id_ready,//id_ready_go&&exu_allow_in
-    output id_valid
+    output id_valid,
+
+    // 4. jump && intr flush pipeline
+    input is_jump,
+    input is_intr,
+
+    //5. ebreak from id
+    input isebreak
+
 );
     // 1. id ready&valid shake hands signal gen
     assign id_allow_in = (~id_valid) || id_ready ;//(id_ready_go && exu_allow_in);
@@ -24,8 +32,10 @@ module IDRegs(
     Reg #(1,'d0) id_valid_reg(clk,rst|flush_pipeline|isebreak,if_to_id_valid,id_valid,id_allow_in);
 
     // 2. pipeline regs
-    wire popline_wen = if_to_id_valid && id_allow_in;
-    Reg #(`RegWidth, 64'h000000007ffffff8) id_pc_reg(.clk(clk),.rst(rst),.din(if_pc),.dout(pc_o),.wen(popline_wen));    
-    Reg #(`INSTWide, 32'd0) id_inst_reg(.clk(clk),.rst(rst),.din(inst),.dout(inst_o),.wen(popline_wen));    
+    wire popline_wen = if_to_id_valid && id_allow_in && (~flush_pipeline);
+    Reg #(`RegWidth, 64'h000000007ffffff8) id_pc_reg(.clk(clk),.rst(rst),.din(i_pc),.dout(id_pc),.wen(popline_wen));    
+    Reg #(`INSTWide, 32'd0) id_inst_reg(.clk(clk),.rst(rst),.din(i_inst),.dout(id_inst),.wen(popline_wen));    
 
+    // 3. flush pipeline
+    wire flush_pipeline = is_jump | is_intr ;
 endmodule

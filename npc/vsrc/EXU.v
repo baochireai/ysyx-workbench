@@ -19,7 +19,7 @@ module EXU(
     input                   MemWr_i,
 
     // 1.4 regs wb    
-    input                   Regwr_i,
+    input                   RegWr_i,
     input [1:0]             RegSrc_i,//写回地址 
 
     // 1.5 intr inst
@@ -45,6 +45,7 @@ module EXU(
     // 3.1 mem op(cache rdata process)
     output [2:0]            MemOP,
     output                  MemWr,
+    output [`RegWidth-1:0]  o_R_rs2,
     // 3.2 alu res for reg wb(mem addr->cache req)
     output [`RegWidth-1:0] ALUres,
     // 3.3 reg wb
@@ -56,7 +57,7 @@ module EXU(
     // 3.5 intr/csr
     output                  IntrEn,
     // 3.6 csr wdata
-    output [`RegWidth-1:0]  R_rs1, 
+    output [`RegWidth-1:0]  o_R_rs1, 
 
     // 4. outputs for pre stage
     // 4.1 for ifu 
@@ -67,31 +68,31 @@ module EXU(
     // 5. handshakes
     input                   exu_valid,
     output                  exu_ready,
-    input                   wb_allow_in,
+    input                   lsu_allow_in,
     output                  exu_to_lsu_valid
 );
     // 1. shake hands
     wire exu_ready_go = (~req) || req && cache_ready;
-    assign exu_ready = (~exu_valid) | exu_ready_go & wb_allowin;
-    assign exu_to_wb_valid = exu_valid && exu_ready_go ;
+    assign exu_ready = (~exu_valid) | exu_ready_go & lsu_allow_in;
+    assign exu_to_lsu_valid = exu_valid && exu_ready_go ;
     
     // 2. Cache req
-    wire isMem = ~(&MemOP) && (~isclint);
+    wire isMem = (MemOP != 3'b011 ) && (~isclint);
     wire isclint = (addr>=64'h2000000&addr<=64'h200BFFF)?1'b1:1'b0;
-    assign req = idu_valid && isMem ;
+    assign req = exu_valid && isMem ;
     assign op = MemWr_i;
-    assign size = MemOP[1:0];//0->8 1->4  2->2 3->1   -->  3->8 2->4 1->2 0->1
+    assign size = MemOP_i[1:0];//0->8 1->4  2->2 3->1   -->  3->8 2->4 1->2 0->1
     assign addr = ALUres;
     assign wdata = R_rs2;
-    MuxKeyInternal #(4,2,8, 1) MemWstrb_decode (.out(wstrb),.key(MemOP[1:0]),.default_out(8'd0),.lut({
-        2'd3,8'b0000_0001,
-        2'd2,8'b0000_0011,
-        2'd1,8'b0000_1111,
-        2'd0,8'b1111_1111
+    MuxKeyInternal #(4,2,8, 1) MemWstrb_decode (.out(wstrb),.key(MemOP_i[1:0]),.default_out(8'd0),.lut({
+        2'd0,8'b0000_0001,
+        2'd1,8'b0000_0011,
+        2'd2,8'b0000_1111,
+        2'd3,8'b1111_1111
     }));
 
     // 3. ALU 
-    wire [`RegWidth-1:0] ALUres;
+
     wire Less,Zero;
     ALU ex_alu( .ALUct(ALUct),.isTuncate(isTuncate),.isSext(isSext),.ALUAsr(ALUAsr),.ALUBsr(ALUBsr),
                 .PC(exu_pc),.R_rs1(R_rs1),.Imm(Imm),.R_rs2(R_rs2),
@@ -104,7 +105,7 @@ module EXU(
                             .imm(Imm),.PC(exu_pc),.R_rs1(R_rs1),
                             .NextPC(NextPC),.is_jump(is_jump_d) );
 
-    assign is_jump = is_jump_d & exu_to_wb_valid & wb_allowin;
+    assign is_jump = is_jump_d & exu_to_lsu_valid & lsu_allow_in;
 
     // 5. pipeline forward
     // 5.1 mem ctrl
@@ -117,7 +118,7 @@ module EXU(
     assign inst = exu_inst;
     assign pc = exu_pc;
     // 5.4 csr wdata
-    assign R_rs1 =R_rs1_i;
+    assign o_R_rs1 =R_rs1;
     // 5.5 intr/csr
     assign IntrEn = IntrEn_i;
 

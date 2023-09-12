@@ -61,7 +61,7 @@ module IDU(
     output id_ready,
     // 7.2 id2exu regs
     output id_to_exu_valid,
-    input exu_allowin
+    input exu_allow_in
 
 );
 
@@ -91,8 +91,8 @@ module IDU(
     // 5. operate date gen        
     assign inst_o = id_inst;
     assign pc_o = id_pc;
-    assign R_rs1_o = R_rs1;
-    assign R_rs2_o = R_rs2; 
+    assign R_rs1_o = R_rs1_i;
+    assign R_rs2_o = R_rs2_i; 
 
 
     always @(*) begin

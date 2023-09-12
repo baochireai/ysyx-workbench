@@ -9,7 +9,8 @@ module LSU(
     // 2. inputs from pre stage    
     // 2.1 mem ctrl
     input                   i_MemWr,
-    input [2:0]             i_MemOP,//
+    input [2:0]             i_MemOP,
+    input [`RegWidth-1:0]   i_R_rs2,
     // 2.2 inst&pc
     input[`INSTWide-1:0]    lsu_inst,
     input[`RegWidth-1:0]    lsu_pc,    
@@ -60,23 +61,24 @@ module LSU(
     assign lsu_to_wb_valid = lsu_valid && lsu_ready_go;
     
     // 2. rd&wr en 
-    wire mem_req = (~(&MemOP)); 
-    wire RdEn = mem_req && (~we);
-    wire WrEn = mem_req && we;
+    wire mem_req = (i_MemOP != 3'b011) ; 
+    wire RdEn = mem_req && (~i_MemWr);
+    wire WrEn = mem_req && i_MemWr;
     
     // 3. client(rw,mtip)
     wire[`RegWidth-1:0] clint_dout;
+    wire [`RegWidth-1:0]   addr = i_ALUres ;
     wire isclint=(addr>=64'h2000000&addr<=64'h200BFFF)?1'b1:1'b0;
     wire clint_we = isclint & WrEn;
     wire clint_re = isclint & RdEn;
     clint clintU(   .clk(clk),.rst(rst),
-                    .clint_din(wdata),.clint_addr(addr),.we(clint_we),.re(clint_re),
+                    .clint_din(i_R_rs2),.clint_addr(addr),.we(clint_we),.re(clint_re),
                     .clint_mtip(clint_mtip),.clint_dout(clint_dout));
     
     // 4. cache
-    wire [63:0] MemOut;
-    wire isSign = MemOP[2];
-    MuxKeyInternal #(4,2,64, 1) sext (.out(MemOut),.key(MemOP[1:0]),.default_out(64'd0),.lut({
+    wire [63:0] dataMem_out;
+    wire isSign = i_MemOP[2];
+    MuxKeyInternal #(4,2,64, 1) sext (.out(dataMem_out),.key(i_MemOP[1:0]),.default_out(64'd0),.lut({
         2'd3,cache_rdata[63:0],
         2'd2,(isSign==1'b1)?({{32{cache_rdata[31]}},cache_rdata[31:0]}):{32'd0,cache_rdata[31:0]},
         2'd1,(isSign==1'b1)?({{48{cache_rdata[15]}},cache_rdata[15:0]}):{48'd0,cache_rdata[15:0]},
@@ -84,7 +86,7 @@ module LSU(
     }));
     
     // 5. out mux
-    assign [`RegWidth-1:0] memout = isclint?clint_dout:dataMem_out;
+    assign memout = isclint ? clint_dout : dataMem_out;
 
     // 6. pipeline forward
     assign o_ALUres = i_ALUres;

@@ -14,17 +14,17 @@ class Vtop_Intr final : public VerilatedModule {
 
     // DESIGN SPECIFIC STATE
     VL_IN8(__PVT__clk,0,0);
+    VL_IN8(__PVT__rst,0,0);
     VL_IN8(__PVT__IntrEn,0,0);
     VL_IN8(__PVT__clint_mtip,0,0);
-    VL_IN8(__PVT__zimm,4,0);
     VL_IN8(__PVT__func3,2,0);
+    VL_IN8(__PVT__zimm,4,0);
     VL_OUT8(__PVT__isIntrPC,0,0);
-    CData/*0:0*/ __PVT__isCSRw;
     CData/*0:0*/ __PVT__timer_irq;
-    CData/*0:0*/ __PVT__irq_raise;
     CData/*0:0*/ __PVT__isecall;
-    CData/*1:0*/ __Vcellinp__CSRwEn__key;
     CData/*0:0*/ __PVT__ismret;
+    CData/*0:0*/ __PVT__irq_raise;
+    CData/*1:0*/ __Vcellinp__CSRwEn__key;
     CData/*0:0*/ __PVT__ismepc;
     CData/*0:0*/ __PVT__ismcase;
     CData/*0:0*/ __PVT__ismstatus;

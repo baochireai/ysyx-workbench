@@ -36,9 +36,15 @@ extern "C" void pmem_write(int waddr, long long wdata, char wmask) {
   // 总是往地址为`waddr & ~0x7ull`的8字节按写掩码`wmask`写入`wdata`
   // `wmask`中每比特表示`wdata`中1个字节的掩码,
   // 如`wmask = 0x3`代表只写入最低2个字节, 内存中的其它字节保持不变
-  waddr=waddr & ~0x7ull;
+  waddr = waddr & ~0x7ull;
   //bool wflag=false;
   //printf("wmask:%x\n",wmask);
+  printf("(npc mem write) pc:%08lx\traddr:%08x\t",cpu.pc+4,waddr);    
+  if( waddr == 0x800003e0 ) {
+    printf("*****************\n");
+    printf("(npc mem write) pc:%08lx\traddr:%08x\t",cpu.pc+4,waddr);    
+    printf("*****************\n");
+  }
   if(!in_pmem(waddr)){
     //printf("(npc)waddr:%016lx\n",waddr);
     difftest_skip_nextRef();

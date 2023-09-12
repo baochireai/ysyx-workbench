@@ -16,9 +16,9 @@ extern "C" {
 
 
     // DPI IMPORTS
-    // DPI import at /home/mrxue/ysyx/npc/vsrc/perips/ram_axi_lite.v:3:30
+    // DPI import at /home/mrxue/ysyx/npc/vsrc/perips/ram_axi.v:3:30
     extern void pmem_read(int raddr, long long* rdata);
-    // DPI import at /home/mrxue/ysyx/npc/vsrc/perips/ram_axi_lite.v:5:30
+    // DPI import at /home/mrxue/ysyx/npc/vsrc/perips/ram_axi.v:5:30
     extern void pmem_write(int waddr, long long wdata, char wmask);
     // DPI import at /home/mrxue/ysyx/npc/vsrc/RegisterFile.v:1:30
     extern void set_gpr_ptr(const svOpenArrayHandle a);
