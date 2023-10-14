@@ -1,7 +1,7 @@
 #include <am.h>
 #include <nemu.h>
 
-extern char _heap_start;
+extern char _heap_start; // from ld scripts
 int main(const char *args);
 
 Area heap = RANGE(&_heap_start, PMEM_END);//堆区始末

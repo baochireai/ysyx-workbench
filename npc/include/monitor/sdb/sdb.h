@@ -7,6 +7,7 @@
 #include "monitor.h"
 #include "memory.h"
 #include "reg.h"
+#include "expr.h"
 
 void sdb_mainloop();
 

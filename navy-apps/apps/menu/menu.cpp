@@ -39,8 +39,8 @@ struct MenuItem {
 };
 
 #define nitems (sizeof(items) / sizeof(items[0]))
-#define MAX_PAGE ((nitems - 1) / 10)//每页十个项目
-#define MAX_IDX_LAST_PAGE ((nitems - 1) % 10)//最后一页多少个项目
+#define MAX_PAGE ((nitems - 1) / 10)
+#define MAX_IDX_LAST_PAGE ((nitems - 1) % 10)
 
 static int page = 0;
 static int i_max = 0;
@@ -69,7 +69,8 @@ static void clear_display(void) {
 
 int main(int argc, char *argv[], char *envp[]) {
   SDL_Init(0);
-  screen = SDL_SetVideoMode(0, 0, 32, SDL_HWSURFACE);////SDL_HWSURFACE：Surface is stored in video memory
+  screen = SDL_SetVideoMode(0, 0, 32, SDL_HWSURFACE);
+
   font = new BDF_Font(font_fname);
   logo_sf = SDL_LoadBMP("/share/pictures/projectn.bmp");
   assert(logo_sf);
@@ -77,6 +78,7 @@ int main(int argc, char *argv[], char *envp[]) {
 
   while (1) {
     display_menu(i_max);
+
     SDL_Event e;
     do {
       SDL_WaitEvent(&e);
@@ -99,7 +101,6 @@ int main(int argc, char *argv[], char *envp[]) {
     }
 
     if (i != -1 && i <= i_max) {
-      printf("%dth app is choose\n",i);
       i += page * 10;
       auto *item = &items[i];
       const char *exec_argv[3];
@@ -140,11 +141,9 @@ static void draw_text_row(char *s, int r) {
 
 static void display_menu(int n) {
   clear_display();
-  /*****显示logo****/
   SDL_Rect rect = { .x = screen->w - logo_sf->w, .y = 0 };
   SDL_BlitSurface(logo_sf, NULL, screen, &rect);
   printf("Available applications:\n");
-  /*****显示可选应用程序****/
   char buf[80];
   int i;
   for (i = 0; i <= n; i ++) {
@@ -154,7 +153,7 @@ static void display_menu(int n) {
   }
 
   i = 11;
-  /***帮助信息*****/
+
   sprintf(buf, "  page = %2d, #total apps = %d", page, nitems);
   draw_text_row(buf, i);
   i ++;

@@ -6,6 +6,7 @@ AM_SRCS := riscv/npc/start.S \
            riscv/npc/timer.c \
            riscv/npc/input.c \
            riscv/npc/cte.c \
+           riscv/npc/gpu.c \
            riscv/npc/trap.S \
            platform/dummy/vme.c \
            platform/dummy/mpe.c

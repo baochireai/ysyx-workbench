@@ -26,6 +26,7 @@ void Vtop___024root___eval_triggers__ico(Vtop___024root* vlSelf) {
 #endif
 }
 
+void Vtop_top___ico_sequent__TOP__top__0(Vtop_top* vlSelf);
 void Vtop_Intr___ico_sequent__TOP__top__WB__IntrUnit__0(Vtop_Intr* vlSelf);
 void Vtop_WB___ico_sequent__TOP__top__WB__0(Vtop_WB* vlSelf);
 
@@ -35,8 +36,9 @@ void Vtop___024root___eval_ico(Vtop___024root* vlSelf) {
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vtop___024root___eval_ico\n"); );
     // Body
     if ((1ULL & vlSelf->__VicoTriggered.word(0U))) {
-        Vtop_Intr___ico_sequent__TOP__top__WB__IntrUnit__0((&vlSymsp->TOP__top__WB__IntrUnit));
+        Vtop_top___ico_sequent__TOP__top__0((&vlSymsp->TOP__top));
         vlSelf->__Vm_traceActivity[1U] = 1U;
+        Vtop_Intr___ico_sequent__TOP__top__WB__IntrUnit__0((&vlSymsp->TOP__top__WB__IntrUnit));
         Vtop_WB___ico_sequent__TOP__top__WB__0((&vlSymsp->TOP__top__WB));
     }
 }

@@ -25,7 +25,9 @@ VL_ATTR_COLD void Vtop_WB___ctor_var_reset(Vtop_WB* vlSelf) {
     // Body
     vlSelf->__PVT__clk = 0;
     vlSelf->__PVT__rst = 0;
-    vlSelf->__PVT__IntrEn = 0;
+    vlSelf->__PVT__i_isecall = 0;
+    vlSelf->__PVT__i_ismret = 0;
+    vlSelf->__PVT__i_iscsr = 0;
     vlSelf->__PVT__clint_mtip = 0;
     vlSelf->__PVT__R_rs1_i = 0;
     vlSelf->__PVT__RegSrc = 0;
@@ -37,12 +39,15 @@ VL_ATTR_COLD void Vtop_WB___ctor_var_reset(Vtop_WB* vlSelf) {
     vlSelf->__PVT__witf_pop_en = 0;
     vlSelf->__PVT__isIntrPC = 0;
     vlSelf->__PVT__IntrPC = 0;
+    vlSelf->__PVT__mstatus_MIE = 0;
     vlSelf->__PVT__o_RegWr_en = 0;
     vlSelf->__PVT__o_RegWaddr = 0;
     vlSelf->__PVT__o_RegWdata = 0;
     vlSelf->__PVT__wb_valid = 0;
     vlSelf->__PVT__wb_ready = 0;
-    vlSelf->__Vcellinp__IntrUnit__IntrEn = 0;
+    vlSelf->__Vcellinp__IntrUnit__i_iscsr = 0;
+    vlSelf->__Vcellinp__IntrUnit__i_ismret = 0;
+    vlSelf->__Vcellinp__IntrUnit__i_isecall = 0;
     for (int __Vi0 = 0; __Vi0 < 3; ++__Vi0) {
         VL_ZERO_RESET_W(66, vlSelf->__PVT__RegWsrcMux__DOT__pair_list[__Vi0]);
     }

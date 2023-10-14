@@ -15,8 +15,8 @@ int main(int argc, char *argv[]) {
   font = new BDF_Font(font_fname);
 
   // setup display
-  int win_w = font->w * W;//W 48
-  int win_h = font->h * H;//H 16  16行48列
+  int win_w = font->w * W;
+  int win_h = font->h * H;
   screen = SDL_SetVideoMode(win_w, win_h, 32, SDL_HWSURFACE);
 
   term = new Terminal(W, H);

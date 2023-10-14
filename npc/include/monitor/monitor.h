@@ -5,6 +5,8 @@
 #include "memory.h"
 #include "cpu_exec.h"
 #include "difftest.h"
+#include "vga.h"
+#include "keyboard.h"
 
 extern int npc_state;
 

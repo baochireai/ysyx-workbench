@@ -13,24 +13,24 @@ int main() {
   Log("'Hello World!' from Nanos-lite");
   Log("Build time: %s, %s", __TIME__, __DATE__);
 
-  init_mm();
+  init_mm();//get heap start
 
-  init_device();
+  init_device();//ioe init
 
-  init_ramdisk();
+  init_ramdisk();//the position of bin file (defined in resources)
 
 #ifdef HAS_CTE
-  init_irq();
+  init_irq(); // init cte
 #endif
 
-  init_fs();
+  init_fs(); // register file table( abstract file rd/wr funcition)
 
-  init_proc();
+  init_proc(); // loader app
 
   Log("Finish initialization");
 
 #ifdef HAS_CTE
-  yield();
+  yield(); // 
 #endif
   panic("Should not reach here");
 }

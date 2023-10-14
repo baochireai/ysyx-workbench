@@ -15,6 +15,8 @@ void init_disk();
 void init_sdcard();
 void init_alarm();
 
+void exit_vga();
+
 void send_key(uint8_t, bool);
 void vga_update_screen();
 
@@ -71,4 +73,9 @@ void init_device() {
   IFDEF(CONFIG_HAS_SDCARD, init_sdcard());
 
   IFNDEF(CONFIG_TARGET_AM, init_alarm());
+}
+
+
+void exit_device(){
+  IFDEF(CONFIG_HAS_VGA, exit_vga());
 }

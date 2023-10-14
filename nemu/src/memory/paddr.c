@@ -19,6 +19,7 @@ static word_t pmem_read(paddr_t addr, int len) {
 
 static void pmem_write(paddr_t addr, int len, word_t data) {
   //printf("(nemu) pc:%08lx,addr:%x,data:%lx\n",cpu.pc,addr,data);
+  //if((long)addr==0x8009dec0) printf("(nemu) pc:%08lx,addr:%x,data:%lx\n",cpu.pc,addr,data);//  0x8000bfe8
   host_write(guest_to_host(addr), len, data);
 }
 
@@ -44,17 +45,24 @@ void init_mem() {
       (paddr_t)CONFIG_MBASE, (paddr_t)CONFIG_MBASE + CONFIG_MSIZE - 1);
 }
 
+uint64_t mtimecmp ;
+
 word_t paddr_read(paddr_t addr, int len) {
   //先判断是在物理内存空间还是在设备空间，然后分别调用对应的读取函数
   //printf("paddr_read at 0x%8x\n",addr);
   if (likely(in_pmem(addr))) return pmem_read(addr, len);
   IFDEF(CONFIG_DEVICE, return mmio_read(addr, len));
+  if(addr==0x02004000) return mtimecmp;//for diff
   out_of_bound(addr);
   return 0;
 }
 
+bool is_ref = false;
 void paddr_write(paddr_t addr, int len, word_t data) {
   if (likely(in_pmem(addr))) { pmem_write(addr, len, data); return; }
+  //if(addr==0x8009dec0) printf("(nemu) pc:%08lx,addr:%x,data:%lx\n",cpu.pc,addr,data);//  0x8000bfe8
   IFDEF(CONFIG_DEVICE, mmio_write(addr, len, data); return);
-  out_of_bound(addr);
+  //Log("(nemu) addr:%08x \n",addr);
+  if(addr==0x02004000) mtimecmp = data ;//for diff
+  if(!is_ref) out_of_bound(addr);// 
 }

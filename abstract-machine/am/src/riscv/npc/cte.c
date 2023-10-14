@@ -9,8 +9,13 @@ Context* __am_irq_handle(Context *c) {
     switch (c->mcause) {
       case 11://环境调用异常
         c->mepc+=4;
-        ev.event=EVENT_YIELD;break;
+        switch (c->GPR1){//根据任务号执行不同任务
+          case -1:ev.event=EVENT_YIELD;break;
+          default:ev.event = EVENT_SYSCALL;break;
+        }
+        break;
       case 0x8000000000000007:
+        c->mepc+=4;
         ev.event=EVENT_IRQ_TIMER;break;
       default: ev.event = EVENT_ERROR; break;
     }

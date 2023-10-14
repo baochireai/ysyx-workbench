@@ -19,17 +19,22 @@ class Vtop_WB final : public VerilatedModule {
     // DESIGN SPECIFIC STATE
     VL_IN8(__PVT__clk,0,0);
     VL_IN8(__PVT__rst,0,0);
-    VL_IN8(__PVT__IntrEn,0,0);
+    VL_IN8(__PVT__i_isecall,0,0);
+    VL_IN8(__PVT__i_ismret,0,0);
+    VL_IN8(__PVT__i_iscsr,0,0);
     VL_IN8(__PVT__clint_mtip,0,0);
     VL_IN8(__PVT__RegSrc,1,0);
     VL_IN8(__PVT__RegWr,0,0);
     VL_OUT8(__PVT__witf_pop_en,0,0);
     VL_OUT8(__PVT__isIntrPC,0,0);
+    VL_OUT8(__PVT__mstatus_MIE,0,0);
     VL_OUT8(__PVT__o_RegWr_en,0,0);
     VL_OUT8(__PVT__o_RegWaddr,4,0);
     VL_IN8(__PVT__wb_valid,0,0);
     VL_OUT8(__PVT__wb_ready,0,0);
-    CData/*0:0*/ __Vcellinp__IntrUnit__IntrEn;
+    CData/*0:0*/ __Vcellinp__IntrUnit__i_iscsr;
+    CData/*0:0*/ __Vcellinp__IntrUnit__i_ismret;
+    CData/*0:0*/ __Vcellinp__IntrUnit__i_isecall;
     CData/*0:0*/ __PVT__RegWsrcMux__DOT__hit;
     VL_IN(__PVT__wb_inst,31,0);
     VL_IN64(__PVT__R_rs1_i,63,0);

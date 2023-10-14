@@ -17,7 +17,7 @@ extern "C" {
 
     // DPI IMPORTS
     // DPI import at /home/mrxue/ysyx/npc/vsrc/perips/ram_axi.v:3:30
-    extern void pmem_read(int raddr, long long* rdata);
+    extern void pmem_read(int raddr, long long* rdata, int len);
     // DPI import at /home/mrxue/ysyx/npc/vsrc/perips/ram_axi.v:5:30
     extern void pmem_write(int waddr, long long wdata, char wmask);
     // DPI import at /home/mrxue/ysyx/npc/vsrc/RegisterFile.v:1:30

@@ -22,9 +22,8 @@ module top(
 
     IFU IFU(.clk(clk),.rst(rst), 
           //1. jump inst from exu  
-          .is_jump(o_exu_is_jump),.JumpPc(o_exu_NextPC),
-          //2. intr jump from wb
-          .isIntrPC(o_wb_isIntrPC),.IntrPC(o_wb_IntrPC),
+          .is_jump(jump),.JumpPc(jumppc),
+          .ctrl_stall(stall_if),.pipeline_flush(flush_if),
           //3. cache inteface - icache fetch
           .cache_req(ifu_cache_req),.addr_inst(ifu_cache_addr),.cache_ready(icache_req_ready),
           //4. cache inteface - icache data
@@ -232,6 +231,7 @@ module top(
     IDRegs IDRegs(.clk(clk),.rst(rst),
         // 1. input from pre stage
         .i_pc(ifu_pc_o),.i_inst(ifu_inst_o),
+        .pipeline_flush(flush_id),
         // 2. output to next satge
         .id_inst(id_inst),.id_pc(id_pc) ,
         // 3. pipe shake hands
@@ -240,8 +240,8 @@ module top(
         // 3.2 sh of next stage
         .id_ready(idu_ready),.id_valid(idu_valid),
         // 4. jump && intr flush pipeline
-        .is_jump(o_exu_is_jump),.is_intr(o_wb_isIntrPC),
-        //5. ebreak from id
+        //.is_jump(o_exu_is_jump),.is_intr(o_wb_isIntrPC),
+        // 5. ebreak from id
         .isebreak(idu_isebreak)
     );
 
@@ -271,7 +271,10 @@ module top(
     wire o_id_RegWr;
     wire [1:0] o_id_RegSrc;
     // 3.1.5 intr inst
-    wire o_id_IntrEn;
+    wire o_id_isecall ;
+    wire o_id_ismret  ;
+    wire o_id_iscsr   ;  
+
     // 3.2 operate data for next stage
     wire [`RegWidth-1:0] o_id_Rrs1,o_id_Rrs2;
     wire [63:0] o_id_Imm;
@@ -289,7 +292,7 @@ module top(
       // 1. inputs from pre stage
       .id_inst(id_inst),.id_pc(id_pc),
       // 2. jump from exu
-      .flush_pipeline(o_exu_is_jump),
+      .pipeline_flush(flush_id),
       // 3. register files read      
       .R_rs1_i(R_rs1),.R_rs2_i(R_rs2),.rs1(id_rs1),.rs2(id_rs2),
       // 4. witf for raw     
@@ -305,7 +308,7 @@ module top(
       // 5.1.4 regs
       .RegWr(o_id_RegWr),.RegSrc(o_id_RegSrc),
       // 5.1.5 intr inst 
-      .IntrEn(o_id_IntrEn),    
+      .isecall(o_id_isecall),.ismret(o_id_ismret),.iscsr(o_id_iscsr),
       // 5.2 operate data 
       .Imm(o_id_Imm),.inst_o(o_id_inst),.pc_o(o_id_pc),.R_rs1_o(o_id_Rrs1),.R_rs2_o(o_id_Rrs2),
       // 6. outputs for pre stage(ebreak inst)
@@ -334,7 +337,9 @@ module top(
     wire [1:0]             exu_RegSrc ;//写回地址 
 
     // 5. intr insto_
-    wire                   exu_IntrEn;   
+    wire exu_isecall ;
+    wire exu_ismret  ;
+    wire exu_iscsr   ;     
     // 6. operate data    
     wire [`RegWidth-1:0]   exu_R_rs1;
     wire [`RegWidth-1:0]   exu_R_rs2;//mem wdata
@@ -357,7 +362,7 @@ module top(
       // 1.4 regs wb    
       .i_RegWr(o_id_RegWr),.i_RegSrc (o_id_RegSrc),
       // 1.5 intr inst
-      .i_IntrEn(o_id_IntrEn),    
+      .i_isecall(o_id_isecall),.i_ismret(o_id_ismret),.i_iscsr(o_id_iscsr),
       // 1.6 operate data    
       .i_R_rs1(o_id_Rrs1),.i_R_rs2(o_id_Rrs2),.i_Imm(o_id_Imm),.i_exu_inst(o_id_inst),.i_exu_pc(o_id_pc),  
 
@@ -371,7 +376,7 @@ module top(
       // 2.4 regs wb    
       .o_RegWr(exu_RegWr),.o_RegSrc(exu_RegSrc),
       // 2.5 intr insto_
-      .o_IntrEn(exu_IntrEn),    
+      .o_isecall(exu_isecall),.o_ismret(exu_ismret),.o_iscsr(exu_iscsr),
 
       // 2.6 operate data    
       .o_R_rs1(exu_R_rs1),.o_R_rs2(exu_R_rs2),.o_Imm(exu_Imm),.o_exu_inst(exu_inst),.o_exu_pc(exu_pc),  
@@ -383,8 +388,9 @@ module top(
       .exu_ready(exu_ready),.exu_valid(exu_valid) ,
       
       // 4. jump && intr flush pipeline
-      .is_jump(o_exu_is_jump),
-      .is_intr(idu_isebreak)      
+      // .is_jump(o_exu_is_jump),
+      // .is_intr(o_wb_isIntrPC) 
+      .pipeline_flush(flush_exu | o_exu_is_jump)     
     );
 
 
@@ -412,7 +418,9 @@ module top(
   wire[`INSTWide-1:0]  o_exu_inst;
   wire [`RegWidth-1:0] o_exu_pc;
   // 2.5 intr/csr
-  wire                 o_exu_IntrEn;
+  wire                 o_exu_isecall ;
+  wire                 o_exu_ismret  ;
+  wire                 o_exu_iscsr   ;  
   // 2.6 csr wdata
   wire [`RegWidth-1:0] o_exu_R_rs1; 
 
@@ -437,7 +445,8 @@ module top(
     // 1.4 regs wb    
     .RegWr_i(exu_RegWr),.RegSrc_i(exu_RegSrc),
     // 1.5 intr inst
-    .IntrEn_i(exu_IntrEn),    
+    .i_isecall(exu_isecall),.i_ismret(exu_ismret),.i_iscsr(exu_iscsr),
+    .stall_exu_store(stall_exu_store),
     // 1.6 operate data    
     .R_rs1(exu_R_rs1),.R_rs2(exu_R_rs2),.Imm(exu_Imm),.exu_inst(exu_inst),.exu_pc(exu_pc),  
 
@@ -454,7 +463,7 @@ module top(
     // 3.4 inst&pc
     .inst(o_exu_inst),.pc(o_exu_pc),
     // 3.5 intr/csr
-    .IntrEn(o_exu_IntrEn),
+    .o_isecall(o_exu_isecall),.o_ismret(o_exu_ismret),.o_iscsr(o_exu_iscsr),
     // 3.6 csr wdata
     .o_R_rs1(o_exu_R_rs1), 
 
@@ -465,7 +474,9 @@ module top(
     .is_jump(o_exu_is_jump),
 
     // 5. handshakes
-    .exu_valid(exu_valid),.exu_ready(exu_ready),.lsu_allow_in(lsu_allow_in),.exu_to_lsu_valid(exu_to_lsu_valid) 
+    .exu_valid(exu_valid),.exu_ready(exu_ready),.lsu_allow_in(lsu_allow_in),.exu_to_lsu_valid(exu_to_lsu_valid),
+    
+    .pipeline_flush(flush_exu)
   ); 
 
   /*--------------------EXU to LSU Regs-----------------*/
@@ -485,7 +496,9 @@ module top(
   wire [1:0]             lsu_RegSrc;
   wire                   lsu_RegWr;
   // 1.3.3 intr/csr
-  wire                   lsu_IntrEn;
+  wire lsu_isecall ;
+  wire lsu_ismret  ;
+  wire lsu_iscsr   ; 
   // 1.3.4 csr wdata
   wire [`RegWidth-1:0]   lsu_R_rs1;
 
@@ -505,7 +518,7 @@ module top(
     // 1.3.2 regfile wb ctrl
     .i_RegSrc(o_exu_RegSrc),.i_RegWr(o_exu_Regwr), 
     // 1.3.3 intr/csr
-    .i_IntrEn(o_exu_IntrEn),
+    .i_isecall (o_exu_isecall),.i_ismret(o_exu_ismret),.i_iscsr(o_exu_iscsr),
     // 1.3.4 csr wdata
     .i_R_rs1(o_exu_R_rs1),  
     
@@ -520,12 +533,13 @@ module top(
     // 2.3.2 regfile wb ctrl
     .o_RegSrc(lsu_RegSrc),.o_RegWr (lsu_RegWr),
     // 2.3.3 intr/csr
-    .o_IntrEn(lsu_IntrEn),
+    .o_isecall(lsu_isecall),.o_ismret(lsu_ismret),.o_iscsr(lsu_iscsr),
     // 2.3.4 csr wdata
     .o_R_rs1(lsu_R_rs1),
     
     // 3. handshakes
-    .exu_to_lsu_valid(exu_to_lsu_valid),.lsu_ready(lsu_ready),.lsu_valid(lsu_valid),.lsu_allow_in(lsu_allow_in)       
+    .exu_to_lsu_valid(exu_to_lsu_valid),.lsu_ready(lsu_ready),.lsu_valid(lsu_valid),.lsu_allow_in(lsu_allow_in),
+    .pipeline_flush(flush_lsu)
 );
 
   /*--------------------dcache-----------------*/
@@ -661,9 +675,12 @@ module top(
     // 2.3.2 regfile wb ctrl
     .i_RegSrc(lsu_RegSrc),.i_RegWr(lsu_RegWr), 
     // 2.3.3 intr/csr
-    .i_IntrEn(lsu_IntrEn),
+    //.i_IntrEn(lsu_IntrEn),
     // 2.3.4 csr wdata
     .i_R_rs1(lsu_R_rs1),   
+    
+    // mie from wb
+    .mstatus_MIE(o_wb_mstatus_MIE),
     
     // 3. outputs for next stage
     
@@ -680,21 +697,24 @@ module top(
     // 3.3.2 regfile wb ctrl
     .o_RegSrc(o_lsu_RegSrc),. o_RegWr(o_lsu_RegWr), 
     // 3.3.3 intr/csr
-    . o_IntrEn(o_lsu_IntrEn),
+    //. o_IntrEn(o_lsu_IntrEn),
     // 3.3.4 csr wdata
     .o_R_rs1(o_lsu_R_rs1),   
     // 3.3.5 inst&pc
     .inst_o(o_lsu_inst),.pc_o(o_lsu_pc),
     
     // 4. handshakes
-    .lsu_valid(lsu_valid),.lsu_ready(lsu_ready),.lsu_to_wb_valid(lsu_to_wb_valid),.wb_allowin(wb_allow_in)
+    .lsu_valid(lsu_valid),.lsu_ready(lsu_ready),.lsu_to_wb_valid(lsu_to_wb_valid),.wb_allowin(wb_allow_in),
+    .pipeline_flush(flush_lsu)
   );
 
   /*--------------------LSU to WB Regs-----------------*/
 
     // 1. outputs for wb
     // 1.1 intr/csr
-    wire                       wb_IntrEn;
+    wire                       wb_isecall ;
+    wire                       wb_ismret  ;
+    wire                       wb_iscsr   ; 
     wire                       wb_clint_mtip;
     wire   [`RegWidth-1:0]     wb_R_rs1;
     // 1.2 regsfile wb
@@ -713,7 +733,7 @@ module top(
   WBRegs LSU_to_WB_Regs(.clk(clk),.rst(rst),
     // 1. input from pre stage 
     // 1.1 intr/csr
-    .IntrEn    (o_lsu_IntrEn),
+    .i_isecall (lsu_isecall),.i_ismret(lsu_ismret),.i_iscsr(lsu_iscsr),
     .clint_mtip(o_lsu_clint_mtip),
     .R_rs1_i   (o_lsu_R_rs1),
     // 1.2 regsfile wb
@@ -727,7 +747,7 @@ module top(
 
     // 2. outputs for wb
     // 2.1 intr/csr
-    .o_IntrEn    (wb_IntrEn),
+    .o_isecall(wb_isecall),.o_ismret(wb_ismret),.o_iscsr(wb_iscsr),
     .o_clint_mtip(wb_clint_mtip),
     .o_R_rs1     (wb_R_rs1),
     // 2.2 regsfile wb
@@ -754,7 +774,7 @@ module top(
   // 2. to preif 
   wire                      o_wb_isIntrPC;
   wire  [`RegWidth-1:0]     o_wb_IntrPC;
-
+  wire                      o_wb_mstatus_MIE;
   // 3. reg wb
   wire                      o_wb_RegWr_en;
   wire  [`RegAddrBus]   o_wb_RegWaddr;
@@ -767,7 +787,7 @@ module top(
 
     // 1. input from pre stage 
     // 1.1 intr/csr
-    .IntrEn    (wb_IntrEn),
+    .i_isecall(wb_isecall),.i_ismret(wb_ismret),.i_iscsr(wb_iscsr),
     .clint_mtip(wb_clint_mtip),
     .R_rs1_i   (wb_R_rs1),
     // 1.2 regsfile wb
@@ -783,8 +803,9 @@ module top(
     .witf_pop_en(o_wb_witf_pop_en),
     
     // 3. to preif 
-    .isIntrPC(o_wb_isIntrPC),
-    .IntrPC  (o_wb_IntrPC),
+    .isIntrPC   (o_wb_isIntrPC),
+    .IntrPC     (o_wb_IntrPC),
+    .mstatus_MIE(o_wb_mstatus_MIE),
 
     // 4. reg wb
     .o_RegWr_en(o_wb_RegWr_en),
@@ -794,6 +815,37 @@ module top(
     // 5. handshakes
     .wb_valid(wb_valid),
     .wb_ready(wb_ready)
+  );
+
+  /*---------------pipeflush ctrl----------*/
+  wire          flush_if        ;
+  wire          flush_id        ;
+  wire          flush_exu       ;
+  wire          flush_lsu       ;
+  wire          flush_witf      ;
+  wire          stall_if        ;
+  wire          stall_exu_store ;
+  wire          jump            ;
+  wire  [63:0]  jumppc          ;
+
+  pipeline_ctrl pipeline_ctrl( 
+    .wb_intr(o_wb_isIntrPC),
+    .exu_jump(o_exu_is_jump),
+    .pc_intr(o_wb_IntrPC),
+    .pc_jump(o_exu_NextPC),
+    .excep_id(o_id_isecall | o_id_ismret),
+    .excep_exu((exu_isecall | exu_ismret)&exu_valid),
+    .excep_lsu((lsu_isecall | lsu_ismret)&lsu_valid),
+    .lsu_mtip(o_lsu_clint_mtip),
+    .flush_if(flush_if),
+    .flush_id(flush_id),
+    .flush_exu(flush_exu),
+    .flush_lsu(flush_lsu),
+    .flush_witf(flush_witf),
+    .stall_if(stall_if),
+    .stall_exu_store(stall_exu_store),
+    .jump(jump),
+    .jumppc(jumppc)
   );
 
   /*---------RegisterFile(IDU,WB)------------*/
@@ -820,7 +872,8 @@ module top(
       // 2. raw check for id
       .isRAW(isRAW),.witf_full(witf_full),.witf_empty(witf_empty),
       // 3. finish wb to pop inst
-      .wb_en(o_wb_witf_pop_en) 
+      .wb_en(o_wb_witf_pop_en),
+      .flush_witf(flush_witf)
   );
 
   //--------------ram-axi--------------//

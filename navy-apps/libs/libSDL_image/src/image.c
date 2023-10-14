@@ -18,7 +18,7 @@ SDL_Surface* IMG_Load_RW(SDL_RWops *src, int freesrc) {
 }
 
 SDL_Surface* IMG_Load(const char *filename) {
-  printf("load %s\n",filename);
+  //printf("load %s\n",filename);
   int fd=open(filename,0);
   struct stat statbuf;
   fstat(fd, &statbuf);

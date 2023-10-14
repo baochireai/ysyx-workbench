@@ -44,18 +44,49 @@ static void init_screen() {
       SDL_TEXTUREACCESS_STATIC, SCREEN_W, SCREEN_H);
 }
 
+void show_fb(int x, int y , int w , int h ){
+  printf("*********show_fb*******\n");
+  u_int32_t *fb = (u_int32_t *)vmem;
+  int xh=x+w,yh=y+h;
+  for( int j = y;j<yh;j++){
+    for(int i=x;i<xh;i++){
+      printf("%d ",fb[j*SCREEN_W+i]);
+    }
+    printf("\n");
+  }
+}
+
 static inline void update_screen() {
+  // static int cnt =0 ;
+  // if(cnt==10){
+  //   show_fb(136,86,128,128);
+  // }
+  // else cnt++;
   SDL_UpdateTexture(texture, NULL, vmem, SCREEN_W * sizeof(uint32_t));
   SDL_RenderClear(renderer);
   SDL_RenderCopy(renderer, texture, NULL, NULL);
   SDL_RenderPresent(renderer);
 }
+
+void exit_vga(){
+
+    SDL_DestroyTexture( texture );
+
+    //Destroy window    
+    SDL_DestroyRenderer( renderer );
+    //Quit SDL subsystems
+    SDL_Quit();    
+
+}
+
 #else
 static void init_screen() {}
 
 static inline void update_screen() {
   io_write(AM_GPU_FBDRAW, 0, 0, vmem, screen_width(), screen_height(), true);
 }
+
+static void exit_vga(){}
 #endif
 #endif
 

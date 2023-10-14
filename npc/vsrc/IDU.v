@@ -9,7 +9,7 @@ module IDU(
     input [`RegWidth-1:0] id_pc,
 
     // 2. jump from exu
-    input flush_pipeline,
+    input pipeline_flush,
     
     // 3. register files read
     // 3.1 reg data in 
@@ -44,7 +44,9 @@ module IDU(
     output RegWr,
     output [1:0] RegSrc,
     // 5.1.5 indicate interrupt inst
-    output IntrEn,    
+    output isecall ,
+    output ismret  ,
+    output iscsr   ,    
     // 5.2 operate data
     output reg [`RegWidth-1:0] Imm,    
     output [`INSTWide-1:0] inst_o,
@@ -66,9 +68,10 @@ module IDU(
 );
 
     // 1. shake hands 
-    wire id_ready_go = (!witf_full & (!isRAW|flush_pipeline));
+    //wire id_ready_go = (!witf_full & (!isRAW|pipeline_flush));
+    wire id_ready_go = (!witf_full & (!isRAW));
     assign id_ready = (~id_valid) | (id_ready_go & exu_allow_in);
-    assign id_to_exu_valid = id_ready_go && id_valid ;
+    assign id_to_exu_valid = id_ready_go && id_valid && (!pipeline_flush);
 
     // 2. regs file read && witf inst info
     assign rs1=id_inst[`inst_rs1];
@@ -76,17 +79,22 @@ module IDU(
 
     // 3. disp inst info for witf
     assign rd=id_inst[`inst_rd];
-    assign disp_en = RegWr & (!flush_pipeline) & (id_to_exu_valid && exu_allow_in) & (rd!=5'd0); //0号寄存器不用管
+    assign disp_en = RegWr & (!pipeline_flush) & (id_to_exu_valid && exu_allow_in) & (rd!=5'd0); //0号寄存器不用管
     
     // 4. ctrl signal gen
+    wire i_isecall , i_ismret , i_iscsr ;
     ContrGen ContrGenU(.id_inst(id_inst),
         .ALUct(ALUct),.ALUAsr(ALUAsr),.ALUBsr(ALUBsr),.isTuncate(isTuncate),.isSext(isSext),
         .Branch(Branch),
         .MemOP(MemOP),.MemWr(MemWr),
         .RegWr(RegWr),.RegSrc(RegSrc),
-        .IntrEn(IntrEn),
+        .isecall(i_isecall),.ismret(i_ismret),.iscsr(i_iscsr),
         .isebreak(isebreak),
         .Imm(Imm));
+    
+    assign isecall = id_valid && i_isecall ;
+    assign ismret  = id_valid && i_ismret  ;
+    assign iscsr   = id_valid && i_iscsr   ;   
 
     // 5. operate date gen        
     assign inst_o = id_inst;

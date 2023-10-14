@@ -4,14 +4,13 @@ module IFU(
     input clk,
     input rst,
     
-    //1. jump inst from exu
+    // jump info form ctrl
     input is_jump,
     input [`RegWidth-1:0] JumpPc,
-    
-    //2. intr jump from wb
-    input isIntrPC,
-    input [`RegWidth-1:0] IntrPC,
 
+    // flush jump stall form ctrl
+    input ctrl_stall,
+    input pipeline_flush ,
     //3. cache inteface
 
     //3.1 cache req
@@ -37,7 +36,7 @@ module IFU(
     wire [`RegWidth-1:0] if_pc;
 
     // 1. next PC Generate
-    // 1.1 jump skid buffer
+    // 1.1 jump skid buffer for jump inst/intr
     wire is_jump_r ;
     wire [`RegWidth-1:0] JumpPc_r;
     wire is_jump_set = is_jump && (~cache_ready) ;
@@ -48,20 +47,18 @@ module IFU(
     Reg #(`RegWidth, 64'd0) JumpPc_Buffer(.clk(clk),.rst(rst),.din(JumpPc),.dout(JumpPc_r),.wen(is_jump_set));
 
     // 1.2 next pc
-    assign prefetch_pc =  isIntrPC  ? IntrPC   : 
-                        ( is_jump   ? JumpPc   : 
+    assign prefetch_pc =  is_jump   ? JumpPc   : 
                         ( is_jump_r ? JumpPc_r :
-                                      if_pc+4  ));
+                                      if_pc+4  );
 
     // 2. inst fetch req
-    assign cache_req = (~if_valid) || if_ready_go && id_allow_in || pipeline_flush;
+    assign cache_req = if_allow_in && (~ctrl_stall);
     assign addr_inst=prefetch_pc[31:0];
     wire Cache_req_hs=cache_req&&cache_ready;
-    wire pre_if_ready_go = Cache_req_hs ;//set cache req only when if_allow_in == 1
+    wire preif_2_if_valid = Cache_req_hs ;//set cache req only when if_allow_in == 1
     
     // 3. pre-if_to_if regs
-    wire if_allow_in = (~if_valid) || if_ready_go && id_allow_in || pipeline_flush;
-    wire preif_2_if_valid = pre_if_ready_go ;    
+    wire if_allow_in = (~if_valid) || if_ready_go && id_allow_in || pipeline_flush;    
     Reg #(`RegWidth, 64'h000000007ffffffc) if_pc_reg(.clk(clk),.rst(rst),.din(prefetch_pc),.dout(if_pc),.wen(preif_2_if_valid&&if_allow_in));
     Reg #( 1, 1'b0) if_valid_reg(.clk(clk),.rst(rst),.din(preif_2_if_valid ),.dout(if_valid),.wen(if_allow_in));
 
@@ -86,7 +83,7 @@ module IFU(
     // 5. shake hands signal
     assign if_ready_go = cache_valid || inst_buffer_valid;
 
-    // 6. jump && intr flush pipeline regs
-    wire pipeline_flush = is_jump || isIntrPC ;
+    // // 6. jump && intr flush pipeline regs
+    // wire pipeline_flush = is_jump || isIntrPC ;
 
 endmodule

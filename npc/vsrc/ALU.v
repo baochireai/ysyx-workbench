@@ -59,7 +59,7 @@ module ALU(
     wire [63:0] DIV;
     MuxKeyInternal #(4,2,64,1) diver(.out(DIV),.key({US_S,isTuncate}),.default_out(64'd0),.lut({
         2'b10,ALUA/ALUB,//divu
-        2'b00,$signed(ALUA)/$signed(ALUA),//div
+        2'b00,$signed(ALUA)/$signed(ALUB),//div
         2'b01,{32'd0,$signed(ALUA[31:0])/$signed(ALUB[31:0])},//divw
         2'b11,{32'd0,ALUA[31:0]/ALUB[31:0]}//divuw
     }));

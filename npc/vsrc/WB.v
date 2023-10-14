@@ -4,7 +4,9 @@ module WB(
 
     // 1. input from pre stage 
     // 1.1 intr/csr
-    input                       IntrEn,
+    input                       i_isecall ,
+    input                       i_ismret  ,
+    input                       i_iscsr   ,
     input                       clint_mtip,
     input   [`RegWidth-1:0]     R_rs1_i,
     // 1.2 regsfile wb
@@ -21,8 +23,8 @@ module WB(
     
     // 3. to preif 
     output                      isIntrPC,
-    output  [`RegWidth-1:0]      IntrPC,
-
+    output  [`RegWidth-1:0]     IntrPC,
+    output                      mstatus_MIE ,
     // 4. reg wb
     output                      o_RegWr_en,
     output  [`RegAddrBus]       o_RegWaddr,
@@ -56,9 +58,10 @@ module WB(
     wire [`RegWidth-1:0] IntrOut ;
 
     Intr IntrUnit(  .clk(clk),.rst(rst),
-                    .IntrEn(IntrEn&&wb_valid),.clint_mtip(clint_mtip),.csr(wb_inst[31:20]),.func3(wb_inst[14:12]),
+                    .i_isecall(i_isecall&&wb_valid),.i_ismret(i_ismret&&wb_valid),.i_iscsr(i_iscsr&&wb_valid),
+                    .clint_mtip(clint_mtip&&wb_valid),.csr(wb_inst[31:20]),.func3(wb_inst[14:12]),
                     .pc(wb_pc),.R_rs1(R_rs1_i),.zimm(wb_inst[19:15]),
-                    .isIntrPC(isIntrPC),.IntrPC(IntrPC),.dout(IntrOut)
+                    .isIntrPC(isIntrPC),.IntrPC(IntrPC),.dout(IntrOut),.mstatus_MIE(mstatus_MIE)
     );
 
 endmodule

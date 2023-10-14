@@ -107,9 +107,17 @@ static bool make_token(char *e) {
           case TK_NUM_H:
           case TK_NUM_X:
             strncpy(tokens[nr_token].str,substr_start,substr_len);
+            tokens[nr_token].type=rules[i].token_type;
+            nr_token++;break;      
           case '+':
           case '-':
+            tokens[nr_token].type=rules[i].token_type;
+            nr_token++;
+            break;          
           case '*':
+            if(tokens[nr_token-1].type == '(') tokens[nr_token].type = TK_DEREF;
+            else tokens[nr_token].type=rules[i].token_type;
+            nr_token++;break;
           case '/':
           case '(':
           case ')':
@@ -122,7 +130,7 @@ static bool make_token(char *e) {
           default:
             break;
         }
-
+        //Log("%s\n",rules[i].regex);
         break;
       }
     }
@@ -208,7 +216,7 @@ word_t eval(int p, int q,bool *success) {
     int length=0,left=p,right=q;
     while(left<=right){
       int curType=tokens[left].type;
-      if(curType==TK_NUM_H||curType==TK_NUM_X){
+      if(curType==TK_NUM_H||curType==TK_NUM_X || curType == TK_REG){
         left++;continue;
       }
       if(curType=='('){
@@ -217,6 +225,7 @@ word_t eval(int p, int q,bool *success) {
       if(length!=0&&buffer[length-1]=='('){
         if(curType==')'){
           buffer[--length]='\0';
+          
         }
         left++;
         continue;
@@ -231,6 +240,7 @@ word_t eval(int p, int q,bool *success) {
       //if(p!=q-1) assert(0);
       return (unsigned int)vaddr_read((paddr_t)eval(op_index+1,q,success),4);//*((unsigned*)eval(op_index+1,q,success));
     }
+    Log("op:%d",tokens[op_index].type);
     word_t val1 = eval(p, op_index - 1,success);
     word_t val2 = eval(op_index + 1, q,success);
 
@@ -260,11 +270,11 @@ word_t expr(char *e, bool *success) {
   }
 
   /* TODO: Insert codes to evaluate the expression. */
-  for (int i = 0; i < nr_token; i ++) {
-    if (tokens[i].type == '*' && (i == 0 || tokens[i - 1].type == '(') ) {
-      tokens[i].type = TK_DEREF;//指针
-    }
-  }
+  // for (int i = 0; i < nr_token; i ++) {
+  //   if (tokens[i].type == '*' && (i == 0 || tokens[i - 1].type == '(') ) {
+  //     tokens[i].type = TK_DEREF;//指针
+  //   }
+  // }
 
   if(!check_pair(0,nr_token-1)){
     *success=false;

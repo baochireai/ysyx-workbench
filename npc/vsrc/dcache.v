@@ -145,18 +145,21 @@ module dcache(
     wire cache_hit = hit_way0||hit_way1;
 
     //uncache check
-    wire uncache=( addr[31] != 1'b1 );
+    wire uncache = addr[31:28] == 4'ha ;  //( addr[31] != 1'b1 ); for soc
+    //( addr[31:0] == 32'ha00003f8) || ( addr[31:0] == 32'ha000_004c) || ( addr[31:0] == 32'ha000_0048);
 
     wire refill_waynum=~(line_valid_way0&&line_valid_way1)?line_valid_way0:(~recently_used_way[index_i]);
     wire refill_dirty=(~refill_waynum)&&dirty_way0&&line_valid_way0 || refill_waynum&&dirty_way1&&line_valid_way1;
-
+    wire [20:0] refill_tag= {21{~refill_waynum}} & tagvd_rdata[0][`TAG_BITS] | {21{refill_waynum}} & tagvd_rdata[1][`TAG_BITS] ;
     //require buffer
     wire [31:0] addr_r;
     wire hit_way0_r,hit_way1_r,op_r;
     wire uncache_r;//没必要放req buffer中 addr_r[31]判断
     wire [63:0] wdata_r;
     wire [7:0] wstrb_r;
+    wire [1:0] size_r ;
     wire refill_waynum_r,refill_dirty_r;
+    wire [20:0] refill_tag_r;
     wire req_buffer_we=req&&req_ready;
 
     Reg #(32, 32'd0) req_addr_buffer(.clk(clk),.rst(rst),.din(addr),.dout(addr_r),.wen(req_buffer_we));
@@ -166,10 +169,11 @@ module dcache(
     Reg #(1,1'd0) uncache_reg(.clk(clk),.rst(rst),.din(uncache),.dout(uncache_r),.wen(req_buffer_we));
     Reg #(64,64'd0) wdata_reg(.clk(clk),.rst(rst),.din(wdata),.dout(wdata_r),.wen(req_buffer_we));
     Reg #(8,8'd0) wstrb_reg(.clk(clk),.rst(rst),.din(wstrb),.dout(wstrb_r),.wen(req_buffer_we));
-    
+    Reg #(2,2'd0) size_reg(.clk(clk),.rst(rst),.din(size),.dout(size_r),.wen(req_buffer_we));
     //miss buffer
     Reg #(1,0) refill_waynum_reg(.clk(clk),.rst(rst),.din(refill_waynum),.dout(refill_waynum_r),.wen(req_buffer_we));
-    Reg #(1,0) refill_dirty_r_reg(.clk(clk),.rst(rst),.din(refill_dirty),.dout(refill_dirty_r),.wen(req_buffer_we));
+    Reg #(1,0) refill_dirty_reg(.clk(clk),.rst(rst),.din(refill_dirty),.dout(refill_dirty_r),.wen(req_buffer_we));
+    Reg #(21,21'd0) refill_tag_reg(.clk(clk),.rst(rst),.din(refill_tag),.dout(refill_tag_r),.wen( req_buffer_we && refill_dirty ));
 
     wire [6:0] index_r=addr_r[10:4];
     wire [20:0] tag_r=addr_r[31:11];
@@ -233,23 +237,23 @@ module dcache(
         endcase
     end
 
-   //axi write transaction
-
+   //axi write transaction (add cache miss dirty write back)
+ 
     assign axi_wr_req = (cur_state==S_MISS) && (uncache_r && op_r || (~uncache_r) && refill_dirty_r);
 
-    assign axi_wr_addr = uncache_r? addr_r:addr_r&32'hffff_fff0;
+    assign axi_wr_addr = uncache_r? addr_r: { refill_tag_r , index_r , 4'd0 }; 
 
-    assign axi_wr_type = uncache_r? {1'b0,size} : 3'd4;
+    assign axi_wr_type = uncache_r? {1'b0,size_r} : 3'd4;
 
     assign axi_wstrb = {8{uncache_r}} & (wstrb_r<<offset_r[2:0]) | {8{~uncache_r}};
 
-    assign axi_wdata = uncache_r ? {64'd0,wdata_r<<{offset_r[2:0],3'd0}} : (refill_waynum_r ? din_way0:din_way1);
+    assign axi_wdata = uncache_r ? {64'd0,wdata_r<<{offset_r[2:0],3'd0}} : (refill_waynum_r ? din_way1:din_way0);
 
     //axi read transaction
 
     assign axi_rd_addr = uncache_r? addr_r:addr_r&32'hffff_fff0;
     
-    assign axi_rd_type = uncache_r ? {1'b0,size} : 3'd4;
+    assign axi_rd_type = uncache_r ? {1'b0,size_r} : 3'd4;
 
     assign axi_rd_req = (cur_state==S_REPLACE) && ( uncache_r && (~op_r) || (~uncache_r) );
 
@@ -277,7 +281,7 @@ module dcache(
     wire [63:0] cache_miss_rdata = {64{offset_r[3]}} & mrdata_align[127:64] | ({64{~offset_r[3]}} & mrdata_align[63:0]);
     wire cache_miss_rvalid= (~uncache_r) && cur_state==S_REFILL && (~op_r) ;
 
-    wire [63:0] uncache_rdata = {64{offset_r[3]}} & mrdata_align[127:64] | ({64{~offset_r[3]}} & mrdata_align[63:0]);
+    wire [63:0] uncache_rdata = mrdata_align[63:0] ; // uncache mrdata[63:0] is valid.  {64{offset_r[3]}} & mrdata_align[127:64] | ({64{~offset_r[3]}} & mrdata_align[63:0]); 
     wire uncache_rvalid = uncache_r && cur_state==S_REFILL ;
 
     //assign cache_data_o= {64{hit_rvalid}} & hit_rdata | {64{cache_miss_rvalid}} & cache_miss_rdata | {64{uncache_rvalid}} & uncache_rdata;

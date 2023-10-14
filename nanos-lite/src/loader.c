@@ -57,12 +57,14 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
   // close(fd);
   // return hdr->e_entry;
   //am中没有文件系统
+  //int fd=fs_open("/bin/bmp-test",0,0);
   int fd=fs_open("/bin/pal",0,0);
   //fs_read()
   if(fd==-1){
     printf("Open img fail!\n");
   }
   size_t ramdisk_size=fs_size(fd);
+  printf("ramdisk_size:%d\n",ramdisk_size);
   char* elf_start=(char*)malloc(ramdisk_size+1);
   fs_read(fd,elf_start,ramdisk_size);
   Elf_Ehdr* hdr =(Elf_Ehdr*)elf_start;//ElfHeader
@@ -74,10 +76,12 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
       if(phdr[i].p_type != PT_LOAD) {
               continue;
       }
+      //printf("loaderable\n");
+      printf("read %d bytes data to 0x%08lx\n",phdr[i].p_filesz,(void*)phdr[i].p_vaddr);
       ramdisk_read((void*)phdr[i].p_vaddr,fs_diskoffset(fd)+phdr[i].p_offset,phdr[i].p_filesz);//loader code and data
   }
   fs_close(fd);
-  printf("hdr->e_entry:0x%016lx",hdr->e_entry);
+  //printf("hdr->e_entry:0x%016lx",hdr->e_entry);
   return hdr->e_entry;
 //  return (uintptr_t)(0x83004f48);
 
@@ -90,6 +94,7 @@ static uintptr_t loader(PCB *pcb, const char *filename) {
 void naive_uload(PCB *pcb, const char *filename) {
   uintptr_t entry = loader(pcb, filename);
   Log("Jump to entry = %p",(void *)entry);
+  printf("data check 0x%08lx\n",*((u_int32_t *)entry));
   ((void(*)())entry) ();//执行用户程序
 }
 

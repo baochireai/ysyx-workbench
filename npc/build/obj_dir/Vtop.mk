@@ -43,6 +43,7 @@ VM_USER_CFLAGS = \
 	-I/home/mrxue/ysyx/npc/include/reg \
 	-I/home/mrxue/ysyx/npc/include/monitor/sdb \
 	-I/home/mrxue/ysyx/npc/include/utils \
+	-I/home/mrxue/ysyx/npc/include/device \
 	-I/home/mrxue/ysyx/nvboard/include \
 	-DTOP_NAME="Vtop" \
 
@@ -57,18 +58,25 @@ VM_USER_LDLIBS = \
 # User .cpp files (from .cpp's on Verilator command line)
 VM_USER_CLASSES = \
 	cpu_exec \
+	keyboard \
+	mmio \
+	vga \
 	dut \
 	memory \
 	monitor \
+	expr \
 	sdb \
+	watchpoint \
 	reg \
 	sim_main \
+	log \
 	timer \
 
 # User .cpp directories (from .cpp's on Verilator command line)
 VM_USER_DIR = \
 	/home/mrxue/ysyx/npc/csrc \
 	/home/mrxue/ysyx/npc/csrc/cpu \
+	/home/mrxue/ysyx/npc/csrc/device \
 	/home/mrxue/ysyx/npc/csrc/difftest \
 	/home/mrxue/ysyx/npc/csrc/memory \
 	/home/mrxue/ysyx/npc/csrc/monitor \
@@ -88,17 +96,29 @@ VPATH += $(VM_USER_DIR)
 
 cpu_exec.o: /home/mrxue/ysyx/npc/csrc/cpu/cpu_exec.c
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
+keyboard.o: /home/mrxue/ysyx/npc/csrc/device/keyboard.c
+	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
+mmio.o: /home/mrxue/ysyx/npc/csrc/device/mmio.c
+	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
+vga.o: /home/mrxue/ysyx/npc/csrc/device/vga.c
+	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
 dut.o: /home/mrxue/ysyx/npc/csrc/difftest/dut.c
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
 memory.o: /home/mrxue/ysyx/npc/csrc/memory/memory.c
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
 monitor.o: /home/mrxue/ysyx/npc/csrc/monitor/monitor.c
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
+expr.o: /home/mrxue/ysyx/npc/csrc/monitor/sdb/expr.c
+	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
 sdb.o: /home/mrxue/ysyx/npc/csrc/monitor/sdb/sdb.c
+	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
+watchpoint.o: /home/mrxue/ysyx/npc/csrc/monitor/sdb/watchpoint.c
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
 reg.o: /home/mrxue/ysyx/npc/csrc/reg/reg.c
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
 sim_main.o: /home/mrxue/ysyx/npc/csrc/sim_main.cpp
+	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
+log.o: /home/mrxue/ysyx/npc/csrc/utils/log.c
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<
 timer.o: /home/mrxue/ysyx/npc/csrc/utils/timer.c
 	$(OBJCACHE) $(CXX) $(CXXFLAGS) $(CPPFLAGS) $(OPT_FAST) -c -o $@ $<

@@ -22,8 +22,9 @@ module EXURegs(
     input [1:0]             i_RegSrc,//写回地址 
 
     // 1.5 intr inst
-    input                   i_IntrEn,    
-
+    input i_isecall ,
+    input i_ismret  ,
+    input i_iscsr   ,          
     // 1.6 operate data    
     input [`RegWidth-1:0]   i_R_rs1,
     input [`RegWidth-1:0]   i_R_rs2,//mem wdata
@@ -52,7 +53,9 @@ module EXURegs(
     output [1:0]             o_RegSrc,//写回地址 
 
     // 2.5 intr insto_
-    output                   o_IntrEn,    
+    output                   o_isecall ,
+    output                   o_ismret  ,
+    output                   o_iscsr   ,
 
     // 2.6 operate data    
     output [`RegWidth-1:0]   o_R_rs1,
@@ -70,18 +73,19 @@ module EXURegs(
     output exu_valid ,
 
     // 4. jump && intr flush pipeline
-    input is_jump,
-    input is_intr
+    // input is_jump,
+    // input is_intr
+    input pipeline_flush
 );
     // 1. exu ready&valid shake hands signal gen
     assign exu_allow_in = (~exu_valid) || exu_ready ;
-    Reg #(1,'d0) exu_valid_reg(clk,rst | flush_pipeline,id_to_exu_valid,exu_valid,exu_allow_in);
+    Reg #(1,'d0) exu_valid_reg(clk,rst | pipeline_flush,id_to_exu_valid,exu_valid,exu_allow_in);
 
     // 2. pipeline regs
-    wire popline_wen = id_to_exu_valid && exu_allow_in && (~flush_pipeline);
+    wire popline_wen = id_to_exu_valid && exu_allow_in && (~pipeline_flush);
 
     Reg #(
-        .WIDTH(1+2+5+1+1+3+3+1+1+2+1+`RegWidth+`RegWidth+`RegWidth+`INSTWide+`RegWidth), 
+        .WIDTH(1+2+5+1+1+3+3+1+1+2+1+1+1+`RegWidth+`RegWidth+`RegWidth+`INSTWide+`RegWidth), 
         .RESET_VAL(0)
     ) id_to_exu_pipeline_regs (
         .clk(clk),
@@ -90,18 +94,18 @@ module EXURegs(
                 i_Branch,
                 i_MemOP,i_MemWr,
                 i_RegWr,i_RegSrc,
-                i_IntrEn,
+                i_isecall,i_ismret,i_iscsr,
                 i_R_rs1,i_R_rs2,i_Imm,i_exu_inst,i_exu_pc}),
         .dout({ o_ALUAsr,o_ALUBsr,o_ALUct,o_isTuncate,o_isSext,
                 o_Branch,
                 o_MemOP,o_MemWr,
                 o_RegWr,o_RegSrc,
-                o_IntrEn,
+                o_isecall,o_ismret,o_iscsr,
                 o_R_rs1,o_R_rs2,o_Imm,o_exu_inst,o_exu_pc}),
         .wen(popline_wen)
     );    
 
     // 3. flush pipeline
-    wire flush_pipeline = is_jump | is_intr ;
+    // wire pipeline_flush = is_jump | is_intr ;
     
 endmodule

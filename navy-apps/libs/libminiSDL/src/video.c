@@ -10,66 +10,58 @@ void SDL_BlitSurface(SDL_Surface *src, SDL_Rect *srcrect, SDL_Surface *dst, SDL_
   Only the position is used in the dstrect (the width and height are ignored).
   If srcrect is NULL, the entire surface is copied. If dstrect is NULL,
    then the destination position (upper left corner) is (0, 0).
+   srcrect: size of the copied rectangle . if Null , the entire src suface is copied.
+   dstrect: indicate the position of 
   */
   assert(dst && src);
   assert(dst->format->BitsPerPixel == src->format->BitsPerPixel);
-  if(srcrect){
-    if(dstrect){
-      //set dst->pixels[dstrect->y:dstrect->y+src->h][dstrect->x:dstrect->x+src->w]=src->pixels[][]
-      for(int j=0;j<srcrect->h;j++){
-        int y=dstrect->y+j,src_y=srcrect->y+j;
-        for(int i=0;i<srcrect->w;i++){
-          int x=dstrect->x+i,src_x=srcrect->x+i;
-          ((uint32_t*)dst->pixels)[x+y*dst->w]=((uint32_t*)src->pixels)[i+j*src->w];
-        }
-      }
-      //The final blit rectangle is saved in dstrect 
-      dstrect->w=srcrect->w;
-      dstrect->h=srcrect->h;
-    }
-    else{
-      // printf("src shape:%d*%d(W*H)\n",src->w,src->h);//320*568
-      // printf("start point:(x,y)->(%d,%d)\n",srcrect->x,srcrect->y);//17 84
-      // printf("rect shape:%d*%d(W*H)\n",srcrect->w,srcrect->h);//287*400
-      // printf("range_y:%d-%d\n",srcrect->y,srcrect->y+srcrect->h);//84-484
-      for(int j=0;j<srcrect->h;j++){
-        int src_y=srcrect->y+j;
-        for(int i=0;i<srcrect->w;i++){
-          int src_x=srcrect->x+i;
-          // printf("%d\t",src_x);
-          ((uint32_t*)dst->pixels)[i+j*dst->w]=((uint32_t*)src->pixels)[src_x+src_y*src->w];
-        }
-      }
-      // printf("range_x:%d-%d\n",srcrect->x,srcrect->x+srcrect->w);//17 304
-    }    
+  
+  int w,h,dst_x,dst_y,src_x,src_y;
+
+  if(srcrect == NULL){     // entire surface.
+    w = src->w; h = src->h;
+    src_x = 0; src_y = 0;
   }
   else{
-    if(dstrect){
-      //set dst->pixels[dstrect->y:dstrect->y+src->h][dstrect->x:dstrect->x+src->w]=src->pixels[][]
-      // printf("src->h:%d\tsrc->w:%d\n",src->h,src->w);
-      // printf("dstrect->y:%d\tdstrect->x:%d\n",dstrect->y,dstrect->x);
-      for(int j=0;j<src->h;j++){
-        int y=dstrect->y+j;
-        for(int i=0;i<src->w;i++){
-          int x=dstrect->x+i;
-          ((uint32_t*)dst->pixels)[x+y*dst->w]=((uint32_t*)src->pixels)[i+j*src->w];
-        }
-      }
-      dstrect->w=srcrect->w;
-      dstrect->h=srcrect->h;      
-    }
-    else{
-      for(int j=0;j<src->h;j++){
-        for(int i=0;i<src->w;i++){
-          ((uint32_t*)dst->pixels)[i+j*dst->w]=((uint32_t*)src->pixels)[i+j*src->w];
-        }
+    w = srcrect->w; h = srcrect->h;
+    src_x = srcrect->x; src_y = srcrect->y;
+  }
+
+  if(dstrect == NULL){
+    dst_x = 0; dst_y = 0;
+  }
+  else{
+    dst_x = dstrect->x; dst_y = dstrect->y;
+  }
+
+  if (dst->format->BitsPerPixel == 32){
+    uint32_t *dst_pixels = (uint32_t *)dst->pixels;
+    uint32_t *src_pixels = (uint32_t *)src->pixels;
+    for(int j = 0; j< h; j++){
+      for(int i = 0; i< w; i++){
+        dst_pixels[(dst_y+j)*(dst->w)+(dst_x+i)] = src_pixels[(src_y+j)*(src->w)+(src_x+i)];
       }
     }
   }
+  else if (dst->format->BitsPerPixel == 8){
+    for(int j = 0; j< h; j++){
+      for(int i = 0; i< w; i++){
+        dst->pixels[(dst_y+j)*(dst->w)+(dst_x+i)] = src->pixels[(src_y+j)*(src->w)+(src_x+i)];
+      }
+    }
+  }
+  else{
+    printf("SDL_BlitSurface: miniSDL do not support BitsPerPixel == %d.",dst->format->BitsPerPixel);
+    assert(0);
+  }
+
   //The final blit rectangle is saved in dstrect after all clipping is performed
 }
 
 void SDL_FillRect(SDL_Surface *dst, SDL_Rect *dstrect, uint32_t color) {
+  assert(dst);
+  assert(dst->format);
+  assert(dst->format->BitsPerPixel==32);
   if(dstrect){ 
     for(int i=0;i<dstrect->h;i++){
       int y=dstrect->y+i;
@@ -90,7 +82,25 @@ void SDL_UpdateRect(SDL_Surface *s, int x, int y, int w, int h) {
   //将画布中指定矩形区域同步到屏幕上
   //SDL_Surface具有多种属性的画布
   //调用NDL的底层实现
-  NDL_DrawRect((uint32_t*)s->pixels,x,y,w,h);
+  if(w==0&&h==0){
+    w=s->w;h=s->h;
+  }
+  if(s->format->BitsPerPixel == 32) NDL_DrawRect((uint32_t*)s->pixels,x,y,w,h);
+  else if (s->format->BitsPerPixel = 8)
+  {
+    int len = w * h;
+    uint32_t * pixels = (uint32_t *)malloc(4*len);
+    for(int i=0; i<len; i++){
+      SDL_Color pixel = s->format->palette->colors[s->pixels[i]];
+      pixels[i] = (uint32_t)pixel.a<<24 | (uint32_t)pixel.r<<16 | (uint32_t)pixel.g<<8 | (uint32_t)pixel.b;
+    }
+    NDL_DrawRect(pixels,x,y,w,h);
+    free(pixels);    
+  }
+  else{
+    printf("SDL_UpdateRect: miniSDL do not support BitsPerPixel == %d.",s->format->BitsPerPixel);
+    assert(0);    
+  }
 }
 
 // APIs below are already implemented.

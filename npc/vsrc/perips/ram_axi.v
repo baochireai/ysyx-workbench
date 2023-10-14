@@ -1,7 +1,7 @@
 // AXI4 RAM module with AWIDTH=32 
 
 import "DPI-C" function void pmem_read(
-  input int raddr, output longint rdata);
+  input int raddr, output longint rdata,input int len);
 import "DPI-C" function void pmem_write(
   input int waddr, input longint wdata, input byte wmask);
 
@@ -135,10 +135,11 @@ module ram_axi #(
     reg [63:0] ram_rdata ;
     assign ram_raddr = ar_addr + ({24'd0,r_transfer_cnt} << 3);//ar_addr + r_transfer_cnt * 4 ;
     wire ram_ren = r_state_read ;
-    
+    wire [31:0] ram_rsize = {29'd0,i_axi_slave_arsize};
+
     always @(*) begin
         if(ram_ren) begin
-            pmem_read(ram_raddr,ram_rdata);            
+            pmem_read(ram_raddr,ram_rdata,ram_rsize);            
         end
         else ram_rdata = 64'd0;
     end
@@ -205,6 +206,9 @@ module ram_axi #(
     end  
     
     // write transaction slave port
+    
+    //aw 
+    assign o_axi_slave_awready = w_state_addr ;
 
     // w
     assign o_axi_slave_wready = w_state_data ;

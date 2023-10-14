@@ -4,7 +4,9 @@ module WBRegs(
 
     // 1. input from pre stage 
     // 1.1 intr/csr
-    input                       IntrEn,
+    input                   i_isecall ,
+    input                   i_ismret  ,
+    input                   i_iscsr   ,
     input                       clint_mtip,
     input   [`RegWidth-1:0]     R_rs1_i,
     // 1.2 regsfile wb
@@ -18,7 +20,9 @@ module WBRegs(
 
     // 2. outputs for wb
     // 2.1 intr/csr
-    output                       o_IntrEn,
+    output                       o_isecall ,
+    output                       o_ismret  ,
+    output                       o_iscsr   ,
     output                       o_clint_mtip,
     output   [`RegWidth-1:0]     o_R_rs1,
     // 2.2 regsfile wb
@@ -45,15 +49,15 @@ module WBRegs(
     wire popline_wen = lsu_to_wb_valid && wb_allow_in;
 
     Reg #(
-        .WIDTH(1+1+`RegWidth+2+1+`RegWidth+`RegWidth+`RegWidth+`INSTWide), 
+        .WIDTH(1+1+1+1+`RegWidth+2+1+`RegWidth+`RegWidth+`RegWidth+`INSTWide), 
         .RESET_VAL(0)
     ) exu_to_lus_pipeline_regs (
         .clk(clk),
         .rst(rst),
-        .din({  IntrEn,clint_mtip,R_rs1_i,
+        .din({  i_isecall,i_ismret,i_iscsr,clint_mtip,R_rs1_i,
                 RegSrc,RegWr,ALUres,MemOut,
                 i_pc,i_inst}),
-        .dout({ o_IntrEn,o_clint_mtip,o_R_rs1,
+        .dout({ o_isecall,o_ismret,o_iscsr,o_clint_mtip,o_R_rs1,
                 o_RegSrc,o_RegWr,o_ALUres,o_MemOut,
                 o_wb_pc,o_wb_inst }),
         .wen(popline_wen)

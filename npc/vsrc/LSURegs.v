@@ -17,7 +17,9 @@ module LSURegs(
     input [1:0]             i_RegSrc,//alu/mem/csr
     input                   i_RegWr, 
     // 1.3.3 intr/csr
-    input                   i_IntrEn,
+    input                   i_isecall ,
+    input                   i_ismret  ,
+    input                   i_iscsr   ,
     // 1.3.4 csr wdata
     input[`RegWidth-1:0]    i_R_rs1,  
     
@@ -36,7 +38,9 @@ module LSURegs(
     output [1:0]            o_RegSrc,
     output                  o_RegWr,
     // 2.3.3 intr/csr
-    output                  o_IntrEn,
+    output                   o_isecall ,
+    output                   o_ismret  ,
+    output                   o_iscsr   ,
     // 2.3.4 csr wdata
     output[`RegWidth-1:0]   o_R_rs1,
     
@@ -44,18 +48,20 @@ module LSURegs(
     input                   exu_to_lsu_valid,
     input                   lsu_ready,
     output                  lsu_valid,
-    output                  lsu_allow_in     
+    output                  lsu_allow_in  ,
+
+    input pipeline_flush   
 );
 
     // 1. handshake
     assign lsu_allow_in = (~lsu_valid) || lsu_ready ;
-    Reg #(1,'d0) lsu_valid_reg(clk,rst,exu_to_lsu_valid,lsu_valid,lsu_allow_in);
+    Reg #(1,'d0) lsu_valid_reg(clk,rst|pipeline_flush,exu_to_lsu_valid,lsu_valid,lsu_allow_in);
     
     // 2. pipeline regs
-    wire popline_wen = exu_to_lsu_valid && lsu_allow_in;
+    wire popline_wen = exu_to_lsu_valid && lsu_allow_in && (!pipeline_flush);
 
     Reg #(
-        .WIDTH(1+3+`RegWidth+`INSTWide+`RegWidth+`RegWidth+2+1+1+`RegWidth), 
+        .WIDTH(1+3+`RegWidth+`INSTWide+`RegWidth+`RegWidth+2+1+1+1+1+`RegWidth), 
         .RESET_VAL(0)
     ) exu_to_lus_pipeline_regs (
         .clk(clk),
@@ -64,13 +70,13 @@ module LSURegs(
                 i_inst,i_pc,
                 i_ALUres,
                 i_RegSrc,i_RegWr,
-                i_IntrEn,
+                i_isecall,i_ismret,i_iscsr,
                 i_R_rs1}),
         .dout({ o_MemWr,o_MemOP,o_R_rs2,
                 o_inst,o_pc,
                 o_ALUres,
                 o_RegSrc,o_RegWr,
-                o_IntrEn,
+                o_isecall,o_ismret,o_iscsr,
                 o_R_rs1}),
         .wen(popline_wen)
     );    

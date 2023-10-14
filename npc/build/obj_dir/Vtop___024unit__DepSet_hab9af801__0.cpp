@@ -28,15 +28,17 @@ VL_INLINE_OPT void Vtop___024unit____Vdpiimwrap_set_gpr_ptr__Vdpioc2_TOP____024u
     set_gpr_ptr(&a__Vopenarray);
 }
 
-extern "C" void pmem_read(int raddr, long long* rdata);
+extern "C" void pmem_read(int raddr, long long* rdata, int len);
 
-VL_INLINE_OPT void Vtop___024unit____Vdpiimwrap_pmem_read_TOP____024unit(IData/*31:0*/ raddr, QData/*63:0*/ &rdata) {
+VL_INLINE_OPT void Vtop___024unit____Vdpiimwrap_pmem_read_TOP____024unit(IData/*31:0*/ raddr, QData/*63:0*/ &rdata, IData/*31:0*/ len) {
     VL_DEBUG_IF(VL_DBG_MSGF("+        Vtop___024unit____Vdpiimwrap_pmem_read_TOP____024unit\n"); );
     // Body
     int raddr__Vcvt;
     for (size_t raddr__Vidx = 0; raddr__Vidx < 1; ++raddr__Vidx) raddr__Vcvt = raddr;
     long long rdata__Vcvt;
-    pmem_read(raddr__Vcvt, &rdata__Vcvt);
+    int len__Vcvt;
+    for (size_t len__Vidx = 0; len__Vidx < 1; ++len__Vidx) len__Vcvt = len;
+    pmem_read(raddr__Vcvt, &rdata__Vcvt, len__Vcvt);
     rdata = rdata__Vcvt;
 }
 

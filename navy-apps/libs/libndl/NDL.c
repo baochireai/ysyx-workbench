@@ -14,14 +14,16 @@ static int evtdev = -1;
 static int fbdev = -1;
 static int screen_w = 0, screen_h = 0;
 static int Canvas_w=0,Canvas_h=0;
+
 uint32_t NDL_GetTicks() {
   struct timeval tv;
   gettimeofday(&tv,NULL);
-  return tv.tv_usec;
+  return (uint32_t)(tv.tv_sec * 1000 + tv.tv_usec / 1000);//tv.tv_usec/1000;//
 }
 //读出有效事件返回1，否则返回0,这里我返回了读出的字节数
 int NDL_PollEvent(char *buf, int len) {
-  return read(3, buf, len);//fd=3 "/dev/events"
+  int fd_enevts = open("/dev/events",0,0);
+  return read(fd_enevts, buf, len);//fd=3 "/dev/events"
 }
 
 void NDL_OpenCanvas(int *w, int *h) {
@@ -64,6 +66,7 @@ void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
   //1.计算画布的位置（剧中）
   int Canvas_startx=(screen_w-Canvas_w)/2;
   int Canvas_starty=(screen_h-Canvas_h)/2;
+
   //2.计算Rect位置
   int Rect_startx=Canvas_startx+x;
   int Rect_starty=Canvas_starty+y;
@@ -77,12 +80,8 @@ void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
     int offset=((Rect_starty+i)*screen_w+Rect_startx)*sizeof(uint32_t);
     lseek(fd,offset,SEEK_SET);
     write(fd,(void*)(pixels+i*w),w*sizeof(uint32_t));
+    //write(fd, pixels, ((size_t)w<<32) | ((size_t)h & 0x00000000FFFFFFFF)); optimize 
   }
-  // for(int i=0;i<h;i++){
-  //   int offset=((Rect_starty+i)*screen_w+Rect_startx)*sizeof(uint32_t);
-  //   lseek(fd,offset,SEEK_SET);
-  //   write(fd,(void*)(pixels+i*w),w*sizeof(uint32_t));
-  // }
 }
 
 void NDL_OpenAudio(int freq, int channels, int samples) {
@@ -107,7 +106,10 @@ int NDL_Init(uint32_t flags) {
   /******获取系统屏幕大小*****/
   screen_w=0;screen_h=0;
   char disinfo_buf[50];
-  size_t length=read(4,disinfo_buf,sizeof(disinfo_buf));//fd=4 /proc/dispinfo
+  int fd_dispinfo=open("/proc/dispinfo",0,0);
+  assert(fd_dispinfo!=-1);
+  size_t length=read(fd_dispinfo,disinfo_buf,sizeof(disinfo_buf));
+  // printf("(NDL_init) %s\n",disinfo_buf);
   for(size_t i=0;i<length;i++){
     if(screen_w==0){
       while(disinfo_buf[i]>='0'&&disinfo_buf[i]<='9'){
@@ -121,8 +123,8 @@ int NDL_Init(uint32_t flags) {
       if(screen_h!=0) break;         
     }
   }
-  assert(screen_w==400);
-  assert(screen_h==300);
+  // assert(screen_w==400);
+  // assert(screen_h==300);
   printf("(NDL)screen_w:%d\tscreen_h:%d\n",screen_w,screen_h);
   return 0;
 }

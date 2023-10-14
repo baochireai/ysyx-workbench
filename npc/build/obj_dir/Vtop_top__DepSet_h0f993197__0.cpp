@@ -9,8 +9,18 @@
 #include "Vtop__Syms.h"
 #include "Vtop_top.h"
 
+VL_INLINE_OPT void Vtop_top___ico_sequent__TOP__top__0(Vtop_top* vlSelf) {
+    if (false && vlSelf) {}  // Prevent unused
+    Vtop__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
+    VL_DEBUG_IF(VL_DBG_MSGF("+      Vtop_top___ico_sequent__TOP__top__0\n"); );
+    // Body
+    vlSelf->EXU_to_LSU_Regs__DOT____Vcellinp__lsu_valid_reg____pinNumber2 
+        = ((IData)(vlSymsp->TOP__top__WB__IntrUnit.__PVT__isIntrPC) 
+           | (IData)(vlSymsp->TOP.rst));
+}
+
 void Vtop___024unit____Vdpiimwrap_setebreak_TOP____024unit();
-void Vtop___024unit____Vdpiimwrap_pmem_read_TOP____024unit(IData/*31:0*/ raddr, QData/*63:0*/ &rdata);
+void Vtop___024unit____Vdpiimwrap_pmem_read_TOP____024unit(IData/*31:0*/ raddr, QData/*63:0*/ &rdata, IData/*31:0*/ len);
 void Vtop___024unit____Vdpiimwrap_pmem_write_TOP____024unit(IData/*31:0*/ waddr, QData/*63:0*/ wdata, CData/*7:0*/ wmask);
 
 VL_INLINE_OPT void Vtop_top___nba_sequent__TOP__top__0(Vtop_top* vlSelf) {
@@ -86,25 +96,25 @@ VL_INLINE_OPT void Vtop_top___nba_sequent__TOP__top__0(Vtop_top* vlSelf) {
     VL_ZERO_W(128, __Vdlyvval__genblk2__BRA__3__KET____DOT__dcache_data_array__DOT__ram__v0);
     CData/*0:0*/ __Vdlyvset__genblk2__BRA__3__KET____DOT__dcache_data_array__DOT__ram__v0;
     __Vdlyvset__genblk2__BRA__3__KET____DOT__dcache_data_array__DOT__ram__v0 = 0;
-    VlWide<3>/*95:0*/ __Vtemp_h60d23306__0;
-    VlWide<3>/*95:0*/ __Vtemp_ha4accee4__0;
-    VlWide<4>/*127:0*/ __Vtemp_h009edad0__0;
     VlWide<3>/*95:0*/ __Vtemp_hfd661ab7__0;
     VlWide<3>/*95:0*/ __Vtemp_h3be50e77__0;
     VlWide<4>/*127:0*/ __Vtemp_h413d8078__0;
+    VlWide<3>/*95:0*/ __Vtemp_h60d23306__0;
+    VlWide<3>/*95:0*/ __Vtemp_ha4accee4__0;
+    VlWide<4>/*127:0*/ __Vtemp_h009edad0__0;
     // Body
     __Vdlyvset__genblk2__BRA__3__KET____DOT__dcache_data_array__DOT__ram__v0 = 0U;
     __Vdlyvset__genblk2__BRA__2__KET____DOT__dcache_data_array__DOT__ram__v0 = 0U;
     __Vdlyvset__genblk2__BRA__1__KET____DOT__dcache_data_array__DOT__ram__v0 = 0U;
     __Vdlyvset__genblk2__BRA__0__KET____DOT__dcache_data_array__DOT__ram__v0 = 0U;
-    __Vdly__axi_rw_interface__DOT__r_transfer_cnt = vlSelf->__PVT__axi_rw_interface__DOT__r_transfer_cnt;
-    __Vdly__ram_axi__DOT__r_transfer_cnt = vlSelf->__PVT__ram_axi__DOT__r_transfer_cnt;
     __Vdly__icache__DOT__burst_count = vlSelf->__PVT__icache__DOT__burst_count;
     __Vdlyvset__genblk1__BRA__3__KET____DOT__icache_data_array__DOT__ram__v0 = 0U;
     __Vdlyvset__genblk1__BRA__2__KET____DOT__icache_data_array__DOT__ram__v0 = 0U;
     __Vdlyvset__genblk1__BRA__1__KET____DOT__icache_data_array__DOT__ram__v0 = 0U;
     __Vdlyvset__genblk1__BRA__0__KET____DOT__icache_data_array__DOT__ram__v0 = 0U;
     __Vdly__dcache__DOT__burst_count = vlSelf->__PVT__dcache__DOT__burst_count;
+    __Vdly__axi_rw_interface__DOT__r_transfer_cnt = vlSelf->__PVT__axi_rw_interface__DOT__r_transfer_cnt;
+    __Vdly__ram_axi__DOT__r_transfer_cnt = vlSelf->__PVT__ram_axi__DOT__r_transfer_cnt;
     __Vdly__axi_rw_interface__DOT__w_transfer_cnt = vlSelf->__PVT__axi_rw_interface__DOT__w_transfer_cnt;
     __Vdly__ram_axi__DOT__w_transfer_cnt = vlSelf->__PVT__ram_axi__DOT__w_transfer_cnt;
     __Vdlyvset__RegisterFile__DOT__rf__v0 = 0U;
@@ -378,14 +388,92 @@ VL_INLINE_OPT void Vtop_top___nba_sequent__TOP__top__0(Vtop_top* vlSelf) {
         vlSelf->__Vcellout__genblk2__BRA__0__KET____DOT__dcache_data_array__Q[3U] 
             = VL_RANDOM_I();
     }
-    if (((IData)(vlSymsp->TOP.rst) | ((IData)(vlSelf->__PVT__IDRegs__DOT__flush_pipeline) 
-                                      | (IData)(vlSelf->__PVT__idu_isebreak)))) {
+    if (vlSelf->EXU_to_LSU_Regs__DOT____Vcellinp__lsu_valid_reg____pinNumber2) {
+        vlSelf->__PVT__witf__DOT__depth_gt1__DOT__rptr_flg_r = 0U;
+        vlSelf->__PVT__witf__DOT__depth_gt1__DOT__wptr_flg_r = 0U;
+        vlSelf->__PVT__witf__DOT__rptr_r = 0U;
+        vlSelf->__PVT__witf__DOT__wptr_r = 0U;
+        vlSelf->witf__DOT____Vcellout__witf_entries__BRA__7__KET____DOT__vld_reg____pinNumber4 = 0U;
+        vlSelf->witf__DOT____Vcellout__witf_entries__BRA__6__KET____DOT__vld_reg____pinNumber4 = 0U;
+        vlSelf->witf__DOT____Vcellout__witf_entries__BRA__5__KET____DOT__vld_reg____pinNumber4 = 0U;
+        vlSelf->witf__DOT____Vcellout__witf_entries__BRA__4__KET____DOT__vld_reg____pinNumber4 = 0U;
+        vlSelf->witf__DOT____Vcellout__witf_entries__BRA__3__KET____DOT__vld_reg____pinNumber4 = 0U;
+        vlSelf->witf__DOT____Vcellout__witf_entries__BRA__2__KET____DOT__vld_reg____pinNumber4 = 0U;
+        vlSelf->witf__DOT____Vcellout__witf_entries__BRA__1__KET____DOT__vld_reg____pinNumber4 = 0U;
+        vlSelf->witf__DOT____Vcellout__witf_entries__BRA__0__KET____DOT__vld_reg____pinNumber4 = 0U;
+        vlSelf->__PVT__lsu_valid = 0U;
+    } else {
+        if (vlSelf->__PVT__witf__DOT__depth_gt1__DOT__rptr_flg_ena) {
+            vlSelf->__PVT__witf__DOT__depth_gt1__DOT__rptr_flg_r 
+                = vlSelf->__PVT__witf__DOT__depth_gt1__DOT__rptr_flg_nxt;
+        }
+        if (vlSelf->__PVT__witf__DOT__depth_gt1__DOT__wptr_flg_ena) {
+            vlSelf->__PVT__witf__DOT__depth_gt1__DOT__wptr_flg_r 
+                = vlSelf->__PVT__witf__DOT__depth_gt1__DOT__wptr_flg_nxt;
+        }
+        if (vlSymsp->TOP__top__WB.__PVT__witf_pop_en) {
+            vlSelf->__PVT__witf__DOT__rptr_r = vlSelf->__PVT__witf__DOT__depth_gt1__DOT__rptr_nxt;
+        }
+        if (vlSelf->witf__DOT____Vcellinp__depth_gt1__DOT__wptr_reg____pinNumber5) {
+            vlSelf->__PVT__witf__DOT__wptr_r = vlSelf->__PVT__witf__DOT__depth_gt1__DOT__wptr_nxt;
+        }
+        if (((IData)(vlSelf->witf__DOT____Vcellinp__witf_entries__BRA__7__KET____DOT__rdidx_reg____pinNumber5) 
+             | (IData)(vlSelf->witf__DOT____VdfgTmp_h18d0ad63__0))) {
+            vlSelf->witf__DOT____Vcellout__witf_entries__BRA__7__KET____DOT__vld_reg____pinNumber4 
+                = (1U & ((~ (IData)(vlSelf->witf__DOT____VdfgTmp_h18d0ad63__0)) 
+                         | (IData)(vlSelf->witf__DOT____Vcellinp__witf_entries__BRA__7__KET____DOT__rdidx_reg____pinNumber5)));
+        }
+        if (((IData)(vlSelf->witf__DOT____Vcellinp__witf_entries__BRA__6__KET____DOT__rdidx_reg____pinNumber5) 
+             | (IData)(vlSelf->witf__DOT____VdfgTmp_h1502befe__0))) {
+            vlSelf->witf__DOT____Vcellout__witf_entries__BRA__6__KET____DOT__vld_reg____pinNumber4 
+                = (1U & ((~ (IData)(vlSelf->witf__DOT____VdfgTmp_h1502befe__0)) 
+                         | (IData)(vlSelf->witf__DOT____Vcellinp__witf_entries__BRA__6__KET____DOT__rdidx_reg____pinNumber5)));
+        }
+        if (((IData)(vlSelf->witf__DOT____Vcellinp__witf_entries__BRA__5__KET____DOT__rdidx_reg____pinNumber5) 
+             | (IData)(vlSelf->witf__DOT____VdfgTmp_h5e3be3b1__0))) {
+            vlSelf->witf__DOT____Vcellout__witf_entries__BRA__5__KET____DOT__vld_reg____pinNumber4 
+                = (1U & ((~ (IData)(vlSelf->witf__DOT____VdfgTmp_h5e3be3b1__0)) 
+                         | (IData)(vlSelf->witf__DOT____Vcellinp__witf_entries__BRA__5__KET____DOT__rdidx_reg____pinNumber5)));
+        }
+        if (((IData)(vlSelf->witf__DOT____Vcellinp__witf_entries__BRA__4__KET____DOT__rdidx_reg____pinNumber5) 
+             | (IData)(vlSelf->witf__DOT____VdfgTmp_h5e289ef1__0))) {
+            vlSelf->witf__DOT____Vcellout__witf_entries__BRA__4__KET____DOT__vld_reg____pinNumber4 
+                = (1U & ((~ (IData)(vlSelf->witf__DOT____VdfgTmp_h5e289ef1__0)) 
+                         | (IData)(vlSelf->witf__DOT____Vcellinp__witf_entries__BRA__4__KET____DOT__rdidx_reg____pinNumber5)));
+        }
+        if (((IData)(vlSelf->witf__DOT____Vcellinp__witf_entries__BRA__3__KET____DOT__rdidx_reg____pinNumber5) 
+             | (IData)(vlSelf->witf__DOT____VdfgTmp_h1b15740b__0))) {
+            vlSelf->witf__DOT____Vcellout__witf_entries__BRA__3__KET____DOT__vld_reg____pinNumber4 
+                = (1U & ((~ (IData)(vlSelf->witf__DOT____VdfgTmp_h1b15740b__0)) 
+                         | (IData)(vlSelf->witf__DOT____Vcellinp__witf_entries__BRA__3__KET____DOT__rdidx_reg____pinNumber5)));
+        }
+        if (((IData)(vlSelf->witf__DOT____Vcellinp__witf_entries__BRA__2__KET____DOT__rdidx_reg____pinNumber5) 
+             | (IData)(vlSelf->witf__DOT____VdfgTmp_h1534ebe7__0))) {
+            vlSelf->witf__DOT____Vcellout__witf_entries__BRA__2__KET____DOT__vld_reg____pinNumber4 
+                = (1U & ((~ (IData)(vlSelf->witf__DOT____VdfgTmp_h1534ebe7__0)) 
+                         | (IData)(vlSelf->witf__DOT____Vcellinp__witf_entries__BRA__2__KET____DOT__rdidx_reg____pinNumber5)));
+        }
+        if (((IData)(vlSelf->witf__DOT____Vcellinp__witf_entries__BRA__1__KET____DOT__rdidx_reg____pinNumber5) 
+             | (IData)(vlSelf->witf__DOT____VdfgTmp_h12e0aba8__0))) {
+            vlSelf->witf__DOT____Vcellout__witf_entries__BRA__1__KET____DOT__vld_reg____pinNumber4 
+                = (1U & ((~ (IData)(vlSelf->witf__DOT____VdfgTmp_h12e0aba8__0)) 
+                         | (IData)(vlSelf->witf__DOT____Vcellinp__witf_entries__BRA__1__KET____DOT__rdidx_reg____pinNumber5)));
+        }
+        if (((IData)(vlSelf->witf__DOT____Vcellinp__witf_entries__BRA__0__KET____DOT__rdidx_reg____pinNumber5) 
+             | (IData)(vlSelf->witf__DOT____VdfgTmp_h12fccb8d__0))) {
+            vlSelf->witf__DOT____Vcellout__witf_entries__BRA__0__KET____DOT__vld_reg____pinNumber4 
+                = (1U & ((~ (IData)(vlSelf->witf__DOT____VdfgTmp_h12fccb8d__0)) 
+                         | (IData)(vlSelf->witf__DOT____Vcellinp__witf_entries__BRA__0__KET____DOT__rdidx_reg____pinNumber5)));
+        }
+        if (vlSelf->__PVT__lsu_allow_in) {
+            vlSelf->__PVT__lsu_valid = vlSelf->__PVT__exu_to_lsu_valid;
+        }
+    }
+    if (((IData)(vlSymsp->TOP.rst) | (IData)(vlSelf->IDRegs__DOT____VdfgTmp_hfc89a4ae__0))) {
         vlSelf->__PVT__idu_valid = 0U;
     } else if (vlSelf->__PVT__id_allow_in) {
         vlSelf->__PVT__idu_valid = vlSelf->__PVT__IDRegs__DOT__if_to_id_valid;
     }
-    vlSelf->__PVT__wb_valid = ((~ (IData)(vlSymsp->TOP.rst)) 
-                               & (IData)(vlSelf->__PVT__lsu_to_wb_valid));
     if (((IData)(vlSelf->__Vcellout__icache__io_sram3_cen) 
          & (~ ((IData)(vlSelf->__PVT__icache__DOT__io_sram_wcen) 
                >> 3U)))) {
@@ -544,11 +632,14 @@ VL_INLINE_OPT void Vtop_top___nba_sequent__TOP__top__0(Vtop_top* vlSelf) {
         __Vdlyvdim0__genblk1__BRA__0__KET____DOT__icache_data_array__DOT__ram__v0 
             = vlSelf->__Vcellout__icache__io_sram0_addr;
     }
-    if (((IData)(vlSymsp->TOP.rst) | (IData)(vlSelf->__PVT__ID_to_EXU_Regs__DOT__flush_pipeline))) {
+    if (((IData)(vlSelf->__Vcellinp__ID_to_EXU_Regs__pipeline_flush) 
+         | (IData)(vlSymsp->TOP.rst))) {
         vlSelf->__PVT__exu_valid = 0U;
     } else if (vlSelf->__PVT__exu_allow_in) {
         vlSelf->__PVT__exu_valid = vlSelf->__PVT__id_to_exu_valid;
     }
+    vlSelf->__PVT__wb_valid = ((~ (IData)(vlSymsp->TOP.rst)) 
+                               & (IData)(vlSelf->__PVT__lsu_to_wb_valid));
     if (((IData)(vlSymsp->TOP.rst) | ((IData)(vlSelf->__PVT__dcache_axi_rd_req) 
                                       & (IData)(vlSelf->__PVT__axi_dcache_rd_ready)))) {
         __Vdly__dcache__DOT__burst_count = 0U;
@@ -717,1056 +808,6 @@ VL_INLINE_OPT void Vtop_top___nba_sequent__TOP__top__0(Vtop_top* vlSelf) {
         vlSelf->__PVT__axi_rw_interface__DOT__w_cur_state = 0U;
         vlSelf->__PVT__axi_rw_interface__DOT__dcache_rd_doing = 0U;
         vlSelf->__PVT__axi_rw_interface__DOT__icache_rd_doing = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__127__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__126__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__125__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__124__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__123__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__122__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__121__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__120__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__119__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__118__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__117__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__116__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__115__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__114__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__113__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__112__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__111__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__110__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__109__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__108__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__107__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__106__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__105__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__104__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__103__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__102__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__101__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__100__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__99__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__98__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__97__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__96__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__95__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__94__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__93__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__92__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__91__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__90__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__89__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__88__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__87__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__86__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__85__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__84__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__83__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__82__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__81__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__80__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__79__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__78__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__77__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__76__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__75__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__74__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__73__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__72__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__71__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__70__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__69__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__68__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__67__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__66__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__65__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__64__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__63__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__62__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__61__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__60__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__59__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__58__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__57__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__56__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__55__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__54__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__53__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__52__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__51__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__50__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__49__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__48__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__47__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__46__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__45__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__44__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__43__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__42__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__41__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__40__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__39__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__38__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__37__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__36__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__35__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__34__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__33__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__32__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__31__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__30__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__29__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__28__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__27__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__26__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__25__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__24__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__23__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__22__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__21__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__20__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__19__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__18__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__17__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__16__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__15__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__14__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__13__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__12__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__11__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__10__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__9__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__8__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__7__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__6__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__5__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__4__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__3__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__2__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__1__KET____DOT__recently_used_reg__dout = 0U;
-        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__0__KET____DOT__recently_used_reg__dout = 0U;
-    } else {
-        if (((IData)(vlSelf->__PVT__axi_rw_interface__DOT__dcache_wr_doing_set) 
-             | (IData)(vlSelf->__PVT__axi_rw_interface__DOT__dcache_wr_doing_clr))) {
-            vlSelf->__PVT__axi_rw_interface__DOT__dcache_wr_doing 
-                = ((~ (IData)(vlSelf->__PVT__axi_rw_interface__DOT__dcache_wr_doing_clr)) 
-                   & (IData)(vlSelf->__PVT__axi_rw_interface__DOT__dcache_wr_doing_set));
-        }
-        vlSelf->__PVT__axi_rw_interface__DOT__r_cur_state 
-            = vlSelf->__PVT__axi_rw_interface__DOT__r_next_state;
-        vlSelf->__PVT__axi_rw_interface__DOT__w_cur_state 
-            = vlSelf->__PVT__axi_rw_interface__DOT__w_next_state;
-        if (((IData)(vlSelf->__PVT__axi_rw_interface__DOT__dcache_rd_doing_set) 
-             | (IData)(vlSelf->__PVT__axi_rw_interface__DOT__dcache_rd_doing_clr))) {
-            vlSelf->__PVT__axi_rw_interface__DOT__dcache_rd_doing 
-                = ((~ (IData)(vlSelf->__PVT__axi_rw_interface__DOT__dcache_rd_doing_clr)) 
-                   & (IData)(vlSelf->__PVT__axi_rw_interface__DOT__dcache_rd_doing_set));
-        }
-        if (((IData)(vlSelf->__PVT__axi_rw_interface__DOT__icache_rd_doing_set) 
-             | (IData)(vlSelf->__PVT__axi_rw_interface__DOT__icache_rd_doing_clr))) {
-            vlSelf->__PVT__axi_rw_interface__DOT__icache_rd_doing 
-                = ((~ (IData)(vlSelf->__PVT__axi_rw_interface__DOT__icache_rd_doing_clr)) 
-                   & (IData)(vlSelf->__PVT__axi_rw_interface__DOT__icache_rd_doing_set));
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__127__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__127__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__126__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__126__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__125__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__125__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__124__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__124__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__123__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__123__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__122__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__122__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__121__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__121__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__120__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__120__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__119__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__119__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__118__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__118__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__117__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__117__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__116__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__116__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__115__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__115__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__114__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__114__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__113__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__113__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__112__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__112__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__111__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__111__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__110__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__110__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__109__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__109__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__108__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__108__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__107__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__107__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__106__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__106__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__105__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__105__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__104__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__104__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__103__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__103__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__102__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__102__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__101__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__101__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__100__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__100__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__99__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__99__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__98__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__98__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__97__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__97__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__96__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__96__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__95__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__95__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__94__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__94__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__93__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__93__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__92__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__92__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__91__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__91__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__90__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__90__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__89__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__89__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__88__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__88__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__87__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__87__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__86__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__86__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__85__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__85__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__84__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__84__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__83__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__83__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__82__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__82__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__81__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__81__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__80__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__80__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__79__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__79__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__78__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__78__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__77__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__77__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__76__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__76__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__75__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__75__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__74__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__74__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__73__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__73__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__72__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__72__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__71__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__71__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__70__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__70__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__69__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__69__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__68__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__68__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__67__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__67__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__66__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__66__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__65__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__65__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__64__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__64__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__63__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__63__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__62__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__62__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__61__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__61__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__60__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__60__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__59__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__59__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__58__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__58__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__57__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__57__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__56__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__56__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__55__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__55__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__54__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__54__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__53__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__53__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__52__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__52__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__51__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__51__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__50__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__50__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__49__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__49__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__48__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__48__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__47__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__47__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__46__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__46__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__45__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__45__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__44__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__44__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__43__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__43__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__42__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__42__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__41__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__41__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__40__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__40__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__39__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__39__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__38__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__38__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__37__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__37__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__36__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__36__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__35__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__35__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__34__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__34__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__33__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__33__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__32__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__32__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__31__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__31__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__30__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__30__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__29__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__29__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__28__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__28__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__27__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__27__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__26__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__26__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__25__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__25__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__24__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__24__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__23__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__23__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__22__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__22__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__21__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__21__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__20__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__20__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__19__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__19__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__18__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__18__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__17__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__17__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__16__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__16__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__15__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__15__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__14__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__14__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__13__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__13__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__12__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__12__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__11__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__11__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__10__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__10__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__9__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__9__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__8__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__8__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__7__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__7__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__6__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__6__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__5__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__5__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__4__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__4__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__3__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__3__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__2__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__2__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__1__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__1__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__0__KET____DOT__recently_used_reg__wen) {
-            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__0__KET____DOT__recently_used_reg__dout 
-                = vlSelf->__PVT__dcache__DOT__curent_way;
-        }
-    }
-    __Vtemp_h60d23306__0[0U] = (IData)((((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__63__KET____DOT__recently_used_reg__dout)) 
-                                         << 0x3fU) 
-                                        | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__62__KET____DOT__recently_used_reg__dout)) 
-                                            << 0x3eU) 
-                                           | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__61__KET____DOT__recently_used_reg__dout)) 
-                                               << 0x3dU) 
-                                              | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__60__KET____DOT__recently_used_reg__dout)) 
-                                                  << 0x3cU) 
-                                                 | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__59__KET____DOT__recently_used_reg__dout)) 
-                                                     << 0x3bU) 
-                                                    | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__58__KET____DOT__recently_used_reg__dout)) 
-                                                        << 0x3aU) 
-                                                       | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__57__KET____DOT__recently_used_reg__dout)) 
-                                                           << 0x39U) 
-                                                          | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__56__KET____DOT__recently_used_reg__dout)) 
-                                                              << 0x38U) 
-                                                             | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__55__KET____DOT__recently_used_reg__dout)) 
-                                                                 << 0x37U) 
-                                                                | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__54__KET____DOT__recently_used_reg__dout)) 
-                                                                    << 0x36U) 
-                                                                   | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__53__KET____DOT__recently_used_reg__dout)) 
-                                                                       << 0x35U) 
-                                                                      | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__52__KET____DOT__recently_used_reg__dout)) 
-                                                                          << 0x34U) 
-                                                                         | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__51__KET____DOT__recently_used_reg__dout)) 
-                                                                             << 0x33U) 
-                                                                            | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__50__KET____DOT__recently_used_reg__dout)) 
-                                                                                << 0x32U) 
-                                                                               | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__49__KET____DOT__recently_used_reg__dout)) 
-                                                                                << 0x31U) 
-                                                                                | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__48__KET____DOT__recently_used_reg__dout)) 
-                                                                                << 0x30U) 
-                                                                                | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__47__KET____DOT__recently_used_reg__dout)) 
-                                                                                << 0x2fU) 
-                                                                                | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__46__KET____DOT__recently_used_reg__dout)) 
-                                                                                << 0x2eU) 
-                                                                                | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__45__KET____DOT__recently_used_reg__dout)) 
-                                                                                << 0x2dU) 
-                                                                                | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__44__KET____DOT__recently_used_reg__dout)) 
-                                                                                << 0x2cU) 
-                                                                                | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__43__KET____DOT__recently_used_reg__dout)) 
-                                                                                << 0x2bU) 
-                                                                                | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__42__KET____DOT__recently_used_reg__dout)) 
-                                                                                << 0x2aU) 
-                                                                                | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__41__KET____DOT__recently_used_reg__dout)) 
-                                                                                << 0x29U) 
-                                                                                | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__40__KET____DOT__recently_used_reg__dout)) 
-                                                                                << 0x28U) 
-                                                                                | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__39__KET____DOT__recently_used_reg__dout)) 
-                                                                                << 0x27U) 
-                                                                                | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__38__KET____DOT__recently_used_reg__dout)) 
-                                                                                << 0x26U) 
-                                                                                | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__37__KET____DOT__recently_used_reg__dout)) 
-                                                                                << 0x25U) 
-                                                                                | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__36__KET____DOT__recently_used_reg__dout)) 
-                                                                                << 0x24U) 
-                                                                                | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__35__KET____DOT__recently_used_reg__dout)) 
-                                                                                << 0x23U) 
-                                                                                | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__34__KET____DOT__recently_used_reg__dout)) 
-                                                                                << 0x22U) 
-                                                                                | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__33__KET____DOT__recently_used_reg__dout)) 
-                                                                                << 0x21U) 
-                                                                                | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__32__KET____DOT__recently_used_reg__dout)) 
-                                                                                << 0x20U) 
-                                                                                | (QData)((IData)(
-                                                                                (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__31__KET____DOT__recently_used_reg__dout) 
-                                                                                << 0x1fU) 
-                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__30__KET____DOT__recently_used_reg__dout) 
-                                                                                << 0x1eU) 
-                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__29__KET____DOT__recently_used_reg__dout) 
-                                                                                << 0x1dU) 
-                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__28__KET____DOT__recently_used_reg__dout) 
-                                                                                << 0x1cU) 
-                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__27__KET____DOT__recently_used_reg__dout) 
-                                                                                << 0x1bU) 
-                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__26__KET____DOT__recently_used_reg__dout) 
-                                                                                << 0x1aU) 
-                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__25__KET____DOT__recently_used_reg__dout) 
-                                                                                << 0x19U) 
-                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__24__KET____DOT__recently_used_reg__dout) 
-                                                                                << 0x18U) 
-                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__23__KET____DOT__recently_used_reg__dout) 
-                                                                                << 0x17U) 
-                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__22__KET____DOT__recently_used_reg__dout) 
-                                                                                << 0x16U) 
-                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__21__KET____DOT__recently_used_reg__dout) 
-                                                                                << 0x15U) 
-                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__20__KET____DOT__recently_used_reg__dout) 
-                                                                                << 0x14U) 
-                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__19__KET____DOT__recently_used_reg__dout) 
-                                                                                << 0x13U) 
-                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__18__KET____DOT__recently_used_reg__dout) 
-                                                                                << 0x12U) 
-                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__17__KET____DOT__recently_used_reg__dout) 
-                                                                                << 0x11U) 
-                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__16__KET____DOT__recently_used_reg__dout) 
-                                                                                << 0x10U) 
-                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__15__KET____DOT__recently_used_reg__dout) 
-                                                                                << 0xfU) 
-                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__14__KET____DOT__recently_used_reg__dout) 
-                                                                                << 0xeU) 
-                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__13__KET____DOT__recently_used_reg__dout) 
-                                                                                << 0xdU) 
-                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__12__KET____DOT__recently_used_reg__dout) 
-                                                                                << 0xcU) 
-                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__11__KET____DOT__recently_used_reg__dout) 
-                                                                                << 0xbU) 
-                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__10__KET____DOT__recently_used_reg__dout) 
-                                                                                << 0xaU) 
-                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__9__KET____DOT__recently_used_reg__dout) 
-                                                                                << 9U) 
-                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__8__KET____DOT__recently_used_reg__dout) 
-                                                                                << 8U) 
-                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__7__KET____DOT__recently_used_reg__dout) 
-                                                                                << 7U) 
-                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__6__KET____DOT__recently_used_reg__dout) 
-                                                                                << 6U) 
-                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__5__KET____DOT__recently_used_reg__dout) 
-                                                                                << 5U) 
-                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__4__KET____DOT__recently_used_reg__dout) 
-                                                                                << 4U) 
-                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__3__KET____DOT__recently_used_reg__dout) 
-                                                                                << 3U) 
-                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__2__KET____DOT__recently_used_reg__dout) 
-                                                                                << 2U) 
-                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__1__KET____DOT__recently_used_reg__dout) 
-                                                                                << 1U) 
-                                                                                | (IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__0__KET____DOT__recently_used_reg__dout)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))));
-    __Vtemp_h60d23306__0[1U] = (IData)(((((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__63__KET____DOT__recently_used_reg__dout)) 
-                                          << 0x3fU) 
-                                         | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__62__KET____DOT__recently_used_reg__dout)) 
-                                             << 0x3eU) 
-                                            | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__61__KET____DOT__recently_used_reg__dout)) 
-                                                << 0x3dU) 
-                                               | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__60__KET____DOT__recently_used_reg__dout)) 
-                                                   << 0x3cU) 
-                                                  | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__59__KET____DOT__recently_used_reg__dout)) 
-                                                      << 0x3bU) 
-                                                     | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__58__KET____DOT__recently_used_reg__dout)) 
-                                                         << 0x3aU) 
-                                                        | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__57__KET____DOT__recently_used_reg__dout)) 
-                                                            << 0x39U) 
-                                                           | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__56__KET____DOT__recently_used_reg__dout)) 
-                                                               << 0x38U) 
-                                                              | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__55__KET____DOT__recently_used_reg__dout)) 
-                                                                  << 0x37U) 
-                                                                 | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__54__KET____DOT__recently_used_reg__dout)) 
-                                                                     << 0x36U) 
-                                                                    | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__53__KET____DOT__recently_used_reg__dout)) 
-                                                                        << 0x35U) 
-                                                                       | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__52__KET____DOT__recently_used_reg__dout)) 
-                                                                           << 0x34U) 
-                                                                          | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__51__KET____DOT__recently_used_reg__dout)) 
-                                                                              << 0x33U) 
-                                                                             | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__50__KET____DOT__recently_used_reg__dout)) 
-                                                                                << 0x32U) 
-                                                                                | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__49__KET____DOT__recently_used_reg__dout)) 
-                                                                                << 0x31U) 
-                                                                                | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__48__KET____DOT__recently_used_reg__dout)) 
-                                                                                << 0x30U) 
-                                                                                | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__47__KET____DOT__recently_used_reg__dout)) 
-                                                                                << 0x2fU) 
-                                                                                | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__46__KET____DOT__recently_used_reg__dout)) 
-                                                                                << 0x2eU) 
-                                                                                | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__45__KET____DOT__recently_used_reg__dout)) 
-                                                                                << 0x2dU) 
-                                                                                | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__44__KET____DOT__recently_used_reg__dout)) 
-                                                                                << 0x2cU) 
-                                                                                | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__43__KET____DOT__recently_used_reg__dout)) 
-                                                                                << 0x2bU) 
-                                                                                | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__42__KET____DOT__recently_used_reg__dout)) 
-                                                                                << 0x2aU) 
-                                                                                | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__41__KET____DOT__recently_used_reg__dout)) 
-                                                                                << 0x29U) 
-                                                                                | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__40__KET____DOT__recently_used_reg__dout)) 
-                                                                                << 0x28U) 
-                                                                                | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__39__KET____DOT__recently_used_reg__dout)) 
-                                                                                << 0x27U) 
-                                                                                | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__38__KET____DOT__recently_used_reg__dout)) 
-                                                                                << 0x26U) 
-                                                                                | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__37__KET____DOT__recently_used_reg__dout)) 
-                                                                                << 0x25U) 
-                                                                                | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__36__KET____DOT__recently_used_reg__dout)) 
-                                                                                << 0x24U) 
-                                                                                | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__35__KET____DOT__recently_used_reg__dout)) 
-                                                                                << 0x23U) 
-                                                                                | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__34__KET____DOT__recently_used_reg__dout)) 
-                                                                                << 0x22U) 
-                                                                                | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__33__KET____DOT__recently_used_reg__dout)) 
-                                                                                << 0x21U) 
-                                                                                | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__32__KET____DOT__recently_used_reg__dout)) 
-                                                                                << 0x20U) 
-                                                                                | (QData)((IData)(
-                                                                                (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__31__KET____DOT__recently_used_reg__dout) 
-                                                                                << 0x1fU) 
-                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__30__KET____DOT__recently_used_reg__dout) 
-                                                                                << 0x1eU) 
-                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__29__KET____DOT__recently_used_reg__dout) 
-                                                                                << 0x1dU) 
-                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__28__KET____DOT__recently_used_reg__dout) 
-                                                                                << 0x1cU) 
-                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__27__KET____DOT__recently_used_reg__dout) 
-                                                                                << 0x1bU) 
-                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__26__KET____DOT__recently_used_reg__dout) 
-                                                                                << 0x1aU) 
-                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__25__KET____DOT__recently_used_reg__dout) 
-                                                                                << 0x19U) 
-                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__24__KET____DOT__recently_used_reg__dout) 
-                                                                                << 0x18U) 
-                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__23__KET____DOT__recently_used_reg__dout) 
-                                                                                << 0x17U) 
-                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__22__KET____DOT__recently_used_reg__dout) 
-                                                                                << 0x16U) 
-                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__21__KET____DOT__recently_used_reg__dout) 
-                                                                                << 0x15U) 
-                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__20__KET____DOT__recently_used_reg__dout) 
-                                                                                << 0x14U) 
-                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__19__KET____DOT__recently_used_reg__dout) 
-                                                                                << 0x13U) 
-                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__18__KET____DOT__recently_used_reg__dout) 
-                                                                                << 0x12U) 
-                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__17__KET____DOT__recently_used_reg__dout) 
-                                                                                << 0x11U) 
-                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__16__KET____DOT__recently_used_reg__dout) 
-                                                                                << 0x10U) 
-                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__15__KET____DOT__recently_used_reg__dout) 
-                                                                                << 0xfU) 
-                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__14__KET____DOT__recently_used_reg__dout) 
-                                                                                << 0xeU) 
-                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__13__KET____DOT__recently_used_reg__dout) 
-                                                                                << 0xdU) 
-                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__12__KET____DOT__recently_used_reg__dout) 
-                                                                                << 0xcU) 
-                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__11__KET____DOT__recently_used_reg__dout) 
-                                                                                << 0xbU) 
-                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__10__KET____DOT__recently_used_reg__dout) 
-                                                                                << 0xaU) 
-                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__9__KET____DOT__recently_used_reg__dout) 
-                                                                                << 9U) 
-                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__8__KET____DOT__recently_used_reg__dout) 
-                                                                                << 8U) 
-                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__7__KET____DOT__recently_used_reg__dout) 
-                                                                                << 7U) 
-                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__6__KET____DOT__recently_used_reg__dout) 
-                                                                                << 6U) 
-                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__5__KET____DOT__recently_used_reg__dout) 
-                                                                                << 5U) 
-                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__4__KET____DOT__recently_used_reg__dout) 
-                                                                                << 4U) 
-                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__3__KET____DOT__recently_used_reg__dout) 
-                                                                                << 3U) 
-                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__2__KET____DOT__recently_used_reg__dout) 
-                                                                                << 2U) 
-                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__1__KET____DOT__recently_used_reg__dout) 
-                                                                                << 1U) 
-                                                                                | (IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__0__KET____DOT__recently_used_reg__dout)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))) 
-                                        >> 0x20U));
-    __Vtemp_ha4accee4__0[2U] = (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__80__KET____DOT__recently_used_reg__dout) 
-                                 << 0x10U) | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__79__KET____DOT__recently_used_reg__dout) 
-                                               << 0xfU) 
-                                              | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__78__KET____DOT__recently_used_reg__dout) 
-                                                  << 0xeU) 
-                                                 | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__77__KET____DOT__recently_used_reg__dout) 
-                                                     << 0xdU) 
-                                                    | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__76__KET____DOT__recently_used_reg__dout) 
-                                                        << 0xcU) 
-                                                       | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__75__KET____DOT__recently_used_reg__dout) 
-                                                           << 0xbU) 
-                                                          | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__74__KET____DOT__recently_used_reg__dout) 
-                                                              << 0xaU) 
-                                                             | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__73__KET____DOT__recently_used_reg__dout) 
-                                                                 << 9U) 
-                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__72__KET____DOT__recently_used_reg__dout) 
-                                                                    << 8U) 
-                                                                   | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__71__KET____DOT__recently_used_reg__dout) 
-                                                                       << 7U) 
-                                                                      | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__70__KET____DOT__recently_used_reg__dout) 
-                                                                          << 6U) 
-                                                                         | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__69__KET____DOT__recently_used_reg__dout) 
-                                                                             << 5U) 
-                                                                            | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__68__KET____DOT__recently_used_reg__dout) 
-                                                                                << 4U) 
-                                                                               | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__67__KET____DOT__recently_used_reg__dout) 
-                                                                                << 3U) 
-                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__66__KET____DOT__recently_used_reg__dout) 
-                                                                                << 2U) 
-                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__65__KET____DOT__recently_used_reg__dout) 
-                                                                                << 1U) 
-                                                                                | (IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__64__KET____DOT__recently_used_reg__dout)))))))))))))))));
-    __Vtemp_h009edad0__0[3U] = (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__112__KET____DOT__recently_used_reg__dout) 
-                                 << 0x10U) | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__111__KET____DOT__recently_used_reg__dout) 
-                                               << 0xfU) 
-                                              | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__110__KET____DOT__recently_used_reg__dout) 
-                                                  << 0xeU) 
-                                                 | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__109__KET____DOT__recently_used_reg__dout) 
-                                                     << 0xdU) 
-                                                    | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__108__KET____DOT__recently_used_reg__dout) 
-                                                        << 0xcU) 
-                                                       | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__107__KET____DOT__recently_used_reg__dout) 
-                                                           << 0xbU) 
-                                                          | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__106__KET____DOT__recently_used_reg__dout) 
-                                                              << 0xaU) 
-                                                             | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__105__KET____DOT__recently_used_reg__dout) 
-                                                                 << 9U) 
-                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__104__KET____DOT__recently_used_reg__dout) 
-                                                                    << 8U) 
-                                                                   | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__103__KET____DOT__recently_used_reg__dout) 
-                                                                       << 7U) 
-                                                                      | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__102__KET____DOT__recently_used_reg__dout) 
-                                                                          << 6U) 
-                                                                         | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__101__KET____DOT__recently_used_reg__dout) 
-                                                                             << 5U) 
-                                                                            | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__100__KET____DOT__recently_used_reg__dout) 
-                                                                                << 4U) 
-                                                                               | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__99__KET____DOT__recently_used_reg__dout) 
-                                                                                << 3U) 
-                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__98__KET____DOT__recently_used_reg__dout) 
-                                                                                << 2U) 
-                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__97__KET____DOT__recently_used_reg__dout) 
-                                                                                << 1U) 
-                                                                                | (IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__96__KET____DOT__recently_used_reg__dout)))))))))))))))));
-    vlSelf->__PVT__dcache__DOT__recently_used_way[0U] 
-        = __Vtemp_h60d23306__0[0U];
-    vlSelf->__PVT__dcache__DOT__recently_used_way[1U] 
-        = __Vtemp_h60d23306__0[1U];
-    vlSelf->__PVT__dcache__DOT__recently_used_way[2U] 
-        = (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__95__KET____DOT__recently_used_reg__dout) 
-            << 0x1fU) | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__94__KET____DOT__recently_used_reg__dout) 
-                          << 0x1eU) | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__93__KET____DOT__recently_used_reg__dout) 
-                                        << 0x1dU) | 
-                                       (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__92__KET____DOT__recently_used_reg__dout) 
-                                         << 0x1cU) 
-                                        | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__91__KET____DOT__recently_used_reg__dout) 
-                                            << 0x1bU) 
-                                           | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__90__KET____DOT__recently_used_reg__dout) 
-                                               << 0x1aU) 
-                                              | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__89__KET____DOT__recently_used_reg__dout) 
-                                                  << 0x19U) 
-                                                 | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__88__KET____DOT__recently_used_reg__dout) 
-                                                     << 0x18U) 
-                                                    | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__87__KET____DOT__recently_used_reg__dout) 
-                                                        << 0x17U) 
-                                                       | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__86__KET____DOT__recently_used_reg__dout) 
-                                                           << 0x16U) 
-                                                          | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__85__KET____DOT__recently_used_reg__dout) 
-                                                              << 0x15U) 
-                                                             | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__84__KET____DOT__recently_used_reg__dout) 
-                                                                 << 0x14U) 
-                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__83__KET____DOT__recently_used_reg__dout) 
-                                                                    << 0x13U) 
-                                                                   | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__82__KET____DOT__recently_used_reg__dout) 
-                                                                       << 0x12U) 
-                                                                      | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__81__KET____DOT__recently_used_reg__dout) 
-                                                                          << 0x11U) 
-                                                                         | __Vtemp_ha4accee4__0[2U])))))))))))))));
-    vlSelf->__PVT__dcache__DOT__recently_used_way[3U] 
-        = (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__127__KET____DOT__recently_used_reg__dout) 
-            << 0x1fU) | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__126__KET____DOT__recently_used_reg__dout) 
-                          << 0x1eU) | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__125__KET____DOT__recently_used_reg__dout) 
-                                        << 0x1dU) | 
-                                       (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__124__KET____DOT__recently_used_reg__dout) 
-                                         << 0x1cU) 
-                                        | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__123__KET____DOT__recently_used_reg__dout) 
-                                            << 0x1bU) 
-                                           | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__122__KET____DOT__recently_used_reg__dout) 
-                                               << 0x1aU) 
-                                              | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__121__KET____DOT__recently_used_reg__dout) 
-                                                  << 0x19U) 
-                                                 | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__120__KET____DOT__recently_used_reg__dout) 
-                                                     << 0x18U) 
-                                                    | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__119__KET____DOT__recently_used_reg__dout) 
-                                                        << 0x17U) 
-                                                       | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__118__KET____DOT__recently_used_reg__dout) 
-                                                           << 0x16U) 
-                                                          | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__117__KET____DOT__recently_used_reg__dout) 
-                                                              << 0x15U) 
-                                                             | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__116__KET____DOT__recently_used_reg__dout) 
-                                                                 << 0x14U) 
-                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__115__KET____DOT__recently_used_reg__dout) 
-                                                                    << 0x13U) 
-                                                                   | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__114__KET____DOT__recently_used_reg__dout) 
-                                                                       << 0x12U) 
-                                                                      | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__113__KET____DOT__recently_used_reg__dout) 
-                                                                          << 0x11U) 
-                                                                         | __Vtemp_h009edad0__0[3U])))))))))))))));
-    if (vlSymsp->TOP.rst) {
         vlSelf->icache__DOT____Vcellout__recently_used_regs_gen__BRA__127__KET____DOT__recently_used_reg__dout = 0U;
         vlSelf->icache__DOT____Vcellout__recently_used_regs_gen__BRA__126__KET____DOT__recently_used_reg__dout = 0U;
         vlSelf->icache__DOT____Vcellout__recently_used_regs_gen__BRA__125__KET____DOT__recently_used_reg__dout = 0U;
@@ -1896,6 +937,28 @@ VL_INLINE_OPT void Vtop_top___nba_sequent__TOP__top__0(Vtop_top* vlSelf) {
         vlSelf->icache__DOT____Vcellout__recently_used_regs_gen__BRA__1__KET____DOT__recently_used_reg__dout = 0U;
         vlSelf->icache__DOT____Vcellout__recently_used_regs_gen__BRA__0__KET____DOT__recently_used_reg__dout = 0U;
     } else {
+        if (((IData)(vlSelf->__PVT__axi_rw_interface__DOT__dcache_wr_doing_set) 
+             | (IData)(vlSelf->__PVT__axi_rw_interface__DOT__dcache_wr_doing_clr))) {
+            vlSelf->__PVT__axi_rw_interface__DOT__dcache_wr_doing 
+                = ((~ (IData)(vlSelf->__PVT__axi_rw_interface__DOT__dcache_wr_doing_clr)) 
+                   & (IData)(vlSelf->__PVT__axi_rw_interface__DOT__dcache_wr_doing_set));
+        }
+        vlSelf->__PVT__axi_rw_interface__DOT__r_cur_state 
+            = vlSelf->__PVT__axi_rw_interface__DOT__r_next_state;
+        vlSelf->__PVT__axi_rw_interface__DOT__w_cur_state 
+            = vlSelf->__PVT__axi_rw_interface__DOT__w_next_state;
+        if (((IData)(vlSelf->__PVT__axi_rw_interface__DOT__dcache_rd_doing_set) 
+             | (IData)(vlSelf->__PVT__axi_rw_interface__DOT__dcache_rd_doing_clr))) {
+            vlSelf->__PVT__axi_rw_interface__DOT__dcache_rd_doing 
+                = ((~ (IData)(vlSelf->__PVT__axi_rw_interface__DOT__dcache_rd_doing_clr)) 
+                   & (IData)(vlSelf->__PVT__axi_rw_interface__DOT__dcache_rd_doing_set));
+        }
+        if (((IData)(vlSelf->__PVT__axi_rw_interface__DOT__icache_rd_doing_set) 
+             | (IData)(vlSelf->__PVT__axi_rw_interface__DOT__icache_rd_doing_clr))) {
+            vlSelf->__PVT__axi_rw_interface__DOT__icache_rd_doing 
+                = ((~ (IData)(vlSelf->__PVT__axi_rw_interface__DOT__icache_rd_doing_clr)) 
+                   & (IData)(vlSelf->__PVT__axi_rw_interface__DOT__icache_rd_doing_set));
+        }
         if (vlSelf->icache__DOT____Vcellinp__recently_used_regs_gen__BRA__127__KET____DOT__recently_used_reg__wen) {
             vlSelf->icache__DOT____Vcellout__recently_used_regs_gen__BRA__127__KET____DOT__recently_used_reg__dout 
                 = vlSelf->__PVT__icache__DOT__curent_way;
@@ -2795,6 +1858,1034 @@ VL_INLINE_OPT void Vtop_top___nba_sequent__TOP__top__0(Vtop_top* vlSelf) {
                                                                           << 0x11U) 
                                                                          | __Vtemp_h413d8078__0[3U])))))))))))))));
     if (vlSymsp->TOP.rst) {
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__127__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__126__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__125__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__124__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__123__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__122__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__121__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__120__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__119__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__118__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__117__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__116__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__115__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__114__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__113__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__112__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__111__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__110__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__109__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__108__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__107__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__106__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__105__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__104__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__103__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__102__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__101__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__100__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__99__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__98__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__97__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__96__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__95__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__94__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__93__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__92__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__91__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__90__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__89__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__88__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__87__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__86__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__85__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__84__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__83__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__82__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__81__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__80__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__79__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__78__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__77__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__76__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__75__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__74__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__73__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__72__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__71__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__70__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__69__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__68__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__67__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__66__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__65__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__64__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__63__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__62__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__61__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__60__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__59__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__58__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__57__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__56__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__55__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__54__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__53__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__52__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__51__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__50__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__49__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__48__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__47__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__46__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__45__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__44__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__43__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__42__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__41__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__40__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__39__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__38__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__37__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__36__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__35__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__34__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__33__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__32__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__31__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__30__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__29__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__28__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__27__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__26__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__25__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__24__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__23__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__22__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__21__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__20__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__19__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__18__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__17__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__16__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__15__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__14__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__13__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__12__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__11__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__10__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__9__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__8__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__7__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__6__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__5__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__4__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__3__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__2__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__1__KET____DOT__recently_used_reg__dout = 0U;
+        vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__0__KET____DOT__recently_used_reg__dout = 0U;
+    } else {
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__127__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__127__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__126__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__126__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__125__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__125__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__124__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__124__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__123__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__123__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__122__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__122__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__121__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__121__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__120__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__120__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__119__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__119__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__118__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__118__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__117__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__117__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__116__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__116__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__115__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__115__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__114__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__114__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__113__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__113__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__112__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__112__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__111__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__111__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__110__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__110__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__109__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__109__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__108__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__108__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__107__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__107__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__106__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__106__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__105__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__105__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__104__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__104__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__103__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__103__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__102__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__102__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__101__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__101__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__100__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__100__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__99__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__99__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__98__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__98__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__97__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__97__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__96__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__96__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__95__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__95__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__94__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__94__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__93__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__93__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__92__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__92__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__91__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__91__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__90__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__90__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__89__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__89__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__88__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__88__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__87__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__87__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__86__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__86__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__85__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__85__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__84__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__84__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__83__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__83__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__82__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__82__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__81__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__81__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__80__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__80__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__79__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__79__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__78__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__78__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__77__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__77__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__76__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__76__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__75__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__75__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__74__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__74__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__73__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__73__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__72__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__72__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__71__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__71__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__70__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__70__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__69__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__69__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__68__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__68__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__67__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__67__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__66__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__66__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__65__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__65__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__64__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__64__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__63__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__63__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__62__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__62__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__61__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__61__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__60__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__60__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__59__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__59__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__58__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__58__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__57__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__57__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__56__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__56__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__55__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__55__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__54__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__54__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__53__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__53__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__52__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__52__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__51__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__51__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__50__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__50__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__49__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__49__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__48__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__48__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__47__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__47__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__46__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__46__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__45__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__45__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__44__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__44__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__43__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__43__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__42__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__42__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__41__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__41__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__40__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__40__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__39__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__39__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__38__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__38__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__37__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__37__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__36__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__36__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__35__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__35__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__34__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__34__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__33__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__33__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__32__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__32__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__31__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__31__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__30__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__30__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__29__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__29__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__28__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__28__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__27__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__27__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__26__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__26__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__25__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__25__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__24__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__24__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__23__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__23__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__22__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__22__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__21__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__21__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__20__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__20__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__19__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__19__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__18__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__18__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__17__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__17__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__16__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__16__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__15__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__15__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__14__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__14__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__13__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__13__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__12__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__12__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__11__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__11__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__10__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__10__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__9__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__9__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__8__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__8__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__7__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__7__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__6__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__6__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__5__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__5__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__4__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__4__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__3__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__3__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__2__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__2__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__1__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__1__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+        if (vlSelf->dcache__DOT____Vcellinp__recently_used_regs_gen__BRA__0__KET____DOT__recently_used_reg__wen) {
+            vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__0__KET____DOT__recently_used_reg__dout 
+                = vlSelf->__PVT__dcache__DOT__curent_way;
+        }
+    }
+    __Vtemp_h60d23306__0[0U] = (IData)((((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__63__KET____DOT__recently_used_reg__dout)) 
+                                         << 0x3fU) 
+                                        | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__62__KET____DOT__recently_used_reg__dout)) 
+                                            << 0x3eU) 
+                                           | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__61__KET____DOT__recently_used_reg__dout)) 
+                                               << 0x3dU) 
+                                              | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__60__KET____DOT__recently_used_reg__dout)) 
+                                                  << 0x3cU) 
+                                                 | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__59__KET____DOT__recently_used_reg__dout)) 
+                                                     << 0x3bU) 
+                                                    | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__58__KET____DOT__recently_used_reg__dout)) 
+                                                        << 0x3aU) 
+                                                       | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__57__KET____DOT__recently_used_reg__dout)) 
+                                                           << 0x39U) 
+                                                          | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__56__KET____DOT__recently_used_reg__dout)) 
+                                                              << 0x38U) 
+                                                             | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__55__KET____DOT__recently_used_reg__dout)) 
+                                                                 << 0x37U) 
+                                                                | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__54__KET____DOT__recently_used_reg__dout)) 
+                                                                    << 0x36U) 
+                                                                   | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__53__KET____DOT__recently_used_reg__dout)) 
+                                                                       << 0x35U) 
+                                                                      | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__52__KET____DOT__recently_used_reg__dout)) 
+                                                                          << 0x34U) 
+                                                                         | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__51__KET____DOT__recently_used_reg__dout)) 
+                                                                             << 0x33U) 
+                                                                            | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__50__KET____DOT__recently_used_reg__dout)) 
+                                                                                << 0x32U) 
+                                                                               | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__49__KET____DOT__recently_used_reg__dout)) 
+                                                                                << 0x31U) 
+                                                                                | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__48__KET____DOT__recently_used_reg__dout)) 
+                                                                                << 0x30U) 
+                                                                                | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__47__KET____DOT__recently_used_reg__dout)) 
+                                                                                << 0x2fU) 
+                                                                                | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__46__KET____DOT__recently_used_reg__dout)) 
+                                                                                << 0x2eU) 
+                                                                                | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__45__KET____DOT__recently_used_reg__dout)) 
+                                                                                << 0x2dU) 
+                                                                                | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__44__KET____DOT__recently_used_reg__dout)) 
+                                                                                << 0x2cU) 
+                                                                                | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__43__KET____DOT__recently_used_reg__dout)) 
+                                                                                << 0x2bU) 
+                                                                                | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__42__KET____DOT__recently_used_reg__dout)) 
+                                                                                << 0x2aU) 
+                                                                                | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__41__KET____DOT__recently_used_reg__dout)) 
+                                                                                << 0x29U) 
+                                                                                | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__40__KET____DOT__recently_used_reg__dout)) 
+                                                                                << 0x28U) 
+                                                                                | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__39__KET____DOT__recently_used_reg__dout)) 
+                                                                                << 0x27U) 
+                                                                                | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__38__KET____DOT__recently_used_reg__dout)) 
+                                                                                << 0x26U) 
+                                                                                | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__37__KET____DOT__recently_used_reg__dout)) 
+                                                                                << 0x25U) 
+                                                                                | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__36__KET____DOT__recently_used_reg__dout)) 
+                                                                                << 0x24U) 
+                                                                                | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__35__KET____DOT__recently_used_reg__dout)) 
+                                                                                << 0x23U) 
+                                                                                | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__34__KET____DOT__recently_used_reg__dout)) 
+                                                                                << 0x22U) 
+                                                                                | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__33__KET____DOT__recently_used_reg__dout)) 
+                                                                                << 0x21U) 
+                                                                                | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__32__KET____DOT__recently_used_reg__dout)) 
+                                                                                << 0x20U) 
+                                                                                | (QData)((IData)(
+                                                                                (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__31__KET____DOT__recently_used_reg__dout) 
+                                                                                << 0x1fU) 
+                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__30__KET____DOT__recently_used_reg__dout) 
+                                                                                << 0x1eU) 
+                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__29__KET____DOT__recently_used_reg__dout) 
+                                                                                << 0x1dU) 
+                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__28__KET____DOT__recently_used_reg__dout) 
+                                                                                << 0x1cU) 
+                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__27__KET____DOT__recently_used_reg__dout) 
+                                                                                << 0x1bU) 
+                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__26__KET____DOT__recently_used_reg__dout) 
+                                                                                << 0x1aU) 
+                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__25__KET____DOT__recently_used_reg__dout) 
+                                                                                << 0x19U) 
+                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__24__KET____DOT__recently_used_reg__dout) 
+                                                                                << 0x18U) 
+                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__23__KET____DOT__recently_used_reg__dout) 
+                                                                                << 0x17U) 
+                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__22__KET____DOT__recently_used_reg__dout) 
+                                                                                << 0x16U) 
+                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__21__KET____DOT__recently_used_reg__dout) 
+                                                                                << 0x15U) 
+                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__20__KET____DOT__recently_used_reg__dout) 
+                                                                                << 0x14U) 
+                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__19__KET____DOT__recently_used_reg__dout) 
+                                                                                << 0x13U) 
+                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__18__KET____DOT__recently_used_reg__dout) 
+                                                                                << 0x12U) 
+                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__17__KET____DOT__recently_used_reg__dout) 
+                                                                                << 0x11U) 
+                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__16__KET____DOT__recently_used_reg__dout) 
+                                                                                << 0x10U) 
+                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__15__KET____DOT__recently_used_reg__dout) 
+                                                                                << 0xfU) 
+                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__14__KET____DOT__recently_used_reg__dout) 
+                                                                                << 0xeU) 
+                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__13__KET____DOT__recently_used_reg__dout) 
+                                                                                << 0xdU) 
+                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__12__KET____DOT__recently_used_reg__dout) 
+                                                                                << 0xcU) 
+                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__11__KET____DOT__recently_used_reg__dout) 
+                                                                                << 0xbU) 
+                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__10__KET____DOT__recently_used_reg__dout) 
+                                                                                << 0xaU) 
+                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__9__KET____DOT__recently_used_reg__dout) 
+                                                                                << 9U) 
+                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__8__KET____DOT__recently_used_reg__dout) 
+                                                                                << 8U) 
+                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__7__KET____DOT__recently_used_reg__dout) 
+                                                                                << 7U) 
+                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__6__KET____DOT__recently_used_reg__dout) 
+                                                                                << 6U) 
+                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__5__KET____DOT__recently_used_reg__dout) 
+                                                                                << 5U) 
+                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__4__KET____DOT__recently_used_reg__dout) 
+                                                                                << 4U) 
+                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__3__KET____DOT__recently_used_reg__dout) 
+                                                                                << 3U) 
+                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__2__KET____DOT__recently_used_reg__dout) 
+                                                                                << 2U) 
+                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__1__KET____DOT__recently_used_reg__dout) 
+                                                                                << 1U) 
+                                                                                | (IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__0__KET____DOT__recently_used_reg__dout)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))));
+    __Vtemp_h60d23306__0[1U] = (IData)(((((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__63__KET____DOT__recently_used_reg__dout)) 
+                                          << 0x3fU) 
+                                         | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__62__KET____DOT__recently_used_reg__dout)) 
+                                             << 0x3eU) 
+                                            | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__61__KET____DOT__recently_used_reg__dout)) 
+                                                << 0x3dU) 
+                                               | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__60__KET____DOT__recently_used_reg__dout)) 
+                                                   << 0x3cU) 
+                                                  | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__59__KET____DOT__recently_used_reg__dout)) 
+                                                      << 0x3bU) 
+                                                     | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__58__KET____DOT__recently_used_reg__dout)) 
+                                                         << 0x3aU) 
+                                                        | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__57__KET____DOT__recently_used_reg__dout)) 
+                                                            << 0x39U) 
+                                                           | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__56__KET____DOT__recently_used_reg__dout)) 
+                                                               << 0x38U) 
+                                                              | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__55__KET____DOT__recently_used_reg__dout)) 
+                                                                  << 0x37U) 
+                                                                 | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__54__KET____DOT__recently_used_reg__dout)) 
+                                                                     << 0x36U) 
+                                                                    | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__53__KET____DOT__recently_used_reg__dout)) 
+                                                                        << 0x35U) 
+                                                                       | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__52__KET____DOT__recently_used_reg__dout)) 
+                                                                           << 0x34U) 
+                                                                          | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__51__KET____DOT__recently_used_reg__dout)) 
+                                                                              << 0x33U) 
+                                                                             | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__50__KET____DOT__recently_used_reg__dout)) 
+                                                                                << 0x32U) 
+                                                                                | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__49__KET____DOT__recently_used_reg__dout)) 
+                                                                                << 0x31U) 
+                                                                                | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__48__KET____DOT__recently_used_reg__dout)) 
+                                                                                << 0x30U) 
+                                                                                | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__47__KET____DOT__recently_used_reg__dout)) 
+                                                                                << 0x2fU) 
+                                                                                | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__46__KET____DOT__recently_used_reg__dout)) 
+                                                                                << 0x2eU) 
+                                                                                | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__45__KET____DOT__recently_used_reg__dout)) 
+                                                                                << 0x2dU) 
+                                                                                | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__44__KET____DOT__recently_used_reg__dout)) 
+                                                                                << 0x2cU) 
+                                                                                | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__43__KET____DOT__recently_used_reg__dout)) 
+                                                                                << 0x2bU) 
+                                                                                | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__42__KET____DOT__recently_used_reg__dout)) 
+                                                                                << 0x2aU) 
+                                                                                | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__41__KET____DOT__recently_used_reg__dout)) 
+                                                                                << 0x29U) 
+                                                                                | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__40__KET____DOT__recently_used_reg__dout)) 
+                                                                                << 0x28U) 
+                                                                                | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__39__KET____DOT__recently_used_reg__dout)) 
+                                                                                << 0x27U) 
+                                                                                | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__38__KET____DOT__recently_used_reg__dout)) 
+                                                                                << 0x26U) 
+                                                                                | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__37__KET____DOT__recently_used_reg__dout)) 
+                                                                                << 0x25U) 
+                                                                                | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__36__KET____DOT__recently_used_reg__dout)) 
+                                                                                << 0x24U) 
+                                                                                | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__35__KET____DOT__recently_used_reg__dout)) 
+                                                                                << 0x23U) 
+                                                                                | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__34__KET____DOT__recently_used_reg__dout)) 
+                                                                                << 0x22U) 
+                                                                                | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__33__KET____DOT__recently_used_reg__dout)) 
+                                                                                << 0x21U) 
+                                                                                | (((QData)((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__32__KET____DOT__recently_used_reg__dout)) 
+                                                                                << 0x20U) 
+                                                                                | (QData)((IData)(
+                                                                                (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__31__KET____DOT__recently_used_reg__dout) 
+                                                                                << 0x1fU) 
+                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__30__KET____DOT__recently_used_reg__dout) 
+                                                                                << 0x1eU) 
+                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__29__KET____DOT__recently_used_reg__dout) 
+                                                                                << 0x1dU) 
+                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__28__KET____DOT__recently_used_reg__dout) 
+                                                                                << 0x1cU) 
+                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__27__KET____DOT__recently_used_reg__dout) 
+                                                                                << 0x1bU) 
+                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__26__KET____DOT__recently_used_reg__dout) 
+                                                                                << 0x1aU) 
+                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__25__KET____DOT__recently_used_reg__dout) 
+                                                                                << 0x19U) 
+                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__24__KET____DOT__recently_used_reg__dout) 
+                                                                                << 0x18U) 
+                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__23__KET____DOT__recently_used_reg__dout) 
+                                                                                << 0x17U) 
+                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__22__KET____DOT__recently_used_reg__dout) 
+                                                                                << 0x16U) 
+                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__21__KET____DOT__recently_used_reg__dout) 
+                                                                                << 0x15U) 
+                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__20__KET____DOT__recently_used_reg__dout) 
+                                                                                << 0x14U) 
+                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__19__KET____DOT__recently_used_reg__dout) 
+                                                                                << 0x13U) 
+                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__18__KET____DOT__recently_used_reg__dout) 
+                                                                                << 0x12U) 
+                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__17__KET____DOT__recently_used_reg__dout) 
+                                                                                << 0x11U) 
+                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__16__KET____DOT__recently_used_reg__dout) 
+                                                                                << 0x10U) 
+                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__15__KET____DOT__recently_used_reg__dout) 
+                                                                                << 0xfU) 
+                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__14__KET____DOT__recently_used_reg__dout) 
+                                                                                << 0xeU) 
+                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__13__KET____DOT__recently_used_reg__dout) 
+                                                                                << 0xdU) 
+                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__12__KET____DOT__recently_used_reg__dout) 
+                                                                                << 0xcU) 
+                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__11__KET____DOT__recently_used_reg__dout) 
+                                                                                << 0xbU) 
+                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__10__KET____DOT__recently_used_reg__dout) 
+                                                                                << 0xaU) 
+                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__9__KET____DOT__recently_used_reg__dout) 
+                                                                                << 9U) 
+                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__8__KET____DOT__recently_used_reg__dout) 
+                                                                                << 8U) 
+                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__7__KET____DOT__recently_used_reg__dout) 
+                                                                                << 7U) 
+                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__6__KET____DOT__recently_used_reg__dout) 
+                                                                                << 6U) 
+                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__5__KET____DOT__recently_used_reg__dout) 
+                                                                                << 5U) 
+                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__4__KET____DOT__recently_used_reg__dout) 
+                                                                                << 4U) 
+                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__3__KET____DOT__recently_used_reg__dout) 
+                                                                                << 3U) 
+                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__2__KET____DOT__recently_used_reg__dout) 
+                                                                                << 2U) 
+                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__1__KET____DOT__recently_used_reg__dout) 
+                                                                                << 1U) 
+                                                                                | (IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__0__KET____DOT__recently_used_reg__dout)))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))))) 
+                                        >> 0x20U));
+    __Vtemp_ha4accee4__0[2U] = (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__80__KET____DOT__recently_used_reg__dout) 
+                                 << 0x10U) | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__79__KET____DOT__recently_used_reg__dout) 
+                                               << 0xfU) 
+                                              | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__78__KET____DOT__recently_used_reg__dout) 
+                                                  << 0xeU) 
+                                                 | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__77__KET____DOT__recently_used_reg__dout) 
+                                                     << 0xdU) 
+                                                    | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__76__KET____DOT__recently_used_reg__dout) 
+                                                        << 0xcU) 
+                                                       | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__75__KET____DOT__recently_used_reg__dout) 
+                                                           << 0xbU) 
+                                                          | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__74__KET____DOT__recently_used_reg__dout) 
+                                                              << 0xaU) 
+                                                             | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__73__KET____DOT__recently_used_reg__dout) 
+                                                                 << 9U) 
+                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__72__KET____DOT__recently_used_reg__dout) 
+                                                                    << 8U) 
+                                                                   | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__71__KET____DOT__recently_used_reg__dout) 
+                                                                       << 7U) 
+                                                                      | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__70__KET____DOT__recently_used_reg__dout) 
+                                                                          << 6U) 
+                                                                         | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__69__KET____DOT__recently_used_reg__dout) 
+                                                                             << 5U) 
+                                                                            | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__68__KET____DOT__recently_used_reg__dout) 
+                                                                                << 4U) 
+                                                                               | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__67__KET____DOT__recently_used_reg__dout) 
+                                                                                << 3U) 
+                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__66__KET____DOT__recently_used_reg__dout) 
+                                                                                << 2U) 
+                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__65__KET____DOT__recently_used_reg__dout) 
+                                                                                << 1U) 
+                                                                                | (IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__64__KET____DOT__recently_used_reg__dout)))))))))))))))));
+    __Vtemp_h009edad0__0[3U] = (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__112__KET____DOT__recently_used_reg__dout) 
+                                 << 0x10U) | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__111__KET____DOT__recently_used_reg__dout) 
+                                               << 0xfU) 
+                                              | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__110__KET____DOT__recently_used_reg__dout) 
+                                                  << 0xeU) 
+                                                 | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__109__KET____DOT__recently_used_reg__dout) 
+                                                     << 0xdU) 
+                                                    | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__108__KET____DOT__recently_used_reg__dout) 
+                                                        << 0xcU) 
+                                                       | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__107__KET____DOT__recently_used_reg__dout) 
+                                                           << 0xbU) 
+                                                          | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__106__KET____DOT__recently_used_reg__dout) 
+                                                              << 0xaU) 
+                                                             | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__105__KET____DOT__recently_used_reg__dout) 
+                                                                 << 9U) 
+                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__104__KET____DOT__recently_used_reg__dout) 
+                                                                    << 8U) 
+                                                                   | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__103__KET____DOT__recently_used_reg__dout) 
+                                                                       << 7U) 
+                                                                      | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__102__KET____DOT__recently_used_reg__dout) 
+                                                                          << 6U) 
+                                                                         | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__101__KET____DOT__recently_used_reg__dout) 
+                                                                             << 5U) 
+                                                                            | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__100__KET____DOT__recently_used_reg__dout) 
+                                                                                << 4U) 
+                                                                               | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__99__KET____DOT__recently_used_reg__dout) 
+                                                                                << 3U) 
+                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__98__KET____DOT__recently_used_reg__dout) 
+                                                                                << 2U) 
+                                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__97__KET____DOT__recently_used_reg__dout) 
+                                                                                << 1U) 
+                                                                                | (IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__96__KET____DOT__recently_used_reg__dout)))))))))))))))));
+    vlSelf->__PVT__dcache__DOT__recently_used_way[0U] 
+        = __Vtemp_h60d23306__0[0U];
+    vlSelf->__PVT__dcache__DOT__recently_used_way[1U] 
+        = __Vtemp_h60d23306__0[1U];
+    vlSelf->__PVT__dcache__DOT__recently_used_way[2U] 
+        = (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__95__KET____DOT__recently_used_reg__dout) 
+            << 0x1fU) | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__94__KET____DOT__recently_used_reg__dout) 
+                          << 0x1eU) | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__93__KET____DOT__recently_used_reg__dout) 
+                                        << 0x1dU) | 
+                                       (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__92__KET____DOT__recently_used_reg__dout) 
+                                         << 0x1cU) 
+                                        | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__91__KET____DOT__recently_used_reg__dout) 
+                                            << 0x1bU) 
+                                           | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__90__KET____DOT__recently_used_reg__dout) 
+                                               << 0x1aU) 
+                                              | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__89__KET____DOT__recently_used_reg__dout) 
+                                                  << 0x19U) 
+                                                 | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__88__KET____DOT__recently_used_reg__dout) 
+                                                     << 0x18U) 
+                                                    | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__87__KET____DOT__recently_used_reg__dout) 
+                                                        << 0x17U) 
+                                                       | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__86__KET____DOT__recently_used_reg__dout) 
+                                                           << 0x16U) 
+                                                          | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__85__KET____DOT__recently_used_reg__dout) 
+                                                              << 0x15U) 
+                                                             | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__84__KET____DOT__recently_used_reg__dout) 
+                                                                 << 0x14U) 
+                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__83__KET____DOT__recently_used_reg__dout) 
+                                                                    << 0x13U) 
+                                                                   | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__82__KET____DOT__recently_used_reg__dout) 
+                                                                       << 0x12U) 
+                                                                      | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__81__KET____DOT__recently_used_reg__dout) 
+                                                                          << 0x11U) 
+                                                                         | __Vtemp_ha4accee4__0[2U])))))))))))))));
+    vlSelf->__PVT__dcache__DOT__recently_used_way[3U] 
+        = (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__127__KET____DOT__recently_used_reg__dout) 
+            << 0x1fU) | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__126__KET____DOT__recently_used_reg__dout) 
+                          << 0x1eU) | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__125__KET____DOT__recently_used_reg__dout) 
+                                        << 0x1dU) | 
+                                       (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__124__KET____DOT__recently_used_reg__dout) 
+                                         << 0x1cU) 
+                                        | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__123__KET____DOT__recently_used_reg__dout) 
+                                            << 0x1bU) 
+                                           | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__122__KET____DOT__recently_used_reg__dout) 
+                                               << 0x1aU) 
+                                              | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__121__KET____DOT__recently_used_reg__dout) 
+                                                  << 0x19U) 
+                                                 | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__120__KET____DOT__recently_used_reg__dout) 
+                                                     << 0x18U) 
+                                                    | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__119__KET____DOT__recently_used_reg__dout) 
+                                                        << 0x17U) 
+                                                       | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__118__KET____DOT__recently_used_reg__dout) 
+                                                           << 0x16U) 
+                                                          | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__117__KET____DOT__recently_used_reg__dout) 
+                                                              << 0x15U) 
+                                                             | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__116__KET____DOT__recently_used_reg__dout) 
+                                                                 << 0x14U) 
+                                                                | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__115__KET____DOT__recently_used_reg__dout) 
+                                                                    << 0x13U) 
+                                                                   | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__114__KET____DOT__recently_used_reg__dout) 
+                                                                       << 0x12U) 
+                                                                      | (((IData)(vlSelf->dcache__DOT____Vcellout__recently_used_regs_gen__BRA__113__KET____DOT__recently_used_reg__dout) 
+                                                                          << 0x11U) 
+                                                                         | __Vtemp_h009edad0__0[3U])))))))))))))));
+    if (vlSymsp->TOP.rst) {
         vlSelf->dcache__DOT__tag_regs_gen__BRA__1__KET____DOT__tagvd_regs__DOT____Vcellout__TagVD_Reg_gen__BRA__127__KET____DOT__tag_regs__dout = 0U;
         vlSelf->__PVT__dcache__DOT__tag_regs_gen__BRA__1__KET____DOT__tagvd_regs__DOT__tagvd[0x7fU] 
             = vlSelf->dcache__DOT__tag_regs_gen__BRA__1__KET____DOT__tagvd_regs__DOT____Vcellout__TagVD_Reg_gen__BRA__127__KET____DOT__tag_regs__dout;
@@ -3561,11 +3652,6 @@ VL_INLINE_OPT void Vtop_top___nba_sequent__TOP__top__0(Vtop_top* vlSelf) {
         vlSelf->__PVT__dcache__DOT__tag_regs_gen__BRA__0__KET____DOT__tagvd_regs__DOT__tagvd[1U] 
             = vlSelf->dcache__DOT__tag_regs_gen__BRA__0__KET____DOT__tagvd_regs__DOT____Vcellout__TagVD_Reg_gen__BRA__1__KET____DOT__tag_regs__dout;
         vlSelf->dcache__DOT__tag_regs_gen__BRA__0__KET____DOT__tagvd_regs__DOT____Vcellout__TagVD_Reg_gen__BRA__0__KET____DOT__tag_regs__dout = 0U;
-        vlSelf->__PVT__dcache__DOT__tag_regs_gen__BRA__0__KET____DOT__tagvd_regs__DOT__tagvd[0U] 
-            = vlSelf->dcache__DOT__tag_regs_gen__BRA__0__KET____DOT__tagvd_regs__DOT____Vcellout__TagVD_Reg_gen__BRA__0__KET____DOT__tag_regs__dout;
-        vlSelf->__PVT__icache__DOT__hit_way0_r = 0U;
-        vlSelf->__PVT__icache__DOT__hit_way1_r = 0U;
-        vlSelf->__PVT__witf__DOT__depth_gt1__DOT__rptr_flg_r = 0U;
     } else {
         if (vlSelf->dcache__DOT__tag_regs_gen__BRA__1__KET____DOT__tagvd_regs__DOT____Vcellinp__TagVD_Reg_gen__BRA__127__KET____DOT__tag_regs__wen) {
             vlSelf->dcache__DOT__tag_regs_gen__BRA__1__KET____DOT__tagvd_regs__DOT____Vcellout__TagVD_Reg_gen__BRA__127__KET____DOT__tag_regs__dout 
@@ -5101,48 +5187,24 @@ VL_INLINE_OPT void Vtop_top___nba_sequent__TOP__top__0(Vtop_top* vlSelf) {
             vlSelf->dcache__DOT__tag_regs_gen__BRA__0__KET____DOT__tagvd_regs__DOT____Vcellout__TagVD_Reg_gen__BRA__0__KET____DOT__tag_regs__dout 
                 = vlSelf->__PVT__dcache__DOT__tagvd_wdata;
         }
-        vlSelf->__PVT__dcache__DOT__tag_regs_gen__BRA__0__KET____DOT__tagvd_regs__DOT__tagvd[0U] 
-            = vlSelf->dcache__DOT__tag_regs_gen__BRA__0__KET____DOT__tagvd_regs__DOT____Vcellout__TagVD_Reg_gen__BRA__0__KET____DOT__tag_regs__dout;
-        if (vlSelf->__PVT__icache__DOT__recently_used_wen) {
-            vlSelf->__PVT__icache__DOT__hit_way0_r 
-                = vlSelf->__PVT__icache__DOT__hit_way0;
-            vlSelf->__PVT__icache__DOT__hit_way1_r 
-                = vlSelf->__PVT__icache__DOT__hit_way1;
-        }
-        if (vlSelf->__PVT__witf__DOT__depth_gt1__DOT__rptr_flg_ena) {
-            vlSelf->__PVT__witf__DOT__depth_gt1__DOT__rptr_flg_r 
-                = vlSelf->__PVT__witf__DOT__depth_gt1__DOT__rptr_flg_nxt;
-        }
     }
+    vlSelf->__PVT__dcache__DOT__tag_regs_gen__BRA__0__KET____DOT__tagvd_regs__DOT__tagvd[0U] 
+        = vlSelf->dcache__DOT__tag_regs_gen__BRA__0__KET____DOT__tagvd_regs__DOT____Vcellout__TagVD_Reg_gen__BRA__0__KET____DOT__tag_regs__dout;
     vlSelf->__PVT__witf__DOT__depth_gt1__DOT__rptr_flg_nxt 
         = (1U & (~ (IData)(vlSelf->__PVT__witf__DOT__depth_gt1__DOT__rptr_flg_r)));
-    if (vlSymsp->TOP.rst) {
-        vlSelf->__PVT__witf__DOT__depth_gt1__DOT__wptr_flg_r = 0U;
-    } else if (vlSelf->__PVT__witf__DOT__depth_gt1__DOT__wptr_flg_ena) {
-        vlSelf->__PVT__witf__DOT__depth_gt1__DOT__wptr_flg_r 
-            = vlSelf->__PVT__witf__DOT__depth_gt1__DOT__wptr_flg_nxt;
-    }
     vlSelf->__PVT__witf__DOT__depth_gt1__DOT__wptr_flg_nxt 
         = (1U & (~ (IData)(vlSelf->__PVT__witf__DOT__depth_gt1__DOT__wptr_flg_r)));
     if (vlSymsp->TOP.rst) {
-        vlSelf->__PVT__witf__DOT__rptr_r = 0U;
-        vlSelf->__PVT__witf__DOT__wptr_r = 0U;
-        vlSelf->witf__DOT____Vcellout__witf_entries__BRA__7__KET____DOT__vld_reg____pinNumber4 = 0U;
-        vlSelf->witf__DOT____Vcellout__witf_entries__BRA__6__KET____DOT__vld_reg____pinNumber4 = 0U;
-        vlSelf->witf__DOT____Vcellout__witf_entries__BRA__5__KET____DOT__vld_reg____pinNumber4 = 0U;
-        vlSelf->witf__DOT____Vcellout__witf_entries__BRA__4__KET____DOT__vld_reg____pinNumber4 = 0U;
-        vlSelf->witf__DOT____Vcellout__witf_entries__BRA__3__KET____DOT__vld_reg____pinNumber4 = 0U;
-        vlSelf->witf__DOT____Vcellout__witf_entries__BRA__2__KET____DOT__vld_reg____pinNumber4 = 0U;
-        vlSelf->witf__DOT____Vcellout__witf_entries__BRA__1__KET____DOT__vld_reg____pinNumber4 = 0U;
-        vlSelf->witf__DOT____Vcellout__witf_entries__BRA__0__KET____DOT__vld_reg____pinNumber4 = 0U;
+        vlSelf->__PVT__icache__DOT__hit_way0_r = 0U;
+        vlSelf->__PVT__icache__DOT__hit_way1_r = 0U;
         vlSelf->__PVT__IFU__DOT__is_jump_r = 0U;
         vlSelf->__PVT__IFU__DOT__JumpPc_r = 0ULL;
         vlSelf->__PVT__if_valid = 0U;
-        vlSelf->__PVT__icache__DOT__refill_waynum_r = 0U;
         vlSelf->__PVT__dcache__DOT__refill_dirty_r = 0U;
-        vlSelf->__PVT__id_pc = 0x7ffffff8ULL;
+        vlSelf->__PVT__icache__DOT__refill_waynum_r = 0U;
         vlSelf->__PVT__dcache__DOT__hit_way0_r = 0U;
         vlSelf->__PVT__dcache__DOT__hit_way1_r = 0U;
+        vlSelf->__PVT__id_pc = 0x7ffffff8ULL;
         vlSelf->icache__DOT__tag_regs_gen__BRA__0__KET____DOT__tagv_regs__DOT____Vcellout__tagv_Reg_gen__BRA__127__KET____DOT__tag_regs__dout = 0U;
         vlSelf->__PVT__icache__DOT__tag_regs_gen__BRA__0__KET____DOT__tagv_regs__DOT__tagv[0x7fU] 
             = vlSelf->icache__DOT__tag_regs_gen__BRA__0__KET____DOT__tagv_regs__DOT____Vcellout__tagv_Reg_gen__BRA__127__KET____DOT__tag_regs__dout;
@@ -5909,77 +5971,14 @@ VL_INLINE_OPT void Vtop_top___nba_sequent__TOP__top__0(Vtop_top* vlSelf) {
         vlSelf->__PVT__icache__DOT__tag_regs_gen__BRA__1__KET____DOT__tagv_regs__DOT__tagv[1U] 
             = vlSelf->icache__DOT__tag_regs_gen__BRA__1__KET____DOT__tagv_regs__DOT____Vcellout__tagv_Reg_gen__BRA__1__KET____DOT__tag_regs__dout;
         vlSelf->icache__DOT__tag_regs_gen__BRA__1__KET____DOT__tagv_regs__DOT____Vcellout__tagv_Reg_gen__BRA__0__KET____DOT__tag_regs__dout = 0U;
-        vlSelf->__PVT__icache__DOT__tag_regs_gen__BRA__1__KET____DOT__tagv_regs__DOT__tagv[0U] 
-            = vlSelf->icache__DOT__tag_regs_gen__BRA__1__KET____DOT__tagv_regs__DOT____Vcellout__tagv_Reg_gen__BRA__0__KET____DOT__tag_regs__dout;
-        vlSelf->witf__DOT____Vcellout__witf_entries__BRA__7__KET____DOT__rdidx_reg____pinNumber4 = 0U;
-        vlSelf->__PVT__witf__DOT__rdidx_r[7U] = vlSelf->witf__DOT____Vcellout__witf_entries__BRA__7__KET____DOT__rdidx_reg____pinNumber4;
-        vlSelf->witf__DOT____Vcellout__witf_entries__BRA__6__KET____DOT__rdidx_reg____pinNumber4 = 0U;
-        vlSelf->__PVT__witf__DOT__rdidx_r[6U] = vlSelf->witf__DOT____Vcellout__witf_entries__BRA__6__KET____DOT__rdidx_reg____pinNumber4;
-        vlSelf->witf__DOT____Vcellout__witf_entries__BRA__5__KET____DOT__rdidx_reg____pinNumber4 = 0U;
-        vlSelf->__PVT__witf__DOT__rdidx_r[5U] = vlSelf->witf__DOT____Vcellout__witf_entries__BRA__5__KET____DOT__rdidx_reg____pinNumber4;
-        vlSelf->witf__DOT____Vcellout__witf_entries__BRA__4__KET____DOT__rdidx_reg____pinNumber4 = 0U;
-        vlSelf->__PVT__witf__DOT__rdidx_r[4U] = vlSelf->witf__DOT____Vcellout__witf_entries__BRA__4__KET____DOT__rdidx_reg____pinNumber4;
-        vlSelf->witf__DOT____Vcellout__witf_entries__BRA__3__KET____DOT__rdidx_reg____pinNumber4 = 0U;
-        vlSelf->__PVT__witf__DOT__rdidx_r[3U] = vlSelf->witf__DOT____Vcellout__witf_entries__BRA__3__KET____DOT__rdidx_reg____pinNumber4;
-        vlSelf->witf__DOT____Vcellout__witf_entries__BRA__2__KET____DOT__rdidx_reg____pinNumber4 = 0U;
-        vlSelf->__PVT__witf__DOT__rdidx_r[2U] = vlSelf->witf__DOT____Vcellout__witf_entries__BRA__2__KET____DOT__rdidx_reg____pinNumber4;
-        vlSelf->witf__DOT____Vcellout__witf_entries__BRA__1__KET____DOT__rdidx_reg____pinNumber4 = 0U;
-        vlSelf->__PVT__witf__DOT__rdidx_r[1U] = vlSelf->witf__DOT____Vcellout__witf_entries__BRA__1__KET____DOT__rdidx_reg____pinNumber4;
-        vlSelf->witf__DOT____Vcellout__witf_entries__BRA__0__KET____DOT__rdidx_reg____pinNumber4 = 0U;
     } else {
-        if (vlSymsp->TOP__top__WB.__PVT__witf_pop_en) {
-            vlSelf->__PVT__witf__DOT__rptr_r = vlSelf->__PVT__witf__DOT__depth_gt1__DOT__rptr_nxt;
-        }
-        if (vlSelf->witf__DOT____Vcellinp__depth_gt1__DOT__wptr_reg____pinNumber5) {
-            vlSelf->__PVT__witf__DOT__wptr_r = vlSelf->__PVT__witf__DOT__depth_gt1__DOT__wptr_nxt;
-        }
-        if (((IData)(vlSelf->witf__DOT____Vcellinp__witf_entries__BRA__7__KET____DOT__rdidx_reg____pinNumber5) 
-             | (IData)(vlSelf->witf__DOT____VdfgTmp_h18d0ad63__0))) {
-            vlSelf->witf__DOT____Vcellout__witf_entries__BRA__7__KET____DOT__vld_reg____pinNumber4 
-                = (1U & ((~ (IData)(vlSelf->witf__DOT____VdfgTmp_h18d0ad63__0)) 
-                         | (IData)(vlSelf->witf__DOT____Vcellinp__witf_entries__BRA__7__KET____DOT__rdidx_reg____pinNumber5)));
-        }
-        if (((IData)(vlSelf->witf__DOT____Vcellinp__witf_entries__BRA__6__KET____DOT__rdidx_reg____pinNumber5) 
-             | (IData)(vlSelf->witf__DOT____VdfgTmp_h1502befe__0))) {
-            vlSelf->witf__DOT____Vcellout__witf_entries__BRA__6__KET____DOT__vld_reg____pinNumber4 
-                = (1U & ((~ (IData)(vlSelf->witf__DOT____VdfgTmp_h1502befe__0)) 
-                         | (IData)(vlSelf->witf__DOT____Vcellinp__witf_entries__BRA__6__KET____DOT__rdidx_reg____pinNumber5)));
-        }
-        if (((IData)(vlSelf->witf__DOT____Vcellinp__witf_entries__BRA__5__KET____DOT__rdidx_reg____pinNumber5) 
-             | (IData)(vlSelf->witf__DOT____VdfgTmp_h5e3be3b1__0))) {
-            vlSelf->witf__DOT____Vcellout__witf_entries__BRA__5__KET____DOT__vld_reg____pinNumber4 
-                = (1U & ((~ (IData)(vlSelf->witf__DOT____VdfgTmp_h5e3be3b1__0)) 
-                         | (IData)(vlSelf->witf__DOT____Vcellinp__witf_entries__BRA__5__KET____DOT__rdidx_reg____pinNumber5)));
-        }
-        if (((IData)(vlSelf->witf__DOT____Vcellinp__witf_entries__BRA__4__KET____DOT__rdidx_reg____pinNumber5) 
-             | (IData)(vlSelf->witf__DOT____VdfgTmp_h5e289ef1__0))) {
-            vlSelf->witf__DOT____Vcellout__witf_entries__BRA__4__KET____DOT__vld_reg____pinNumber4 
-                = (1U & ((~ (IData)(vlSelf->witf__DOT____VdfgTmp_h5e289ef1__0)) 
-                         | (IData)(vlSelf->witf__DOT____Vcellinp__witf_entries__BRA__4__KET____DOT__rdidx_reg____pinNumber5)));
-        }
-        if (((IData)(vlSelf->witf__DOT____Vcellinp__witf_entries__BRA__3__KET____DOT__rdidx_reg____pinNumber5) 
-             | (IData)(vlSelf->witf__DOT____VdfgTmp_h1b15740b__0))) {
-            vlSelf->witf__DOT____Vcellout__witf_entries__BRA__3__KET____DOT__vld_reg____pinNumber4 
-                = (1U & ((~ (IData)(vlSelf->witf__DOT____VdfgTmp_h1b15740b__0)) 
-                         | (IData)(vlSelf->witf__DOT____Vcellinp__witf_entries__BRA__3__KET____DOT__rdidx_reg____pinNumber5)));
-        }
-        if (((IData)(vlSelf->witf__DOT____Vcellinp__witf_entries__BRA__2__KET____DOT__rdidx_reg____pinNumber5) 
-             | (IData)(vlSelf->witf__DOT____VdfgTmp_h1534ebe7__0))) {
-            vlSelf->witf__DOT____Vcellout__witf_entries__BRA__2__KET____DOT__vld_reg____pinNumber4 
-                = (1U & ((~ (IData)(vlSelf->witf__DOT____VdfgTmp_h1534ebe7__0)) 
-                         | (IData)(vlSelf->witf__DOT____Vcellinp__witf_entries__BRA__2__KET____DOT__rdidx_reg____pinNumber5)));
-        }
-        if (((IData)(vlSelf->witf__DOT____Vcellinp__witf_entries__BRA__1__KET____DOT__rdidx_reg____pinNumber5) 
-             | (IData)(vlSelf->witf__DOT____VdfgTmp_h12e0aba8__0))) {
-            vlSelf->witf__DOT____Vcellout__witf_entries__BRA__1__KET____DOT__vld_reg____pinNumber4 
-                = (1U & ((~ (IData)(vlSelf->witf__DOT____VdfgTmp_h12e0aba8__0)) 
-                         | (IData)(vlSelf->witf__DOT____Vcellinp__witf_entries__BRA__1__KET____DOT__rdidx_reg____pinNumber5)));
-        }
-        if (((IData)(vlSelf->witf__DOT____Vcellinp__witf_entries__BRA__0__KET____DOT__rdidx_reg____pinNumber5) 
-             | (IData)(vlSelf->witf__DOT____VdfgTmp_h12fccb8d__0))) {
-            vlSelf->witf__DOT____Vcellout__witf_entries__BRA__0__KET____DOT__vld_reg____pinNumber4 
-                = (1U & ((~ (IData)(vlSelf->witf__DOT____VdfgTmp_h12fccb8d__0)) 
-                         | (IData)(vlSelf->witf__DOT____Vcellinp__witf_entries__BRA__0__KET____DOT__rdidx_reg____pinNumber5)));
+        if (vlSelf->__PVT__icache__DOT__recently_used_wen) {
+            vlSelf->__PVT__icache__DOT__hit_way0_r 
+                = vlSelf->__PVT__icache__DOT__hit_way0;
+            vlSelf->__PVT__icache__DOT__hit_way1_r 
+                = vlSelf->__PVT__icache__DOT__hit_way1;
+            vlSelf->__PVT__icache__DOT__refill_waynum_r 
+                = vlSelf->__PVT__icache__DOT__refill_waynum;
         }
         if (((IData)(vlSelf->__PVT__IFU__DOT__is_jump_set) 
              | (IData)(vlSelf->__PVT__IFU__DOT__is_jump_clr))) {
@@ -5988,24 +5987,14 @@ VL_INLINE_OPT void Vtop_top___nba_sequent__TOP__top__0(Vtop_top* vlSelf) {
                                                      | (IData)(vlSelf->__PVT__IFU__DOT__is_jump_set)));
         }
         if (vlSelf->__PVT__IFU__DOT__is_jump_set) {
-            vlSelf->__PVT__IFU__DOT__JumpPc_r = vlSelf->__PVT__o_exu_NextPC;
+            vlSelf->__PVT__IFU__DOT__JumpPc_r = vlSelf->__PVT__jumppc;
         }
-        if (vlSelf->__PVT__ifu_cache_req) {
+        if (vlSelf->__PVT__IFU__DOT__if_allow_in) {
             vlSelf->__PVT__if_valid = vlSelf->__PVT__icache__DOT__recently_used_wen;
-        }
-        if (vlSelf->__PVT__icache__DOT__recently_used_wen) {
-            vlSelf->__PVT__icache__DOT__refill_waynum_r 
-                = vlSelf->__PVT__icache__DOT__refill_waynum;
         }
         if (vlSelf->__PVT__dcache__DOT__recently_used_wen) {
             vlSelf->__PVT__dcache__DOT__refill_dirty_r 
-                = (1U & (((~ (IData)(vlSelf->__PVT__dcache__DOT__refill_waynum)) 
-                          & (vlSelf->dcache__DOT____Vcellout__tag_regs_gen__BRA__0__KET____DOT__tagvd_regs__o_dout 
-                             & (vlSelf->dcache__DOT____Vcellout__tag_regs_gen__BRA__0__KET____DOT__tagvd_regs__o_dout 
-                                >> 1U))) | ((IData)(vlSelf->__PVT__dcache__DOT__refill_waynum) 
-                                            & (vlSelf->dcache__DOT____Vcellout__tag_regs_gen__BRA__1__KET____DOT__tagvd_regs__o_dout 
-                                               & (vlSelf->dcache__DOT____Vcellout__tag_regs_gen__BRA__0__KET____DOT__tagvd_regs__o_dout 
-                                                  >> 1U)))));
+                = vlSelf->__PVT__dcache__DOT__refill_dirty;
             vlSelf->__PVT__dcache__DOT__hit_way0_r 
                 = vlSelf->__PVT__dcache__DOT__hit_way0;
             vlSelf->__PVT__dcache__DOT__hit_way1_r 
@@ -7804,8 +7793,63 @@ VL_INLINE_OPT void Vtop_top___nba_sequent__TOP__top__0(Vtop_top* vlSelf) {
                 = (1U | (0x3ffffeU & (vlSelf->__PVT__icache__DOT__addr_r 
                                       >> 0xaU)));
         }
-        vlSelf->__PVT__icache__DOT__tag_regs_gen__BRA__1__KET____DOT__tagv_regs__DOT__tagv[0U] 
-            = vlSelf->icache__DOT__tag_regs_gen__BRA__1__KET____DOT__tagv_regs__DOT____Vcellout__tagv_Reg_gen__BRA__0__KET____DOT__tag_regs__dout;
+    }
+    vlSelf->__PVT__icache__DOT__tag_regs_gen__BRA__1__KET____DOT__tagv_regs__DOT__tagv[0U] 
+        = vlSelf->icache__DOT__tag_regs_gen__BRA__1__KET____DOT__tagv_regs__DOT____Vcellout__tagv_Reg_gen__BRA__0__KET____DOT__tag_regs__dout;
+    vlSelf->__PVT__sram_icache_rdata[3U][0U] = vlSelf->__Vcellout__genblk1__BRA__3__KET____DOT__icache_data_array__Q[0U];
+    vlSelf->__PVT__sram_icache_rdata[3U][1U] = vlSelf->__Vcellout__genblk1__BRA__3__KET____DOT__icache_data_array__Q[1U];
+    vlSelf->__PVT__sram_icache_rdata[3U][2U] = vlSelf->__Vcellout__genblk1__BRA__3__KET____DOT__icache_data_array__Q[2U];
+    vlSelf->__PVT__sram_icache_rdata[3U][3U] = vlSelf->__Vcellout__genblk1__BRA__3__KET____DOT__icache_data_array__Q[3U];
+    vlSelf->__PVT__sram_icache_rdata[2U][0U] = vlSelf->__Vcellout__genblk1__BRA__2__KET____DOT__icache_data_array__Q[0U];
+    vlSelf->__PVT__sram_icache_rdata[2U][1U] = vlSelf->__Vcellout__genblk1__BRA__2__KET____DOT__icache_data_array__Q[1U];
+    vlSelf->__PVT__sram_icache_rdata[2U][2U] = vlSelf->__Vcellout__genblk1__BRA__2__KET____DOT__icache_data_array__Q[2U];
+    vlSelf->__PVT__sram_icache_rdata[2U][3U] = vlSelf->__Vcellout__genblk1__BRA__2__KET____DOT__icache_data_array__Q[3U];
+    vlSelf->__PVT__sram_icache_rdata[1U][0U] = vlSelf->__Vcellout__genblk1__BRA__1__KET____DOT__icache_data_array__Q[0U];
+    vlSelf->__PVT__sram_icache_rdata[1U][1U] = vlSelf->__Vcellout__genblk1__BRA__1__KET____DOT__icache_data_array__Q[1U];
+    vlSelf->__PVT__sram_icache_rdata[1U][2U] = vlSelf->__Vcellout__genblk1__BRA__1__KET____DOT__icache_data_array__Q[2U];
+    vlSelf->__PVT__sram_icache_rdata[1U][3U] = vlSelf->__Vcellout__genblk1__BRA__1__KET____DOT__icache_data_array__Q[3U];
+    vlSelf->__PVT__sram_icache_rdata[0U][0U] = vlSelf->__Vcellout__genblk1__BRA__0__KET____DOT__icache_data_array__Q[0U];
+    vlSelf->__PVT__sram_icache_rdata[0U][1U] = vlSelf->__Vcellout__genblk1__BRA__0__KET____DOT__icache_data_array__Q[1U];
+    vlSelf->__PVT__sram_icache_rdata[0U][2U] = vlSelf->__Vcellout__genblk1__BRA__0__KET____DOT__icache_data_array__Q[2U];
+    vlSelf->__PVT__sram_icache_rdata[0U][3U] = vlSelf->__Vcellout__genblk1__BRA__0__KET____DOT__icache_data_array__Q[3U];
+    if (((IData)(vlSymsp->TOP.rst) | ((2U == (IData)(vlSelf->__PVT__icache__DOT__cur_state)) 
+                                      & (IData)(vlSelf->__PVT__axi_icache_rd_ready)))) {
+        __Vdly__icache__DOT__burst_count = 0U;
+        vlSelf->__PVT__icache__DOT__mrdata[0U] = 0U;
+        vlSelf->__PVT__icache__DOT__mrdata[1U] = 0U;
+        vlSelf->__PVT__icache__DOT__mrdata[2U] = 0U;
+        vlSelf->__PVT__icache__DOT__mrdata[3U] = 0U;
+    } else if (((3U == (IData)(vlSelf->__PVT__icache__DOT__cur_state)) 
+                & (IData)(vlSelf->__PVT__axi_icache_rvalid))) {
+        __Vdly__icache__DOT__burst_count = (3U & ((IData)(1U) 
+                                                  + (IData)(vlSelf->__PVT__icache__DOT__burst_count)));
+        VL_ASSIGNSEL_WQ(128,64,(0x7fU & ((IData)(vlSelf->__PVT__icache__DOT__burst_count) 
+                                         << 6U)), vlSelf->__PVT__icache__DOT__mrdata, 
+                        ((IData)(vlSelf->__PVT__axi_rw_interface__DOT__rd_channel_cache_choose)
+                          ? 0ULL : vlSelf->__PVT__ram_axi__DOT__ram_rdata));
+    }
+    if (vlSymsp->TOP.rst) {
+        vlSelf->witf__DOT____Vcellout__witf_entries__BRA__7__KET____DOT__rdidx_reg____pinNumber4 = 0U;
+        vlSelf->__PVT__witf__DOT__rdidx_r[7U] = vlSelf->witf__DOT____Vcellout__witf_entries__BRA__7__KET____DOT__rdidx_reg____pinNumber4;
+        vlSelf->witf__DOT____Vcellout__witf_entries__BRA__6__KET____DOT__rdidx_reg____pinNumber4 = 0U;
+        vlSelf->__PVT__witf__DOT__rdidx_r[6U] = vlSelf->witf__DOT____Vcellout__witf_entries__BRA__6__KET____DOT__rdidx_reg____pinNumber4;
+        vlSelf->witf__DOT____Vcellout__witf_entries__BRA__5__KET____DOT__rdidx_reg____pinNumber4 = 0U;
+        vlSelf->__PVT__witf__DOT__rdidx_r[5U] = vlSelf->witf__DOT____Vcellout__witf_entries__BRA__5__KET____DOT__rdidx_reg____pinNumber4;
+        vlSelf->witf__DOT____Vcellout__witf_entries__BRA__4__KET____DOT__rdidx_reg____pinNumber4 = 0U;
+        vlSelf->__PVT__witf__DOT__rdidx_r[4U] = vlSelf->witf__DOT____Vcellout__witf_entries__BRA__4__KET____DOT__rdidx_reg____pinNumber4;
+        vlSelf->witf__DOT____Vcellout__witf_entries__BRA__3__KET____DOT__rdidx_reg____pinNumber4 = 0U;
+        vlSelf->__PVT__witf__DOT__rdidx_r[3U] = vlSelf->witf__DOT____Vcellout__witf_entries__BRA__3__KET____DOT__rdidx_reg____pinNumber4;
+        vlSelf->witf__DOT____Vcellout__witf_entries__BRA__2__KET____DOT__rdidx_reg____pinNumber4 = 0U;
+        vlSelf->__PVT__witf__DOT__rdidx_r[2U] = vlSelf->witf__DOT____Vcellout__witf_entries__BRA__2__KET____DOT__rdidx_reg____pinNumber4;
+        vlSelf->witf__DOT____Vcellout__witf_entries__BRA__1__KET____DOT__rdidx_reg____pinNumber4 = 0U;
+        vlSelf->__PVT__witf__DOT__rdidx_r[1U] = vlSelf->witf__DOT____Vcellout__witf_entries__BRA__1__KET____DOT__rdidx_reg____pinNumber4;
+        vlSelf->witf__DOT____Vcellout__witf_entries__BRA__0__KET____DOT__rdidx_reg____pinNumber4 = 0U;
+        vlSelf->__PVT__witf__DOT__rdidx_r[0U] = vlSelf->witf__DOT____Vcellout__witf_entries__BRA__0__KET____DOT__rdidx_reg____pinNumber4;
+        vlSelf->__PVT__icache__DOT__burst_count = __Vdly__icache__DOT__burst_count;
+        vlSelf->__PVT__dcache__DOT__size_r = 0U;
+        vlSelf->__PVT__dcache__DOT__op_r = 0U;
+        vlSelf->ram_axi__DOT____Vcellout__axi_read_req_buffer__dout = 0ULL;
+    } else {
         if (vlSelf->witf__DOT____Vcellinp__witf_entries__BRA__7__KET____DOT__rdidx_reg____pinNumber5) {
             vlSelf->witf__DOT____Vcellout__witf_entries__BRA__7__KET____DOT__rdidx_reg____pinNumber4 
                 = (0x1fU & (vlSelf->__PVT__id_inst 
@@ -7853,53 +7897,15 @@ VL_INLINE_OPT void Vtop_top___nba_sequent__TOP__top__0(Vtop_top* vlSelf) {
                 = (0x1fU & (vlSelf->__PVT__id_inst 
                             >> 7U));
         }
-    }
-    vlSelf->__PVT__witf__DOT__rdidx_r[0U] = vlSelf->witf__DOT____Vcellout__witf_entries__BRA__0__KET____DOT__rdidx_reg____pinNumber4;
-    vlSelf->__PVT__sram_icache_rdata[3U][0U] = vlSelf->__Vcellout__genblk1__BRA__3__KET____DOT__icache_data_array__Q[0U];
-    vlSelf->__PVT__sram_icache_rdata[3U][1U] = vlSelf->__Vcellout__genblk1__BRA__3__KET____DOT__icache_data_array__Q[1U];
-    vlSelf->__PVT__sram_icache_rdata[3U][2U] = vlSelf->__Vcellout__genblk1__BRA__3__KET____DOT__icache_data_array__Q[2U];
-    vlSelf->__PVT__sram_icache_rdata[3U][3U] = vlSelf->__Vcellout__genblk1__BRA__3__KET____DOT__icache_data_array__Q[3U];
-    vlSelf->__PVT__sram_icache_rdata[2U][0U] = vlSelf->__Vcellout__genblk1__BRA__2__KET____DOT__icache_data_array__Q[0U];
-    vlSelf->__PVT__sram_icache_rdata[2U][1U] = vlSelf->__Vcellout__genblk1__BRA__2__KET____DOT__icache_data_array__Q[1U];
-    vlSelf->__PVT__sram_icache_rdata[2U][2U] = vlSelf->__Vcellout__genblk1__BRA__2__KET____DOT__icache_data_array__Q[2U];
-    vlSelf->__PVT__sram_icache_rdata[2U][3U] = vlSelf->__Vcellout__genblk1__BRA__2__KET____DOT__icache_data_array__Q[3U];
-    vlSelf->__PVT__sram_icache_rdata[1U][0U] = vlSelf->__Vcellout__genblk1__BRA__1__KET____DOT__icache_data_array__Q[0U];
-    vlSelf->__PVT__sram_icache_rdata[1U][1U] = vlSelf->__Vcellout__genblk1__BRA__1__KET____DOT__icache_data_array__Q[1U];
-    vlSelf->__PVT__sram_icache_rdata[1U][2U] = vlSelf->__Vcellout__genblk1__BRA__1__KET____DOT__icache_data_array__Q[2U];
-    vlSelf->__PVT__sram_icache_rdata[1U][3U] = vlSelf->__Vcellout__genblk1__BRA__1__KET____DOT__icache_data_array__Q[3U];
-    vlSelf->__PVT__sram_icache_rdata[0U][0U] = vlSelf->__Vcellout__genblk1__BRA__0__KET____DOT__icache_data_array__Q[0U];
-    vlSelf->__PVT__sram_icache_rdata[0U][1U] = vlSelf->__Vcellout__genblk1__BRA__0__KET____DOT__icache_data_array__Q[1U];
-    vlSelf->__PVT__sram_icache_rdata[0U][2U] = vlSelf->__Vcellout__genblk1__BRA__0__KET____DOT__icache_data_array__Q[2U];
-    vlSelf->__PVT__sram_icache_rdata[0U][3U] = vlSelf->__Vcellout__genblk1__BRA__0__KET____DOT__icache_data_array__Q[3U];
-    if (((IData)(vlSymsp->TOP.rst) | ((2U == (IData)(vlSelf->__PVT__icache__DOT__cur_state)) 
-                                      & (IData)(vlSelf->__PVT__axi_icache_rd_ready)))) {
-        __Vdly__icache__DOT__burst_count = 0U;
-        vlSelf->__PVT__icache__DOT__mrdata[0U] = 0U;
-        vlSelf->__PVT__icache__DOT__mrdata[1U] = 0U;
-        vlSelf->__PVT__icache__DOT__mrdata[2U] = 0U;
-        vlSelf->__PVT__icache__DOT__mrdata[3U] = 0U;
-    } else if (((3U == (IData)(vlSelf->__PVT__icache__DOT__cur_state)) 
-                & (IData)(vlSelf->__PVT__axi_icache_rvalid))) {
-        __Vdly__icache__DOT__burst_count = (3U & ((IData)(1U) 
-                                                  + (IData)(vlSelf->__PVT__icache__DOT__burst_count)));
-        VL_ASSIGNSEL_WQ(128,64,(0x7fU & ((IData)(vlSelf->__PVT__icache__DOT__burst_count) 
-                                         << 6U)), vlSelf->__PVT__icache__DOT__mrdata, 
-                        ((IData)(vlSelf->__PVT__axi_rw_interface__DOT__rd_channel_cache_choose)
-                          ? 0ULL : vlSelf->__PVT__ram_axi__DOT__ram_rdata));
-    }
-    vlSelf->__PVT__icache__DOT__burst_count = __Vdly__icache__DOT__burst_count;
-    if (vlSymsp->TOP.rst) {
-        vlSelf->__PVT__lsu_valid = 0U;
-        vlSelf->__PVT__dcache__DOT__op_r = 0U;
-        vlSelf->ram_axi__DOT____Vcellout__axi_read_req_buffer__dout = 0ULL;
-    } else {
-        if (vlSelf->__PVT__lsu_allow_in) {
-            vlSelf->__PVT__lsu_valid = vlSelf->__PVT__exu_to_lsu_valid;
-        }
+        vlSelf->__PVT__witf__DOT__rdidx_r[0U] = vlSelf->witf__DOT____Vcellout__witf_entries__BRA__0__KET____DOT__rdidx_reg____pinNumber4;
+        vlSelf->__PVT__icache__DOT__burst_count = __Vdly__icache__DOT__burst_count;
         if (vlSelf->__PVT__dcache__DOT__recently_used_wen) {
+            vlSelf->__PVT__dcache__DOT__size_r = (3U 
+                                                  & (vlSelf->ID_to_EXU_Regs__DOT____Vcellout__id_to_exu_pipeline_regs__dout[9U] 
+                                                     >> 7U));
             vlSelf->__PVT__dcache__DOT__op_r = (1U 
                                                 & (vlSelf->ID_to_EXU_Regs__DOT____Vcellout__id_to_exu_pipeline_regs__dout[9U] 
-                                                   >> 4U));
+                                                   >> 6U));
         }
         if (((1U == (IData)(vlSelf->__PVT__ram_axi__DOT__r_cur_state)) 
              & (IData)(vlSelf->__PVT__axi_rw_interface__DOT__ar_hs))) {
@@ -7909,14 +7915,7 @@ VL_INLINE_OPT void Vtop_top___nba_sequent__TOP__top__0(Vtop_top* vlSelf) {
                    | (QData)((IData)(((((4U == (7U 
                                                 & (IData)(vlSelf->axi_rw_interface__DOT____Vcellout__axi_read_req_buffer__dout)))
                                          ? 1U : 0U) 
-                                       << 3U) | ((1U 
-                                                  & (IData)(
-                                                            (vlSelf->axi_rw_interface__DOT____Vcellout__axi_read_req_buffer__dout 
-                                                             >> 2U)))
-                                                  ? 3U
-                                                  : 
-                                                 (3U 
-                                                  & (IData)(vlSelf->axi_rw_interface__DOT____Vcellout__axi_read_req_buffer__dout)))))));
+                                       << 3U) | (IData)(vlSelf->__VdfgTmp_hb79ea105__0)))));
         }
     }
     vlSelf->__PVT__axi_rw_interface__DOT__rlast = ((IData)(vlSelf->__PVT__ram_axi__DOT__r_transfer_cnt) 
@@ -7932,7 +7931,11 @@ VL_INLINE_OPT void Vtop_top___nba_sequent__TOP__top__0(Vtop_top* vlSelf) {
         vlSelf->axi_rw_interface__DOT____Vcellout__axi_read_req_buffer__dout 
             = (((QData)((IData)(vlSelf->__PVT__axi_rw_interface__DOT__rd_req)) 
                 << 0x23U) | (((QData)((IData)(((IData)(vlSelf->__PVT__axi_rw_interface__DOT__rd_channel_cache_choose)
-                                                ? vlSelf->__PVT__axi_rw_interface__DOT__wr_addr
+                                                ? ((IData)(vlSelf->__PVT__dcache__DOT__uncache_r)
+                                                    ? vlSelf->__PVT__dcache__DOT__addr_r
+                                                    : 
+                                                   (0xfffffff0U 
+                                                    & vlSelf->__PVT__dcache__DOT__addr_r))
                                                 : (0xfffffff0U 
                                                    & vlSelf->__PVT__icache__DOT__addr_r)))) 
                               << 3U) | (QData)((IData)(
@@ -7973,8 +7976,8 @@ VL_INLINE_OPT void Vtop_top___nba_sequent__TOP__top__0(Vtop_top* vlSelf) {
                              << (0x38U & (vlSelf->__PVT__dcache__DOT__addr_r 
                                           << 3U))))
                   : ((IData)(vlSelf->__PVT__dcache__DOT__refill_waynum_r)
-                      ? vlSelf->__PVT__dcache__DOT__din_way0[0U]
-                      : vlSelf->__PVT__dcache__DOT__din_way1[0U])) 
+                      ? vlSelf->__PVT__dcache__DOT__din_way1[0U]
+                      : vlSelf->__PVT__dcache__DOT__din_way0[0U])) 
                 << 0xbU) | (((IData)(vlSelf->__PVT__axi_rw_interface__DOT__wr_type) 
                              << 8U) | (0xffU & (((- (IData)((IData)(vlSelf->__PVT__dcache__DOT__uncache_r))) 
                                                  & ((IData)(vlSelf->__PVT__dcache__DOT__wstrb_r) 
@@ -7990,8 +7993,8 @@ VL_INLINE_OPT void Vtop_top___nba_sequent__TOP__top__0(Vtop_top* vlSelf) {
                              << (0x38U & (vlSelf->__PVT__dcache__DOT__addr_r 
                                           << 3U))))
                   : ((IData)(vlSelf->__PVT__dcache__DOT__refill_waynum_r)
-                      ? vlSelf->__PVT__dcache__DOT__din_way0[0U]
-                      : vlSelf->__PVT__dcache__DOT__din_way1[0U])) 
+                      ? vlSelf->__PVT__dcache__DOT__din_way1[0U]
+                      : vlSelf->__PVT__dcache__DOT__din_way0[0U])) 
                 >> 0x15U) | (((IData)(vlSelf->__PVT__dcache__DOT__uncache_r)
                                ? (IData)(((vlSelf->__PVT__dcache__DOT__wdata_r 
                                            << (0x38U 
@@ -7999,8 +8002,8 @@ VL_INLINE_OPT void Vtop_top___nba_sequent__TOP__top__0(Vtop_top* vlSelf) {
                                                   << 3U))) 
                                           >> 0x20U))
                                : ((IData)(vlSelf->__PVT__dcache__DOT__refill_waynum_r)
-                                   ? vlSelf->__PVT__dcache__DOT__din_way0[1U]
-                                   : vlSelf->__PVT__dcache__DOT__din_way1[1U])) 
+                                   ? vlSelf->__PVT__dcache__DOT__din_way1[1U]
+                                   : vlSelf->__PVT__dcache__DOT__din_way0[1U])) 
                              << 0xbU));
         vlSelf->axi_rw_interface__DOT____Vcellout__axi_write_req_buffer__dout[2U] 
             = ((((IData)(vlSelf->__PVT__dcache__DOT__uncache_r)
@@ -8008,47 +8011,126 @@ VL_INLINE_OPT void Vtop_top___nba_sequent__TOP__top__0(Vtop_top* vlSelf) {
                               << (0x38U & (vlSelf->__PVT__dcache__DOT__addr_r 
                                            << 3U))) 
                              >> 0x20U)) : ((IData)(vlSelf->__PVT__dcache__DOT__refill_waynum_r)
-                                            ? vlSelf->__PVT__dcache__DOT__din_way0[1U]
-                                            : vlSelf->__PVT__dcache__DOT__din_way1[1U])) 
+                                            ? vlSelf->__PVT__dcache__DOT__din_way1[1U]
+                                            : vlSelf->__PVT__dcache__DOT__din_way0[1U])) 
                 >> 0x15U) | (((IData)(vlSelf->__PVT__dcache__DOT__uncache_r)
                                ? 0U : ((IData)(vlSelf->__PVT__dcache__DOT__refill_waynum_r)
-                                        ? vlSelf->__PVT__dcache__DOT__din_way0[2U]
-                                        : vlSelf->__PVT__dcache__DOT__din_way1[2U])) 
+                                        ? vlSelf->__PVT__dcache__DOT__din_way1[2U]
+                                        : vlSelf->__PVT__dcache__DOT__din_way0[2U])) 
                              << 0xbU));
         vlSelf->axi_rw_interface__DOT____Vcellout__axi_write_req_buffer__dout[3U] 
             = ((((IData)(vlSelf->__PVT__dcache__DOT__uncache_r)
                   ? 0U : ((IData)(vlSelf->__PVT__dcache__DOT__refill_waynum_r)
-                           ? vlSelf->__PVT__dcache__DOT__din_way0[2U]
-                           : vlSelf->__PVT__dcache__DOT__din_way1[2U])) 
+                           ? vlSelf->__PVT__dcache__DOT__din_way1[2U]
+                           : vlSelf->__PVT__dcache__DOT__din_way0[2U])) 
                 >> 0x15U) | (((IData)(vlSelf->__PVT__dcache__DOT__uncache_r)
                                ? 0U : ((IData)(vlSelf->__PVT__dcache__DOT__refill_waynum_r)
-                                        ? vlSelf->__PVT__dcache__DOT__din_way0[3U]
-                                        : vlSelf->__PVT__dcache__DOT__din_way1[3U])) 
+                                        ? vlSelf->__PVT__dcache__DOT__din_way1[3U]
+                                        : vlSelf->__PVT__dcache__DOT__din_way0[3U])) 
                              << 0xbU));
         vlSelf->axi_rw_interface__DOT____Vcellout__axi_write_req_buffer__dout[4U] 
             = ((((IData)(vlSelf->__PVT__dcache__DOT__uncache_r)
                   ? 0U : ((IData)(vlSelf->__PVT__dcache__DOT__refill_waynum_r)
-                           ? vlSelf->__PVT__dcache__DOT__din_way0[3U]
-                           : vlSelf->__PVT__dcache__DOT__din_way1[3U])) 
-                >> 0x15U) | (vlSelf->__PVT__axi_rw_interface__DOT__wr_addr 
+                           ? vlSelf->__PVT__dcache__DOT__din_way1[3U]
+                           : vlSelf->__PVT__dcache__DOT__din_way0[3U])) 
+                >> 0x15U) | (((IData)(vlSelf->__PVT__dcache__DOT__uncache_r)
+                               ? vlSelf->__PVT__dcache__DOT__addr_r
+                               : ((vlSelf->__PVT__dcache__DOT__refill_tag_r 
+                                   << 0xbU) | (0x7f0U 
+                                               & vlSelf->__PVT__dcache__DOT__addr_r))) 
                              << 0xbU));
         vlSelf->axi_rw_interface__DOT____Vcellout__axi_write_req_buffer__dout[5U] 
             = (((IData)(vlSelf->__PVT__axi_rw_interface__DOT__wr_req) 
-                << 0xbU) | (vlSelf->__PVT__axi_rw_interface__DOT__wr_addr 
+                << 0xbU) | (((IData)(vlSelf->__PVT__dcache__DOT__uncache_r)
+                              ? vlSelf->__PVT__dcache__DOT__addr_r
+                              : ((vlSelf->__PVT__dcache__DOT__refill_tag_r 
+                                  << 0xbU) | (0x7f0U 
+                                              & vlSelf->__PVT__dcache__DOT__addr_r))) 
                             >> 0x15U));
     }
+    vlSelf->__PVT__icache_sram_wdata[3U][0U] = vlSelf->__PVT__icache__DOT__mrdata[0U];
+    vlSelf->__PVT__icache_sram_wdata[3U][1U] = vlSelf->__PVT__icache__DOT__mrdata[1U];
+    vlSelf->__PVT__icache_sram_wdata[3U][2U] = vlSelf->__PVT__icache__DOT__mrdata[2U];
+    vlSelf->__PVT__icache_sram_wdata[3U][3U] = vlSelf->__PVT__icache__DOT__mrdata[3U];
+    vlSelf->__PVT__icache_sram_wdata[2U][0U] = vlSelf->__PVT__icache__DOT__mrdata[0U];
+    vlSelf->__PVT__icache_sram_wdata[2U][1U] = vlSelf->__PVT__icache__DOT__mrdata[1U];
+    vlSelf->__PVT__icache_sram_wdata[2U][2U] = vlSelf->__PVT__icache__DOT__mrdata[2U];
+    vlSelf->__PVT__icache_sram_wdata[2U][3U] = vlSelf->__PVT__icache__DOT__mrdata[3U];
+    vlSelf->__PVT__icache_sram_wdata[1U][0U] = vlSelf->__PVT__icache__DOT__mrdata[0U];
+    vlSelf->__PVT__icache_sram_wdata[1U][1U] = vlSelf->__PVT__icache__DOT__mrdata[1U];
+    vlSelf->__PVT__icache_sram_wdata[1U][2U] = vlSelf->__PVT__icache__DOT__mrdata[2U];
+    vlSelf->__PVT__icache_sram_wdata[1U][3U] = vlSelf->__PVT__icache__DOT__mrdata[3U];
+    vlSelf->__PVT__icache_sram_wdata[0U][0U] = vlSelf->__PVT__icache__DOT__mrdata[0U];
+    vlSelf->__PVT__icache_sram_wdata[0U][1U] = vlSelf->__PVT__icache__DOT__mrdata[1U];
+    vlSelf->__PVT__icache_sram_wdata[0U][2U] = vlSelf->__PVT__icache__DOT__mrdata[2U];
+    vlSelf->__PVT__icache_sram_wdata[0U][3U] = vlSelf->__PVT__icache__DOT__mrdata[3U];
     if (vlSymsp->TOP.rst) {
         vlSelf->__PVT__IFU__DOT__if_pc = 0x7ffffffcULL;
         vlSelf->__PVT__id_inst = 0U;
+        vlSelf->__PVT__dcache__DOT__cur_state = 0U;
+        vlSelf->__PVT__ram_axi__DOT__r_cur_state = 0U;
+        vlSelf->__PVT__ram_axi__DOT__w_cur_state = 0U;
+        vlSelf->__PVT__icache__DOT__cur_state = 0U;
+        vlSelf->__PVT__IFU__DOT__inst_buffer = 0U;
     } else {
         if (((IData)(vlSelf->__PVT__icache__DOT__recently_used_wen) 
-             & (IData)(vlSelf->__PVT__ifu_cache_req))) {
+             & (IData)(vlSelf->__PVT__IFU__DOT__if_allow_in))) {
             vlSelf->__PVT__IFU__DOT__if_pc = vlSelf->__PVT__IFU__DOT__prefetch_pc;
         }
         if (vlSelf->__PVT__IDRegs__DOT__popline_wen) {
             vlSelf->__PVT__id_inst = ((IData)(vlSelf->__PVT__IFU__DOT__inst_buffer_valid)
                                        ? vlSelf->__PVT__IFU__DOT__inst_buffer
                                        : vlSelf->__PVT__IFU__DOT__inst);
+        }
+        vlSelf->__PVT__dcache__DOT__cur_state = vlSelf->__PVT__dcache__DOT__next_state;
+        vlSelf->__PVT__ram_axi__DOT__r_cur_state = vlSelf->__PVT__ram_axi__DOT__r_next_state;
+        vlSelf->__PVT__ram_axi__DOT__w_cur_state = vlSelf->__PVT__ram_axi__DOT__w_next_state;
+        vlSelf->__PVT__icache__DOT__cur_state = vlSelf->__PVT__icache__DOT__next_state;
+        if (vlSelf->__PVT__IFU__DOT__inst_buffer_valid_set) {
+            vlSelf->__PVT__IFU__DOT__inst_buffer = vlSelf->__PVT__IFU__DOT__inst;
+        }
+    }
+    if (((IData)(((0x100073U == (0x1f0007fU & vlSelf->__PVT__id_inst)) 
+                  & (~ (IData)((0U != (7U & (vlSelf->__PVT__id_inst 
+                                             >> 0xcU))))))) 
+         & (IData)(vlSelf->__PVT__idu_valid))) {
+        Vtop___024unit____Vdpiimwrap_setebreak_TOP____024unit();
+    }
+    if (vlSymsp->TOP.rst) {
+        vlSelf->__PVT__icache__DOT__addr_r = 0U;
+        vlSelf->__PVT__dcache__DOT__refill_tag_r = 0U;
+        vlSelf->__PVT__dcache__DOT__wstrb_r = 0U;
+        vlSelf->__PVT__dcache__DOT__refill_waynum_r = 0U;
+        vlSelf->__PVT__dcache__DOT__addr_r = 0U;
+        vlSelf->__PVT__dcache__DOT__uncache_r = 0U;
+        vlSelf->__PVT__dcache__DOT__wdata_r = 0ULL;
+    } else {
+        if (vlSelf->__PVT__icache__DOT__recently_used_wen) {
+            vlSelf->__PVT__icache__DOT__addr_r = (IData)(vlSelf->__PVT__IFU__DOT__prefetch_pc);
+        }
+        if (((IData)(vlSelf->__PVT__dcache__DOT__recently_used_wen) 
+             & (IData)(vlSelf->__PVT__dcache__DOT__refill_dirty))) {
+            vlSelf->__PVT__dcache__DOT__refill_tag_r 
+                = (0x1fffffU & (((- (IData)((1U & (~ (IData)(vlSelf->__PVT__dcache__DOT__refill_waynum))))) 
+                                 & (vlSelf->dcache__DOT____Vcellout__tag_regs_gen__BRA__0__KET____DOT__tagvd_regs__o_dout 
+                                    >> 2U)) | ((- (IData)((IData)(vlSelf->__PVT__dcache__DOT__refill_waynum))) 
+                                               & (vlSelf->dcache__DOT____Vcellout__tag_regs_gen__BRA__1__KET____DOT__tagvd_regs__o_dout 
+                                                  >> 2U))));
+        }
+        if (vlSelf->__PVT__dcache__DOT__recently_used_wen) {
+            vlSelf->__PVT__dcache__DOT__wstrb_r = vlSelf->__PVT__o_exu_cache_wstrb;
+            vlSelf->__PVT__dcache__DOT__refill_waynum_r 
+                = vlSelf->__PVT__dcache__DOT__refill_waynum;
+            vlSelf->__PVT__dcache__DOT__addr_r = (IData)(vlSelf->__PVT__o_exu_cache_addr);
+            vlSelf->__PVT__dcache__DOT__uncache_r = 
+                (0xaU == (0xfU & (IData)((vlSelf->__PVT__o_exu_cache_addr 
+                                          >> 0x1cU))));
+            vlSelf->__PVT__dcache__DOT__wdata_r = (
+                                                   ((QData)((IData)(
+                                                                    vlSelf->ID_to_EXU_Regs__DOT____Vcellout__id_to_exu_pipeline_regs__dout[6U])) 
+                                                    << 0x20U) 
+                                                   | (QData)((IData)(
+                                                                     vlSelf->ID_to_EXU_Regs__DOT____Vcellout__id_to_exu_pipeline_regs__dout[5U])));
         }
     }
     vlSelf->__PVT__IDU__DOT__ContrGenU__DOT__ImmGenU__DOT__isRegWr__DOT__pair_list[0U][0U] 
@@ -8157,15 +8239,6 @@ VL_INLINE_OPT void Vtop_top___nba_sequent__TOP__top__0(Vtop_top* vlSelf) {
                                                  >> 0x14U)))) 
                    >> 0x20U));
     vlSelf->__PVT__IDU__DOT__ContrGenU__DOT__ImmGenU__DOT__isRegWr__DOT__pair_list[4U][2U] = 2U;
-    vlSelf->__PVT__idu_isebreak = (IData)(((0x100073U 
-                                            == (0x1f0007fU 
-                                                & vlSelf->__PVT__id_inst)) 
-                                           & (~ (IData)(
-                                                        (0U 
-                                                         != 
-                                                         (7U 
-                                                          & (vlSelf->__PVT__id_inst 
-                                                             >> 0xcU)))))));
     vlSelf->__PVT__IDU__DOT__ContrGenU__DOT__ImmGenU__DOT__isRegWr__DOT__data_list[0U] 
         = (((- (QData)((IData)((vlSelf->__PVT__id_inst 
                                 >> 0x1fU)))) << 0x15U) 
@@ -8326,6 +8399,20 @@ VL_INLINE_OPT void Vtop_top___nba_sequent__TOP__top__0(Vtop_top* vlSelf) {
         = ((IData)(vlSelf->__PVT__IDU__DOT__ContrGenU__DOT__deExtop__DOT__hit)
             ? (IData)(vlSelf->__PVT__IDU__DOT__ContrGenU__DOT__deExtop__DOT__lut_out)
             : 0U);
+    vlSelf->__PVT__o_id_isecall = (((~ (IData)((0U 
+                                                != 
+                                                (0xfff07000U 
+                                                 & vlSelf->__PVT__id_inst)))) 
+                                    & (0x73U == (0x7fU 
+                                                 & vlSelf->__PVT__id_inst))) 
+                                   & (IData)(vlSelf->__PVT__idu_valid));
+    vlSelf->__PVT__o_id_ismret = (((~ (IData)((0U != 
+                                               (7U 
+                                                & (vlSelf->__PVT__id_inst 
+                                                   >> 0xcU))))) 
+                                   & (0x302U == (vlSelf->__PVT__id_inst 
+                                                 >> 0x14U))) 
+                                  & (IData)(vlSelf->__PVT__idu_valid));
     vlSelf->__PVT__isRAW = ((((IData)(vlSelf->witf__DOT____Vcellout__witf_entries__BRA__7__KET____DOT__vld_reg____pinNumber4) 
                               & ((IData)(vlSelf->witf__DOT____Vcellout__witf_entries__BRA__7__KET____DOT__rdidx_reg____pinNumber4) 
                                  == (0x1fU & (vlSelf->__PVT__id_inst 
@@ -8408,7 +8495,7 @@ VL_INLINE_OPT void Vtop_top___nba_sequent__TOP__top__0(Vtop_top* vlSelf) {
                                                        (0x1fU 
                                                         & (vlSelf->__PVT__id_inst 
                                                            >> 0x14U))))))))))));
-    if (((IData)(vlSymsp->TOP.rst) | (IData)(vlSelf->__PVT__IDRegs__DOT__flush_pipeline))) {
+    if (((IData)(vlSelf->__PVT__flush_if) | (IData)(vlSymsp->TOP.rst))) {
         vlSelf->__PVT__IFU__DOT__inst_buffer_valid = 0U;
     } else if (((IData)(vlSelf->__PVT__IFU__DOT__inst_buffer_valid_set) 
                 | (IData)(vlSelf->__PVT__id_allow_in))) {
@@ -8416,24 +8503,6 @@ VL_INLINE_OPT void Vtop_top___nba_sequent__TOP__top__0(Vtop_top* vlSelf) {
             = (1U & ((~ (IData)(vlSelf->__PVT__id_allow_in)) 
                      | (IData)(vlSelf->__PVT__IFU__DOT__inst_buffer_valid_set)));
     }
-    vlSelf->__PVT__icache_sram_wdata[3U][0U] = vlSelf->__PVT__icache__DOT__mrdata[0U];
-    vlSelf->__PVT__icache_sram_wdata[3U][1U] = vlSelf->__PVT__icache__DOT__mrdata[1U];
-    vlSelf->__PVT__icache_sram_wdata[3U][2U] = vlSelf->__PVT__icache__DOT__mrdata[2U];
-    vlSelf->__PVT__icache_sram_wdata[3U][3U] = vlSelf->__PVT__icache__DOT__mrdata[3U];
-    vlSelf->__PVT__icache_sram_wdata[2U][0U] = vlSelf->__PVT__icache__DOT__mrdata[0U];
-    vlSelf->__PVT__icache_sram_wdata[2U][1U] = vlSelf->__PVT__icache__DOT__mrdata[1U];
-    vlSelf->__PVT__icache_sram_wdata[2U][2U] = vlSelf->__PVT__icache__DOT__mrdata[2U];
-    vlSelf->__PVT__icache_sram_wdata[2U][3U] = vlSelf->__PVT__icache__DOT__mrdata[3U];
-    vlSelf->__PVT__icache_sram_wdata[1U][0U] = vlSelf->__PVT__icache__DOT__mrdata[0U];
-    vlSelf->__PVT__icache_sram_wdata[1U][1U] = vlSelf->__PVT__icache__DOT__mrdata[1U];
-    vlSelf->__PVT__icache_sram_wdata[1U][2U] = vlSelf->__PVT__icache__DOT__mrdata[2U];
-    vlSelf->__PVT__icache_sram_wdata[1U][3U] = vlSelf->__PVT__icache__DOT__mrdata[3U];
-    vlSelf->__PVT__icache_sram_wdata[0U][0U] = vlSelf->__PVT__icache__DOT__mrdata[0U];
-    vlSelf->__PVT__icache_sram_wdata[0U][1U] = vlSelf->__PVT__icache__DOT__mrdata[1U];
-    vlSelf->__PVT__icache_sram_wdata[0U][2U] = vlSelf->__PVT__icache__DOT__mrdata[2U];
-    vlSelf->__PVT__icache_sram_wdata[0U][3U] = vlSelf->__PVT__icache__DOT__mrdata[3U];
-    vlSelf->__PVT__dcache__DOT__cur_state = ((IData)(vlSymsp->TOP.rst)
-                                              ? 0U : (IData)(vlSelf->__PVT__dcache__DOT__next_state));
     vlSelf->__PVT__dcache__DOT__hit_w_tagvd_wen = (
                                                    (1U 
                                                     == (IData)(vlSelf->__PVT__dcache__DOT__cur_state)) 
@@ -8444,22 +8513,6 @@ VL_INLINE_OPT void Vtop_top___nba_sequent__TOP__top__0(Vtop_top* vlSelf) {
     vlSelf->__PVT__axi_rw_interface__DOT__rd_ready 
         = (1U & (~ ((IData)(vlSelf->__PVT__axi_rw_interface__DOT__dcache_rd_doing) 
                     | (IData)(vlSelf->__PVT__axi_rw_interface__DOT__icache_rd_doing))));
-    if (vlSymsp->TOP.rst) {
-        vlSelf->__PVT__ram_axi__DOT__r_cur_state = 0U;
-        vlSelf->__PVT__ram_axi__DOT__w_cur_state = 0U;
-        vlSelf->__PVT__IFU__DOT__inst_buffer = 0U;
-        vlSelf->__PVT__icache__DOT__cur_state = 0U;
-    } else {
-        vlSelf->__PVT__ram_axi__DOT__r_cur_state = vlSelf->__PVT__ram_axi__DOT__r_next_state;
-        vlSelf->__PVT__ram_axi__DOT__w_cur_state = vlSelf->__PVT__ram_axi__DOT__w_next_state;
-        if (vlSelf->__PVT__IFU__DOT__inst_buffer_valid_set) {
-            vlSelf->__PVT__IFU__DOT__inst_buffer = vlSelf->__PVT__IFU__DOT__inst;
-        }
-        vlSelf->__PVT__icache__DOT__cur_state = vlSelf->__PVT__icache__DOT__next_state;
-    }
-    if (((IData)(vlSelf->__PVT__idu_isebreak) & (IData)(vlSelf->__PVT__idu_valid))) {
-        Vtop___024unit____Vdpiimwrap_setebreak_TOP____024unit();
-    }
     vlSelf->__PVT__o_id_isTuncate = ((6U != (IData)(vlSelf->__PVT__IDU__DOT__ContrGenU__DOT__Extop)) 
                                      & (vlSelf->__PVT__id_inst 
                                         >> 3U));
@@ -8566,51 +8619,22 @@ VL_INLINE_OPT void Vtop_top___nba_sequent__TOP__top__0(Vtop_top* vlSelf) {
               [3U]));
     vlSelf->__PVT__o_id_RegWr = ((IData)(vlSelf->__PVT__IDU__DOT__ContrGenU__DOT__isRegWr__DOT__hit) 
                                  & (IData)(vlSelf->__PVT__IDU__DOT__ContrGenU__DOT__isRegWr__DOT__lut_out));
+    vlSelf->__PVT__IDU__DOT__id_ready_go = (1U & ((~ 
+                                                   (((IData)(vlSelf->__PVT__witf__DOT__rptr_r) 
+                                                     == (IData)(vlSelf->__PVT__witf__DOT__wptr_r)) 
+                                                    & ((IData)(vlSelf->__PVT__witf__DOT__depth_gt1__DOT__rptr_flg_r) 
+                                                       != (IData)(vlSelf->__PVT__witf__DOT__depth_gt1__DOT__wptr_flg_r)))) 
+                                                  & (~ (IData)(vlSelf->__PVT__isRAW))));
     vlSelf->dcache__DOT____VdfgTmp_ha0baa884__0 = ((IData)(vlSelf->__PVT__dcache__DOT__hit_w_tagvd_wen) 
                                                    & (IData)(vlSelf->__PVT__dcache__DOT__hit_way1_r));
-    if ((2U == (IData)(vlSelf->__PVT__ram_axi__DOT__r_cur_state))) {
-        Vtop___024unit____Vdpiimwrap_pmem_read_TOP____024unit(
-                                                              ((IData)(
-                                                                       (vlSelf->ram_axi__DOT____Vcellout__axi_read_req_buffer__dout 
-                                                                        >> 0xbU)) 
-                                                               + 
-                                                               ((IData)(vlSelf->__PVT__ram_axi__DOT__r_transfer_cnt) 
-                                                                << 3U)), vlSelf->__Vtask_pmem_read__2__rdata);
-        vlSelf->__PVT__ram_axi__DOT__ram_rdata = vlSelf->__Vtask_pmem_read__2__rdata;
-    } else {
-        vlSelf->__PVT__ram_axi__DOT__ram_rdata = 0ULL;
-    }
-    if (vlSymsp->TOP.rst) {
-        vlSelf->__PVT__icache__DOT__addr_r = 0U;
-        vlSelf->__PVT__dcache__DOT__wstrb_r = 0U;
-        vlSelf->__PVT__dcache__DOT__refill_waynum_r = 0U;
-        vlSelf->__PVT__dcache__DOT__addr_r = 0U;
-        vlSelf->__PVT__dcache__DOT__uncache_r = 0U;
-        vlSelf->__PVT__dcache__DOT__wdata_r = 0ULL;
-    } else {
-        if (vlSelf->__PVT__icache__DOT__recently_used_wen) {
-            vlSelf->__PVT__icache__DOT__addr_r = (IData)(vlSelf->__PVT__IFU__DOT__prefetch_pc);
-        }
-        if (vlSelf->__PVT__dcache__DOT__recently_used_wen) {
-            vlSelf->__PVT__dcache__DOT__wstrb_r = vlSelf->__PVT__o_exu_cache_wstrb;
-            vlSelf->__PVT__dcache__DOT__refill_waynum_r 
-                = vlSelf->__PVT__dcache__DOT__refill_waynum;
-            vlSelf->__PVT__dcache__DOT__addr_r = (IData)(vlSelf->__PVT__o_exu_cache_addr);
-            vlSelf->__PVT__dcache__DOT__uncache_r = 
-                (1U & (~ (IData)((vlSelf->__PVT__o_exu_cache_addr 
-                                  >> 0x1fU))));
-            vlSelf->__PVT__dcache__DOT__wdata_r = (
-                                                   ((QData)((IData)(
-                                                                    vlSelf->ID_to_EXU_Regs__DOT____Vcellout__id_to_exu_pipeline_regs__dout[6U])) 
-                                                    << 0x20U) 
-                                                   | (QData)((IData)(
-                                                                     vlSelf->ID_to_EXU_Regs__DOT____Vcellout__id_to_exu_pipeline_regs__dout[5U])));
-        }
-    }
     vlSelf->__PVT__axi_rw_interface__DOT__r_hs = ((2U 
                                                    == (IData)(vlSelf->__PVT__ram_axi__DOT__r_cur_state)) 
                                                   & (2U 
                                                      == (IData)(vlSelf->__PVT__axi_rw_interface__DOT__r_cur_state)));
+    vlSelf->__VdfgTmp_hb79ea105__0 = ((1U & (IData)(
+                                                    (vlSelf->axi_rw_interface__DOT____Vcellout__axi_read_req_buffer__dout 
+                                                     >> 2U)))
+                                       ? 3U : (3U & (IData)(vlSelf->axi_rw_interface__DOT____Vcellout__axi_read_req_buffer__dout)));
     vlSelf->__PVT__axi_rw_interface__DOT__ar_hs = (
                                                    ((IData)(
                                                             (vlSelf->axi_rw_interface__DOT____Vcellout__axi_read_req_buffer__dout 
@@ -8631,7 +8655,8 @@ VL_INLINE_OPT void Vtop_top___nba_sequent__TOP__top__0(Vtop_top* vlSelf) {
                                                      >> 0xbU) 
                                                     & (1U 
                                                        == (IData)(vlSelf->__PVT__axi_rw_interface__DOT__w_cur_state))) 
-                                                   & (IData)(vlSelf->__PVT__axi_slave_awready));
+                                                   & (1U 
+                                                      == (IData)(vlSelf->__PVT__ram_axi__DOT__w_cur_state)));
     vlSelf->icache__DOT____Vcellinp__tag_regs_gen__BRA__1__KET____DOT__tagv_regs__i_wen 
         = ((4U == (IData)(vlSelf->__PVT__icache__DOT__cur_state)) 
            & (IData)(vlSelf->__PVT__icache__DOT__refill_waynum_r));
@@ -8645,6 +8670,18 @@ VL_INLINE_OPT void Vtop_top___nba_sequent__TOP__top__0(Vtop_top* vlSelf) {
     vlSelf->__PVT__axi_rw_interface__DOT__r_done = 
         ((IData)(vlSelf->__PVT__axi_rw_interface__DOT__r_hs) 
          & (IData)(vlSelf->__PVT__axi_rw_interface__DOT__rlast));
+    if ((2U == (IData)(vlSelf->__PVT__ram_axi__DOT__r_cur_state))) {
+        Vtop___024unit____Vdpiimwrap_pmem_read_TOP____024unit(
+                                                              ((IData)(
+                                                                       (vlSelf->ram_axi__DOT____Vcellout__axi_read_req_buffer__dout 
+                                                                        >> 0xbU)) 
+                                                               + 
+                                                               ((IData)(vlSelf->__PVT__ram_axi__DOT__r_transfer_cnt) 
+                                                                << 3U)), vlSelf->__Vtask_pmem_read__2__rdata, (IData)(vlSelf->__VdfgTmp_hb79ea105__0));
+        vlSelf->__PVT__ram_axi__DOT__ram_rdata = vlSelf->__Vtask_pmem_read__2__rdata;
+    } else {
+        vlSelf->__PVT__ram_axi__DOT__ram_rdata = 0ULL;
+    }
     if (vlSelf->__PVT__axi_rw_interface__DOT__w_hs) {
         Vtop___024unit____Vdpiimwrap_pmem_write_TOP____024unit(
                                                                ((IData)(
@@ -8725,93 +8762,4 @@ VL_INLINE_OPT void Vtop_top___nba_sequent__TOP__top__0(Vtop_top* vlSelf) {
                                                                (0xffU 
                                                                 & vlSelf->axi_rw_interface__DOT____Vcellout__axi_write_req_buffer__dout[0U]));
     }
-    vlSelf->__PVT__axi_rw_interface__DOT__w_done = 
-        ((IData)(vlSelf->__PVT__axi_rw_interface__DOT__w_hs) 
-         & ((IData)(vlSelf->__PVT__axi_rw_interface__DOT__w_transfer_cnt) 
-            == ((4U == (7U & (vlSelf->axi_rw_interface__DOT____Vcellout__axi_write_req_buffer__dout[0U] 
-                              >> 8U))) ? 1U : 0U)));
-    vlSelf->__PVT__if_ready_go = ((IData)(vlSelf->__PVT__icache_valid) 
-                                  | (IData)(vlSelf->__PVT__IFU__DOT__inst_buffer_valid));
-    vlSelf->__PVT__axi_rw_interface__DOT__r_next_state 
-        = ((0U == (IData)(vlSelf->__PVT__axi_rw_interface__DOT__r_cur_state))
-            ? 1U : ((1U == (IData)(vlSelf->__PVT__axi_rw_interface__DOT__r_cur_state))
-                     ? ((IData)(vlSelf->__PVT__axi_rw_interface__DOT__ar_hs)
-                         ? 2U : 1U) : ((2U == (IData)(vlSelf->__PVT__axi_rw_interface__DOT__r_cur_state))
-                                        ? ((IData)(vlSelf->__PVT__axi_rw_interface__DOT__r_done)
-                                            ? 0U : 2U)
-                                        : 0U)));
-    vlSelf->__PVT__ram_axi__DOT__r_next_state = ((0U 
-                                                  == (IData)(vlSelf->__PVT__ram_axi__DOT__r_cur_state))
-                                                  ? 1U
-                                                  : 
-                                                 ((1U 
-                                                   == (IData)(vlSelf->__PVT__ram_axi__DOT__r_cur_state))
-                                                   ? 
-                                                  ((IData)(vlSelf->__PVT__axi_rw_interface__DOT__ar_hs)
-                                                    ? 2U
-                                                    : 1U)
-                                                   : 
-                                                  ((2U 
-                                                    == (IData)(vlSelf->__PVT__ram_axi__DOT__r_cur_state))
-                                                    ? 
-                                                   ((IData)(vlSelf->__PVT__axi_rw_interface__DOT__r_done)
-                                                     ? 0U
-                                                     : 2U)
-                                                    : 0U)));
-    vlSelf->__PVT__icache__DOT__hit_data[0U] = (((- (IData)((IData)(vlSelf->__PVT__icache__DOT__hit_way0_r))) 
-                                                 & ((0x400U 
-                                                     & vlSelf->__PVT__icache__DOT__addr_r)
-                                                     ? 
-                                                    vlSelf->__Vcellout__genblk1__BRA__1__KET____DOT__icache_data_array__Q[0U]
-                                                     : 
-                                                    vlSelf->__Vcellout__genblk1__BRA__0__KET____DOT__icache_data_array__Q[0U])) 
-                                                | ((- (IData)((IData)(vlSelf->__PVT__icache__DOT__hit_way1_r))) 
-                                                   & ((0x400U 
-                                                       & vlSelf->__PVT__icache__DOT__addr_r)
-                                                       ? 
-                                                      vlSelf->__Vcellout__genblk1__BRA__3__KET____DOT__icache_data_array__Q[0U]
-                                                       : 
-                                                      vlSelf->__Vcellout__genblk1__BRA__2__KET____DOT__icache_data_array__Q[0U])));
-    vlSelf->__PVT__icache__DOT__hit_data[1U] = (((- (IData)((IData)(vlSelf->__PVT__icache__DOT__hit_way0_r))) 
-                                                 & ((0x400U 
-                                                     & vlSelf->__PVT__icache__DOT__addr_r)
-                                                     ? 
-                                                    vlSelf->__Vcellout__genblk1__BRA__1__KET____DOT__icache_data_array__Q[1U]
-                                                     : 
-                                                    vlSelf->__Vcellout__genblk1__BRA__0__KET____DOT__icache_data_array__Q[1U])) 
-                                                | ((- (IData)((IData)(vlSelf->__PVT__icache__DOT__hit_way1_r))) 
-                                                   & ((0x400U 
-                                                       & vlSelf->__PVT__icache__DOT__addr_r)
-                                                       ? 
-                                                      vlSelf->__Vcellout__genblk1__BRA__3__KET____DOT__icache_data_array__Q[1U]
-                                                       : 
-                                                      vlSelf->__Vcellout__genblk1__BRA__2__KET____DOT__icache_data_array__Q[1U])));
-    vlSelf->__PVT__icache__DOT__hit_data[2U] = (((- (IData)((IData)(vlSelf->__PVT__icache__DOT__hit_way0_r))) 
-                                                 & ((0x400U 
-                                                     & vlSelf->__PVT__icache__DOT__addr_r)
-                                                     ? 
-                                                    vlSelf->__Vcellout__genblk1__BRA__1__KET____DOT__icache_data_array__Q[2U]
-                                                     : 
-                                                    vlSelf->__Vcellout__genblk1__BRA__0__KET____DOT__icache_data_array__Q[2U])) 
-                                                | ((- (IData)((IData)(vlSelf->__PVT__icache__DOT__hit_way1_r))) 
-                                                   & ((0x400U 
-                                                       & vlSelf->__PVT__icache__DOT__addr_r)
-                                                       ? 
-                                                      vlSelf->__Vcellout__genblk1__BRA__3__KET____DOT__icache_data_array__Q[2U]
-                                                       : 
-                                                      vlSelf->__Vcellout__genblk1__BRA__2__KET____DOT__icache_data_array__Q[2U])));
-    vlSelf->__PVT__icache__DOT__hit_data[3U] = (((- (IData)((IData)(vlSelf->__PVT__icache__DOT__hit_way0_r))) 
-                                                 & ((0x400U 
-                                                     & vlSelf->__PVT__icache__DOT__addr_r)
-                                                     ? 
-                                                    vlSelf->__Vcellout__genblk1__BRA__1__KET____DOT__icache_data_array__Q[3U]
-                                                     : 
-                                                    vlSelf->__Vcellout__genblk1__BRA__0__KET____DOT__icache_data_array__Q[3U])) 
-                                                | ((- (IData)((IData)(vlSelf->__PVT__icache__DOT__hit_way1_r))) 
-                                                   & ((0x400U 
-                                                       & vlSelf->__PVT__icache__DOT__addr_r)
-                                                       ? 
-                                                      vlSelf->__Vcellout__genblk1__BRA__3__KET____DOT__icache_data_array__Q[3U]
-                                                       : 
-                                                      vlSelf->__Vcellout__genblk1__BRA__2__KET____DOT__icache_data_array__Q[3U])));
 }

@@ -18,7 +18,8 @@ module witf(
     output witf_empty,
     
     // 3. finish wb to pop inst
-    input wb_en
+    input wb_en ,
+    input flush_witf
 );
 
 wire [`WITF_AddrBus]wptr_r;
@@ -46,25 +47,25 @@ wire witfrd_match_disprs2;
       wire wptr_flg_nxt = ~wptr_flg_r;
       wire wptr_flg_ena = (wptr_r == (`WITF_DEPTH-1)) & disp_en&(!isRAW);//标志位取反信号
             
-      Reg #(1,'d0) wptr_flg_reg(clk,rst,wptr_flg_nxt,wptr_flg_r,wptr_flg_ena);
+      Reg #(1,'d0) wptr_flg_reg(clk,rst|flush_witf,wptr_flg_nxt,wptr_flg_r,wptr_flg_ena);
       
       wire [`WITF_AWIDTH-1:0] wptr_nxt; //写指针更新
       
       assign wptr_nxt = wptr_flg_ena ? `WITF_AWIDTH'b0 : (wptr_r + 1'b1);
       
-      Reg #(`WITF_AWIDTH,'d0) wptr_reg(clk,rst,wptr_nxt,wptr_r,disp_en&(!isRAW));
+      Reg #(`WITF_AWIDTH,'d0) wptr_reg(clk,rst|flush_witf,wptr_nxt,wptr_r,disp_en&(!isRAW));
       
       wire rptr_flg_r;//读指针MSB额外标志位
       wire rptr_flg_nxt = ~rptr_flg_r;
       wire rptr_flg_ena = (rptr_r == (`WITF_DEPTH-1)) & wb_en;//$unsigned(`WITF_DEPTH-1)
       
-      Reg #(1,'d0) rptr_flg_reg(clk,rst,rptr_flg_nxt,rptr_flg_r,rptr_flg_ena);
+      Reg #(1,'d0) rptr_flg_reg(clk,rst|flush_witf,rptr_flg_nxt,rptr_flg_r,rptr_flg_ena);
       
       wire [`WITF_AWIDTH-1:0] rptr_nxt; //读指针更新
       
       assign rptr_nxt = rptr_flg_ena ? `WITF_AWIDTH'b0 : (rptr_r + 1'b1);
 
-      Reg #(`WITF_AWIDTH,'d0) rptr_reg(clk,rst,rptr_nxt,rptr_r,wb_en);
+      Reg #(`WITF_AWIDTH,'d0) rptr_reg(clk,rst|flush_witf,rptr_nxt,rptr_r,wb_en);
 
 
       assign witf_empty = (rptr_r == wptr_r) &   (rptr_flg_r == wptr_flg_r);
@@ -87,7 +88,7 @@ wire witfrd_match_disprs2;
         assign vld_ena[i] = vld_set[i] |   vld_clr[i];
         assign vld_nxt[i] = vld_set[i] | (~vld_clr[i]);
   
-        Reg #(1,'d0) vld_reg(clk,rst,vld_nxt[i],vld_r[i],vld_ena[i]);
+        Reg #(1,'d0) vld_reg(clk,rst|flush_witf,vld_nxt[i],vld_r[i],vld_ena[i]);
 
         //Payload only set, no need to clear
         //sirv_gnrl_dffl #(`RegAWIDTH) rdidx_dfflrs(vld_set[i], disp_i_rdidx, rdidx_r[i], clk);

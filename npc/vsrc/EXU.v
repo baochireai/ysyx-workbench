@@ -5,11 +5,11 @@ module EXU(
     // 1. inputs from pre stage 
 
     // 1.1 ctrl from id to ALU
-    input                   ALUAsr,
-    input [1:0]             ALUBsr,
-    input [4:0]             ALUct,
-    input                   isTuncate,
-    input                   isSext,
+    input                   ALUAsr      ,
+    input [1:0]             ALUBsr      ,
+    input [4:0]             ALUct       ,
+    input                   isTuncate   ,
+    input                   isSext      ,
 
     // 1.2 branch ctrl 
     input [2:0]             Branch,
@@ -23,8 +23,12 @@ module EXU(
     input [1:0]             RegSrc_i,//写回地址 
 
     // 1.5 intr inst
-    input                   IntrEn_i,    
+    input                   i_isecall ,
+    input                   i_ismret  ,
+    input                   i_iscsr   ,    
 
+    // pipeline ctrl
+    input                   stall_exu_store ,
     // 1.6 operate data    
     input [`RegWidth-1:0]   R_rs1,
     input [`RegWidth-1:0]   R_rs2,//mem wdata
@@ -55,7 +59,9 @@ module EXU(
     output[`INSTWide-1:0]   inst,
     output [`RegWidth-1:0]  pc,
     // 3.5 intr/csr
-    output                  IntrEn,
+    output                   o_isecall ,
+    output                   o_ismret  ,
+    output                   o_iscsr   ,
     // 3.6 csr wdata
     output [`RegWidth-1:0]  o_R_rs1, 
 
@@ -69,17 +75,19 @@ module EXU(
     input                   exu_valid,
     output                  exu_ready,
     input                   lsu_allow_in,
-    output                  exu_to_lsu_valid
+    output                  exu_to_lsu_valid,
+
+    input pipeline_flush 
 );
     // 1. shake hands
-    wire exu_ready_go = (~req) || req && cache_ready;
+    wire exu_ready_go = (~isMem) || req && cache_ready;
     assign exu_ready = (~exu_valid) | exu_ready_go & lsu_allow_in;
     assign exu_to_lsu_valid = exu_valid && exu_ready_go ;
     
     // 2. Cache req
-    wire isMem = (MemOP != 3'b011 ) && (~isclint);
+    wire isMem = (MemOP != 3'b011 ) && (~isclint) && exu_valid ; 
     wire isclint = (addr>=64'h2000000&addr<=64'h200BFFF)?1'b1:1'b0;
-    assign req = exu_valid && isMem ;
+    assign req = isMem && (!stall_exu_store) && (!pipeline_flush) ;
     assign op = MemWr_i;
     assign size = MemOP_i[1:0];//0->8 1->4  2->2 3->1   -->  3->8 2->4 1->2 0->1
     assign addr = ALUres;
@@ -111,6 +119,7 @@ module EXU(
     // 5.1 mem ctrl
     assign MemOP = MemOP_i;
     assign MemWr = MemWr_i;
+    assign o_R_rs2 = R_rs2 ;
     // 5.2 regsfile wb
     assign Regwr = RegWr_i;
     assign RegSrc = RegSrc_i;
@@ -120,6 +129,8 @@ module EXU(
     // 5.4 csr wdata
     assign o_R_rs1 =R_rs1;
     // 5.5 intr/csr
-    assign IntrEn = IntrEn_i;
+    assign o_isecall = i_isecall;
+    assign o_ismret  = i_ismret ;
+    assign o_iscsr   = i_iscsr  ;
 
 endmodule

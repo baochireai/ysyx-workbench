@@ -4,10 +4,14 @@
 #include <string.h>
 #define keyname(k) #k,
 
+#define ARRLEN(arr) (int)(sizeof(arr) / sizeof(arr[0]))
+
 static const char *keyname[] = {
   "NONE",
   _KEYS(keyname)
 };
+
+uint8_t keystate[ARRLEN(keyname)];
 
 int SDL_PushEvent(SDL_Event *ev) {
   printf("SDL_PushEvent undo\n") ;
@@ -23,34 +27,38 @@ uint8_t SDL_GetKeyFromName(const char* getkeyname){
 }
 
 int SDL_PollEvent(SDL_Event *ev) {
-  char* buf=(char*)malloc(64*sizeof(char));
+  
+  char buf[100];
   if(NDL_PollEvent(buf,64)){//kd keyname/ku keyname
     if(buf[0]=='k'&&buf[1]=='d') ev->type=SDL_KEYDOWN;
     else if(buf[0]=='k'&&buf[1]=='u') ev->type=SDL_KEYUP;
     else {
-      free(buf);
+      
       return 0;      
     }
     ev->key.type=ev->type;
     buf[strlen(buf)-1]='\0';//把\n去掉
-    printf("%s\n",buf);
-    ev->key.keysym.sym=SDL_GetKeyFromName(buf+3);//keyname->keycode
-    free(buf);
+    //printf("%s\n",buf);
+    uint8_t keycode = SDL_GetKeyFromName(buf+3) ;
+    ev->key.keysym.sym=keycode;//keyname->keycode
+    keystate[keycode] = (ev->type == SDL_KEYDOWN) ? 1:0; 
+    
     return 1;
   }
-  free(buf);
+  
   return 0;
 }
 
 int SDL_WaitEvent(SDL_Event *event) {
-  char* buf=(char*)malloc(64*sizeof(char));
-  while(!NDL_PollEvent(buf,64));//kd keyname/ku keyname
-  event->type=(buf[0]=='k'&&buf[1]=='d')?SDL_KEYDOWN:SDL_KEYUP;
-  event->key.type=event->type;
-  buf[strlen(buf)-1]='\0';//把\n去掉
-  printf("%s\n",buf);
-  event->key.keysym.sym=SDL_GetKeyFromName(buf+3);//keyname->keycode
-  free(buf);
+  
+  // char buf[100];
+  // while(!NDL_PollEvent(buf,64));//kd keyname/ku keyname
+  // event->type=(buf[0]=='k'&&buf[1]=='d')?SDL_KEYDOWN:SDL_KEYUP;
+  // event->key.type=event->type;
+  // buf[strlen(buf)-1]='\0';//把\n去掉
+  // //printf("%s\n",buf);
+  // event->key.keysym.sym=SDL_GetKeyFromName(buf+3);//keyname->keycode
+  while(SDL_PollEvent(event) == 0);
   return 1;
 }
 
@@ -60,6 +68,8 @@ int SDL_PeepEvents(SDL_Event *ev, int numevents, int action, uint32_t mask) {
 }
 
 uint8_t* SDL_GetKeyState(int *numkeys) {
-  printf("SDL_GetKeyState undo\n") ;
-  return NULL;
+  if(numkeys != NULL){
+    *numkeys = ARRLEN(keyname);
+  }
+  return keystate;
 }

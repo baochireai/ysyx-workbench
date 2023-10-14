@@ -21,10 +21,13 @@ module LSU(
     input [1:0]             i_RegSrc,//alu/mem/csr
     input                   i_RegWr, 
     // 2.3.3 intr/csr
-    input                   i_IntrEn,
+    // input                   i_IntrEn,
     // 2.3.4 csr wdata
     input[`RegWidth-1:0]    i_R_rs1,   
     
+    // mie from wb
+    input mstatus_MIE ,
+
     // 3. outputs for next stage
     
     // 3.1 mem out 
@@ -41,7 +44,7 @@ module LSU(
     output [1:0]             o_RegSrc,
     output                   o_RegWr, 
     // 3.3.3 intr/csr
-    output                   o_IntrEn,
+    // output                   o_IntrEn,
     // 3.3.4 csr wdata
     output[`RegWidth-1:0]    o_R_rs1,   
     // 3.3.5 inst&pc
@@ -52,13 +55,15 @@ module LSU(
     input lsu_valid,
     output lsu_ready,
     output lsu_to_wb_valid,
-    input wb_allowin
+    input wb_allowin,
+
+    input pipeline_flush
 );
 
     // 1. shake hands
     wire lsu_ready_go = (~mem_req) | isclint | cache_rvalid; 
     assign lsu_ready = (~lsu_valid) || lsu_ready_go && wb_allowin;
-    assign lsu_to_wb_valid = lsu_valid && lsu_ready_go;
+    assign lsu_to_wb_valid = lsu_valid && lsu_ready_go && (!pipeline_flush);
     
     // 2. rd&wr en 
     wire mem_req = (i_MemOP != 3'b011) ; 
@@ -69,12 +74,15 @@ module LSU(
     wire[`RegWidth-1:0] clint_dout;
     wire [`RegWidth-1:0]   addr = i_ALUres ;
     wire isclint=(addr>=64'h2000000&addr<=64'h200BFFF)?1'b1:1'b0;
-    wire clint_we = isclint & WrEn;
-    wire clint_re = isclint & RdEn;
+    wire clint_we = isclint & WrEn & (!pipeline_flush);
+    wire clint_re = isclint & RdEn ;
+
+    wire i_clint_mtip ;
     clint clintU(   .clk(clk),.rst(rst),
                     .clint_din(i_R_rs2),.clint_addr(addr),.we(clint_we),.re(clint_re),
-                    .clint_mtip(clint_mtip),.clint_dout(clint_dout));
-    
+                    .clint_mtip(i_clint_mtip),.clint_dout(clint_dout));
+    assign clint_mtip = mstatus_MIE && i_clint_mtip && lsu_valid ;
+
     // 4. cache
     wire [63:0] dataMem_out;
     wire isSign = i_MemOP[2];
@@ -93,8 +101,6 @@ module LSU(
     
     assign o_RegSrc = i_RegSrc ;
     assign o_RegWr = i_RegWr ;
-
-    assign o_IntrEn = i_IntrEn ;
 
     assign o_R_rs1 = i_R_rs1 ;
 

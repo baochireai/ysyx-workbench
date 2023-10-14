@@ -4,9 +4,13 @@
 #include "common.h"
 #include "timer.h"
 #include "difftest.h"
+#include "cpu_exec.h"
+#include "math.h"
 
 #define CONFIG_MSIZE 0x8000000
 #define CONFIG_MBASE 0x80000000
+#define CONFIG_I8042_DATA_MMIO 0xa0000060
+
 
 #define PG_ALIGN __attribute((aligned(4096)))
 
@@ -33,8 +37,11 @@ static inline bool in_pmem(paddr_t addr) {
 }
 
 void init_mem();
-extern "C" void pmem_read(int raddr, long long *rdata);
+extern "C" void pmem_read(int raddr, long long *rdata,int len);
 extern "C" void pmem_write(int waddr, long long wdata, char wmask);
 uint8_t* guest_to_host(paddr_t paddr);
+word_t host_read(void *addr, int len);
+void host_write(void *addr, int len, word_t data) ;
+
 
 #endif

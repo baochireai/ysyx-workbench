@@ -105,14 +105,14 @@ typedef	__uint128_t fixedptud;
 #define FIXEDPT_FBITS	(FIXEDPT_BITS - FIXEDPT_WBITS)
 #define FIXEDPT_FMASK	(((fixedpt)1 << FIXEDPT_FBITS) - 1)
 
-#define fixedpt_rconst(R) ((fixedpt)((R) * FIXEDPT_ONE + ((R) >= 0 ? 0.5 : -0.5)))//a*2^8  +/- 0.5
-#define fixedpt_fromint(I) ((fixedptd)(I) << FIXEDPT_FBITS) //I*2^8 (I为整形)
+#define fixedpt_rconst(R) ((fixedpt)((R) * FIXEDPT_ONE + ((R) >= 0 ? 0.5 : -0.5)))
+#define fixedpt_fromint(I) ((fixedptd)(I) << FIXEDPT_FBITS)
 #define fixedpt_toint(F) ((F) >> FIXEDPT_FBITS)
 #define fixedpt_add(A,B) ((A) + (B))
 #define fixedpt_sub(A,B) ((A) - (B))
 #define fixedpt_fracpart(A) ((fixedpt)(A) & FIXEDPT_FMASK)
 
-#define FIXEDPT_ONE	((fixedpt)((fixedpt)1 << FIXEDPT_FBITS))//2^8
+#define FIXEDPT_ONE	((fixedpt)((fixedpt)1 << FIXEDPT_FBITS))
 #define FIXEDPT_ONE_HALF (FIXEDPT_ONE >> 1)
 #define FIXEDPT_TWO	(FIXEDPT_ONE + FIXEDPT_ONE)
 #define FIXEDPT_PI	fixedpt_rconst(3.14159265358979323846)
@@ -127,35 +127,35 @@ typedef	__uint128_t fixedptud;
 
 /* Multiplies a fixedpt number with an integer, returns the result. */
 static inline fixedpt fixedpt_muli(fixedpt A, int B) {
-	return A*B;
+	return 0;
 }
 
 /* Divides a fixedpt number with an integer, returns the result. */
 static inline fixedpt fixedpt_divi(fixedpt A, int B) {
-	return A/B;
+	return 0;
 }
 
 /* Multiplies two fixedpt numbers, returns the result. */
 static inline fixedpt fixedpt_mul(fixedpt A, fixedpt B) {
-	return A*B/FIXEDPT_ONE;
+	return 0;
 }
 
 
 /* Divides two fixedpt numbers, returns the result. */
 static inline fixedpt fixedpt_div(fixedpt A, fixedpt B) {
-	return A/B*FIXEDPT_ONE;
+	return 0;
 }
 
 static inline fixedpt fixedpt_abs(fixedpt A) {
-	return (A&((fixedpt)1<<(FIXEDPT_BITS-1))?-A:A);//正数不变 负数变相反数
+	return 0;
 }
 
 static inline fixedpt fixedpt_floor(fixedpt A) {
-	return A&(~((fixedpt)1<<FIXEDPT_FBITS-(fixedpt)1));//去小数部分
+	return 0;
 }
 
 static inline fixedpt fixedpt_ceil(fixedpt A) {
-	return ((A&(((fixedpt)1)<<FIXEDPT_FBITS-(fixedpt)1))==0)?A:fixedpt_floor(A)+FIXEDPT_ONE;//去小数部分+FIXEDPT_ONE
+	return 0;
 }
 
 /*

@@ -7,9 +7,17 @@
 #include <string.h>
 #include <assert.h>
 #include "verilated_dpi.h"
+#include "macro.h"
+#include "debug.h"
 
-#define CONFIG_DIFFTEST
-#define CONFIG_WAVETRACE
+//debug
+
+#define CONFIG_PURE_MODE
+
+//#define CONFIG_DIFFTEST   1
+//#define CONFIG_WAVETRACE  1
+#define CONFIG_DEVICE     1
+
 #define RESET_VECTOR 0x80000000
 
 enum { NPC_RUNNING, NPC_STOP, NPC_END, NPC_ABORT, NPC_QUIT };
@@ -37,5 +45,11 @@ extern int npc_state;
 extern const char* regs[];
 
 void dump_gpr();
+
+#define FMT_WORD "0x%08x"
+
+
+typedef MUXDEF(PMEM64, uint64_t, uint32_t) paddr_t;
+#define FMT_PADDR MUXDEF(PMEM64, "0x%016lx", "0x%08x")
 
 #endif

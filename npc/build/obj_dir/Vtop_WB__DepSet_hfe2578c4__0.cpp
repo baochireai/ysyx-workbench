@@ -76,6 +76,9 @@ VL_INLINE_OPT void Vtop_WB___nba_sequent__TOP__top__WB__0(Vtop_WB* vlSelf) {
     Vtop__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
     VL_DEBUG_IF(VL_DBG_MSGF("+        Vtop_WB___nba_sequent__TOP__top__WB__0\n"); );
     // Body
+    vlSelf->__Vcellinp__IntrUnit__i_iscsr = ((vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[9U] 
+                                              >> 4U) 
+                                             & (IData)(vlSymsp->TOP__top.__PVT__wb_valid));
     vlSelf->__PVT__RegWsrcMux__DOT__pair_list[1U][0U] 
         = (IData)((((QData)((IData)(vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[4U])) 
                     << 0x20U) | (QData)((IData)(vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[3U]))));
@@ -100,9 +103,12 @@ VL_INLINE_OPT void Vtop_WB___nba_sequent__TOP__top__WB__0(Vtop_WB* vlSelf) {
           << 0x20U) | (QData)((IData)(vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[5U])));
     vlSelf->__PVT__o_RegWr_en = (vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[7U] 
                                  & (IData)(vlSymsp->TOP__top.__PVT__wb_valid));
-    vlSelf->__Vcellinp__IntrUnit__IntrEn = ((vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[9U] 
-                                             >> 4U) 
-                                            & (IData)(vlSymsp->TOP__top.__PVT__wb_valid));
+    vlSelf->__Vcellinp__IntrUnit__i_ismret = ((vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[9U] 
+                                               >> 5U) 
+                                              & (IData)(vlSymsp->TOP__top.__PVT__wb_valid));
+    vlSelf->__Vcellinp__IntrUnit__i_isecall = ((vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[9U] 
+                                                >> 6U) 
+                                               & (IData)(vlSymsp->TOP__top.__PVT__wb_valid));
     vlSelf->__PVT__witf_pop_en = ((IData)(vlSelf->__PVT__o_RegWr_en) 
                                   & (0U != (0x1fU & 
                                             (vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[0U] 

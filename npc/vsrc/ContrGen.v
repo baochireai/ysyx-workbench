@@ -19,7 +19,9 @@ module ContrGen(
      output RegWr,//结果写回寄存器
      output [1:0] RegSrc,
      // 6. intr
-     output IntrEn,
+     output isecall ,
+     output ismret  ,
+     output iscsr   ,
      // 7. ebreak inst
      output isebreak,
      // 8. imm gen
@@ -75,8 +77,11 @@ module ContrGen(
      assign RegSrc = ({2{isMemR}} & 2'd1) | ({2{IntrEn}} & 2'd2); //2'd0:alu
 
      // 5. Intr inst
-     assign IntrEn = (opcode == 7'b1110011);
-
+     wire [11:0] csr = id_inst[31:20];
+     wire IntrEn  = (opcode == 7'b1110011);
+     assign isecall = ( ~ ( (|csr) || (|func3) ))&IntrEn;
+     assign ismret  = (!(|func3))&(csr==12'b0011000_00010);
+     assign iscsr   =  (|func3) & IntrEn ;
      // 6. ebreak 
      assign isebreak = IntrEn&(!(|func3))&(id_inst[`inst_rs2]==5'd1);
 

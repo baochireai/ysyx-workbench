@@ -4,6 +4,9 @@
 
 #define NR_CMD ARRLEN(cmd_table)
 
+void free_wp(int n);
+bool new_wp(char *strexpr);
+
 static int cmd_si(char *args) {
   int n=1;
   if(args!=NULL) sscanf(args,"%d",&n);
@@ -63,6 +66,33 @@ static int cmd_x(char *args){
   return 0;
 }
 
+static int cmd_p(char *arg){
+  bool success=true;
+  word_t value=expr(arg,&success);
+  if(!success){
+    printf("bad expression!\n");
+    return 0;
+  }
+  printf("expression value:%lu  0x%lx\n",value,value);
+  return 0;
+}
+
+static int cmd_w(char *arg){
+  new_wp(arg);
+  return 0;
+}
+static int cmd_d(char *arg){
+  char *strN = strtok(NULL, " ");
+  if(strN==NULL){
+    printf("when delete watchpoint n, get n fail!\n");
+    assert(0);
+  }
+  int n=0;
+  sscanf(strN,"%d",&n);
+  free_wp(n);
+  return 0;
+}
+
 static struct {
   const char *name;
   const char *description;
@@ -74,9 +104,9 @@ static struct {
   {"si","execute N cmds,default N=1",cmd_si},
   {"info","print pragram state,r -> register, w -> monitor point info,eg info r",cmd_info},
   {"x","scan memory,eg x N EXPR",cmd_x},
-  //{"p","compute expression value.Syntax p EXPR,eg. p $eax + 1",cmd_p},
-  //{"w","set watchpoint.Syntax:w EXPR,Eg. w *0x2000",cmd_w},
-  //{"d","delete watchpoint n",cmd_d}
+  {"p","compute expression value.Syntax p EXPR,eg. p $eax + 1",cmd_p},
+  {"w","set watchpoint.Syntax:w EXPR,Eg. w *0x2000",cmd_w},
+  {"d","delete watchpoint n",cmd_d}
 };
 
 

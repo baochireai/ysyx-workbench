@@ -29,9 +29,8 @@ void difftest_skip_ref() {
 
 
 void difftest_skip_nextRef(){
-  //printf("skip one inst at pc:0x%016lx\n",cpu.pc);
   skip_dut_nextInst++;
-}
+} 
 
 // this is used to deal with instruction packing in QEMU.
 // Sometimes letting QEMU step once will execute multiple instructions.
@@ -49,7 +48,6 @@ void difftest_skip_dut(int nr_ref, int nr_dut) {
 
 void init_difftest(char *ref_so_file, long img_size, int port) {
   assert(ref_so_file != NULL);
-
   void *handle;
   handle = dlopen(ref_so_file, RTLD_LAZY);//打开动态库文件
   assert(handle);
@@ -89,7 +87,7 @@ bool difftest_checkregs(CPU_state *ref_r, vaddr_t pc) {
        return false;
     }
   }
-  if(cpu.pc!=ref_r->pc){
+  if(pc!=ref_r->pc){
     printf("pc is error! right=%lx,error=%lx\n",ref_r->pc,cpu.pc);
     return false;
   }
@@ -103,7 +101,7 @@ void dump_ref_gpr(CPU_state *ref){
 }
 static void checkregs(CPU_state *ref, vaddr_t pc) {
   
-  if (!difftest_checkregs(ref, pc)) {
+  if (!difftest_checkregs(ref, cpu.pc)) {
     npc_state= NPC_ABORT;
     printf("diff error happens at pc=%16lx\n",pc);
     dump_ref_gpr(ref);
@@ -112,6 +110,7 @@ static void checkregs(CPU_state *ref, vaddr_t pc) {
 }
 
 void difftest_step(vaddr_t pc, vaddr_t npc) {
+  static bool skip_valid = false ;
   CPU_state ref_r;
   if (skip_dut_nr_inst > 0) {
     ref_difftest_regcpy(&ref_r, DIFFTEST_TO_DUT);// 获取REF的寄存器状态到`dut`;
@@ -123,38 +122,48 @@ void difftest_step(vaddr_t pc, vaddr_t npc) {
     skip_dut_nr_inst --;
     if (skip_dut_nr_inst == 0)//执行完需跳过比较的指令后pc指向不一样
       printf("can not catch up with ref.pc = %lx at pc = %lx",ref_r.pc, pc);
-    return;
+    return; 
   }
 
   if(skip_dut_nextInst>0){
-    if(skip_dut_nextInst>=3){
-      skip_dut_nextInst-=3;
+    if(skip_valid){
+      skip_dut_nextInst-=1;
       ref_difftest_regcpy(&cpu, DIFFTEST_TO_REF);
+      // skip_valid = (!skip_dut_nextInst==0) ;
       return;
     }
-    skip_dut_nextInst++;
+    else skip_valid = true ;
   }
+  else skip_valid = false ;
 
   if (is_skip_ref) {
-    printf("skip one inst at pc=%16lx  npc = %16lx\n",pc,npc);
+    //printf("skip one inst at pc=%16lx  npc = %16lx\n",pc,npc);
     // to skip the checking of an instruction, just copy the reg state to reference design
     ref_difftest_regcpy(&cpu, DIFFTEST_TO_REF);
     is_skip_ref = false;
     return;
   }
 
-  static int InstCnt=0;
+  // static int InstCnt=0;
+  // if(timerIntr){
+  //   InstCnt++;
+  //   if(InstCnt==2){
+  //     InstCnt=0;
+  //     timerIntr=false;
+  //     ref_difftest_raise_intr(mcause);
+  //     ref_difftest_regcpy(&cpu, DIFFTEST_TO_REF);
+  //     return;
+  //   }
+  // }
+
   if(timerIntr){
-    InstCnt++;
-    if(InstCnt==2){
-      InstCnt=0;
       timerIntr=false;
       ref_difftest_raise_intr(mcause);
+      ref_difftest_exec(1);
       ref_difftest_regcpy(&cpu, DIFFTEST_TO_REF);
       return;
-    }
-
   }
+
   ref_difftest_exec(1);//REF执行指令
   ref_difftest_regcpy(&ref_r, DIFFTEST_TO_DUT);// 获取REF的寄存器状态到`dut`;
   checkregs(&ref_r, pc);

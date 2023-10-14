@@ -32,7 +32,7 @@ CSRCS=$(shell find $(abspath ./csrc) -name "*.c" -or -name "*.cc" -or -name "*.c
 VSRCS=$(shell find $(abspath ./vsrc) -name "*.v")
 INC_PATH+=$(NPC_HOME)/include $(NPC_HOME)/include/difftest $(NPC_HOME)/include/cpu \
 		$(NPC_HOME)/include/memory $(NPC_HOME)/include/monitor $(NPC_HOME)/include/reg $(NPC_HOME)/include/monitor/sdb \
-		$(NPC_HOME)/include/utils
+		$(NPC_HOME)/include/utils $(NPC_HOME)/include/device
 
 include $(NVBOARD_HOME)/scripts/nvboard.mk#nvboard构建脚本
 

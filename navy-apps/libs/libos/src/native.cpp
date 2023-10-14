@@ -14,7 +14,7 @@
 #include <SDL2/SDL.h>
 #include <sys/mman.h>
 #include <sys/ioctl.h>
-
+#include <iostream>
 //#define MODE_800x600
 
 #define FPS 60
@@ -60,7 +60,24 @@ static inline void get_fsimg_path(char *newpath, const char *path) {
 #define COND(k) \
   if (scancode == SDL_SCANCODE_##k) name = #k;
 
+void show_fb(int x, int y , int w , int h ){
+  std::cout<<"*********show_fb*******"<<std::endl;
+  int xh=x+w,yh=y+h;
+  for( int j = y;j<yh;j++){
+    for(int i=x;i<xh;i++){
+      printf("%d ",fb[j*disp_w+i]);
+    }
+    printf("\n");
+  }
+}
+
 static void update_screen() {
+  // static int cnt=0;
+  // if(cnt==60){
+  //   show_fb(136,86,128,128);
+  //   cnt=0;
+  // }
+  // else cnt++;
   SDL_UpdateTexture(texture, NULL, fb, disp_w * sizeof(Uint32));
   SDL_RenderClear(renderer);
   SDL_RenderCopy(renderer, texture, NULL, NULL);
@@ -117,7 +134,7 @@ static void open_display() {
   SDL_CreateThread(event_thread, "event thread", nullptr);
   SDL_AddTimer(1000 / FPS, timer_handler, NULL);
   texture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_ARGB8888, SDL_TEXTUREACCESS_STATIC, disp_w, disp_h);
-
+  SDL_GL_CreateContext(window);
   fb_memfd = memfd_create("fb", 0);
   assert(fb_memfd != -1);
   int ret = ftruncate(fb_memfd, FB_SIZE);
@@ -157,10 +174,6 @@ extern "C" int execve(const char *filename, char *const argv[], char *const envp
 
 FILE *fopen(const char *path, const char *mode) {
   char newpath[512];
-  if (glibc_fopen == NULL) {
-    glibc_fopen = (FILE*(*)(const char*, const char*))dlsym(RTLD_NEXT, "fopen");
-    assert(glibc_fopen != NULL);
-  }
   return glibc_fopen(redirect_path(newpath, path), mode);
 }
 
