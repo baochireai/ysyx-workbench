@@ -60,6 +60,7 @@ void Vtop_WB___nba_sequent__TOP__top__WB__0(Vtop_WB* vlSelf);
 void Vtop_Intr___nba_sequent__TOP__top__WB__IntrUnit__1(Vtop_Intr* vlSelf);
 VL_ATTR_COLD void Vtop_top___stl_sequent__TOP__top__1(Vtop_top* vlSelf);
 void Vtop_WB___ico_sequent__TOP__top__WB__0(Vtop_WB* vlSelf);
+void Vtop___024root___nba_sequent__TOP__2(Vtop___024root* vlSelf);
 
 VL_ATTR_COLD void Vtop___024root___eval_stl(Vtop___024root* vlSelf) {
     if (false && vlSelf) {}  // Prevent unused
@@ -76,5 +77,6 @@ VL_ATTR_COLD void Vtop___024root___eval_stl(Vtop___024root* vlSelf) {
         Vtop_Intr___nba_sequent__TOP__top__WB__IntrUnit__1((&vlSymsp->TOP__top__WB__IntrUnit));
         Vtop_top___stl_sequent__TOP__top__1((&vlSymsp->TOP__top));
         Vtop_WB___ico_sequent__TOP__top__WB__0((&vlSymsp->TOP__top__WB));
+        Vtop___024root___nba_sequent__TOP__2(vlSelf);
     }
 }

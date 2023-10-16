@@ -1,4 +1,6 @@
-#include <device.h>
+//#include <device.h>
+#include <common.h>
+
 #if defined(MULTIPROGRAM) && !defined(TIME_SHARING)
 # define MULTIPROGRAM_YIELD() yield()
 #else
@@ -16,7 +18,7 @@ static const char *keyname[256] __attribute__((used)) = {
 size_t serial_write(const void *buf, size_t offset, size_t len) {
   const char* databuf=(const char*)buf;
   for(size_t i=0;i<len;i++){
-    outb(SERIAL_PORT, databuf[i]);
+    putch(*((uint8_t*)databuf+i));
   }
   return len;
 }
@@ -41,9 +43,12 @@ size_t fb_write(const void *buf, size_t offset, size_t len) {
   offset=offset/sizeof(uint32_t);
   int x=offset%screem_width;
   int y=offset/screem_width;
+  int w = len >> 32;                // high 32bit.
+  int h = len & 0x00000000FFFFFFFF; // low 32bit.
+  //printf("w*h: %d*%d\n",w,h);
   //uint32_t *pixelbuf=(uint32_t*)buf;
-  io_write(AM_GPU_FBDRAW, x, y, (uint32_t*)buf, len/sizeof(uint32_t), 1, true);
-  return len;
+  io_write(AM_GPU_FBDRAW, x, y, (uint32_t*)buf, w, h, true);
+  return w*h;
 }
 
 void init_device() {

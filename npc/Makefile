@@ -17,6 +17,9 @@ VERILATOR_CFLAGS+=--x-initial fast
 VERILATOR_CFLAGS+=--noassert
 VERILATOR_CFLAGS+=--trace
 VERILATOR_CFLAGS+=--vpi
+ifdef prof
+VERILATOR_CFLAGS+=--prof-cfuncs#for code profiling
+endif
 
 BUILD_DIR=./build
 OBJ_DIR=$(BUILD_DIR)/obj_dir

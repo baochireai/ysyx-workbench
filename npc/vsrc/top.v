@@ -4,9 +4,13 @@ module top(
     input clk,
     input rst,//高电平有效
     // difftest
-    output [31:0] Inst,
-    output [63:0] pc,
-    output valid
+    output [31:0] Inst  ,
+    output [63:0] pc    ,
+    output        valid ,
+    output        icache_hit,
+    output        dcache_hit,
+    output        icache_cnt,
+    output        dcache_cnt
 );
 
   /*------------IF----------------*/
@@ -98,7 +102,10 @@ module top(
   	.io_sram3_wen  (icache_sram_wen  [3]),
   	.io_sram3_wmask(icache_sram_wmask[3]),
   	.io_sram3_wdata(icache_sram_wdata[3]),
-  	.io_sram3_rdata(sram_icache_rdata[3])    
+  	.io_sram3_rdata(sram_icache_rdata[3]),
+
+    .cache_hit_cnt (icache_hit)          ,
+    .cache_req_cnt (icache_cnt)
   );
 
   /*------------axi-interface(icache,dcache)------------*/
@@ -628,7 +635,10 @@ module top(
   	  .io_sram3_wen  (dcache_sram_wen  [3]),
   	  .io_sram3_wmask(dcache_sram_wmask[3]),
   	  .io_sram3_wdata(dcache_sram_wdata[3]),
-  	  .io_sram3_rdata(sram_dcache_rdata[3])    
+  	  .io_sram3_rdata(sram_dcache_rdata[3]),
+
+      .cache_hit_cnt (dcache_hit)          ,
+      .cache_req_cnt (dcache_cnt)
   );
   /*--------------------LSU-----------------*/
 

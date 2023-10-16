@@ -1,6 +1,6 @@
 import "DPI-C" function void set_invalid_inst();
 `include "defines.v"
-
+ 
 module ContrGen(
      // 1. inst
      input [`INSTWide-1:0] id_inst,

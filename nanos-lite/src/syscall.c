@@ -1,7 +1,7 @@
 #include <common.h>
 #include "syscall.h"
 #include "fs.h"
-#include "device.h"
+//#include "device.h"
 #include "sys/time.h"
 #include <sys/stat.h>
 //#define strace
@@ -74,24 +74,26 @@ void do_syscall(Context *c) {
 #else
   switch (a[0]) {
     case SYS_exit:
-      halt(c->GPRx);break;
+      halt(c->GPR2);break;
     case SYS_yield:
       yield();c->GPRx=0;
       break;
     case SYS_open:{
-      const char *path=(const char *)c->GPRx;
+      const char *path=(const char *)c->GPR2;
+      assert(path!=NULL);
       c->GPRx=fs_open(path,0,0);
       break;
     }
     case SYS_close:{
-      int fd=c->GPRx;
+      int fd=c->GPR2;
       c->GPRx=fs_close(fd);
       break;
     }
     case SYS_write:{
-      int fd=c->GPRx;
-      char* buf=(char*)c->GPR4;
-      size_t count=c->GPR3;
+      int fd=c->GPR2;
+      char* buf=(char*)c->GPR3;
+      size_t count=c->GPR4;
+      //printf("sys_write %d\n",fd);
       if(fd==1||fd==2){//stdout/stderr
         for(size_t i=0;i<count;i++){
           putch(buf[i]);
@@ -104,17 +106,17 @@ void do_syscall(Context *c) {
       break;
     }
     case SYS_read:{
-      int fd=c->GPRx;
-      char* buf=(char*)c->GPR4;
-      size_t count=c->GPR3;
+      int fd=c->GPR2;
+      char* buf=(char*)c->GPR3;
+      size_t count=c->GPR4;
       count=fs_read(fd,buf,count);
       c->GPRx=count;
       break;
     }
     case SYS_lseek:{
-      int fd=c->GPRx;
-      size_t offset=c->GPR4;
-      int whence=c->GPR3;  
+      int fd=c->GPR2;
+      size_t offset=c->GPR3;
+      int whence=c->GPR4;  
       c->GPRx=fs_lseek(fd,offset,whence);
       break;
     }
@@ -122,14 +124,14 @@ void do_syscall(Context *c) {
       c->GPRx=0;//返回0 栈区调整成功
       break;
     case SYS_gettimeofday:{
-      struct timeval *tv=(struct timeval*)c->GPRx;
-      tv->tv_usec=((uint64_t)inl(RTC_ADDR+4))|(uint64_t)inl(RTC_ADDR);
+      struct timeval *tv=(struct timeval*)c->GPR2;
+      tv->tv_usec=io_read(AM_TIMER_UPTIME).us;//((uint64_t)inl(RTC_ADDR+4))|(uint64_t)inl(RTC_ADDR); not suport native
       c->GPRx=0;
       break;
     }
     case SYS_fstat:{
-      int fd=c->GPRx;
-      struct stat* statbuf=(struct stat*)c->GPR4;
+      int fd=c->GPR2;
+      struct stat* statbuf=(struct stat*)c->GPR3;
       statbuf->st_size=fs_size(fd);
       c->GPRx=0;//0获取成功 -1error
       break;

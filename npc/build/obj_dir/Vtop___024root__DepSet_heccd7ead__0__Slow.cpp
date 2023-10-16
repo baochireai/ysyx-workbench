@@ -123,6 +123,10 @@ VL_ATTR_COLD void Vtop___024root___ctor_var_reset(Vtop___024root* vlSelf) {
     vlSelf->Inst = 0;
     vlSelf->pc = 0;
     vlSelf->valid = 0;
+    vlSelf->icache_hit = 0;
+    vlSelf->dcache_hit = 0;
+    vlSelf->icache_cnt = 0;
+    vlSelf->dcache_cnt = 0;
     vlSelf->__Vtrigprevexpr___TOP__clk__0 = 0;
     for (int __Vi0 = 0; __Vi0 < 3; ++__Vi0) {
         vlSelf->__Vm_traceActivity[__Vi0] = 0;

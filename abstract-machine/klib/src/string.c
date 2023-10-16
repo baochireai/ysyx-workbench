@@ -13,6 +13,7 @@ size_t strnlen(const char *s, size_t count)
 }
 
 size_t strlen(const char *s) {
+  assert(s!=NULL);
   size_t count = 0; 
   for(;*s!='\0'; s++){
     count++;
@@ -46,6 +47,7 @@ char *strcat(char *dst, const char *src) {  //test done.
 }
 
 int strcmp(const char *s1, const char *s2) {  //test done.
+  assert(s1!=NULL&&s2!=NULL);
   int ret = 0;
   for(; *s1 !='\0' && *s2!='\0' ; s1++,s2++){
     ret = *s1 - *s2;

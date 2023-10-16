@@ -80,6 +80,19 @@ VL_INLINE_OPT void Vtop___024root___nba_sequent__TOP__1(Vtop___024root* vlSelf) 
     vlSelf->Inst = vlSymsp->TOP__top.LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout[0U];
 }
 
+VL_INLINE_OPT void Vtop___024root___nba_sequent__TOP__2(Vtop___024root* vlSelf) {
+    if (false && vlSelf) {}  // Prevent unused
+    Vtop__Syms* const __restrict vlSymsp VL_ATTR_UNUSED = vlSelf->vlSymsp;
+    VL_DEBUG_IF(VL_DBG_MSGF("+    Vtop___024root___nba_sequent__TOP__2\n"); );
+    // Body
+    vlSelf->dcache_cnt = vlSymsp->TOP__top.dcache_cnt;
+    vlSelf->dcache_hit = ((IData)(vlSymsp->TOP__top.dcache_cnt) 
+                          & (IData)(vlSymsp->TOP__top.__PVT__dcache__DOT__cache_hit));
+    vlSelf->icache_cnt = vlSymsp->TOP__top.icache_cnt;
+    vlSelf->icache_hit = ((IData)(vlSymsp->TOP__top.icache_cnt) 
+                          & (IData)(vlSymsp->TOP__top.__PVT__icache__DOT__cache_hit));
+}
+
 void Vtop_top___nba_sequent__TOP__top__0(Vtop_top* vlSelf);
 void Vtop_top___nba_sequent__TOP__top__1(Vtop_top* vlSelf);
 void Vtop_Intr___nba_sequent__TOP__top__WB__IntrUnit__0(Vtop_Intr* vlSelf);
@@ -105,5 +118,6 @@ void Vtop___024root___eval_nba(Vtop___024root* vlSelf) {
         Vtop_Intr___nba_sequent__TOP__top__WB__IntrUnit__1((&vlSymsp->TOP__top__WB__IntrUnit));
         Vtop_top___nba_sequent__TOP__top__3((&vlSymsp->TOP__top));
         Vtop_WB___ico_sequent__TOP__top__WB__0((&vlSymsp->TOP__top__WB));
+        Vtop___024root___nba_sequent__TOP__2(vlSelf);
     }
 }

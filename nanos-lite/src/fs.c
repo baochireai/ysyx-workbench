@@ -1,7 +1,11 @@
 #include <fs.h>
-#include <device.h>
+//#include <device.h>
 size_t ramdisk_read(void *buf, size_t offset, size_t len);
 size_t ramdisk_write(const void *buf, size_t offset, size_t len);
+size_t serial_write(const void *buf, size_t offset, size_t len);
+size_t events_read(void *buf, size_t offset, size_t len);
+size_t dispinfo_read(void *buf, size_t offset, size_t len);
+size_t fb_write(const void *buf, size_t offset, size_t len) ;
 
 size_t fd_size;
 size_t* open_offset;
@@ -32,6 +36,7 @@ static Finfo file_table[] __attribute__((used)) = {
 
 
 int fs_open(const char *pathname, int flags, int mode){
+  assert(pathname!=NULL);
   for(size_t i=0;i<fd_size;i++){
     if(strcmp(pathname,file_table[i].name)==0){
       return i;
@@ -51,6 +56,9 @@ size_t fs_diskoffset(int fd){
 }
 
 size_t fs_read(int fd, void *buf, size_t len){
+#ifdef trace_file
+  printf("read %s\n",file_table[fd].name);
+#endif  
   if(file_table[fd].read!=NULL){
     //printf("read %s\n",file_table[fd].name);
     return file_table[fd].read(buf,0,len);
@@ -70,8 +78,11 @@ int fs_close(int fd){
 }
 
 size_t fs_write(int fd, const void *buf, size_t len){
+#ifdef trace_file
+  printf("write %s\n",file_table[fd].name); 
+#endif
   if(file_table[fd].write!=NULL){
-    size_t offset=file_table[fd].write(buf,file_table[fd].disk_offset+open_offset[fd],len);
+    size_t offset=file_table[fd].write(buf,open_offset[fd],len);//file_table[fd].disk_offset+
     open_offset[fd]+=offset;
     return offset;
   }

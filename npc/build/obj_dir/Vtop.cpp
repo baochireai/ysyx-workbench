@@ -15,6 +15,10 @@ Vtop::Vtop(VerilatedContext* _vcontextp__, const char* _vcname__)
     , clk{vlSymsp->TOP.clk}
     , rst{vlSymsp->TOP.rst}
     , valid{vlSymsp->TOP.valid}
+    , icache_hit{vlSymsp->TOP.icache_hit}
+    , dcache_hit{vlSymsp->TOP.dcache_hit}
+    , icache_cnt{vlSymsp->TOP.icache_cnt}
+    , dcache_cnt{vlSymsp->TOP.dcache_cnt}
     , Inst{vlSymsp->TOP.Inst}
     , pc{vlSymsp->TOP.pc}
     , top{vlSymsp->TOP.top}

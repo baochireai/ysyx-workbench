@@ -1,15 +1,15 @@
 #include <stdint.h>
 #include <stdio.h>
+#include <assert.h>
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
 
 #include <sys/time.h>
-
 #include <sys/types.h>
 #include <sys/stat.h>
 #include <fcntl.h>
-#include <assert.h>
+
 static int evtdev = -1;
 static int fbdev = -1;
 static int screen_w = 0, screen_h = 0;
@@ -18,7 +18,7 @@ static int Canvas_w=0,Canvas_h=0;
 uint32_t NDL_GetTicks() {
   struct timeval tv;
   gettimeofday(&tv,NULL);
-  return (uint32_t)(tv.tv_sec * 1000 + tv.tv_usec / 1000);//tv.tv_usec/1000;//
+  return (uint32_t)(tv.tv_usec / 1000);//tv.tv_sec * 1000 +tv.tv_usec/1000;//
 }
 //读出有效事件返回1，否则返回0,这里我返回了读出的字节数
 int NDL_PollEvent(char *buf, int len) {
@@ -76,12 +76,19 @@ void NDL_DrawRect(uint32_t *pixels, int x, int y, int w, int h) {
     h=Canvas_h;
   }
   int fd =open("/dev/fb",0,0);
-  for(int i=0;i<h;i++){
-    int offset=((Rect_starty+i)*screen_w+Rect_startx)*sizeof(uint32_t);
-    lseek(fd,offset,SEEK_SET);
-    write(fd,(void*)(pixels+i*w),w*sizeof(uint32_t));
-    //write(fd, pixels, ((size_t)w<<32) | ((size_t)h & 0x00000000FFFFFFFF)); optimize 
-  }
+
+// #ifdef __ISA_NATIVE__
+//   for(int i=0;i<h;i++){
+//     int offset=((Rect_starty+i)*screen_w+Rect_startx)*sizeof(uint32_t);
+//     lseek(fd,offset,SEEK_SET);
+//     write(fd,(void*)(pixels+i*w),w*sizeof(uint32_t));
+//   }
+// #else
+  //printf("update all\n");
+  int offset = (Rect_starty*screen_w+Rect_startx)*sizeof(uint32_t);
+  lseek(fd,offset,SEEK_SET);
+  write(fd, pixels, ((size_t)w<<32) | ((size_t)h & 0x00000000FFFFFFFF)); 
+//#endif
 }
 
 void NDL_OpenAudio(int freq, int channels, int samples) {
@@ -99,6 +106,7 @@ int NDL_QueryAudio() {
 }
 
 int NDL_Init(uint32_t flags) {
+
   if (getenv("NWM_APP")) {
     printf("(NDL) env-> NWM_APP\n");
     evtdev = 3;
@@ -106,7 +114,10 @@ int NDL_Init(uint32_t flags) {
   /******获取系统屏幕大小*****/
   screen_w=0;screen_h=0;
   char disinfo_buf[50];
+  //assert(0);
   int fd_dispinfo=open("/proc/dispinfo",0,0);
+  //assert(0);
+  //int fd_dispinfo= 4;
   assert(fd_dispinfo!=-1);
   size_t length=read(fd_dispinfo,disinfo_buf,sizeof(disinfo_buf));
   // printf("(NDL_init) %s\n",disinfo_buf);

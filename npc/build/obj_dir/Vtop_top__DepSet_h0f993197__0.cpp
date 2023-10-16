@@ -5972,7 +5972,7 @@ VL_INLINE_OPT void Vtop_top___nba_sequent__TOP__top__0(Vtop_top* vlSelf) {
             = vlSelf->icache__DOT__tag_regs_gen__BRA__1__KET____DOT__tagv_regs__DOT____Vcellout__tagv_Reg_gen__BRA__1__KET____DOT__tag_regs__dout;
         vlSelf->icache__DOT__tag_regs_gen__BRA__1__KET____DOT__tagv_regs__DOT____Vcellout__tagv_Reg_gen__BRA__0__KET____DOT__tag_regs__dout = 0U;
     } else {
-        if (vlSelf->__PVT__icache__DOT__recently_used_wen) {
+        if (vlSelf->icache_cnt) {
             vlSelf->__PVT__icache__DOT__hit_way0_r 
                 = vlSelf->__PVT__icache__DOT__hit_way0;
             vlSelf->__PVT__icache__DOT__hit_way1_r 
@@ -5990,9 +5990,9 @@ VL_INLINE_OPT void Vtop_top___nba_sequent__TOP__top__0(Vtop_top* vlSelf) {
             vlSelf->__PVT__IFU__DOT__JumpPc_r = vlSelf->__PVT__jumppc;
         }
         if (vlSelf->__PVT__IFU__DOT__if_allow_in) {
-            vlSelf->__PVT__if_valid = vlSelf->__PVT__icache__DOT__recently_used_wen;
+            vlSelf->__PVT__if_valid = vlSelf->icache_cnt;
         }
-        if (vlSelf->__PVT__dcache__DOT__recently_used_wen) {
+        if (vlSelf->dcache_cnt) {
             vlSelf->__PVT__dcache__DOT__refill_dirty_r 
                 = vlSelf->__PVT__dcache__DOT__refill_dirty;
             vlSelf->__PVT__dcache__DOT__hit_way0_r 
@@ -7899,7 +7899,7 @@ VL_INLINE_OPT void Vtop_top___nba_sequent__TOP__top__0(Vtop_top* vlSelf) {
         }
         vlSelf->__PVT__witf__DOT__rdidx_r[0U] = vlSelf->witf__DOT____Vcellout__witf_entries__BRA__0__KET____DOT__rdidx_reg____pinNumber4;
         vlSelf->__PVT__icache__DOT__burst_count = __Vdly__icache__DOT__burst_count;
-        if (vlSelf->__PVT__dcache__DOT__recently_used_wen) {
+        if (vlSelf->dcache_cnt) {
             vlSelf->__PVT__dcache__DOT__size_r = (3U 
                                                   & (vlSelf->ID_to_EXU_Regs__DOT____Vcellout__id_to_exu_pipeline_regs__dout[9U] 
                                                      >> 7U));
@@ -8073,8 +8073,7 @@ VL_INLINE_OPT void Vtop_top___nba_sequent__TOP__top__0(Vtop_top* vlSelf) {
         vlSelf->__PVT__icache__DOT__cur_state = 0U;
         vlSelf->__PVT__IFU__DOT__inst_buffer = 0U;
     } else {
-        if (((IData)(vlSelf->__PVT__icache__DOT__recently_used_wen) 
-             & (IData)(vlSelf->__PVT__IFU__DOT__if_allow_in))) {
+        if (((IData)(vlSelf->icache_cnt) & (IData)(vlSelf->__PVT__IFU__DOT__if_allow_in))) {
             vlSelf->__PVT__IFU__DOT__if_pc = vlSelf->__PVT__IFU__DOT__prefetch_pc;
         }
         if (vlSelf->__PVT__IDRegs__DOT__popline_wen) {
@@ -8105,11 +8104,10 @@ VL_INLINE_OPT void Vtop_top___nba_sequent__TOP__top__0(Vtop_top* vlSelf) {
         vlSelf->__PVT__dcache__DOT__uncache_r = 0U;
         vlSelf->__PVT__dcache__DOT__wdata_r = 0ULL;
     } else {
-        if (vlSelf->__PVT__icache__DOT__recently_used_wen) {
+        if (vlSelf->icache_cnt) {
             vlSelf->__PVT__icache__DOT__addr_r = (IData)(vlSelf->__PVT__IFU__DOT__prefetch_pc);
         }
-        if (((IData)(vlSelf->__PVT__dcache__DOT__recently_used_wen) 
-             & (IData)(vlSelf->__PVT__dcache__DOT__refill_dirty))) {
+        if (((IData)(vlSelf->dcache_cnt) & (IData)(vlSelf->__PVT__dcache__DOT__refill_dirty))) {
             vlSelf->__PVT__dcache__DOT__refill_tag_r 
                 = (0x1fffffU & (((- (IData)((1U & (~ (IData)(vlSelf->__PVT__dcache__DOT__refill_waynum))))) 
                                  & (vlSelf->dcache__DOT____Vcellout__tag_regs_gen__BRA__0__KET____DOT__tagvd_regs__o_dout 
@@ -8117,7 +8115,7 @@ VL_INLINE_OPT void Vtop_top___nba_sequent__TOP__top__0(Vtop_top* vlSelf) {
                                                & (vlSelf->dcache__DOT____Vcellout__tag_regs_gen__BRA__1__KET____DOT__tagvd_regs__o_dout 
                                                   >> 2U))));
         }
-        if (vlSelf->__PVT__dcache__DOT__recently_used_wen) {
+        if (vlSelf->dcache_cnt) {
             vlSelf->__PVT__dcache__DOT__wstrb_r = vlSelf->__PVT__o_exu_cache_wstrb;
             vlSelf->__PVT__dcache__DOT__refill_waynum_r 
                 = vlSelf->__PVT__dcache__DOT__refill_waynum;

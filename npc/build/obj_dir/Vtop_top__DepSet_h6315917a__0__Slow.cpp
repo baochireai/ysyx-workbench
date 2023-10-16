@@ -18,6 +18,10 @@ VL_ATTR_COLD void Vtop_top___ctor_var_reset(Vtop_top* vlSelf) {
     vlSelf->Inst = 0;
     vlSelf->pc = 0;
     vlSelf->valid = 0;
+    vlSelf->icache_hit = 0;
+    vlSelf->dcache_hit = 0;
+    vlSelf->icache_cnt = 0;
+    vlSelf->dcache_cnt = 0;
     vlSelf->__PVT__ifu_cache_req = 0;
     vlSelf->__PVT__if_ready_go = 0;
     vlSelf->__PVT__if_valid = 0;
@@ -125,7 +129,6 @@ VL_ATTR_COLD void Vtop_top___ctor_var_reset(Vtop_top* vlSelf) {
     }
     VL_ZERO_RESET_W(128, vlSelf->__PVT__icache__DOT__recently_used_wens);
     VL_ZERO_RESET_W(128, vlSelf->__PVT__icache__DOT__recently_used_way);
-    vlSelf->__PVT__icache__DOT__recently_used_wen = 0;
     vlSelf->__PVT__icache__DOT__curent_way = 0;
     vlSelf->__PVT__icache__DOT__hit_way0 = 0;
     vlSelf->__PVT__icache__DOT__hit_way1 = 0;
@@ -1128,7 +1131,6 @@ VL_ATTR_COLD void Vtop_top___ctor_var_reset(Vtop_top* vlSelf) {
     }
     VL_ZERO_RESET_W(128, vlSelf->__PVT__dcache__DOT__recently_used_wens);
     VL_ZERO_RESET_W(128, vlSelf->__PVT__dcache__DOT__recently_used_way);
-    vlSelf->__PVT__dcache__DOT__recently_used_wen = 0;
     vlSelf->__PVT__dcache__DOT__curent_way = 0;
     vlSelf->__PVT__dcache__DOT__hit_way0 = 0;
     vlSelf->__PVT__dcache__DOT__hit_way1 = 0;

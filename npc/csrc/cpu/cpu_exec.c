@@ -1,12 +1,17 @@
 #include "cpu_exec.h"
 #include "verilated_vpi.h"
- 
+  
 VerilatedContext* contextp;
 VerilatedVcdC* tfp; 
-Vtop* top;
-
+Vtop* top; 
+   
 cpu_state cpu;
 bool is_WP_change();
+
+uint64_t g_nr_guest_inst = 0;
+uint64_t clk_cnt = 0;
+static uint64_t g_timer = 0; // unit: us
+
 
 /*****DPI****/
 bool isebreak= false;
@@ -24,21 +29,40 @@ extern "C" void set_invalid_inst() {
 
 bool wave = true ;
 
-  
+uint64_t icache_req_cnt=0;
+uint64_t dcache_req_cnt=0;
+uint64_t icache_hit_cnt=0;
+uint64_t dcache_hit_cnt=0;
+
 void cpu_exec_once(){ 
   int cnt = 0 ;
   do
   {
+    clk_cnt++;
     top->clk=0;top->eval(); 
     
     if(wave) {IFDEF(CONFIG_WAVETRACE,contextp->timeInc(1),tfp->dump(contextp->time()));}
     top->clk=1;top->eval();
-    
-    if(wave) {IFDEF(CONFIG_WAVETRACE,contextp->timeInc(1),tfp->dump(contextp->time()));}
-    cnt++;
-    if(cnt>30) {
-      printf("stall at pc:0x%08lx\n",cpu.pc);
+
+#ifdef CACHE_PROF    
+    if(top->icache_cnt){
+      icache_req_cnt++;
+      if(top->icache_hit) icache_hit_cnt++;
     }
+
+    if(top->dcache_cnt){
+      dcache_req_cnt++;
+      if(top->dcache_hit) dcache_hit_cnt++;
+    }
+#endif
+
+    if(wave) {IFDEF(CONFIG_WAVETRACE,contextp->timeInc(1),tfp->dump(contextp->time()));}
+
+    // cnt++;
+    // if(cnt>30) {
+    //   printf("stall at pc:0x%08lx\n",cpu.pc);
+    // }
+
   } while (top->valid!=1);     
     
   cpu.pc=top->pc;
@@ -62,10 +86,11 @@ uint64_t get_mcause(){
 
 void device_update(){
   static uint64_t last = 0;
-  uint64_t now = get_time();  
+  uint64_t now = get_time();   
   if (now - last < 1000000 / TIMER_HZ) {//以TIMER_HZ频率刷新
     return;
   }
+  //printf("update\n");
   last = now;  
   vga_update_screen();
       
@@ -96,8 +121,9 @@ void cpu_exec(uint64_t n){
       return;
     default: npc_state = NPC_RUNNING;
   }
- 
+  uint64_t timer_start = get_time();
   for(;n>0;n--){
+    g_nr_guest_inst++;
 
     vaddr_t pc=cpu.pc;
     //unsigned int Inst_RTL=top->Inst;
@@ -119,12 +145,13 @@ void cpu_exec(uint64_t n){
     }
     
 #endif
-  
-  IFDEF(CONFIG_DEVICE,device_update());
+    //IFDEF(CONFIG_DEVICE, device_update()); 
+    if((g_nr_guest_inst%200)==0)  IFDEF(CONFIG_DEVICE, device_update()); 
     if (npc_state != NPC_RUNNING) break;
 
   }
-
+  uint64_t timer_end = get_time();
+  g_timer += timer_end - timer_start;
   switch (npc_state) {
     case NPC_RUNNING: npc_state = NPC_STOP; break;  
 
@@ -178,6 +205,16 @@ void device_exit(){
 
 void cpu_exit(){
   top->final();
+  printf("(npc) icp = %f\ttotal inst num = %ld\n" , g_nr_guest_inst*1.0/(clk_cnt*1.0),g_nr_guest_inst);
+  printf("(npc) simulation frequency = %ld inst/s\n",g_nr_guest_inst*1000000/g_timer);
+#ifdef CACHE_PROF
+  printf("iCache prof:\n");
+  printf("\tcache hit: %f%%\n",icache_hit_cnt*1.0/(icache_req_cnt*1.0));
+  printf("\ttotal cache req: %ld\n",icache_req_cnt);
+  printf("dCache prof:\n");
+  printf("\tcache hit: %f%%\n",dcache_hit_cnt*1.0/(dcache_req_cnt*1.0));
+  printf("\ttotal cache req: %ld\n",dcache_req_cnt);  
+#endif
 #ifdef CONFIG_WAVETRACE  
 	tfp->close();
 	delete tfp;

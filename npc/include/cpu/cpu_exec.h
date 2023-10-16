@@ -13,7 +13,7 @@
 #include <SDL2/SDL.h>
 #include "keyboard.h"
 
-#define TIMER_HZ 60
+#define TIMER_HZ 2
 
 void init_cpu_exec(int argc,char** argv);
 extern "C" void setebreak();

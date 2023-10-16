@@ -89,8 +89,14 @@ module dcache(
   	output          io_sram3_wen  ,
   	output [127:0]  io_sram3_wmask,
   	output [127:0]  io_sram3_wdata,
-  	input  [127:0]  io_sram3_rdata
+  	input  [127:0]  io_sram3_rdata,
+
+    output          cache_hit_cnt ,
+    output          cache_req_cnt 
 );
+    
+    assign cache_hit_cnt=req_buffer_we&&cache_hit;    
+    assign cache_req_cnt = req_buffer_we;
     
     wire [1:0] tagvd_wen ;
     wire [`TAG_V_D_WIDTH-1:0] tagvd_wdata ;
