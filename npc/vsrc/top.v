@@ -303,7 +303,7 @@ module top(
       // 3. register files read      
       .R_rs1_i(R_rs1),.R_rs2_i(R_rs2),.rs1(id_rs1),.rs2(id_rs2),
       // 4. witf for raw     
-      .rd(id_rd),.disp_en(id_RegWr),.isRAW(isRAW),.witf_full(witf_full),
+      .rd(id_rd),//.disp_en(id_RegWr),.isRAW(isRAW),.witf_full(witf_full),
       // 5. outputs for next stage
       // 5.1 ctrl signals
       // 5.1.1 ALU     
@@ -437,11 +437,23 @@ module top(
   // 3.2 flush pipe
   wire                 o_exu_is_jump;
   
+  // raw data forward
+  wire  [4:0]          o_exu_rs1;
+  wire  [4:0]          o_exu_rs2;
   // shake hands
   wire exu_ready ;
   wire exu_to_lsu_valid ;   
 
   EXU EXU(.clk(clk),.rst(rst),
+    // raw data forward
+    .hazard_rs1       (hazard_rs1),
+    .hazard_rs2       (hazard_rs2),
+    .forward_rs1_valid(forward_rs1_valid),
+    .forward_rs2_valid(forward_rs2_valid),
+    .forward_R_rs1    (forward_R_rs1),
+    .forward_R_rs2    (forward_R_rs2),
+    .rs1              (o_exu_rs1),
+    .rs2              (o_exu_rs2),
     // 1. inputs from pre stage 
     // 1.1 ctrl from id to ALU
     .ALUAsr(exu_ALUAsr),.ALUBsr(exu_ALUBsr),.ALUct(exu_ALUct),.isTuncate(exu_isTuncate),.isSext(exu_isSext),
@@ -455,7 +467,7 @@ module top(
     .i_isecall(exu_isecall),.i_ismret(exu_ismret),.i_iscsr(exu_iscsr),
     .stall_exu_store(stall_exu_store),
     // 1.6 operate data    
-    .R_rs1(exu_R_rs1),.R_rs2(exu_R_rs2),.Imm(exu_Imm),.exu_inst(exu_inst),.exu_pc(exu_pc),  
+    .i_R_rs1(exu_R_rs1),.i_R_rs2(exu_R_rs2),.Imm(exu_Imm),.exu_inst(exu_inst),.exu_pc(exu_pc),  
 
     // 2. dcache req
     .req(o_exu_cache_req),.op(o_exu_cache_op),.size(o_exu_cache_size),.addr(o_exu_cache_addr),.wdata(o_exu_cache_wdata),.wstrb(o_exu_cache_wstrb),.cache_ready(dcache_req_ready),
@@ -485,6 +497,37 @@ module top(
     
     .pipeline_flush(flush_exu)
   ); 
+
+  /*********************ForwardUnit***********************/
+  
+  wire          hazard_rs1       ;
+  wire          hazard_rs2       ;
+  wire          forward_rs1_valid;
+  wire          forward_rs2_valid;
+  wire  [63:0]  forward_R_rs1    ;
+  wire  [63:0]  forward_R_rs2    ;
+
+  ForwardUnit ForwardUnit(
+
+    .lsu_isRegWrite (o_lsu_isRegWrite),
+    .lsu_rd         (o_lsu_raw_rd),
+    .lsu_Wdata      (o_lsu_raw_Wdata),
+    .lsu_data_valid (o_lsu_raw_data_valid),
+
+    .wb_isRegWrite (o_wb_isRegWrite),
+    .wb_rd         (o_wb_raw_rd),
+    .wb_Wdata      (o_wb_raw_Wdata),
+    .wb_data_valid (o_wb_raw_data_valid),
+
+    .hazard_rs1       (hazard_rs1),
+    .hazard_rs2       (hazard_rs2),
+    .forward_rs1_valid(forward_rs1_valid),
+    .forward_rs2_valid(forward_rs2_valid),
+    .forward_R_rs1    (forward_R_rs1),
+    .forward_R_rs2    (forward_R_rs2),
+    .exu_rs1(o_exu_rs1)             ,
+    .exu_rs2(o_exu_rs2)             
+);
 
   /*--------------------EXU to LSU Regs-----------------*/
 
@@ -668,8 +711,19 @@ module top(
     // 2. shake hands
     wire lsu_to_wb_valid;
     wire lsu_ready;
+    
+    //raw forward data
+    wire          o_lsu_isRegWrite        ;
+    wire  [4:0]   o_lsu_raw_rd        ;
+    wire  [63:0]  o_lsu_raw_Wdata     ;
+    wire          o_lsu_raw_data_valid;
 
   LSU LSU(.clk(clk),.rst(rst),
+    // raw forward data
+    .isRegWrite        (o_lsu_isRegWrite),
+    .lsu_raw_rd        (o_lsu_raw_rd),
+    .lsu_raw_Wdata     (o_lsu_raw_Wdata),
+    .lsu_raw_data_valid(o_lsu_raw_data_valid),
 
     // 1. cache
     .cache_rvalid(dcache_valid),.cache_rdata(dcache_data_o),
@@ -687,7 +741,7 @@ module top(
     // 2.3.3 intr/csr
     //.i_IntrEn(lsu_IntrEn),
     // 2.3.4 csr wdata
-    .i_R_rs1(lsu_R_rs1),   
+    .i_R_rs1(lsu_R_rs1),.i_iscsr(lsu_iscsr),   
     
     // mie from wb
     .mstatus_MIE(o_wb_mstatus_MIE),
@@ -793,8 +847,17 @@ module top(
   // 4. shake hands
   wire                wb_ready;
 
- WB WB(.clk(clk),.rst(rst),
+  wire          o_wb_isRegWrite        ;
+  wire  [4:0]   o_wb_raw_rd         ;
+  wire  [63:0]  o_wb_raw_Wdata      ;
+  wire          o_wb_raw_data_valid ;
 
+ WB WB(.clk(clk),.rst(rst),
+    // raw data forward
+    .isRegWrite       (o_wb_isRegWrite), 
+    .wb_raw_rd        (o_wb_raw_rd),
+    .wb_raw_Wdata     (o_wb_raw_Wdata),
+    .wb_raw_data_valid(o_wb_raw_data_valid),    
     // 1. input from pre stage 
     // 1.1 intr/csr
     .i_isecall(wb_isecall),.i_ismret(wb_ismret),.i_iscsr(wb_iscsr),
@@ -810,7 +873,7 @@ module top(
     .wb_inst(wb_inst),
     
     // 2. to witf (raw)
-    .witf_pop_en(o_wb_witf_pop_en),
+    //.witf_pop_en(o_wb_witf_pop_en),
     
     // 3. to preif 
     .isIntrPC   (o_wb_isIntrPC),
@@ -870,20 +933,6 @@ module top(
     .waddr(o_wb_RegWaddr),.wdata(o_wb_RegWdata),.wen(o_wb_RegWr_en),      
     // data out for id
     .R_rs1(R_rs1),.R_rs2(R_rs2)
-  );
-
-  /*---------witf(IDU,WB)------------*/
-
-  wire isRAW,witf_full,witf_empty;
-
-  witf witf(.clk(clk),.rst(rst),
-      // 1. disp inst info form id
-      .disp_en(id_RegWr),.rs1(id_rs1),.rs2(id_rs2),.rd(id_rd),
-      // 2. raw check for id
-      .isRAW(isRAW),.witf_full(witf_full),.witf_empty(witf_empty),
-      // 3. finish wb to pop inst
-      .wb_en(o_wb_witf_pop_en),
-      .flush_witf(flush_witf)
   );
 
   //--------------ram-axi--------------//

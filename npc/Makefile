@@ -2,6 +2,11 @@ ifndef TOPNAME
 TOPNAME=top
 endif
 
+ifdef trace
+TRACE=--trace-fst
+else
+TRACE= 
+endif
 #nvboard引脚设置
 
 NXDC_FILES=constr/${TOPNAME}.nxdc
@@ -15,8 +20,9 @@ VERILATOR_CFLAGS+=-O3#代码优化级别
 VERILATOR_CFLAGS+=--x-assign fast#optimize
 VERILATOR_CFLAGS+=--x-initial fast
 VERILATOR_CFLAGS+=--noassert
-VERILATOR_CFLAGS+=--trace
+VERILATOR_CFLAGS+=$(TRACE)
 VERILATOR_CFLAGS+=--vpi
+VERILATOR_CFLAGS+=-j 8
 ifdef prof
 VERILATOR_CFLAGS+=--prof-cfuncs#for code profiling
 endif

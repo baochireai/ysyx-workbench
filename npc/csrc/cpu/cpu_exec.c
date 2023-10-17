@@ -34,14 +34,15 @@ uint64_t dcache_req_cnt=0;
 uint64_t icache_hit_cnt=0;
 uint64_t dcache_hit_cnt=0;
 
-void cpu_exec_once(){ 
+void cpu_exec_once(){  
   int cnt = 0 ;
   do
   {
-    clk_cnt++;
-    top->clk=0;top->eval(); 
-    
-    if(wave) {IFDEF(CONFIG_WAVETRACE,contextp->timeInc(1),tfp->dump(contextp->time()));}
+    clk_cnt++;  
+    top->clk=0;top->eval();  
+     
+    IFDEF(CONFIG_WAVETRACE,if(wave) {contextp->timeInc(1);tfp->dump(contextp->time();)})
+
     top->clk=1;top->eval();
 
 #ifdef CACHE_PROF    
@@ -49,19 +50,13 @@ void cpu_exec_once(){
       icache_req_cnt++;
       if(top->icache_hit) icache_hit_cnt++;
     }
-
     if(top->dcache_cnt){
       dcache_req_cnt++;
       if(top->dcache_hit) dcache_hit_cnt++;
     }
 #endif
 
-    if(wave) {IFDEF(CONFIG_WAVETRACE,contextp->timeInc(1),tfp->dump(contextp->time()));}
-
-    // cnt++;
-    // if(cnt>30) {
-    //   printf("stall at pc:0x%08lx\n",cpu.pc);
-    // }
+    IFDEF(CONFIG_WAVETRACE,if(wave) {contextp->timeInc(1);tfp->dump(contextp->time();)})
 
   } while (top->valid!=1);     
     
@@ -71,7 +66,7 @@ void cpu_exec_once(){
 uint64_t get_mcause(){
   //verilog中通过/*verilator public*/对reg使能该功能，这样verilator仿真器在进行编译成C++代码的时候就会生成改变量
   vpiHandle vh1 = vpi_handle_by_name((PLI_BYTE8*)"TOP.top.IntrUnit.mcase", NULL);
-  if (!vh1) vl_fatal(__FILE__, __LINE__, "sim_main", "No handle found"); 
+  if (!vh1) vl_fatal(__FILE__, __LINE__, "sim_main", "No handle found");  
   // const char* name = vpi_get_str(vpiName, vh1);
   // printf("Module name: %s\n", name);  // Prints "readme"
  
@@ -106,7 +101,7 @@ void device_update(){
         uint8_t k = event.key.keysym.scancode;
         bool is_keydown = (event.key.type == SDL_KEYDOWN);
         send_key(k, is_keydown);
-        break;
+        break; 
       }
       default: break;     
     }
@@ -124,11 +119,14 @@ void cpu_exec(uint64_t n){
   uint64_t timer_start = get_time();
   for(;n>0;n--){
     g_nr_guest_inst++;
-
+    
+    IFDEF(CONFIG_WAVETRACE_INST_NUM,if(g_nr_guest_inst == 13900200) wave = true);
+    
     vaddr_t pc=cpu.pc;
-    //unsigned int Inst_RTL=top->Inst;
-    //printf("(npc) pc:%08lx\n",pc);
+
     cpu_exec_once();
+
+    IFDEF(CONFIG_STOP_INST_NUM,if(g_nr_guest_inst == 13907900) npc_state = NPC_STOP);
 
     // //VPI方式
     // VerilatedVpi::callValueCbs();
@@ -141,7 +139,7 @@ void cpu_exec(uint64_t n){
    
     IFDEF(CONFIG_DIFFTEST,difftest_step(pc,cpu.pc)); 
     if(is_WP_change()){
-      npc_state=NPC_STOP; 
+      npc_state=NPC_STOP;  
     }
     
 #endif
@@ -183,6 +181,8 @@ void init_cpu_exec(int argc,char** argv){
 	tfp->open("./build/logs/top.vcd");
 #endif
 
+  IFDEF(CONFIG_WAVETRACE_INST_NUM,wave = false);
+
   top->rst=1; top->clk=0; top->eval();//(cpu_gpr==NULL) eval启动后cpu_gpr才被初始化
   
   IFDEF(CONFIG_WAVETRACE,contextp->timeInc(1),tfp->dump(contextp->time()));
@@ -197,7 +197,7 @@ void init_cpu_exec(int argc,char** argv){
   cpu.gpr=cpu_gpr;
   cpu.pc=top->pc;   
 } 
-     
+      
 void device_exit(){ 
   free_map();
   exit_vga();
@@ -206,7 +206,7 @@ void device_exit(){
 void cpu_exit(){
   top->final();
   printf("(npc) icp = %f\ttotal inst num = %ld\n" , g_nr_guest_inst*1.0/(clk_cnt*1.0),g_nr_guest_inst);
-  printf("(npc) simulation frequency = %ld inst/s\n",g_nr_guest_inst*1000000/g_timer);
+  printf("(npc) simulation frequency = %ld inst/s  %ld kHz\n",g_nr_guest_inst*1000000/g_timer,clk_cnt*1000/g_timer);
 #ifdef CACHE_PROF
   printf("iCache prof:\n");
   printf("\tcache hit: %f%%\n",icache_hit_cnt*1.0/(icache_req_cnt*1.0));

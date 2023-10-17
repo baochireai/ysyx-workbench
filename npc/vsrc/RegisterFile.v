@@ -31,7 +31,7 @@ module RegisterFile #(ADDR_WIDTH = 5, DATA_WIDTH = 64) (
     end
     if (isw) rf[waddr] <= wdata;//waddr unused
   end
-  assign R_rs1 = rf[rs1];
-  assign R_rs2 = rf[rs2];
+  assign R_rs1 = isw && (rs1==waddr && rs1!=5'd0) ? wdata : rf[rs1];
+  assign R_rs2 = isw && (rs2==waddr && rs2!=5'd0) ? wdata : rf[rs2];
   
 endmodule

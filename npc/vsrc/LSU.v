@@ -2,6 +2,11 @@ module LSU(
     input clk,
     input rst,
 
+    // raw forward
+    output          isRegWrite        ,
+    output  [4:0]   lsu_raw_rd        ,
+    output  [63:0]  lsu_raw_Wdata     ,
+    output          lsu_raw_data_valid,
     // 1. cache
     input cache_rvalid,
     input [63:0] cache_rdata,
@@ -24,7 +29,7 @@ module LSU(
     // input                   i_IntrEn,
     // 2.3.4 csr wdata
     input[`RegWidth-1:0]    i_R_rs1,   
-    
+    input                   i_iscsr,    
     // mie from wb
     input mstatus_MIE ,
 
@@ -59,6 +64,13 @@ module LSU(
 
     input pipeline_flush
 );
+
+    // raw data forward
+    assign isRegWrite   = i_RegWr && lsu_valid ;
+    assign lsu_raw_rd   = lsu_inst[`inst_rd] ;
+    assign lsu_raw_Wdata = mem_req ?  memout : o_ALUres ;
+    assign lsu_raw_data_valid = isRegWrite && lsu_to_wb_valid && wb_allowin && (!i_iscsr);
+
 
     // 1. shake hands
     wire lsu_ready_go = (~mem_req) | isclint | cache_rvalid; 

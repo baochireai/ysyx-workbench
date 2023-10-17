@@ -21,11 +21,11 @@ module IDU(
 
     // 4. witf for raw     
     // 4.1 raw check && fifo full
-    input isRAW,
-    input witf_full,
+    //input isRAW,
+    //input witf_full,
     // 4.2 disp inst info
     output[`RegAddrBus] rd,//rs1&&rs2 reuse signals of register file
-    output disp_en,
+    //output disp_en,
 
     // 5. outputs for next stage
     // 5.1 ctrl sginals
@@ -69,7 +69,7 @@ module IDU(
 
     // 1. shake hands 
     //wire id_ready_go = (!witf_full & (!isRAW|pipeline_flush));
-    wire id_ready_go = (!witf_full & (!isRAW));
+    wire id_ready_go = 1'b1 ;//(!witf_full & (!isRAW));
     assign id_ready = (~id_valid) | (id_ready_go & exu_allow_in);
     assign id_to_exu_valid = id_ready_go && id_valid && (!pipeline_flush);
 
@@ -79,7 +79,7 @@ module IDU(
 
     // 3. disp inst info for witf
     assign rd=id_inst[`inst_rd];
-    assign disp_en = RegWr & (!pipeline_flush) & (id_to_exu_valid && exu_allow_in) & (rd!=5'd0); //0号寄存器不用管
+    //assign disp_en = RegWr & (!pipeline_flush) & (id_to_exu_valid && exu_allow_in) & (rd!=5'd0); //0号寄存器不用管
     
     // 4. ctrl signal gen
     wire i_isecall , i_ismret , i_iscsr ;

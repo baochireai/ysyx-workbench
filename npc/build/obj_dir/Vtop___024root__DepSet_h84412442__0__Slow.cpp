@@ -19,9 +19,6 @@ VL_ATTR_COLD void Vtop___024root___eval_initial(Vtop___024root* vlSelf) {
     VL_DEBUG_IF(VL_DBG_MSGF("+    Vtop___024root___eval_initial\n"); );
     // Body
     Vtop_top___eval_initial__TOP__top((&vlSymsp->TOP__top));
-    vlSelf->__Vm_traceActivity[2U] = 1U;
-    vlSelf->__Vm_traceActivity[1U] = 1U;
-    vlSelf->__Vm_traceActivity[0U] = 1U;
     Vtop_WB___eval_initial__TOP__top__WB((&vlSymsp->TOP__top__WB));
     Vtop_Intr___eval_initial__TOP__top__WB__IntrUnit((&vlSymsp->TOP__top__WB__IntrUnit));
     vlSelf->__Vtrigprevexpr___TOP__clk__0 = vlSelf->clk;
@@ -58,9 +55,10 @@ VL_ATTR_COLD void Vtop___024root___stl_sequent__TOP__0(Vtop___024root* vlSelf) {
 VL_ATTR_COLD void Vtop_top___stl_sequent__TOP__top__0(Vtop_top* vlSelf);
 void Vtop_WB___nba_sequent__TOP__top__WB__0(Vtop_WB* vlSelf);
 void Vtop_Intr___nba_sequent__TOP__top__WB__IntrUnit__1(Vtop_Intr* vlSelf);
-VL_ATTR_COLD void Vtop_top___stl_sequent__TOP__top__1(Vtop_top* vlSelf);
+void Vtop_top___nba_sequent__TOP__top__3(Vtop_top* vlSelf);
 void Vtop_WB___ico_sequent__TOP__top__WB__0(Vtop_WB* vlSelf);
-void Vtop___024root___nba_sequent__TOP__2(Vtop___024root* vlSelf);
+void Vtop_top___ico_sequent__TOP__top__0(Vtop_top* vlSelf);
+void Vtop___024root___ico_sequent__TOP__0(Vtop___024root* vlSelf);
 
 VL_ATTR_COLD void Vtop___024root___eval_stl(Vtop___024root* vlSelf) {
     if (false && vlSelf) {}  // Prevent unused
@@ -69,14 +67,12 @@ VL_ATTR_COLD void Vtop___024root___eval_stl(Vtop___024root* vlSelf) {
     // Body
     if ((1ULL & vlSelf->__VstlTriggered.word(0U))) {
         Vtop_top___stl_sequent__TOP__top__0((&vlSymsp->TOP__top));
-        vlSelf->__Vm_traceActivity[2U] = 1U;
-        vlSelf->__Vm_traceActivity[1U] = 1U;
-        vlSelf->__Vm_traceActivity[0U] = 1U;
         Vtop___024root___stl_sequent__TOP__0(vlSelf);
         Vtop_WB___nba_sequent__TOP__top__WB__0((&vlSymsp->TOP__top__WB));
         Vtop_Intr___nba_sequent__TOP__top__WB__IntrUnit__1((&vlSymsp->TOP__top__WB__IntrUnit));
-        Vtop_top___stl_sequent__TOP__top__1((&vlSymsp->TOP__top));
+        Vtop_top___nba_sequent__TOP__top__3((&vlSymsp->TOP__top));
         Vtop_WB___ico_sequent__TOP__top__WB__0((&vlSymsp->TOP__top__WB));
-        Vtop___024root___nba_sequent__TOP__2(vlSelf);
+        Vtop_top___ico_sequent__TOP__top__0((&vlSymsp->TOP__top));
+        Vtop___024root___ico_sequent__TOP__0(vlSelf);
     }
 }

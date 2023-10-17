@@ -2,6 +2,12 @@ module WB(
     input clk,
     input rst,
 
+    // raw forward
+    output          isRegWrite,
+    output  [4:0]   wb_raw_rd,
+    output  [63:0]  wb_raw_Wdata,
+    output          wb_raw_data_valid,
+
     // 1. input from pre stage 
     // 1.1 intr/csr
     input                       i_isecall ,
@@ -19,7 +25,7 @@ module WB(
     input   [`INSTWide-1:0]     wb_inst,
     
     // 2. to witf (raw)
-    output                      witf_pop_en,
+    //output                      witf_pop_en,
     
     // 3. to preif 
     output                      isIntrPC,
@@ -35,12 +41,18 @@ module WB(
     output wb_ready
 );
 
+    // raw forward
+    assign isRegWrite = wb_valid && RegWr ;
+    assign wb_raw_rd = o_RegWaddr ;
+    assign wb_raw_Wdata = o_RegWdata ;
+    assign wb_raw_data_valid = o_RegWr_en ;
+
     // 1. handshake 
     wire wb_ready_go = 1'b1 ;
     assign wb_ready = (~wb_valid) || wb_ready_go ;
 
     // 2. witf pop
-    assign witf_pop_en = wb_valid && wb_ready_go && RegWr && (wb_inst[11:7] != 5'd0);
+    //assign witf_pop_en = wb_valid && wb_ready_go && RegWr && (wb_inst[11:7] != 5'd0);
     
     // 3. regfiles wb
     // 3.1 wdata

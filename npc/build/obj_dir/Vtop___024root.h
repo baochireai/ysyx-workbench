@@ -33,7 +33,6 @@ class Vtop___024root final : public VerilatedModule {
     IData/*31:0*/ __VicoIterCount;
     IData/*31:0*/ __VactIterCount;
     VL_OUT64(pc,63,0);
-    VlUnpacked<CData/*0:0*/, 3> __Vm_traceActivity;
     VlTriggerVec<1> __VstlTriggered;
     VlTriggerVec<1> __VicoTriggered;
     VlTriggerVec<1> __VactTriggered;

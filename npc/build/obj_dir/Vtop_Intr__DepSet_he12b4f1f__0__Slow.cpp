@@ -23,12 +23,6 @@ VL_ATTR_COLD void Vtop_Intr___eval_initial__TOP__top__WB__IntrUnit(Vtop_Intr* vl
     vlSelf->__PVT__CSRwEn__DOT__key_list[1U] = 1U;
     vlSelf->__PVT__CSRwEn__DOT__data_list[0U] = 0x8000000000000007ULL;
     vlSelf->__PVT__CSRwEn__DOT__data_list[1U] = 0xbULL;
-    vlSelf->__PVT__CSRwEn__DOT__pair_list[0U][0U] = 7U;
-    vlSelf->__PVT__CSRwEn__DOT__pair_list[0U][1U] = 0x80000000U;
-    vlSelf->__PVT__CSRwEn__DOT__pair_list[0U][2U] = 2U;
-    vlSelf->__PVT__CSRwEn__DOT__pair_list[1U][0U] = 0xbU;
-    vlSelf->__PVT__CSRwEn__DOT__pair_list[1U][1U] = 0U;
-    vlSelf->__PVT__CSRwEn__DOT__pair_list[1U][2U] = 1U;
 }
 
 VL_ATTR_COLD void Vtop_Intr___ctor_var_reset(Vtop_Intr* vlSelf) {
@@ -59,25 +53,16 @@ VL_ATTR_COLD void Vtop_Intr___ctor_var_reset(Vtop_Intr* vlSelf) {
     vlSelf->__PVT__timer_irq = 0;
     vlSelf->__PVT__irq_raise = 0;
     vlSelf->__PVT__eNo = 0;
-    vlSelf->__Vcellinp__CSRwEn__key = 0;
     vlSelf->__PVT__ismepc = 0;
     vlSelf->__PVT__ismcase = 0;
     vlSelf->__PVT__ismstatus = 0;
     vlSelf->__PVT__csrWData = 0;
     vlSelf->__PVT__mstatusIn = 0;
     for (int __Vi0 = 0; __Vi0 < 2; ++__Vi0) {
-        VL_ZERO_RESET_W(66, vlSelf->__PVT__CSRwEn__DOT__pair_list[__Vi0]);
-    }
-    for (int __Vi0 = 0; __Vi0 < 2; ++__Vi0) {
         vlSelf->__PVT__CSRwEn__DOT__key_list[__Vi0] = 0;
     }
     for (int __Vi0 = 0; __Vi0 < 2; ++__Vi0) {
         vlSelf->__PVT__CSRwEn__DOT__data_list[__Vi0] = 0;
-    }
-    vlSelf->__PVT__CSRwEn__DOT__lut_out = 0;
-    vlSelf->__PVT__CSRwEn__DOT__hit = 0;
-    for (int __Vi0 = 0; __Vi0 < 6; ++__Vi0) {
-        VL_ZERO_RESET_W(67, vlSelf->__PVT__scrDataSrc__DOT__pair_list[__Vi0]);
     }
     for (int __Vi0 = 0; __Vi0 < 6; ++__Vi0) {
         vlSelf->__PVT__scrDataSrc__DOT__key_list[__Vi0] = 0;
@@ -85,6 +70,4 @@ VL_ATTR_COLD void Vtop_Intr___ctor_var_reset(Vtop_Intr* vlSelf) {
     for (int __Vi0 = 0; __Vi0 < 6; ++__Vi0) {
         vlSelf->__PVT__scrDataSrc__DOT__data_list[__Vi0] = 0;
     }
-    vlSelf->__PVT__scrDataSrc__DOT__lut_out = 0;
-    vlSelf->__PVT__scrDataSrc__DOT__hit = 0;
 }

@@ -25,12 +25,9 @@ class Vtop_Intr final : public VerilatedModule {
     VL_OUT8(__PVT__mstatus_MIE,0,0);
     CData/*0:0*/ __PVT__timer_irq;
     CData/*0:0*/ __PVT__irq_raise;
-    CData/*1:0*/ __Vcellinp__CSRwEn__key;
     CData/*0:0*/ __PVT__ismepc;
     CData/*0:0*/ __PVT__ismcase;
     CData/*0:0*/ __PVT__ismstatus;
-    CData/*0:0*/ __PVT__CSRwEn__DOT__hit;
-    CData/*0:0*/ __PVT__scrDataSrc__DOT__hit;
     VL_IN16(__PVT__csr,11,0);
     VL_IN64(__PVT__pc,63,0);
     VL_IN64(__PVT__R_rs1,63,0);
@@ -44,12 +41,8 @@ class Vtop_Intr final : public VerilatedModule {
     QData/*63:0*/ __PVT__eNo;
     QData/*63:0*/ __PVT__csrWData;
     QData/*63:0*/ __PVT__mstatusIn;
-    QData/*63:0*/ __PVT__CSRwEn__DOT__lut_out;
-    QData/*63:0*/ __PVT__scrDataSrc__DOT__lut_out;
-    VlUnpacked<VlWide<3>/*65:0*/, 2> __PVT__CSRwEn__DOT__pair_list;
     VlUnpacked<CData/*1:0*/, 2> __PVT__CSRwEn__DOT__key_list;
     VlUnpacked<QData/*63:0*/, 2> __PVT__CSRwEn__DOT__data_list;
-    VlUnpacked<VlWide<3>/*66:0*/, 6> __PVT__scrDataSrc__DOT__pair_list;
     VlUnpacked<CData/*2:0*/, 6> __PVT__scrDataSrc__DOT__key_list;
     VlUnpacked<QData/*63:0*/, 6> __PVT__scrDataSrc__DOT__data_list;
 
