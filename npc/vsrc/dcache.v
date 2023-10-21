@@ -1,35 +1,3 @@
-module TagVD_Regs #(
-    WIDTH=23,
-    DEPTH=128
-)(
-    input      clk,
-    input      rst,
-    input                         i_wen  ,
-    input       [  6:0]           i_raddr , // 7 bit, 128 depth.
-    input       [6:0]             i_waddr,
-    input       [WIDTH-1:0]  i_din  ,
-    output      [WIDTH-1:0]  o_dout
-);
-
-    wire [WIDTH-1:0] tagvd [DEPTH-1:0];
-    wire [DEPTH-1:0] wen;
-    genvar i;
-    generate for(i = 0 ; i < 128; i = i + 1) begin : TagVD_Reg_gen
-        assign wen[i] = (i==i_waddr) && i_wen;
-        Reg #(`TAG_V_D_WIDTH, 0) tag_regs(
-            .clk(clk),
-            .rst(rst),
-            .din(i_din),
-            .dout(tagvd[i]),
-            .wen(wen[i])
-        );        
-    end
-    endgenerate
-    
-    assign o_dout = tagvd[i_raddr];
-
-endmodule //TagVD_Regs
-
 module dcache(
     input clk,rst,
     // cpu(exu) <--> dcache
@@ -147,7 +115,7 @@ module dcache(
     wire hit_way0=(tagvd_rdata[0][`TAG_BITS]==tag_i)&&line_valid_way0;
     wire hit_way1=(tagvd_rdata[1][`TAG_BITS]==tag_i)&&line_valid_way1;
 
-    wire cache_miss = ~(hit_way0||hit_way1);
+    //wire cache_miss = ~(hit_way0||hit_way1);
     wire cache_hit = hit_way0||hit_way1;
 
     //uncache check
@@ -421,3 +389,37 @@ module dcache(
     wire [127:0] din_way1 = (~index_r[6]) ? io_sram2_rdata : io_sram3_rdata;
 
 endmodule
+
+/* verilator lint_off DECLFILENAME */
+module TagVD_Regs #(
+    WIDTH=23,
+    DEPTH=128
+)(
+    input      clk,
+    input      rst,
+    input                         i_wen  ,
+    input       [  6:0]           i_raddr , // 7 bit, 128 depth.
+    input       [6:0]             i_waddr,
+    input       [WIDTH-1:0]  i_din  ,
+    output      [WIDTH-1:0]  o_dout
+);
+
+    wire [WIDTH-1:0] tagvd [DEPTH-1:0];
+    wire [DEPTH-1:0] wen;
+    genvar i;
+    generate for(i = 0 ; i < 128; i = i + 1) begin : TagVD_Reg_gen
+        assign wen[i] = (i==i_waddr) && i_wen;
+        Reg #(`TAG_V_D_WIDTH, 0) tag_regs(
+            .clk(clk),
+            .rst(rst),
+            .din(i_din),
+            .dout(tagvd[i]),
+            .wen(wen[i])
+        );        
+    end
+    endgenerate
+    
+    assign o_dout = tagvd[i_raddr];
+
+endmodule //TagVD_Regs
+/* verilator lint_on DECLFILENAME */

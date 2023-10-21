@@ -168,7 +168,7 @@ void cpu_exec(uint64_t n){
 
 
 void init_cpu_exec(int argc,char** argv){
-
+   
   contextp=new VerilatedContext;
   top=new Vtop(contextp);
 	Verilated::mkdir("./build/logs");
@@ -208,9 +208,9 @@ void cpu_exit(){
   printf("(npc) icp = %f\ttotal inst num = %ld\n" , g_nr_guest_inst*1.0/(clk_cnt*1.0),g_nr_guest_inst);
   printf("(npc) simulation frequency = %ld inst/s  %ld kHz\n",g_nr_guest_inst*1000000/g_timer,clk_cnt*1000/g_timer);
 #ifdef CACHE_PROF
-  printf("iCache prof:\n");
-  printf("\tcache hit: %f%%\n",icache_hit_cnt*1.0/(icache_req_cnt*1.0));
-  printf("\ttotal cache req: %ld\n",icache_req_cnt);
+  // printf("iCache prof:\n");
+  // printf("\tcache hit: %f%%\n",icache_hit_cnt*1.0/(icache_req_cnt*1.0));
+  // printf("\ttotal cache req: %ld\n",icache_req_cnt);
   printf("dCache prof:\n");
   printf("\tcache hit: %f%%\n",dcache_hit_cnt*1.0/(dcache_req_cnt*1.0));
   printf("\ttotal cache req: %ld\n",dcache_req_cnt);  

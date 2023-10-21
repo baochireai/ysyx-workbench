@@ -24,7 +24,7 @@ module IDU(
     //input isRAW,
     //input witf_full,
     // 4.2 disp inst info
-    output[`RegAddrBus] rd,//rs1&&rs2 reuse signals of register file
+    //output[`RegAddrBus] rd,//rs1&&rs2 reuse signals of register file
     //output disp_en,
 
     // 5. outputs for next stage
@@ -78,7 +78,7 @@ module IDU(
     assign rs2=id_inst[`inst_rs2];
 
     // 3. disp inst info for witf
-    assign rd=id_inst[`inst_rd];
+    //assign rd=id_inst[`inst_rd];
     //assign disp_en = RegWr & (!pipeline_flush) & (id_to_exu_valid && exu_allow_in) & (rd!=5'd0); //0号寄存器不用管
     
     // 4. ctrl signal gen

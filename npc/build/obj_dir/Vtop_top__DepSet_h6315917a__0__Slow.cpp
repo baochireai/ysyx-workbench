@@ -51,6 +51,24 @@ VL_ATTR_COLD void Vtop_top___ctor_var_reset(Vtop_top* vlSelf) {
     vlSelf->__PVT__o_id_ismret = 0;
     vlSelf->__PVT__o_id_Imm = 0;
     vlSelf->__PVT__id_to_exu_valid = 0;
+    vlSelf->__PVT__exu_ALUAsr = 0;
+    vlSelf->__PVT__exu_ALUBsr = 0;
+    vlSelf->__PVT__exu_ALUct = 0;
+    vlSelf->__PVT__exu_isTuncate = 0;
+    vlSelf->__PVT__exu_isSext = 0;
+    vlSelf->__PVT__exu_Branch = 0;
+    vlSelf->__PVT__exu_MemOP = 0;
+    vlSelf->__PVT__exu_MemWr = 0;
+    vlSelf->__PVT__exu_RegWr = 0;
+    vlSelf->__PVT__exu_RegSrc = 0;
+    vlSelf->__PVT__exu_isecall = 0;
+    vlSelf->__PVT__exu_ismret = 0;
+    vlSelf->__PVT__exu_iscsr = 0;
+    vlSelf->__PVT__exu_R_rs1 = 0;
+    vlSelf->__PVT__exu_R_rs2 = 0;
+    vlSelf->__PVT__exu_Imm = 0;
+    vlSelf->__PVT__exu_inst = 0;
+    vlSelf->__PVT__exu_pc = 0;
     vlSelf->__PVT__exu_valid = 0;
     vlSelf->__PVT__exu_allow_in = 0;
     vlSelf->__Vcellinp__ID_to_EXU_Regs__pipeline_flush = 0;
@@ -63,6 +81,18 @@ VL_ATTR_COLD void Vtop_top___ctor_var_reset(Vtop_top* vlSelf) {
     vlSelf->__PVT__forward_rs2_valid = 0;
     vlSelf->__PVT__forward_R_rs1 = 0;
     vlSelf->__PVT__forward_R_rs2 = 0;
+    vlSelf->__PVT__lsu_MemWr = 0;
+    vlSelf->__PVT__lsu_MemOP = 0;
+    vlSelf->__PVT__lsu_R_rs2 = 0;
+    vlSelf->__PVT__lsu_inst = 0;
+    vlSelf->__PVT__lsu_pc = 0;
+    vlSelf->__PVT__lsu_ALUres = 0;
+    vlSelf->__PVT__lsu_RegSrc = 0;
+    vlSelf->__PVT__lsu_RegWr = 0;
+    vlSelf->__PVT__lsu_isecall = 0;
+    vlSelf->__PVT__lsu_ismret = 0;
+    vlSelf->__PVT__lsu_iscsr = 0;
+    vlSelf->__PVT__lsu_R_rs1 = 0;
     vlSelf->__PVT__lsu_valid = 0;
     vlSelf->__PVT__lsu_allow_in = 0;
     vlSelf->__PVT__dcache_data_o = 0;
@@ -84,6 +114,17 @@ VL_ATTR_COLD void Vtop_top___ctor_var_reset(Vtop_top* vlSelf) {
     vlSelf->__PVT__lsu_to_wb_valid = 0;
     vlSelf->__PVT__o_lsu_isRegWrite = 0;
     vlSelf->__PVT__o_lsu_raw_Wdata = 0;
+    vlSelf->__PVT__wb_isecall = 0;
+    vlSelf->__PVT__wb_ismret = 0;
+    vlSelf->__PVT__wb_iscsr = 0;
+    vlSelf->__PVT__wb_clint_mtip = 0;
+    vlSelf->__PVT__wb_R_rs1 = 0;
+    vlSelf->__PVT__wb_RegSrc = 0;
+    vlSelf->__PVT__wb_RegWr = 0;
+    vlSelf->__PVT__wb_ALUres = 0;
+    vlSelf->__PVT__wb_MemOut = 0;
+    vlSelf->__PVT__wb_pc = 0;
+    vlSelf->__PVT__wb_inst = 0;
     vlSelf->__PVT__wb_valid = 0;
     vlSelf->__PVT__flush_if = 0;
     vlSelf->__PVT__jumppc = 0;
@@ -578,8 +619,7 @@ VL_ATTR_COLD void Vtop_top___ctor_var_reset(Vtop_top* vlSelf) {
     }
     vlSelf->__PVT__IDU__DOT__ContrGenU__DOT__ImmGenU__DOT__isRegWr__DOT__lut_out = 0;
     vlSelf->__PVT__IDU__DOT__ContrGenU__DOT__ImmGenU__DOT__isRegWr__DOT__hit = 0;
-    VL_ZERO_RESET_W(311, vlSelf->ID_to_EXU_Regs__DOT____Vcellout__id_to_exu_pipeline_regs__dout);
-    VL_ZERO_RESET_W(311, vlSelf->ID_to_EXU_Regs__DOT____Vcellinp__id_to_exu_pipeline_regs__din);
+    vlSelf->__PVT__ID_to_EXU_Regs__DOT__popline_wen = 0;
     vlSelf->__PVT__EXU__DOT__r_forward_rs1_valid = 0;
     vlSelf->__PVT__EXU__DOT__r_forward_rs2_valid = 0;
     vlSelf->__PVT__EXU__DOT__r_forward_R_rs1 = 0;
@@ -645,7 +685,9 @@ VL_ATTR_COLD void Vtop_top___ctor_var_reset(Vtop_top* vlSelf) {
     }
     vlSelf->__PVT__ForwardUnit__DOT__lsu_hazard_rs1 = 0;
     vlSelf->__PVT__ForwardUnit__DOT__lsu_hazard_rs2 = 0;
-    VL_ZERO_RESET_W(298, vlSelf->EXU_to_LSU_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout);
+    vlSelf->__PVT__ForwardUnit__DOT__wb_hazard_rs1 = 0;
+    vlSelf->__PVT__ForwardUnit__DOT__wb_hazard_rs2 = 0;
+    vlSelf->__PVT__EXU_to_LSU_Regs__DOT__popline_wen = 0;
     vlSelf->__PVT__dcache__DOT__tagvd_wdata = 0;
     vlSelf->__PVT__dcache__DOT__curent_way = 0;
     vlSelf->__PVT__dcache__DOT__hit_way0 = 0;
@@ -1113,7 +1155,6 @@ VL_ATTR_COLD void Vtop_top___ctor_var_reset(Vtop_top* vlSelf) {
     }
     vlSelf->__PVT__LSU__DOT__sext__DOT__lut_out = 0;
     vlSelf->__PVT__LSU__DOT__sext__DOT__hit = 0;
-    VL_ZERO_RESET_W(295, vlSelf->LSU_to_WB_Regs__DOT____Vcellout__exu_to_lus_pipeline_regs__dout);
     for (int __Vi0 = 0; __Vi0 < 32; ++__Vi0) {
         vlSelf->__PVT__RegisterFile__DOT__rf[__Vi0] = 0;
     }

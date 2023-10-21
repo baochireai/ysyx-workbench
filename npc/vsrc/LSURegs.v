@@ -60,25 +60,17 @@ module LSURegs(
     // 2. pipeline regs
     wire popline_wen = exu_to_lsu_valid && lsu_allow_in && (!pipeline_flush);
 
-    Reg #(
-        .WIDTH(1+3+`RegWidth+`INSTWide+`RegWidth+`RegWidth+2+1+1+1+1+`RegWidth), 
-        .RESET_VAL(0)
-    ) exu_to_lus_pipeline_regs (
-        .clk(clk),
-        .rst(rst),
-        .din({  i_MemWr,i_MemOP,i_R_rs2,
-                i_inst,i_pc,
-                i_ALUres,
-                i_RegSrc,i_RegWr,
-                i_isecall,i_ismret,i_iscsr,
-                i_R_rs1}),
-        .dout({ o_MemWr,o_MemOP,o_R_rs2,
-                o_inst,o_pc,
-                o_ALUres,
-                o_RegSrc,o_RegWr,
-                o_isecall,o_ismret,o_iscsr,
-                o_R_rs1}),
-        .wen(popline_wen)
-    );    
+    Reg #(1 ,0) MemWr_reg  (clk,rst, i_MemWr   , o_MemWr  ,popline_wen);
+    Reg #(3 ,0) MemOP_reg  (clk,rst, i_MemOP   , o_MemOP  ,popline_wen);
+    Reg #(64,0) R_rs2_reg  (clk,rst, i_R_rs2   , o_R_rs2  ,popline_wen);
+    Reg #(32,0) inst_reg   (clk,rst, i_inst    , o_inst   ,popline_wen);
+    Reg #(64,0) pc_reg     (clk,rst, i_pc      , o_pc     ,popline_wen);
+    Reg #(64,0) ALUres_reg (clk,rst, i_ALUres  , o_ALUres ,popline_wen);
+    Reg #(2 ,0) RegSrc_reg (clk,rst, i_RegSrc  , o_RegSrc ,popline_wen);
+    Reg #(1 ,0) RegWr_reg  (clk,rst, i_RegWr   , o_RegWr  ,popline_wen);
+    Reg #(1 ,0) isecall_reg(clk,rst, i_isecall , o_isecall,popline_wen);
+    Reg #(1 ,0) ismret_reg (clk,rst, i_ismret  , o_ismret ,popline_wen);
+    Reg #(1 ,0) iscsr_reg  (clk,rst, i_iscsr   , o_iscsr  ,popline_wen);
+    Reg #(64,0) R_rs1_reg  (clk,rst, i_R_rs1   , o_R_rs1  ,popline_wen);    
 
 endmodule

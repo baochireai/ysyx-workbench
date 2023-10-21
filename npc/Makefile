@@ -19,10 +19,12 @@ VERILATOR_CFLAGS+=--build -cc
 VERILATOR_CFLAGS+=-O3#代码优化级别
 VERILATOR_CFLAGS+=--x-assign fast#optimize
 VERILATOR_CFLAGS+=--x-initial fast
-VERILATOR_CFLAGS+=--noassert
+VERILATOR_CFLAGS+=--noassert 
 VERILATOR_CFLAGS+=$(TRACE)
 VERILATOR_CFLAGS+=--vpi
+#VERILATOR_CFLAGS+= -Wall -report-unoptflat 
 VERILATOR_CFLAGS+=-j 8
+
 ifdef prof
 VERILATOR_CFLAGS+=--prof-cfuncs#for code profiling
 endif
@@ -52,7 +54,7 @@ else#不用编译NVBOARD动态库
 endif
 
 INCFLAGS=$(addprefix -I,$(INC_PATH))
-CFLAGS+=$(INCFLAGS) -DTOP_NAME="\"V$(TOPNAME)\""  #-fsanitize=address
+CFLAGS+=$(INCFLAGS) -DTOP_NAME="\"V$(TOPNAME)\"" #-fsanitize=address -flto 
 LDFLAGS+= -lSDL2 -lasan  -fsanitize=address  -lreadline -ldl  #-fsanitize=address   -lSDL2_image 
 
 LOGS_DIR=$(BUILD_DIR)/logs#存放波形文件

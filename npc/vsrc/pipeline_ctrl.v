@@ -11,7 +11,7 @@ module pipeline_ctrl(
     output          flush_id        ,
     output          flush_exu       ,
     output          flush_lsu       ,
-    output          flush_witf      ,
+//    output          flush_witf      ,
     output          stall_if        ,
     output          stall_exu_store ,
     output          jump            ,
@@ -25,7 +25,7 @@ module pipeline_ctrl(
     assign flush_id = jump ;
     assign flush_exu = wb_intr ;
     assign flush_lsu = wb_intr ;
-    assign flush_witf = wb_intr ;
+//    assign flush_witf = wb_intr ;
 
     assign stall_if = excep_exu || excep_id || excep_lsu ;
     assign stall_exu_store = lsu_mtip ;

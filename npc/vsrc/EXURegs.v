@@ -16,7 +16,7 @@ module EXURegs(
     // 1.3 mem op    
     input [2:0]             i_MemOP,
     input                   i_MemWr,
-
+  
     // 1.4 regs wb    
     input                   i_RegWr,
     input [1:0]             i_RegSrc,//写回地址 
@@ -84,26 +84,24 @@ module EXURegs(
     // 2. pipeline regs
     wire popline_wen = id_to_exu_valid && exu_allow_in && (~pipeline_flush);
 
-    Reg #(
-        .WIDTH(1+2+5+1+1+3+3+1+1+2+1+1+1+`RegWidth+`RegWidth+`RegWidth+`INSTWide+`RegWidth), 
-        .RESET_VAL(0)
-    ) id_to_exu_pipeline_regs (
-        .clk(clk),
-        .rst(rst),
-        .din({  i_ALUAsr,i_ALUBsr,i_ALUct,i_isTuncate,i_isSext,
-                i_Branch,
-                i_MemOP,i_MemWr,
-                i_RegWr,i_RegSrc,
-                i_isecall,i_ismret,i_iscsr,
-                i_R_rs1,i_R_rs2,i_Imm,i_exu_inst,i_exu_pc}),
-        .dout({ o_ALUAsr,o_ALUBsr,o_ALUct,o_isTuncate,o_isSext,
-                o_Branch,
-                o_MemOP,o_MemWr,
-                o_RegWr,o_RegSrc,
-                o_isecall,o_ismret,o_iscsr,
-                o_R_rs1,o_R_rs2,o_Imm,o_exu_inst,o_exu_pc}),
-        .wen(popline_wen)
-    );    
+    Reg #(1 ,0) ALUAsr_reg   (clk,rst, i_ALUAsr     , o_ALUAsr      ,popline_wen);
+    Reg #(2 ,0) ALUBsr_reg   (clk,rst, i_ALUBsr     , o_ALUBsr      ,popline_wen);
+    Reg #(5 ,0) ALUct_reg    (clk,rst, i_ALUct      , o_ALUct       ,popline_wen);
+    Reg #(1 ,0) isTuncate_reg(clk,rst, i_isTuncate  , o_isTuncate   ,popline_wen);
+    Reg #(1 ,0) isSext_reg   (clk,rst, i_isSext     , o_isSext      ,popline_wen);
+    Reg #(3 ,0) Branch_reg   (clk,rst, i_Branch     , o_Branch      ,popline_wen);
+    Reg #(3 ,0) MemOP_reg    (clk,rst, i_MemOP      , o_MemOP       ,popline_wen);
+    Reg #(1 ,0) MemWr_reg    (clk,rst, i_MemWr      , o_MemWr       ,popline_wen);
+    Reg #(1 ,0) RegWr_reg    (clk,rst, i_RegWr      , o_RegWr       ,popline_wen);
+    Reg #(2 ,0) RegSrc_reg   (clk,rst, i_RegSrc     , o_RegSrc      ,popline_wen);
+    Reg #(1 ,0) isecall_reg  (clk,rst, i_isecall    , o_isecall     ,popline_wen);
+    Reg #(1 ,0) ismret_reg   (clk,rst, i_ismret     , o_ismret      ,popline_wen);
+    Reg #(1 ,0) iscsr_reg    (clk,rst, i_iscsr      , o_iscsr       ,popline_wen);
+    Reg #(64,0) R_rs1_reg    (clk,rst, i_R_rs1      , o_R_rs1       ,popline_wen);
+    Reg #(64,0) R_rs2_reg    (clk,rst, i_R_rs2      , o_R_rs2       ,popline_wen);
+    Reg #(64,0) Imm_reg      (clk,rst, i_Imm        , o_Imm         ,popline_wen);
+    Reg #(32,0) exu_inst_reg (clk,rst, i_exu_inst   , o_exu_inst    ,popline_wen);
+    Reg #(64,0) exu_pc_reg   (clk,rst, i_exu_pc     , o_exu_pc      ,popline_wen);
 
     // 3. flush pipeline
     // wire pipeline_flush = is_jump | is_intr ;

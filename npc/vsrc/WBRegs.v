@@ -48,21 +48,17 @@ module WBRegs(
     // 2. pipeline regs
     wire popline_wen = lsu_to_wb_valid && wb_allow_in;
 
-    Reg #(
-        .WIDTH(1+1+1+1+`RegWidth+2+1+`RegWidth+`RegWidth+`RegWidth+`INSTWide), 
-        .RESET_VAL(0)
-    ) exu_to_lus_pipeline_regs (
-        .clk(clk),
-        .rst(rst),
-        .din({  i_isecall,i_ismret,i_iscsr,clint_mtip,R_rs1_i,
-                RegSrc,RegWr,ALUres,MemOut,
-                i_pc,i_inst}),
-        .dout({ o_isecall,o_ismret,o_iscsr,o_clint_mtip,o_R_rs1,
-                o_RegSrc,o_RegWr,o_ALUres,o_MemOut,
-                o_wb_pc,o_wb_inst }),
-        .wen(popline_wen)
-    );    
-
+    Reg #(1 , 0) i_isecall_reg  (clk,rst, i_isecall  , o_isecall   ,wb_allow_in);
+    Reg #(1 , 0) i_ismret_reg   (clk,rst, i_ismret   , o_ismret    ,wb_allow_in);
+    Reg #(1 , 0) i_iscsr_reg    (clk,rst, i_iscsr    , o_iscsr     ,wb_allow_in);
+    Reg #(1 , 0) clint_mtip_reg (clk,rst, clint_mtip , o_clint_mtip,wb_allow_in);
+    Reg #(64, 0) R_rs1_i_reg    (clk,rst, R_rs1_i    , o_R_rs1     ,wb_allow_in);
+    Reg #(2 , 0) RegSrc_reg     (clk,rst, RegSrc     , o_RegSrc    ,wb_allow_in);
+    Reg #(1 , 0) RegWr_reg      (clk,rst, RegWr      , o_RegWr     ,wb_allow_in);
+    Reg #(64, 0) ALUres_reg     (clk,rst, ALUres     , o_ALUres    ,wb_allow_in);
+    Reg #(64, 0) MemOut_reg     (clk,rst, MemOut     , o_MemOut    ,wb_allow_in);
+    Reg #(64, 0) i_pc_reg       (clk,rst, i_pc       , o_wb_pc     ,wb_allow_in);
+    Reg #(32, 0) i_inst_reg     (clk,rst, i_inst     , o_wb_inst   ,wb_allow_in);
 
 
 endmodule

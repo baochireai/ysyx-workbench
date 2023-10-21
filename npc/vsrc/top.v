@@ -259,8 +259,8 @@ module top(
     wire [4:0] id_rs2;
 
     // 2. inst write back info for witf 
-    wire id_RegWr;//to wirf
-    wire [`RegAddrBus] id_rd;
+    //wire id_RegWr;//to wirf
+    //wire [`RegAddrBus] id_rd;
 
     // 3. outputs for next stage  
     // 3.1 ctrl signals
@@ -303,7 +303,7 @@ module top(
       // 3. register files read      
       .R_rs1_i(R_rs1),.R_rs2_i(R_rs2),.rs1(id_rs1),.rs2(id_rs2),
       // 4. witf for raw     
-      .rd(id_rd),//.disp_en(id_RegWr),.isRAW(isRAW),.witf_full(witf_full),
+      //.rd(id_rd),.disp_en(id_RegWr),.isRAW(isRAW),.witf_full(witf_full),
       // 5. outputs for next stage
       // 5.1 ctrl signals
       // 5.1.1 ALU     
@@ -465,7 +465,7 @@ module top(
     .RegWr_i(exu_RegWr),.RegSrc_i(exu_RegSrc),
     // 1.5 intr inst
     .i_isecall(exu_isecall),.i_ismret(exu_ismret),.i_iscsr(exu_iscsr),
-    .stall_exu_store(stall_exu_store),
+    .stall_exu_store(stall_exu_store), 
     // 1.6 operate data    
     .i_R_rs1(exu_R_rs1),.i_R_rs2(exu_R_rs2),.Imm(exu_Imm),.exu_inst(exu_inst),.exu_pc(exu_pc),  
 
@@ -701,7 +701,7 @@ module top(
     wire [1:0]             o_lsu_RegSrc;
     wire                   o_lsu_RegWr; 
     // 1.3.3 intr/csr
-    wire                   o_lsu_IntrEn;
+    //wire                   o_lsu_IntrEn;
     // 1.3.4 csr wdata
     wire[`RegWidth-1:0]    o_lsu_R_rs1;   
     // 1.3.5 inst&pc
@@ -833,7 +833,7 @@ module top(
   /*--------------------WB-----------------*/
 
   // 1. to witf (raw)
-  wire                      o_wb_witf_pop_en;
+  //wire                      o_wb_witf_pop_en;
   
   // 2. to preif 
   wire                      o_wb_isIntrPC;
@@ -895,7 +895,7 @@ module top(
   wire          flush_id        ;
   wire          flush_exu       ;
   wire          flush_lsu       ;
-  wire          flush_witf      ;
+  //wire          flush_witf      ;
   wire          stall_if        ;
   wire          stall_exu_store ;
   wire          jump            ;
@@ -914,7 +914,7 @@ module top(
     .flush_id(flush_id),
     .flush_exu(flush_exu),
     .flush_lsu(flush_lsu),
-    .flush_witf(flush_witf),
+    //.flush_witf(flush_witf),
     .stall_if(stall_if),
     .stall_exu_store(stall_exu_store),
     .jump(jump),
@@ -953,11 +953,7 @@ module top(
   wire [1:0]    axi_slave_bresp ;
   wire [3:0]    axi_slave_bid   ;
 
-  ram_axi #(
-    .AWIDTH(32), // Address width
-    .DWIDTH(64), //Data width (only 32bits or 64bits)
-    .DSIZE (8 ) 
-  ) ram_axi (.clk(clk),.rst(rst),
+  ram_axi ram_axi (.clk(clk),.rst(rst),
     .o_axi_slave_arready(axi_slave_arready),
 
     .i_axi_slave_arvalid(axi_master_arvalid),
@@ -1043,10 +1039,3 @@ module top(
   assign valid=wb_valid;
 
 endmodule
-
-// export "DPI-C" task isEbreak;
-
-// task isEbreak;
-//     output bit IsEbreak;
-//         IsEbreak = (Inst==32'h00100073)?1'b1:1'b0;
-// endtask

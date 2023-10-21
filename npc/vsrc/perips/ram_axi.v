@@ -5,11 +5,8 @@ import "DPI-C" function void pmem_read(
 import "DPI-C" function void pmem_write(
   input int waddr, input longint wdata, input byte wmask);
 
-module ram_axi #(
-    parameter AWIDTH = 32, // Address width
-    parameter DWIDTH = 64, //Data width (only 32bits or 64bits)
-    parameter DSIZE = 8
-)(
+module ram_axi (
+    
     input clk,rst,
 
     output          o_axi_slave_arready,

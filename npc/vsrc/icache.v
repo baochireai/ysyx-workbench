@@ -8,38 +8,6 @@ Cache 规格
 - 块总数：256（128*2way）
 */
 
-module TagV_Regs #(
-    WIDTH=22,
-    DEPTH=128
-)(
-    input      clk,
-    input      rst,
-    input                         i_wen  ,
-    input       [6:0]           i_raddr , // 7 bit, 128 depth.
-    input       [6:0]             i_waddr,
-    input       [WIDTH-1:0]  i_din  ,
-    output      [WIDTH-1:0]  o_dout
-);
-
-    wire [WIDTH-1:0] tagv [DEPTH-1:0];
-    wire [DEPTH-1:0] wen;
-    genvar i;
-    generate for(i = 0 ; i < 128; i = i + 1) begin : tagv_Reg_gen
-        assign wen[i] = (i==i_waddr) && i_wen;
-        Reg #(`TAG_V_D_WIDTH-1, 0) tag_regs(
-            .clk(clk),
-            .rst(rst),
-            .din(i_din),
-            .dout(tagv[i]),
-            .wen(wen[i])
-        );        
-    end
-    endgenerate
-    
-    assign o_dout = tagv[i_raddr];
-
-endmodule 
-
 module icache(
     input clk,
     input rst,
@@ -317,3 +285,37 @@ module icache(
     wire [127:0] din_way1 = index_r[6] ? io_sram3_rdata : io_sram2_rdata;
    
 endmodule
+
+/* verilator lint_off DECLFILENAME */
+module TagV_Regs #(
+    WIDTH=22,
+    DEPTH=128
+)(
+    input      clk,
+    input      rst,
+    input                         i_wen  ,
+    input       [6:0]           i_raddr , // 7 bit, 128 depth.
+    input       [6:0]             i_waddr,
+    input       [WIDTH-1:0]  i_din  ,
+    output      [WIDTH-1:0]  o_dout
+);
+
+    wire [WIDTH-1:0] tagv [DEPTH-1:0];
+    wire [DEPTH-1:0] wen;
+    genvar i;
+    generate for(i = 0 ; i < 128; i = i + 1) begin : tagv_Reg_gen
+        assign wen[i] = (i==i_waddr) && i_wen;
+        Reg #(`TAG_V_D_WIDTH-1, 0) tag_regs(
+            .clk(clk),
+            .rst(rst),
+            .din(i_din),
+            .dout(tagv[i]),
+            .wen(wen[i])
+        );        
+    end
+    endgenerate
+    
+    assign o_dout = tagv[i_raddr];
+
+endmodule 
+/* verilator lint_on DECLFILENAME */

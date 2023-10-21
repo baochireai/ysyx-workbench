@@ -13,7 +13,7 @@
 //debug
 
 #define CONFIG_PURE_MODE
-//#define CACHE_PROF
+#define CACHE_PROF
 //#define CONFIG_DIFFTEST   1
 //#define CONFIG_WAVETRACE  1
 //#define CONFIG_WAVETRACE_INST_NUM 1

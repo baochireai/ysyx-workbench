@@ -1,7 +1,7 @@
 module EXU(
     input clk,
     input rst,
-
+   
     // raw forward
     input           hazard_rs1       ,
     input           hazard_rs2       ,
@@ -171,10 +171,11 @@ module EXU(
     assign inst = exu_inst;
     assign pc = exu_pc;
     // 5.4 csr wdata
-    assign o_R_rs1 =R_rs1;
-    // 5.5 intr/csr
+    assign o_R_rs1 =R_rs1; 
+    // 5.5 intr/csr 
     assign o_isecall = i_isecall;
     assign o_ismret  = i_ismret ;
     assign o_iscsr   = i_iscsr  ;
 
 endmodule
+ 
