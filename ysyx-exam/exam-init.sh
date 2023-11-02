@@ -1,5 +1,4 @@
 cd ..  # go up to the ysyx-workbench directory
-
 d="apps/pal/repo"
 if [[ ! -d navy-apps/$d ]]; then
   cp -r $NAVY_HOME/$d `dirname navy-apps/$d`

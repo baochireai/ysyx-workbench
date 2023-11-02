@@ -28,6 +28,15 @@ VM_CLASSES_FAST += \
 	Vtop___024root__DepSet_heccd7ead__0 \
 	Vtop_top__DepSet_h0f993197__0 \
 	Vtop_top__DepSet_h0f993197__1 \
+	Vtop_top__DepSet_h0f993197__2 \
+	Vtop_top__DepSet_h0f993197__3 \
+	Vtop_top__DepSet_h0f993197__4 \
+	Vtop_top__DepSet_h6315917a__0 \
+	Vtop_top__DepSet_h6315917a__1 \
+	Vtop_top__DepSet_h6315917a__2 \
+	Vtop_top__DepSet_h6315917a__3 \
+	Vtop_top__DepSet_h6315917a__4 \
+	Vtop_top__DepSet_h6315917a__5 \
 	Vtop___024unit__DepSet_hab9af801__0 \
 	Vtop_WB__DepSet_hfe2578c4__0 \
 	Vtop_Intr__DepSet_h7ce72474__0 \

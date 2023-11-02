@@ -64,14 +64,14 @@ VL_ATTR_COLD void Vtop_Intr___stl_sequent__TOP__top__WB__IntrUnit__0(Vtop_Intr* 
     vlSelf->__PVT__eNo = ((IData)(__PVT__CSRwEn__DOT__hit)
                            ? __PVT__CSRwEn__DOT__lut_out
                            : 0ULL);
+    vlSelf->__PVT__isIntrPC = ((IData)(vlSymsp->TOP__top__WB.__Vcellinp__IntrUnit__i_ismret) 
+                               | (IData)(vlSelf->__PVT__irq_raise));
     vlSelf->__PVT__ismepc = ((0x341U == (vlSymsp->TOP__top.__PVT__wb_inst 
                                          >> 0x14U)) 
                              | (IData)(vlSelf->__PVT__irq_raise));
     vlSelf->__PVT__ismcase = ((0x342U == (vlSymsp->TOP__top.__PVT__wb_inst 
                                           >> 0x14U)) 
                               | (IData)(vlSelf->__PVT__irq_raise));
-    vlSelf->__PVT__isIntrPC = ((IData)(vlSymsp->TOP__top__WB.__Vcellinp__IntrUnit__i_ismret) 
-                               | (IData)(vlSelf->__PVT__irq_raise));
     vlSelf->__PVT__dout = ((0x305U == (vlSymsp->TOP__top.__PVT__wb_inst 
                                        >> 0x14U)) ? vlSelf->__PVT__mtvec
                             : ((IData)(vlSelf->__PVT__ismepc)

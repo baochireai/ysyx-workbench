@@ -48,17 +48,17 @@ module WBRegs(
     // 2. pipeline regs
     wire popline_wen = lsu_to_wb_valid && wb_allow_in;
 
-    Reg #(1 , 0) i_isecall_reg  (clk,rst, i_isecall  , o_isecall   ,wb_allow_in);
-    Reg #(1 , 0) i_ismret_reg   (clk,rst, i_ismret   , o_ismret    ,wb_allow_in);
-    Reg #(1 , 0) i_iscsr_reg    (clk,rst, i_iscsr    , o_iscsr     ,wb_allow_in);
-    Reg #(1 , 0) clint_mtip_reg (clk,rst, clint_mtip , o_clint_mtip,wb_allow_in);
-    Reg #(64, 0) R_rs1_i_reg    (clk,rst, R_rs1_i    , o_R_rs1     ,wb_allow_in);
-    Reg #(2 , 0) RegSrc_reg     (clk,rst, RegSrc     , o_RegSrc    ,wb_allow_in);
-    Reg #(1 , 0) RegWr_reg      (clk,rst, RegWr      , o_RegWr     ,wb_allow_in);
-    Reg #(64, 0) ALUres_reg     (clk,rst, ALUres     , o_ALUres    ,wb_allow_in);
-    Reg #(64, 0) MemOut_reg     (clk,rst, MemOut     , o_MemOut    ,wb_allow_in);
-    Reg #(64, 0) i_pc_reg       (clk,rst, i_pc       , o_wb_pc     ,wb_allow_in);
-    Reg #(32, 0) i_inst_reg     (clk,rst, i_inst     , o_wb_inst   ,wb_allow_in);
+    Reg #(1 , 0) i_isecall_reg  (clk,rst, i_isecall  , o_isecall   ,popline_wen);
+    Reg #(1 , 0) i_ismret_reg   (clk,rst, i_ismret   , o_ismret    ,popline_wen);
+    Reg #(1 , 0) i_iscsr_reg    (clk,rst, i_iscsr    , o_iscsr     ,popline_wen);
+    Reg #(1 , 0) clint_mtip_reg (clk,rst, clint_mtip , o_clint_mtip,popline_wen);
+    Reg #(64, 0) R_rs1_i_reg    (clk,rst, R_rs1_i    , o_R_rs1     ,popline_wen);
+    Reg #(2 , 0) RegSrc_reg     (clk,rst, RegSrc     , o_RegSrc    ,popline_wen);
+    Reg #(1 , 0) RegWr_reg      (clk,rst, RegWr      , o_RegWr     ,popline_wen);
+    Reg #(64, 0) ALUres_reg     (clk,rst, ALUres     , o_ALUres    ,popline_wen);
+    Reg #(64, 0) MemOut_reg     (clk,rst, MemOut     , o_MemOut    ,popline_wen);
+    Reg #(64, 0) i_pc_reg       (clk,rst, i_pc       , o_wb_pc     ,popline_wen);
+    Reg #(32, 0) i_inst_reg     (clk,rst, i_inst     , o_wb_inst   ,popline_wen);
 
 
 endmodule

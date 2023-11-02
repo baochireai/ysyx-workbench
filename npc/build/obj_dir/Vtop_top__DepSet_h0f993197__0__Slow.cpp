@@ -1665,13 +1665,13 @@ VL_ATTR_COLD void Vtop_top___stl_sequent__TOP__top__0(Vtop_top* vlSelf) {
     vlSelf->__PVT__dcache__DOT__hit_rvalid = ((~ (IData)(vlSelf->__PVT__dcache__DOT__op_r)) 
                                               & (1U 
                                                  == (IData)(vlSelf->__PVT__dcache__DOT__cur_state)));
-    vlSelf->__PVT__dcache__DOT__uncache_rvalid = ((IData)(vlSelf->__PVT__dcache__DOT__uncache_r) 
-                                                  & (5U 
-                                                     == (IData)(vlSelf->__PVT__dcache__DOT__cur_state)));
     vlSelf->__PVT__dcache__DOT__cache_miss_rvalid = 
         ((~ (IData)(vlSelf->__PVT__dcache__DOT__uncache_r)) 
          & ((~ (IData)(vlSelf->__PVT__dcache__DOT__op_r)) 
             & (5U == (IData)(vlSelf->__PVT__dcache__DOT__cur_state))));
+    vlSelf->__PVT__dcache__DOT__uncache_rvalid = ((IData)(vlSelf->__PVT__dcache__DOT__uncache_r) 
+                                                  & (5U 
+                                                     == (IData)(vlSelf->__PVT__dcache__DOT__cur_state)));
     if ((2U == (IData)(vlSelf->__PVT__ram_axi__DOT__r_cur_state))) {
         Vtop___024unit____Vdpiimwrap_pmem_read_TOP____024unit(
                                                               ((IData)(
@@ -2017,16 +2017,16 @@ VL_ATTR_COLD void Vtop_top___stl_sequent__TOP__top__0(Vtop_top* vlSelf) {
     vlSelf->__PVT__dcache__DOT__miss_w_darray_wen = 
         ((IData)(vlSelf->dcache__DOT____VdfgTmp_h44fa4546__0) 
          & (IData)(vlSelf->__PVT__dcache__DOT__op_r));
-    vlSelf->__PVT__ForwardUnit__DOT__lsu_hazard_rs2 
+    vlSelf->__PVT__ForwardUnit__DOT__lsu_hazard_rs1 
         = ((IData)(vlSelf->__PVT__o_lsu_isRegWrite) 
-           & (((0x1fU & (vlSelf->__PVT__exu_inst >> 0x14U)) 
+           & (((0x1fU & (vlSelf->__PVT__exu_inst >> 0xfU)) 
                == (0x1fU & (vlSelf->__PVT__lsu_inst 
                             >> 7U))) & (0U != (0x1fU 
                                                & (vlSelf->__PVT__lsu_inst 
                                                   >> 7U)))));
-    vlSelf->__PVT__ForwardUnit__DOT__lsu_hazard_rs1 
+    vlSelf->__PVT__ForwardUnit__DOT__lsu_hazard_rs2 
         = ((IData)(vlSelf->__PVT__o_lsu_isRegWrite) 
-           & (((0x1fU & (vlSelf->__PVT__exu_inst >> 0xfU)) 
+           & (((0x1fU & (vlSelf->__PVT__exu_inst >> 0x14U)) 
                == (0x1fU & (vlSelf->__PVT__lsu_inst 
                             >> 7U))) & (0U != (0x1fU 
                                                & (vlSelf->__PVT__lsu_inst 
@@ -2481,16 +2481,16 @@ VL_ATTR_COLD void Vtop_top___stl_sequent__TOP__top__1(Vtop_top* vlSelf) {
                                                 (0x1fU 
                                                  & (vlSelf->__PVT__wb_inst 
                                                     >> 7U))));
-    vlSelf->__PVT__ForwardUnit__DOT__wb_hazard_rs2 
+    vlSelf->__PVT__ForwardUnit__DOT__wb_hazard_rs1 
         = ((IData)(vlSymsp->TOP__top__WB.__PVT__isRegWrite) 
-           & (((0x1fU & (vlSelf->__PVT__exu_inst >> 0x14U)) 
+           & (((0x1fU & (vlSelf->__PVT__exu_inst >> 0xfU)) 
                == (0x1fU & (vlSelf->__PVT__wb_inst 
                             >> 7U))) & (0U != (0x1fU 
                                                & (vlSelf->__PVT__wb_inst 
                                                   >> 7U)))));
-    vlSelf->__PVT__ForwardUnit__DOT__wb_hazard_rs1 
+    vlSelf->__PVT__ForwardUnit__DOT__wb_hazard_rs2 
         = ((IData)(vlSymsp->TOP__top__WB.__PVT__isRegWrite) 
-           & (((0x1fU & (vlSelf->__PVT__exu_inst >> 0xfU)) 
+           & (((0x1fU & (vlSelf->__PVT__exu_inst >> 0x14U)) 
                == (0x1fU & (vlSelf->__PVT__wb_inst 
                             >> 7U))) & (0U != (0x1fU 
                                                & (vlSelf->__PVT__wb_inst 
@@ -2510,13 +2510,13 @@ VL_ATTR_COLD void Vtop_top___stl_sequent__TOP__top__1(Vtop_top* vlSelf) {
     __PVT__o_lsu_raw_data_valid = ((IData)(vlSelf->__PVT__o_lsu_isRegWrite) 
                                    & ((IData)(vlSelf->__PVT__lsu_to_wb_valid) 
                                       & (~ (IData)(vlSelf->__PVT__lsu_iscsr))));
-    vlSelf->__PVT__forward_rs2_valid = ((IData)(vlSelf->__PVT__ForwardUnit__DOT__lsu_hazard_rs2)
-                                         ? (IData)(__PVT__o_lsu_raw_data_valid)
-                                         : ((IData)(vlSelf->__PVT__ForwardUnit__DOT__wb_hazard_rs2) 
-                                            & (IData)(vlSymsp->TOP__top__WB.__PVT__isRegWrite)));
     vlSelf->__PVT__forward_rs1_valid = ((IData)(vlSelf->__PVT__ForwardUnit__DOT__lsu_hazard_rs1)
                                          ? (IData)(__PVT__o_lsu_raw_data_valid)
                                          : ((IData)(vlSelf->__PVT__ForwardUnit__DOT__wb_hazard_rs1) 
+                                            & (IData)(vlSymsp->TOP__top__WB.__PVT__isRegWrite)));
+    vlSelf->__PVT__forward_rs2_valid = ((IData)(vlSelf->__PVT__ForwardUnit__DOT__lsu_hazard_rs2)
+                                         ? (IData)(__PVT__o_lsu_raw_data_valid)
+                                         : ((IData)(vlSelf->__PVT__ForwardUnit__DOT__wb_hazard_rs2) 
                                             & (IData)(vlSymsp->TOP__top__WB.__PVT__isRegWrite)));
     vlSelf->__PVT__EXU__DOT__data_valid = (1U & ((~ 
                                                   (((IData)(vlSelf->__PVT__ForwardUnit__DOT__lsu_hazard_rs1) 

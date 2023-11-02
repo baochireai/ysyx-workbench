@@ -3,7 +3,7 @@ TOPNAME=top
 endif
 
 ifdef trace
-TRACE=--trace-fst
+TRACE=--trace
 else
 TRACE= 
 endif
@@ -22,7 +22,8 @@ VERILATOR_CFLAGS+=--x-initial fast
 VERILATOR_CFLAGS+=--noassert 
 VERILATOR_CFLAGS+=$(TRACE)
 VERILATOR_CFLAGS+=--vpi
-#VERILATOR_CFLAGS+= -Wall -report-unoptflat 
+#VERILATOR_CFLAGS+= -Wall -report-unoptflat  
+#VERILATOR_CFLAGS+=--prof-cfuncs -CFLAGS -DVL_DEBUG
 VERILATOR_CFLAGS+=-j 8
 
 ifdef prof

@@ -4,7 +4,7 @@
 VerilatedContext* contextp;
 VerilatedVcdC* tfp; 
 Vtop* top; 
-   
+      
 cpu_state cpu;
 bool is_WP_change();
 
@@ -41,11 +41,11 @@ void cpu_exec_once(){
     clk_cnt++;  
     top->clk=0;top->eval();  
      
-    IFDEF(CONFIG_WAVETRACE,if(wave) {contextp->timeInc(1);tfp->dump(contextp->time();)})
+    IFDEF(CONFIG_WAVETRACE,if(wave) {contextp->timeInc(1);tfp->dump(contextp->time());})
 
     top->clk=1;top->eval();
 
-#ifdef CACHE_PROF    
+#ifdef CACHE_PROF     
     if(top->icache_cnt){
       icache_req_cnt++;
       if(top->icache_hit) icache_hit_cnt++;
@@ -56,7 +56,7 @@ void cpu_exec_once(){
     }
 #endif
 
-    IFDEF(CONFIG_WAVETRACE,if(wave) {contextp->timeInc(1);tfp->dump(contextp->time();)})
+    IFDEF(CONFIG_WAVETRACE,if(wave) {contextp->timeInc(1);tfp->dump(contextp->time());})
 
   } while (top->valid!=1);     
     

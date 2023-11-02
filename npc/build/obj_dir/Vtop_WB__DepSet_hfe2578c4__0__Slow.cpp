@@ -18,10 +18,10 @@ VL_ATTR_COLD void Vtop_WB___stl_sequent__TOP__top__WB__0(Vtop_WB* vlSelf) {
                                              & (IData)(vlSymsp->TOP__top.__PVT__wb_valid));
     vlSelf->__PVT__RegWsrcMux__DOT__data_list[1U] = vlSymsp->TOP__top.__PVT__wb_MemOut;
     vlSelf->__PVT__RegWsrcMux__DOT__data_list[2U] = vlSymsp->TOP__top.__PVT__wb_ALUres;
-    vlSelf->__Vcellinp__IntrUnit__i_ismret = ((IData)(vlSymsp->TOP__top.__PVT__wb_ismret) 
-                                              & (IData)(vlSymsp->TOP__top.__PVT__wb_valid));
     vlSelf->__PVT__isRegWrite = ((IData)(vlSymsp->TOP__top.__PVT__wb_RegWr) 
                                  & (IData)(vlSymsp->TOP__top.__PVT__wb_valid));
+    vlSelf->__Vcellinp__IntrUnit__i_ismret = ((IData)(vlSymsp->TOP__top.__PVT__wb_ismret) 
+                                              & (IData)(vlSymsp->TOP__top.__PVT__wb_valid));
     vlSelf->__Vcellinp__IntrUnit__i_isecall = ((IData)(vlSymsp->TOP__top.__PVT__wb_isecall) 
                                                & (IData)(vlSymsp->TOP__top.__PVT__wb_valid));
 }

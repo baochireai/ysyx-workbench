@@ -53,8 +53,24 @@ module ALU(
     wire [63:0] AND=ALUA&ALUB;
 
     // 6. mul
-    wire [63:0] MUL=ALUA*ALUB;
+    wire [63:0] MUL ;
+    wire [63:0] MULH;
+
+    //assign MUL = ALUA*ALUB;
     
+    mul  #(
+        .W(64)
+    ) mul_u(
+    //   .i_mulw  (1'b0),
+    //   .i_x_sign(1'b1),
+    //   .i_y_sign(1'b1),
+      .i_x     (ALUA),
+      .i_y     (ALUB),
+      .o_hi_res(MULH),
+      .o_lw_res(MUL)
+    
+    );
+
     // 7. DIV
     wire [63:0] DIV;
     MuxKeyInternal #(4,2,64,1) diver(.out(DIV),.key({US_S,isTuncate}),.default_out(64'd0),.lut({
